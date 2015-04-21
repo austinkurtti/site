@@ -11,11 +11,14 @@
  * 
  **************************/
 
+
 body {
 	background-color: #cfd8dc;
     margin: 0px;
 }
 
+
+/***** TITLE *****/
 #title {
     background-color: #607d8b;
     color: #ffffff;
@@ -27,23 +30,54 @@ body {
     text-align: center;
 }
 
+
+/***** MENU *****/
 #menu {
     background-color: #455a64;
     margin: 0px;
-    padding: 20px 0px 20px 0px;
+    overflow: hidden;
+    position: relative;
     text-align: center;
 }
 
 .menu-item {
     color: #ffffff;
-    display: inline;
+    display: inline-block;
+    float: none;
+    padding: 20px 50px 20px 50px;
+}
+
+.menu-text {
+    color: #ffffff;
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 20px;
     font-weight: lighter;
-    list-style-type: none;
-    padding: 0px 35px 0px 35px;
+    opacity: 0;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out;
 }
 
 .menu-icon {
     margin: 0px 15px 0px 15px;
+    position: absolute;
+    top: 15px;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out;
 }
+
+.menu-item:hover {
+    cursor: pointer;
+}
+
+.menu-item:hover .menu-text {
+    opacity: 1;
+}
+
+.menu-item:hover .menu-icon {
+    opacity: 0;
+}
+
+
+/***** BODY *****/
