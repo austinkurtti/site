@@ -1,3 +1,49 @@
+/* ***** Color Palette *****
+ * 
+ * dark primary: #455a64
+ * primary: #607d8b
+ * light primary: #cfd8dc
+ * text/icons: #ffffff
+ * accent: #ff5722
+ * primary text: #212121
+ * secondary text: #727272
+ * divider: #b6b6b6
+ * 
+ **************************/
+
 body {
-	background-color: #dddddd;
+	background-color: #cfd8dc;
+    margin: 0px;
+}
+
+#title {
+    background-color: #607d8b;
+    color: #ffffff;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 50px;
+    font-weight: lighter;
+    margin: 0px;
+    padding: 50px 0px 50px 0px;
+    text-align: center;
+}
+
+#menu {
+    background-color: #455a64;
+    margin: 0px;
+    padding: 20px 0px 20px 0px;
+    text-align: center;
+}
+
+.menu-item {
+    color: #ffffff;
+    display: inline;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 20px;
+    font-weight: lighter;
+    list-style-type: none;
+    padding: 0px 35px 0px 35px;
+}
+
+.menu-icon {
+    margin: 0px 15px 0px 15px;
 }
