@@ -1,4 +1,4 @@
-/* ***** Color Palette *****
+/* ***** Material Color Palette *****
  * 
  * dark primary: #455a64
  * primary: #607d8b
@@ -9,13 +9,22 @@
  * secondary text: #727272
  * divider: #b6b6b6
  * 
- **************************/
+ * *********************************/
+/* ***** Custom Color Palette *****
+ * 
+ * background: 
+ * primary text: #818181
+ * secondary text: #727272
+ * 
+ * *******************************/
 
 
 /* for testing */
 *:not(hr):not(body):not(html) {
+/*
     box-sizing: border-box;
     border: 1px dashed #000;
+*/
 }
 .columns {
 /*    min-height: 100px;*/
@@ -25,7 +34,8 @@
 
 /***** OVERALL *****/
 body {
-	background-color: #455a64;
+/*	background-color: #bf6e6e;*/
+	background-color: #c98383;
     margin: 0px;
 }
 .full-width {
@@ -39,32 +49,57 @@ body {
 
 /***** HEADER *****/
 #page-header {
-    background-color: #607d8b;
+/*    background-color: #ddd;*/
+    background: url(images/ku_skyline_blurred.jpg) no-repeat;
+    background-size: auto 100%;
     color: #fff;
     font-family: 'Roboto', Tahoma, Geneva, sans-serif;
-    font-size: 2.45em;
-    font-weight: lighter;
+    height: 600px;
     padding: 10px 0px 10px 0px;
     text-align: center;
 }
-#header-text-div {
+#header-text {
+    color: #818181;
+    font-size: 1.72em;
+    font-weight: bold;
+}
+.header-subtext {
+    color: #c98383;
+    font-weight: lighter;
+}
+#header-hr {
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    height: 0;
+}
+/*#header-text-div {
     display: table;
 }
 #header-text {
+    color: #818181;
     display: table-cell;
     vertical-align: middle;
-}
+}*/
 
 
 
 /***** MENU *****/
-#menu {
+#connect {
+    background-color: #c98383;
+    text-align: center;
+}
+.connect-icon {
+    color: #ddd;
+    padding: 10px;
+}
+/*#menu {
     background-color: #455a64;
     text-align: center;
 }
 .menu-item {
     background-color: #455a64;
-    line-height: 600%; /* change to 400% after layout testing complete */
+    line-height: 400%;
     -webkit-transition: background-color 0.4s linear;
     -moz-transition: background-color 0.4s linear;
     -o-transition: background-color 0.4s linear;
@@ -86,7 +121,7 @@ body {
 }
 .menu-item:hover a {
     color: #607d8b;
-}
+}*/
 
 
 
@@ -95,6 +130,7 @@ body {
 /*    background-color: #cfd8dc;*/
     background-color: #fff;
     font-family: 'Roboto', Tahoma, Geneva, sans-serif;
+    padding: 20px;
 }
 #circular {
     background: url(images/prof_pic.jpg) no-repeat;
@@ -117,22 +153,24 @@ body {
     content: '';
     left: 75px;
     position: absolute;
-    top: 35px;
+    top: 25px;
     width: calc(100% - 100px);
 }
 .section-content {
     color: #727272;
+    padding: 10px 20px 10px 20px;
     
 }
-[class*="section-"] {
+/*[class*="section-"] {
     padding: 10px;
-}
+}*/
 
 
 
 /***** FOOTER *****/
 #page-footer {
-    background-color: #607d8b;
+    background-color: #ddd;
+    min-height: 150px;
 }
 
 
