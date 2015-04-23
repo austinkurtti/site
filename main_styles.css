@@ -12,7 +12,9 @@
  * *********************************/
 /* ***** Custom Color Palette *****
  * 
- * background: 
+ * background: #fff
+ * footer: #ddd
+ * accent: #c98383
  * primary text: #818181
  * secondary text: #727272
  * 
@@ -91,7 +93,17 @@ body {
 }
 .connect-icon {
     color: #ddd;
+    cursor: pointer;
     padding: 10px;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+.connect-icon:hover {
+    background-color: #fff;
+    color: #c98383;
 }
 /*#menu {
     background-color: #455a64;
@@ -155,6 +167,9 @@ body {
     position: absolute;
     top: 25px;
     width: calc(100% - 100px);
+}
+.section-header-icon {
+    color: #c98383;
 }
 .section-content {
     color: #727272;
