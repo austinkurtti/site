@@ -13,12 +13,12 @@
 
 
 /* for testing */
-*:not(body):not(html) {
+*:not(hr):not(body):not(html) {
     box-sizing: border-box;
     border: 1px dashed #000;
 }
 .columns {
-    min-height: 100px;
+/*    min-height: 100px;*/
 }
 /* end testing */
 
@@ -42,10 +42,17 @@ body {
     background-color: #607d8b;
     color: #fff;
     font-family: 'Roboto', Tahoma, Geneva, sans-serif;
-    font-size: 40px;
+    font-size: 2.45em;
     font-weight: lighter;
     padding: 10px 0px 10px 0px;
     text-align: center;
+}
+#header-text-div {
+    display: table;
+}
+#header-text {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 
@@ -57,7 +64,7 @@ body {
 }
 .menu-item {
     background-color: #455a64;
-    line-height: 600%;
+    line-height: 600%; /* change to 400% after layout testing complete */
     -webkit-transition: background-color 0.4s linear;
     -moz-transition: background-color 0.4s linear;
     -o-transition: background-color 0.4s linear;
@@ -85,13 +92,40 @@ body {
 
 /***** CONTENT *****/
 .sections {
-    background-color: #cfd8dc;
+/*    background-color: #cfd8dc;*/
+    background-color: #fff;
+    font-family: 'Roboto', Tahoma, Geneva, sans-serif;
+}
+#circular {
+    background: url(images/prof_pic.jpg) no-repeat;
+    background-size: 150px 150px;
+    float: left;
+    height: 150px;
+    margin-right: 10px;
+    width: 150px;
+    -webkit-border-radius: 150px;
+    -moz-border-radius: 150px;
+    -o-border-radius: 150px;
+    -ms-border-radius: 150px;
+    border-radius: 150px;
 }
 .section-header {
     color: #212121;
 }
+.section-header::after {
+    border-top: 1px solid #ccc;
+    content: '';
+    left: 75px;
+    position: absolute;
+    top: 35px;
+    width: calc(100% - 100px);
+}
 .section-content {
-    color: #727272;   
+    color: #727272;
+    
+}
+[class*="section-"] {
+    padding: 10px;
 }
 
 
