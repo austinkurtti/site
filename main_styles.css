@@ -16,6 +16,7 @@
  * footer: #ddd
  * accent: #c98383
  * dark accent: #7d3737
+ * accent compliments: #a683c9 #83c9c9 #a6c983
  * primary text: #818181
  * secondary text: #727272
  * 
@@ -37,7 +38,6 @@
 
 /***** OVERALL *****/
 body {
-/*	background-color: #bf6e6e;*/
 	background-color: #c98383;
     margin: 0px;
 }
@@ -47,12 +47,21 @@ body {
     max-width: initial;
     width: 100%;
 }
+.tooltip-theme {
+	background: #a6c983;
+	color: #727272;
+}
+.tooltip-theme .tooltipster-content {
+    font-family: 'Roboto', Tahoma, Geneva, sans-serif;
+	font-size: 14px;
+	line-height: 16px;
+	padding: 8px 10px;
+}
 
 
 
 /***** HEADER *****/
 #page-header {
-/*    background-color: #ddd;*/
     background: url(images/ku_skyline_blurred.jpg) no-repeat;
     background-size: auto 100%;
     color: #fff;
@@ -184,6 +193,9 @@ body {
 /*[class*="section-"] {
     padding: 10px;
 }*/
+.devicon {
+    font-size: 5em;
+}
 
 
 
@@ -201,18 +213,6 @@ body {
 
 
 /***** EXPERIMENTAL *****/
-.tooltip-theme {
-    border-radius: 5px; 
-	border: 2px solid #000;
-	background: #4c4c4c;
-	color: #fff;
-}
-.tooltip-theme .tooltipster-content {
-    font-family: Arial, sans-serif;
-	font-size: 14px;
-	line-height: 16px;
-	padding: 8px 10px;
-}
 /*.menu-item::before,
 .menu-item::after {
 	border: 4px solid #ff5722;
