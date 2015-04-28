@@ -3,11 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Austin Kurtti</title>
+    
     <link rel="stylesheet" href="foundation-essentials-5.5.1/css/normalize.css">
     <link rel="stylesheet" href="foundation-essentials-5.5.1/css/foundation.min.css">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="font-awesome-4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="tooltipster-master/css/tooltipster.css">
     <link rel="stylesheet" type="text/css" href="main_styles.css">
+    
+<!--    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.0.min.js"></script>-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript" src="tooltipster-master/js/jquery.tooltipster.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.tooltip').tooltipster({
+                theme: 'tooltip-theme'
+            });
+        });
+    </script>
 </head>
 <body>
     <header id="page-header">
@@ -82,10 +95,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="large-12 columns section-content">
+                <div class="large-3 columns section-content">
                     <span class="section-content-header">AllofE Solutions</span>
                     <br>
-                    <span>Web Development Intern, February 2014 - Present</span>
+                    <span>Web Development Intern<br>February 2014 - Present</span>
+                </div>
+                <div class="large-9 columns section-content">
+                    <span>
+                        As a web development intern, I was privileged to work on both development and production software. I regularly took part in designing new client-based interfaces, updating and enhancing established code, fixing bugs, and managing diverse databases. While performing these tasks, I continually developed my personal skillset. My fluency and understanding of PHP, HTML5, CSS, Ext JS, Git, and MySQL increased every day. Learning to debug complex systems and problem solve with a team of talented developers has proved invaluable to my academic and professional careers.
+                    </span>
                 </div>
             </div>
             <div class="row">
@@ -94,10 +112,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="large-12 columns section-content">
-                    <span>
-                        
-                    </span>
+                <div class="large-3 columns section-content">
+                    <span class="section-content-header">University of Kansas</span>
+                    <br>
+                    <span>Bachelor of Science (expected 2017)<br>Major: Computer Science, Minor: Business</span>
+                </div>
+                <div class="large-9 columns section-content">
+                    Relevant courses:<br>Programming I, Programming II, Discrete Structures, Embedded Systems, Programming Language Paradigms, Software Engineering I, Applied Mathematical Statistics I, Calculus I, Calculus II
                 </div>
             </div>
             <div class="row">
@@ -107,9 +128,14 @@
             </div>
             <div class="row">
                 <div class="large-12 columns section-content">
-                    <span>
-                        
-                    </span>
+                    <div class="photo-banner">
+                        <i class="fa fa-html5 fa-3x" id="first"></i>
+                        <i class="fa fa-windows fa-3x" id="first"></i>
+                        <i class="fa fa-git-square fa-3x" id="first"></i>
+                        <i class="fa fa-css3 fa-3x" id="first"></i>
+                        <i class="fa fa-android fa-3x" id="first"></i>
+                        <div class="tooltip" title="Hello World!">This text has a tooltip, I hope</div>
+                    </div>
                 </div>
             </div>
             <div class="row">
