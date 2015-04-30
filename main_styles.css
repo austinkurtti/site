@@ -77,6 +77,7 @@ body {
 }
 .header-subtext {
     color: #c98383;
+    font-size: 1.1em;
     font-weight: lighter;
 }
 #header-hr {
