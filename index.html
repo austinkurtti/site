@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Austin Kurtti</title>
     
-    <link rel="stylesheet" href="foundation-essentials-5.5.1/css/normalize.css">
-    <link rel="stylesheet" href="foundation-essentials-5.5.1/css/foundation.min.css">
+    <link rel="stylesheet" href="foundation-5.5.2.custom/css/normalize.css">
+    <link rel="stylesheet" href="foundation-5.5.2.custom/css/foundation.min.css">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="font-awesome-4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="devicon-master/devicon.css">
@@ -13,14 +13,48 @@
     <link rel="stylesheet" href="tooltipster-master/css/tooltipster.css">
     <link rel="stylesheet" type="text/css" href="main_styles.css">
     
-<!--    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.0.min.js"></script>-->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!--    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
+    <script src="foundation-5.5.2.custom/js/vendor/jquery.js"></script>
+    <script src="foundation-5.5.2.custom/js/foundation/foundation.js"></script>
+    <script src="foundation-5.5.2.custom/js/foundation/foundation.magellan.js"></script>
     <script type="text/javascript" src="tooltipster-master/js/jquery.tooltipster.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.tooltip').tooltipster({
                 theme: 'tooltip-theme'
             });
+            $('#about-btn').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('#about').offset().top - 80
+                }, 1500);
+            });
+            $('#experience-btn').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('#experience').offset().top - 80
+                }, 1500);
+            });
+            $('#education-btn').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('#education').offset().top - 80
+                }, 1500);
+            });
+            $('#goals-btn').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('#goals').offset().top - 80
+                }, 1500);
+            });
+            $('#skills-btn').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('#skills').offset().top - 80
+                }, 1500);
+            });
+            $('#projects-btn').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('#projects').offset().top - 80
+                }, 1500);
+            });
+            $(document).foundation();
+            $(document).foundation('magellan', 'reflow');
         });
     </script>
 </head>
@@ -42,10 +76,39 @@
     
     <!-- Possibly need show-for-small-only versions of menu and sections, to make menu become a top bar but preserve most of sections -->
     <div class="row full-width">
+        <div class="row" id="menu" data-magellan-expedition="fixed">
+            <div class="large-2 medium-2 small-2 columns menu-item" id="about-btn">
+                <i class="fa fa-user fa-2x"></i>
+                <span class="show-for-large-up">About</span>
+            </div>
+            <div class="large-2 medium-2 small-2 columns menu-item" id="experience-btn">
+                <i class="fa fa-suitcase fa-2x"></i>
+                <span class="show-for-large-up">Experience</span>
+            </div>
+            <div class="large-2 medium-2 small-2 columns menu-item" id="education-btn">
+                <i class="fa fa-graduation-cap fa-2x"></i>
+                <span class="show-for-large-up">Education</span>
+            </div>
+            <div class="large-2 medium-2 small-2 columns menu-item" id="goals-btn">
+                <i class="fa fa-dot-circle-o fa-2x"></i>
+                <span class="show-for-large-up">Goals</span>
+            </div>
+            <div class="large-2 medium-2 small-2 columns menu-item" id="skills-btn">
+                <i class="fa fa-wrench fa-2x"></i>
+                <span class="show-for-large-up">Skills</span>
+            </div>
+            <div class="large-2 medium-2 small-2 columns menu-item" id="projects-btn">
+                <i class="fa fa-folder-open fa-2x"></i>
+                <span class="show-for-large-up">Projects</span>
+            </div>
+        </div>
 <!--
         <aside class="large-2 medium-2 columns" id="menu">
             <div class="row menu-item">
-                <a href="#about" class="large-12 medium-12 columns"><span>About</span></a>
+                <a href="#about" class="large-12 medium-12 columns"><span>Intro</span></a>
+            </div>
+            <div class="row menu-item">
+                <a href="#resume" class="large-12 medium-12 columns small-up"><span>Experience</span></a>
             </div>
             <div class="row menu-item">
                 <a href="#resume" class="large-12 medium-12 columns"><span>R&egrave;sum&egrave;</span></a>
@@ -58,6 +121,7 @@
             </div>
         </aside>
 -->
+<!--
         <aside class="large-2 medium-12 small-12 columns" id="connect">
             <div class="row">
                 <div class="large-6 medium-3 small-3 columns connect-icon">
@@ -74,10 +138,11 @@
                 </div>
             </div>
         </aside>
-        <div class="large-10 medium-12 small-12 columns sections">
+-->
+        <div class="large-12 medium-12 small-12 columns sections">
             <div class="row">
                 <div class="large-12 columns section-header" id="about">
-                    <i class="fa fa-user fa-3x section-header-icon tooltip" title="Intro"></i>
+                    <i class="fa fa-user fa-3x section-header-icon tooltip" title="About"></i>
                 </div>
             </div>
             <div class="row">
@@ -89,7 +154,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="large-12 columns section-header">
+                <div class="large-12 columns section-header" id="experience">
                     <i class="fa fa-suitcase fa-3x section-header-icon tooltip" title="Experience"></i>
                 </div>
             </div>
@@ -106,7 +171,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="large-12 columns section-header">
+                <div class="large-12 columns section-header" id="education">
                     <i class="fa fa-graduation-cap fa-3x section-header-icon tooltip" title="Education"></i>
                 </div>
             </div>
@@ -131,7 +196,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="large-12 columns section-header">
+                <div class="large-12 columns section-header" id="skills">
                     <i class="fa fa-wrench fa-3x section-header-icon tooltip" title="Skills"></i>
                 </div>
             </div>
@@ -275,8 +340,22 @@
     
     <footer id="page-footer">
         <div class="row">
-            <div class="large-12 columns">
-                <span>Footer</span>
+            <div class="large-12 columns" id="connect">
+                <div class="large-3 medium-3 small-3 columns">
+                    <i class="fa fa-facebook-square fa-3x connect-icon"></i>
+                </div>
+                <div class="large-3 medium-3 small-3 columns">
+                    <i class="fa fa-envelope-square fa-3x connect-icon"></i>
+                </div>
+                <div class="large-3 medium-3 small-3 columns">
+                    <i class="fa fa-github-square fa-3x connect-icon"></i>
+                </div>
+                <div class="large-3 medium-3 small-3 columns">
+                    <i class="fa fa-linkedin-square fa-3x connect-icon"></i>
+                </div>
+            </div>
+            <div class="large-12 columns" id="end-phrase">
+                <span>Click on one of the links above to connect with me!<br><br>Footer and menu icons by Font Awesome. Skills icons by Devicon.</span>
             </div>
         </div>
     </footer>
