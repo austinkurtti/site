@@ -189,6 +189,7 @@ body {
 /***** FOOTER *****/
 #page-footer {
     background-color: #ddd;
+    font-family: 'Roboto', Tahoma, Geneva, sans-serif;
     min-height: 150px;
 }
 #connect {
@@ -209,7 +210,16 @@ body {
     color: #7d3737;
 }
 #end-phrase {
+    font-size: 1.1em;
     text-align: center;
+}
+#credits {
+    font-size: 1em;
+    text-align: left;
+}
+#to-top {
+    font-size: 1em;
+    text-align: right;
 }
 
 

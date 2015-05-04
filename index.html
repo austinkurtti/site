@@ -53,6 +53,11 @@
                     scrollTop: $('#projects').offset().top - 80
                 }, 1500);
             });
+            $('#to-top').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('#page-header').offset().top - 80
+                }, 1500);
+            });
             $(document).foundation();
             $(document).foundation('magellan', 'reflow');
         });
@@ -355,7 +360,13 @@
                 </div>
             </div>
             <div class="large-12 columns" id="end-phrase">
-                <span>Click on one of the links above to connect with me!<br><br>Footer and menu icons by Font Awesome. Skills icons by Devicon.</span>
+                <span>Click on one of these links to connect with me!<br><br><br></span>
+            </div>
+            <div class="large-6 columns" id="credits">
+                <span>Footer and menu icons by Font Awesome. Skills icons by Devicon.<br>Designed and created by Austin Kurtti.</span>
+            </div>
+            <div class="large-6 columns" id="to-top">
+                <a><span>Back to top</span></a>
             </div>
         </div>
     </footer>
