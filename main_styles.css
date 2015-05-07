@@ -75,9 +75,19 @@ body {
     font-size: 1.8em;
     font-weight: bold;
 }
+#header-text-down {
+    color: #455a64;
+    font-size: 2.5em;
+    font-weight: bold;
+}
 .header-subtext {
     color: #ff9800;
     font-size: 1.3em;
+    font-weight: lighter;
+}
+.header-subtext-down {
+    color: #ff9800;
+    font-size: 1.8em;
     font-weight: lighter;
 }
 #header-hr {
@@ -140,16 +150,27 @@ body {
     -o-border-radius: 150px;
     border-radius: 150px;
 }
-.section-header::after {
+.section-header:after {
     border-top: 1px solid #b6b6b6;
     content: '';
-    left: 75px;
+    left: 7%;
     position: absolute;
     top: 25px;
-    width: calc(100% - 100px);
+    width: calc(100% - 7%);
+    z-index: 0;
+}
+.section-header-down:after {
+    border-top: 1px solid #b6b6b6;
+    content: '';
+    left: 12%;
+    position: absolute;
+    top: 53%;
+    width: calc(100% - 14%);
+    z-index: 0;
 }
 .section-header-icon {
     color: #607d8b;
+    z-index: ;
 }
 .section-content-header {
     color: #212121;
@@ -189,6 +210,7 @@ body {
     background-color: #cfd8dc;
     font-family: 'Roboto', Tahoma, Geneva, sans-serif;
     min-height: 150px;
+    padding: 10px 0px 0px 0px;
 }
 #connect {
     background-color: #cfd8dc;
@@ -197,7 +219,6 @@ body {
 .connect-icon {
     color: #607d8b;
     cursor: pointer;
-    padding: 10px 0px 10px 0px;
     -webkit-transition: all 0.2s linear;
     -moz-transition: all 0.2s linear;
     -ms-transition: all 0.2s linear;
