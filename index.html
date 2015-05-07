@@ -53,6 +53,36 @@
                     scrollTop: $('#projects').offset().top - 80
                 }, 1500);
             });
+            $('#about-down-btn').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('#about-down').offset().top - 90
+                }, 1500);
+            });
+            $('#experience-down-btn').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('#experience-down').offset().top - 90
+                }, 1500);
+            });
+            $('#education-down-btn').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('#education-down').offset().top - 90
+                }, 1500);
+            });
+            $('#goals-down-btn').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('#goals-down').offset().top - 90
+                }, 1500);
+            });
+            $('#skills-down-btn').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('#skills-down').offset().top - 90
+                }, 1500);
+            });
+            $('#projects-down-btn').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('#projects-down').offset().top - 90
+                }, 1500);
+            });
             $('#to-top').click(function() {
                 $('html, body').animate({
                     scrollTop: $('#page-header').offset().top - 80
@@ -89,35 +119,47 @@
     <!-- Possibly need show-for-small-only versions of menu and sections, to make menu become a top bar but preserve most of sections -->
     <div class="row full-width">
         <div class="row" id="menu" data-magellan-expedition="fixed">
-            <div class="large-2 medium-2 small-2 columns menu-item" id="about-btn">
-                <i class="fa fa-user fa-2x show-for-large-up"></i>
-                <i class="fa fa-user fa-4x show-for-medium-down"></i>
+            <div class="large-2 medium-2 small-2 columns menu-item  show-for-large-up" id="about-btn">
+                <i class="fa fa-user fa-2x"></i>
                 <span class="show-for-large-up">About</span>
             </div>
-            <div class="large-2 medium-2 small-2 columns menu-item" id="experience-btn">
-                <i class="fa fa-suitcase fa-2x show-for-large-up"></i>
-                <i class="fa fa-suitcase fa-4x show-for-medium-down"></i>
+            <div class="large-2 medium-2 small-2 columns menu-item show-for-medium-down" id="about-down-btn">
+                <i class="fa fa-user fa-4x"></i>
+            </div>
+            <div class="large-2 medium-2 small-2 columns menu-item show-for-large-up" id="experience-btn">
+                <i class="fa fa-suitcase fa-2x"></i>
                 <span class="show-for-large-up">Experience</span>
             </div>
-            <div class="large-2 medium-2 small-2 columns menu-item" id="education-btn">
-                <i class="fa fa-graduation-cap fa-2x show-for-large-up"></i>
-                <i class="fa fa-graduation-cap fa-4x show-for-medium-down"></i>
+            <div class="large-2 medium-2 small-2 columns menu-item show-for-medium-down" id="experience-down-btn">
+                <i class="fa fa-suitcase fa-4x"></i>
+            </div>
+            <div class="large-2 medium-2 small-2 columns menu-item show-for-large-up" id="education-btn">
+                <i class="fa fa-graduation-cap fa-2x"></i>
                 <span class="show-for-large-up">Education</span>
             </div>
-            <div class="large-2 medium-2 small-2 columns menu-item" id="goals-btn">
-                <i class="fa fa-dot-circle-o fa-2x show-for-large-up"></i>
-                <i class="fa fa-dot-circle-o fa-4x show-for-medium-down"></i>
+            <div class="large-2 medium-2 small-2 columns menu-item show-for-medium-down" id="education-down-btn">
+                <i class="fa fa-graduation-cap fa-4x"></i>
+            </div>
+            <div class="large-2 medium-2 small-2 columns menu-item show-for-large-up" id="goals-btn">
+                <i class="fa fa-dot-circle-o fa-2x"></i>
                 <span class="show-for-large-up">Goals</span>
             </div>
-            <div class="large-2 medium-2 small-2 columns menu-item" id="skills-btn">
-                <i class="fa fa-wrench fa-2x show-for-large-up"></i>
-                <i class="fa fa-wrench fa-4x show-for-medium-down"></i>
+            <div class="large-2 medium-2 small-2 columns menu-item show-for-medium-down" id="goals-down-btn">
+                <i class="fa fa-dot-circle-o fa-4x"></i>
+            </div>
+            <div class="large-2 medium-2 small-2 columns menu-item show-for-large-up" id="skills-btn">
+                <i class="fa fa-wrench fa-2x"></i>
                 <span class="show-for-large-up">Skills</span>
             </div>
-            <div class="large-2 medium-2 small-2 columns menu-item" id="projects-btn">
-                <i class="fa fa-folder-open fa-2x show-for-large-up"></i>
-                <i class="fa fa-folder-open fa-4x show-for-medium-down"></i>
+            <div class="large-2 medium-2 small-2 columns menu-item show-for-medium-down" id="skills-down-btn">
+                <i class="fa fa-wrench fa-4x"></i>
+            </div>
+            <div class="large-2 medium-2 small-2 columns menu-item show-for-large-up" id="projects-btn">
+                <i class="fa fa-folder-open fa-2x"></i>
                 <span class="show-for-large-up">Projects</span>
+            </div>
+            <div class="large-2 medium-2 small-2 columns menu-item show-for-medium-down" id="projects-down-btn">
+                <i class="fa fa-folder-open fa-4x"></i>
             </div>
         </div>
 <!--
