@@ -3,6 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <title>Austin Kurtti</title>
+
+    <link rel="stylesheet" href="foundation-5.5.2.custom/css/normalize.css">
+    <link rel="stylesheet" href="foundation-5.5.2.custom/css/foundation.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Noticia Text">
+    <link rel="stylesheet" href="font-awesome-4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="Hover-master/css/hover.css">
+    <link rel="stylesheet" href="devicon-master/devicon.css">
+    <link rel="stylesheet" href="devicon-master/devicon-colors.css">
+    <link rel="stylesheet" href="tooltipster-master/css/tooltipster.css">
+    <link rel="stylesheet" type="text/css" href="main_styles.css">
+
+    <script src="foundation-5.5.2.custom/js/vendor/jquery.js"></script>
+    <script src="foundation-5.5.2.custom/js/foundation/foundation.js"></script>
+    <script src="foundation-5.5.2.custom/js/foundation/foundation.magellan.js"></script>
+    <script type="text/javascript" src="tooltipster-master/js/jquery.tooltipster.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="row">
+            <div id="header-text">
+                <div class="large-4 columns" id="header-main-text">
+                    <span class="main-text-span"><b>Austin Kurtti</b></span>
+                </div>
+                <div class="large-8 columns" id="header-sub-text">
+                    <span class="sub-text-span">Computer Science Undergraduate</span>
+                    <span class="sub-text-span">Aspiring Web Developer</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns" id="header-nav">
+                <nav>
+                    <a class="header-nav-link hvr-underline-from-left" target="content-iframe" href="home_page.html">HOME</a>
+                    <a class="header-nav-link hvr-underline-from-left" target="content-iframe" href="resume_page.html">RESUME</a>
+                    <a class="header-nav-link hvr-underline-from-left" target="content-iframe" href="contact_page.html">CONTACT</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <!-- CONTENT IFRAME -->
+    <div class="row full-width">
+        <div class="large-12 columns">
+            <iframe frameborder="0" name="content-iframe" src="home_page.html"></iframe>
+        </div>
+    </div>
+    
+    <!-- FOOTER -->
+    <footer>
+        <div class="row">
+            <div class="large-12 columns" id="quote">
+                <span>"You miss 100% of the shots you don't take." - <i>Wayne Gretzky</i><br><br><br></span>
+            </div>
+            <div class="large-12 columns" id="credits">
+                <span>Icons by Font Awesome and Devicon.<br>Designed and created by Austin Kurtti.</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Austin Kurtti</title>
     
     <link rel="stylesheet" href="foundation-5.5.2.custom/css/normalize.css">
     <link rel="stylesheet" href="foundation-5.5.2.custom/css/foundation.min.css">
@@ -13,7 +91,6 @@
     <link rel="stylesheet" href="tooltipster-master/css/tooltipster.css">
     <link rel="stylesheet" type="text/css" href="main_styles.css">
     
-<!--    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
     <script src="foundation-5.5.2.custom/js/vendor/jquery.js"></script>
     <script src="foundation-5.5.2.custom/js/foundation/foundation.js"></script>
     <script src="foundation-5.5.2.custom/js/foundation/foundation.magellan.js"></script>
@@ -117,7 +194,7 @@
     </header>
     
     <!-- Possibly need show-for-small-only versions of menu and sections, to make menu become a top bar but preserve most of sections -->
-    <div class="row full-width">
+    <!--<div class="row full-width">
         <div class="row" id="menu" data-magellan-expedition="fixed">
             <div class="large-2 medium-2 small-2 columns menu-item  show-for-large-up" id="about-btn">
                 <i class="fa fa-user fa-2x"></i>
@@ -199,7 +276,7 @@
             </div>
         </aside>
 -->
-        <div class="large-12 medium-12 small-12 columns sections">
+<!--        <div class="large-12 medium-12 small-12 columns sections">
             <div class="row">
                 <div class="large-12 columns section-header show-for-large-up" id="about">
                     <i class="fa fa-user fa-3x section-header-icon tooltip" title="About"></i>
@@ -407,7 +484,7 @@
                 </div>
                 <div class="large-8 columns section-content">
                     <span>
-                        Overview:<br>SmartPath is a mobile application with the intent to improve student safety on campus. It's most prominent service, NightWalk, is designed to be a quicker alternative to blue light poles, by immediately and reliably connecting the student to emergency services. Currently, there are three services planned to be bundled into SmartPath: NightWalk, SafeRide, and SOS. NightWalk will be the first service implemented and will be the only one available during the app's first beta test. SafeRide and SOS will be implemented soon after.<!--<br><br>NightWalk:<br>Upon opening SmartPath, the user simply expands the navigation menu and selects "NightWalk". If this is the first time the user has opened NightWalk, they will be prompted to create a four-digit pin and complete any necessary information that might be valuable to emergency services. Once this is completed, the user taps the "I'm ready" button at the bottom of the screen. This activates a shake detector, which listens for the user to shake their phone. While walking to their destination, the user may shake their phone if they feel unsafe. This brings up a prompt for them to enter their four-digit pin in under eight seconds. If they allow the eight seconds to expire, they will be connected to emergency services, and depending on other settings, will automatically send a text to chosen contacts with a pre-selected message. Correctly entering their four-digit pin deactivates the countdown and disables the shake listener.<br><br>--> If you would like more information, please <a href="http://www.harkurtis.weebly.com" target="_blank">visit the Harkurtis website!</a>
+                        Overview:<br>SmartPath is a mobile application with the intent to improve student safety on campus. It's most prominent service, NightWalk, is designed to be a quicker alternative to blue light poles, by immediately and reliably connecting the student to emergency services. Currently, there are three services planned to be bundled into SmartPath: NightWalk, SafeRide, and SOS. NightWalk will be the first service implemented and will be the only one available during the app's first beta test. SafeRide and SOS will be implemented soon after.<!--<br><br>NightWalk:<br>Upon opening SmartPath, the user simply expands the navigation menu and selects "NightWalk". If this is the first time the user has opened NightWalk, they will be prompted to create a four-digit pin and complete any necessary information that might be valuable to emergency services. Once this is completed, the user taps the "I'm ready" button at the bottom of the screen. This activates a shake detector, which listens for the user to shake their phone. While walking to their destination, the user may shake their phone if they feel unsafe. This brings up a prompt for them to enter their four-digit pin in under eight seconds. If they allow the eight seconds to expire, they will be connected to emergency services, and depending on other settings, will automatically send a text to chosen contacts with a pre-selected message. Correctly entering their four-digit pin deactivates the countdown and disables the shake listener.<br><br>--> <!--If you would like more information, please <a href="http://www.harkurtis.weebly.com" target="_blank">visit the Harkurtis website!</a>
                     </span>
                 </div>
             </div>
