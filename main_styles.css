@@ -11,7 +11,7 @@
  * *************** REDESIGN *************** */
 
 body {
-    background-color: #c3c3c3;
+    background-color: #e3e3e3;
     font-family: 'Roboto', Tahoma, Geneva, sans-serif;
     font-size: 18px;
 }
@@ -64,6 +64,12 @@ body {
 
 .header-nav-link:active {
     color: #686469;
+}
+
+#iframe-div {
+    /* height: 500px; */
+    margin-top:20px;
+    margin-bottom:20px;
 }
 
 footer {

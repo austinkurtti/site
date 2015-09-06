@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $(document).foundation();
-    $(document).foundation({
+    /*$(document).foundation({
         "magellan-expedition": {
             active_class: 'active', // specify the class used for active sections
             threshold: 0, // how many pixels until the magellan bar sticks, 0 = auto
@@ -10,5 +10,10 @@ $(document).ready(function() {
             offset_by_height: true // whether to offset the destination by the expedition height. Usually you want this to be true, unless your expedition is on the side.
         }
     });
-    $(document).foundation('magellan', 'reflow');
+    $(document).foundation('magellan', 'reflow');*/
+    
+    $(document)[0].getElementById("content-iframe").onload = function() {
+        var currentPage = $(this)[0].contentWindow.document.getElementById("top-div");
+        $(document)[0].getElementById("content-iframe").setAttribute("height", currentPage.scrollHeight);
+    }
 });
