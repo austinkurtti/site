@@ -22,42 +22,55 @@
 <body>
     <div id="top-div">
         <div class="row">
-            <form>
+            <div class="large-4 columns">
                 <div class="row">
-                    <div class="large-12 columns">
-                        <div class="row collapse prefix-radius">
-                            <div class="small-3 columns">
-                                <span class="prefix">Email</span>
-                            </div>
-                            <div class="small-9 columns">
-                                <input type="text" required="true" placeholder="email@example.com">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="large-12 columns">
-                        <div class="row collapse prefix-radius">
-                            <div class="small-3 columns">
-                                <span class="prefix">Subject</span>
-                            </div>
-                            <div class="small-9 columns">
-                                <input type="text" required="true" placeholder="Hello!">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="large-12 columns">
-                        <div class="row collapse prefix-radius">
-                            <div class="small-3 columns">
-                                <span class="prefix">Message</span>
-                            </div>
-                            <div class="small-9 columns">
-                                <textarea type="text" required="true" placeholder="I would like to tell you how awesome you are..."></textarea>
-                            </div>
-                        </div>
-                    </div>
+                    <span>Other Links</span>
                 </div>
-            </form>
-            <div class="row" id="submit">
-                <a class="submit-btn" href="#">SEND</a>
+                <div class="row">
+                    <a><i class="contact-icon-link fa fa-github fa-3x"></i></a>
+                </div>
+                <div class="row">
+                    <a><i class="contact-icon-link fa fa-linkedin fa-3x"></i></a>
+                </div>
+            </div>
+            <div class="large-8 columns">
+                <form action="mailto:austin.kurtti@gmail.com" method="GET" enctype="text/plain">
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <div class="row collapse prefix-radius">
+                                <div class="small-3 columns">
+                                    <span class="prefix">Email</span>
+                                </div>
+                                <div class="small-9 columns">
+                                    <input type="text" required="true" placeholder="email@example.com">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="large-12 columns">
+                            <div class="row collapse prefix-radius">
+                                <div class="small-3 columns">
+                                    <span class="prefix">Subject</span>
+                                </div>
+                                <div class="small-9 columns">
+                                    <input type="text" required="true" name="subject" placeholder="Hello!">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="large-12 columns">
+                            <div class="row collapse prefix-radius">
+                                <div class="small-3 columns">
+                                    <span class="prefix">Message</span>
+                                </div>
+                                <div class="small-9 columns">
+                                    <textarea type="text" required="true" name="body" placeholder="Super secret message..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" id="submit">
+                    <a class="submit-btn submit-btn-point" href="#">SEND</a>
+                </div>
             </div>
         </div>
     </div>

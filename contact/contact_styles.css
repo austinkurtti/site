@@ -7,6 +7,7 @@
  * D. White #e3e3e3; rgba(227, 227, 227, 100)
  * RED      #d36f62; rgba(211, 111, 98, 100)
  * YELLOW   #ffc43d; rgba(255, 196, 61, 100)
+ * GREEN    #5d9c49; rgba(93, 156, 73)
 
  * *************** REDESIGN *************** */
  
@@ -30,11 +31,99 @@ textarea {
 }
 
 #submit {
-    text-align: center;
+    text-align: right;
+    padding-right: 15px;
+    position: relative;
 }
 
 .submit-btn {
+    background-color: #5d9c49;
+    color: #ffffff;
+	font-size: 16px;
+    padding-top: 15px;
+    padding-right: 25px;
+    padding-bottom: 15px;
+    padding-left: 25px;
+}
+
+/*a {
+    color: #ffffff;
+}
+
+a:visited {
+    color: #ffffff; 
+}
+
+a:hover {
+    color: #ffffff; 
+}
+
+a:active {
+    color: #ffffff;
+}*/
+
+.submit-btn:visited {
+    color: #ffffff;
+}
+
+.submit-btn:hover {
+    color: #ffffff;
+}
+
+.submit-btn:active {
+    color: #ffffff;
+}
+
+.submit-btn-point {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.submit-btn-point:before {
+    pointer-events: none;
+    position: absolute;
+    z-index: -1;
+    content: "";
+    border-style: solid;
+    left: calc(50% - 12px);
+    top: 0px;
+    border-width: 0px 12px 12px 12px;
+    border-color: transparent transparent #5d9c49 transparent;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-property: transform;
+    -moz-transition-property: transform;
+    transition-property: transform;
+}
+.submit-btn-point:hover:before, .submit-btn-point:active:before {
+    -webkit-transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    transform: translateY(-10px);
+}
+
+
+
+/*****EXPERIMENTAL*****/
+/*.submit-btn-hidden {
     color: green;
+    position: absolute;
+    padding-top: 3px;
+    padding-left: 17px;
+    z-index: -1;
+}
+
+.submit-btn {
+    background-color: #e3e3e3;
+    color: green;
+    padding: 10px;
+    position: absolute;
 }
 
 .submit-btn:visited {
@@ -43,8 +132,26 @@ textarea {
 
 .submit-btn:hover {
     color: green;
+    -webkit-animation: moveRight 0.5s forwards;
+    -moz-animation: moveRight 0.5s forwards;
+    animation: moveRight 0.5s forwards;
 }
 
 .submit-btn:active {
     color: green;
 }
+
+@-webkit-keyframes moveRight {
+    0% {background-color: transparent; 1; -webkit-transform: translateX(0px);}
+    100% {background-color: transparent; opacity: 0; -webkit-transform: translateX(40px);}
+}
+
+@-moz-keyframes moveRight {
+    0% {background-color: transparent; opacity: 1; -moz-transform: translateX(0px);}
+    100% {background-color: transparent; opacity: 0; -moz-transform: translateX(40px);}
+}
+
+@keyframes moveRight {
+    0% {background-color: transparent; opacity: 1; transform: translateX(0px);}
+    100% {background-color: transparent; opacity: 0; transform: translateX(40px);}
+}*/
