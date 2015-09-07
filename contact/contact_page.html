@@ -21,31 +21,44 @@
 </head>
 <body>
     <div id="top-div">
-        <div class="row full-width">
+        <div class="row">
             <form>
-              <div class="row">
-                <div class="large-6 columns">
-                  <div class="row collapse prefix-radius">
-                    <div class="small-3 columns">
-                      <span class="prefix">Label</span>
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="row collapse prefix-radius">
+                            <div class="small-3 columns">
+                                <span class="prefix">Email</span>
+                            </div>
+                            <div class="small-9 columns">
+                                <input type="text" required="true" placeholder="email@example.com">
+                            </div>
+                        </div>
                     </div>
-                    <div class="small-9 columns">
-                      <input type="text" placeholder="Value">
+                    <div class="large-12 columns">
+                        <div class="row collapse prefix-radius">
+                            <div class="small-3 columns">
+                                <span class="prefix">Subject</span>
+                            </div>
+                            <div class="small-9 columns">
+                                <input type="text" required="true" placeholder="Hello!">
+                            </div>
+                        </div>
                     </div>
-                  </div>
+                    <div class="large-12 columns">
+                        <div class="row collapse prefix-radius">
+                            <div class="small-3 columns">
+                                <span class="prefix">Message</span>
+                            </div>
+                            <div class="small-9 columns">
+                                <textarea type="text" required="true" placeholder="I would like to tell you how awesome you are..."></textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="large-6 columns">
-                  <div class="row collapse postfix-radius">
-                    <div class="small-9 columns">
-                      <input type="text" placeholder="Value">
-                    </div>
-                    <div class="small-3 columns">
-                      <span class="postfix">Label</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </form>
+            <div class="row" id="submit">
+                <a class="submit-btn" href="#">SEND</a>
+            </div>
         </div>
     </div>
 </body>

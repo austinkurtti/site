@@ -13,4 +13,38 @@
 body {
     background-color: #e3e3e3;
 }
- 
+
+.full-width {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: initial;
+    width: 100%;
+}
+
+#top-div {
+    padding: 50px;
+}
+
+textarea {
+    height: 150px;
+}
+
+#submit {
+    text-align: center;
+}
+
+.submit-btn {
+    color: green;
+}
+
+.submit-btn:visited {
+    color: green;
+}
+
+.submit-btn:hover {
+    color: green;
+}
+
+.submit-btn:active {
+    color: green;
+}

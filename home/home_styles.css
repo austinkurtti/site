@@ -22,7 +22,10 @@ body {
 }
 
 #top-div {
-    padding: 20px;
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-bottom: 70px;
+    padding-left: 30px;
 }
  
 #prof-pic {
