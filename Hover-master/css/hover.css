@@ -2432,7 +2432,7 @@
   left: 0;
   right: 100%;
   bottom: 0;
-  /* background: #2098d1; */
+  background: #2098d1;
   background: #d36f62;
   height: 4px;
   -webkit-transition-property: right;
@@ -2466,8 +2466,7 @@
   left: 50%;
   right: 50%;
   bottom: 0;
-  /* background: #2098d1; */
-  background: #d36f62;
+  background: #2098d1;
   height: 4px;
   -webkit-transition-property: left, right;
   transition-property: left, right;
