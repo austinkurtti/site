@@ -3357,7 +3357,7 @@ meta.foundation-mq-topbar {
     right: 1.375rem; }
 
 /* Tooltips */
-.has-tip {
+/*.has-tip {
   border-bottom: dotted 1px #CCCCCC;
   color: #333333;
   cursor: help;
@@ -3431,7 +3431,7 @@ meta.foundation-mq-topbar {
     left: -10px;
     margin-top: -5px;
     right: auto;
-    top: 50%; } }
+    top: 50%; } }*/
 /* Clearing Styles */
 .clearing-thumbs, [data-clearing] {
   list-style: none;

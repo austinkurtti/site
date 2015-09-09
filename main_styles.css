@@ -76,10 +76,10 @@ header {
 }*/
 
 #content-iframe {
-    -moz-transition-property: opacity;
-    -moz-transition-duration: 0.5s;
     -webkit-transition-property: opacity;
     -webkit-transition-duration: 0.5s;
+    -moz-transition-property: opacity;
+    -moz-transition-duration: 0.5s;
     transition-property: opacity;
     transition-duration: 0.5s;
 }

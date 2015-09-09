@@ -21,7 +21,7 @@ $(document).ready(function() {
 function navigate(page) {
     $(document)[0].getElementById("content-iframe").className = "faded";
     setTimeout(function() {
-        $(document)[0].getElementById("content-iframe").src=page+".html";
-        $(document)[0].getElementById("content-iframe").className="normal";
+        $(document)[0].getElementById("content-iframe").src = page+".html";
+        $(document)[0].getElementById("content-iframe").className = "normal";
     }, (0.5 * 1000));
 }

@@ -40,4 +40,37 @@ body {
 .resume-content {
     padding: 10px 20px 10px 20px;
 }
+
+#skills-banner {
+    text-align: center;
+}
+
+.skills-banner-item {
+    margin: 10px 0px 10px 0px;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.skills-banner-item:hover {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.tooltip-theme {
+	background: #ff9800;
+	color: #727272;
+}
+
+.tooltip-theme .tooltipster-content {
+    font-family: 'Roboto', Tahoma, Geneva, sans-serif;
+	font-size: 16px;
+	line-height: 16px;
+	padding: 8px 10px;
+}
  
