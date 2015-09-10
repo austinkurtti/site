@@ -24,7 +24,7 @@ body {
 }
 
 #top-div {
-    padding: 50px;
+    
 }
  
 #prof-pic {
@@ -39,4 +39,54 @@ body {
     -ms-border-radius: 200px;
     -o-border-radius: 200px;
     border-radius: 200px;
+}
+
+#tile-row {
+    background-color: #353334;
+    padding: 150px;
+    text-align: center;
+}
+
+.tile {
+    cursor: pointer;
+    margin: 0 auto;
+    width: 200px;
+}
+
+.tile-icon {
+    background-color: #3a735a;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border-radius: 8px;
+    color: #fff;
+    padding-top: 50px;
+    padding-right: 20px;
+    padding-bottom: 50px;
+    padding-left: 20px;
+    -webkit-transition: background-color 0.25s ease-out, color 0.25s ease-out;
+    -moz-transition: background-color 0.25s ease-out, color 0.25s ease-out;
+    -ms-transition: background-color 0.25s ease-out, color 0.25s ease-out;
+    -o-transition: background-color 0.25s ease-out, color 0.25s ease-out;
+    transition: background-color 0.25s ease-out, color 0.25s ease-out;
+}
+
+.tile-icon:hover {
+    background-color: #686469;
+    color: #c3c3c3;
+}
+
+.tile-text {
+    color: #fff;
+    font-size: 20px;
+    -webkit-transition: color 0.25s ease-out;
+    -moz-transition: color 0.25s ease-out;
+    -ms-transition: color 0.25s ease-out;
+    -o-transition: color 0.25s ease-out;
+    transition: color 0.25s ease-out;
+}
+
+.tile-text:hover {
+    color: #c3c3c3;
 }

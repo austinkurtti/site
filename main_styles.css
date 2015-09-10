@@ -26,27 +26,37 @@ body {
 
 header {
     background-color: #e3e3e3;
-    padding-bottom: 40px;
+    padding-bottom: 35px;
 }
 
 #header-text {
-    margin-top: 50px;
-}
-
-#header-sub-text {
-    margin-top: 12px;
-}
-
-.main-text-span {
     font-family: 'Noticia Text', Tahoma, Geneva, sans-serif;
-    font-size: 50px;
+    margin-top: 20px;
 }
 
-.sub-text-span {
-    font-family: 'Noticia Text', Tahoma, Geneva, sans-serif;
-    font-size: 18px;
-    float: left;
-    clear: left;
+#header-main-text {
+    color: #353334;
+    font-size: 30px;
+    text-align: center;
+}
+
+#hmt-span {
+    cursor: pointer;
+    -webkit-transition: color 0.25s ease-out;
+    -moz-transition: color 0.25s ease-out;
+    -ms-transition: color 0.25s ease-out;
+    -o-transition: color 0.25s ease-out;
+    transition: color 0.25s ease-out;
+}
+
+#hmt-span:hover {
+    color: #3a735a;
+}
+
+.header-sub-text {
+    color: #686469;
+    font-size: 14px;
+    text-align: center;
 }
 
 #header-nav {
@@ -77,11 +87,11 @@ header {
 
 #content-iframe {
     -webkit-transition-property: opacity;
-    -webkit-transition-duration: 0.5s;
+    -webkit-transition-duration: 1s;
     -moz-transition-property: opacity;
-    -moz-transition-duration: 0.5s;
+    -moz-transition-duration: 1s;
     transition-property: opacity;
-    transition-duration: 0.5s;
+    transition-duration: 1s;
 }
 
 #content-iframe.faded {
