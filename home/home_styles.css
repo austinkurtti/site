@@ -12,7 +12,8 @@
  * *************** REDESIGN *************** */
  
 body {
-    background-color: #e3e3e3;
+/*    background-color: #e3e3e3;*/
+/*    background-image: url("../images/white-mountains-bkg.jpg");*/
     font-family: 'Roboto', Tahoma, Geneva, sans-serif;
 }
 
@@ -42,8 +43,11 @@ body {
 }
 
 #tile-row {
-    background-color: #353334;
-    padding: 150px;
+/*    background-color: #353334;*/
+    background-image: url("../images/black-mountains-bkg-2.jpg");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    padding: 250px;
     text-align: center;
 }
 
@@ -55,11 +59,11 @@ body {
 
 .tile-icon {
     background-color: #3a735a;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -ms-border-radius: 8px;
-    -o-border-radius: 8px;
-    border-radius: 8px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
     color: #fff;
     padding-top: 50px;
     padding-right: 20px;
@@ -89,4 +93,64 @@ body {
 
 .tile-text:hover {
     color: #c3c3c3;
+}
+
+#fact-row {
+    padding: 50px;
+}
+
+#basics {
+    font-size: 28px;
+}
+
+.basic-fact {
+    cursor: pointer;
+    margin-top:30px;
+    text-align: center;
+}
+
+.primary-fact {
+    opacity: 1;
+    -webkit-transition: all 0.25s linear;
+    -moz-transition: all 0.25s linear;
+    -ms-transition: all 0.25s linear;
+    -o-transition: all 0.25s linear;
+    transition: all 0.25s linear;
+}
+
+.secondary-fact {
+    color: #3a735a;
+    opacity: 0;
+    -webkit-transition: all 0.25s linear;
+    -moz-transition: all 0.25s linear;
+    -ms-transition: all 0.25s linear;
+    -o-transition: all 0.25s linear;
+    transition: all 0.25s linear;
+}
+
+.basic-fact:hover .primary-fact {
+    opacity: 0;
+    -webkit-transform: translateY(-35px);
+    -moz-transform: translateY(-35px);
+    -ms-transform: translateY(-35px);
+    -o-transform: translateY(-35px);
+    transform: translateY(-35px);
+}
+
+.basic-fact:hover .secondary-fact {
+    opacity: 1;
+    -webkit-transform: translateY(-35px);
+    -moz-transform: translateY(-35px);
+    -ms-transform: translateY(-35px);
+    -o-transform: translateY(-35px);
+    transform: translateY(-35px);
+}
+
+.basic-fact-icon {
+    color: #3a735a;
+}
+
+.basic-fact-text {
+    font-size: 20px;
+    padding-left: 10px;
 }
