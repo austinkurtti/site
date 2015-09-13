@@ -7,7 +7,7 @@ $(document).ready(function() {
     
     $(document)[0].getElementById("content-iframe").onload = function() {
         var currentPage = $(this)[0].contentWindow.document.getElementById("top-div");
-        $(document)[0].getElementById("content-iframe").setAttribute("height", currentPage.scrollHeight);
+        $(document)[0].getElementById("content-iframe").setAttribute("height", currentPage.clientHeight);
     }
 });
 

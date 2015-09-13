@@ -12,7 +12,8 @@
  * *************** REDESIGN *************** */
  
 body {
-    background-color: #e3e3e3;
+/*    background-color: #e3e3e3;*/
+    background-color: #fff;
     font-family: 'Roboto', Tahoma, Geneva, sans-serif;
 }
 
@@ -27,6 +28,19 @@ body {
     padding: 50px;
 }
 
+.resume-item {
+    margin-top: 50px;
+}
+
+.resume-header {
+    font-size: 28px;
+}
+
+.resume-content {
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
 .resume-content-header {
     color: #000000;
     font-weight: bold;
@@ -37,8 +51,9 @@ body {
     font-style: italic;
 }
 
-.resume-content {
-    padding: 10px 20px 10px 20px;
+.resume-content-item {
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 #skills-banner {
@@ -63,8 +78,10 @@ body {
 }
 
 .tooltip-theme {
-	background: #ff9800;
-	color: #727272;
+/*	background: #ff9800;*/
+	background: #3a735a;
+/*	color: #727272;*/
+	color: #fff;
 }
 
 .tooltip-theme .tooltipster-content {

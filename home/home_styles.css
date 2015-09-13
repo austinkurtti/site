@@ -99,7 +99,13 @@ body {
     padding: 50px;
 }
 
-#basics {
+#goal-row-1 {
+    padding-right: 50px;
+    padding-bottom: 20px;
+    padding-left: 50px;
+}
+
+.row-header {
     font-size: 28px;
 }
 
@@ -153,4 +159,24 @@ body {
 .basic-fact-text {
     font-size: 20px;
     padding-left: 10px;
+}
+
+[id^="goal-tile"] {
+    color: #fff;
+}
+
+#goal-tile-1 {
+    background-color: #34ac6b;
+}
+
+#goal-tile-2 {
+    background-color: #abab7b;
+}
+
+#goal-tile-3 {
+    background-color: #987cb4;
+}
+
+#goal-tile-4 {
+    background-color: #52caa8;
 }
