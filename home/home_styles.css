@@ -13,7 +13,6 @@
  
 body {
 /*    background-color: #e3e3e3;*/
-/*    background-image: url("../images/white-mountains-bkg.jpg");*/
     font-family: 'Roboto', Tahoma, Geneva, sans-serif;
 }
 
@@ -43,7 +42,6 @@ body {
 }
 
 #tile-row {
-/*    background-color: #353334;*/
     background-image: url("../images/black-mountains-bkg-2.jpg");
     background-repeat: no-repeat;
     background-position: center bottom;
@@ -110,7 +108,7 @@ body {
 }
 
 .basic-fact {
-    cursor: pointer;
+    cursor: default;
     margin-top:30px;
     text-align: center;
 }
@@ -161,22 +159,81 @@ body {
     padding-left: 10px;
 }
 
+.goal-tile {
+    background-color: rgba(0, 0, 0, 0);
+    height: 100%;
+    padding: 20px;
+    position: absolute;
+    width: 100%;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+}
+
 [id^="goal-tile"] {
+    background-repeat: no-repeat;
+    background-position: right;
     color: #fff;
+    cursor: default;
+    height: 250px;
+    opacity: 1;
+    padding: 0px;
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+}
+
+[id^="goal-tile"]:hover .goal-tile {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+[id^="goal-tile"]:hover .goal-tile-title {
+    opacity: 1;
+}
+
+[id^="goal-tile"]:hover .goal-tile-text {
+    opacity: 1;
+}
+
+.goal-tile-title {
+    color: #3a735a;
+    font-size: 24px;
+    opacity: 0;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+}
+
+.goal-tile-text {
+    color: #fff;
+    font-size: 14px;
+    opacity: 0;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
 }
 
 #goal-tile-1 {
-    background-color: #34ac6b;
+    background-image: url("../images/black-and-white-plane.jpg");
 }
 
 #goal-tile-2 {
-    background-color: #abab7b;
+    background-image: url("../images/baw-phone.jpg");
 }
 
 #goal-tile-3 {
-    background-color: #987cb4;
+    background-image: url("../images/graduate.jpg");
 }
 
 #goal-tile-4 {
-    background-color: #52caa8;
+    background-image: url("../images/stormtrooper-keyboard.jpg");
 }
