@@ -12,38 +12,34 @@ $(document).ready(function() {
 });
 
 function navigate(page) {
-debugger;
     if(page == "home") {
         $(document)[0].getElementById("hn-left").style.opacity = 0;
+        $(document)[0].getElementById("hn-left").setAttribute("onclick", "");
         $(document)[0].getElementById("hn-right").style.opacity = 0;
+        $(document)[0].getElementById("hn-right").setAttribute("onclick", "");
     }
     else if(page == "resume") {
-        parent.document.getElementById("hn-right").style.opacity = 1;
-        parent.document.getElementById("hn-right").onclick = function() {
-debugger;
-            navigate("project");
-        };
+        $(document)[0].getElementById("hn-left").style.opacity = 0;
+        $(document)[0].getElementById("hn-left").setAttribute("onclick", "");
+        $(document)[0].getElementById("hn-right").style.opacity = 1;
+        $(document)[0].getElementById("hn-right").setAttribute("onclick", "navigate('project')");
     }
     else if(page == "project") {
-        parent.document.getElementById("hn-left").style.opacity = 1;
-        parent.document.getElementById("hn-left").onclick = function() {
-            navigate("resume");
-        };
-        parent.document.getElementById("hn-right").style.opacity = 1;
-        parent.document.getElementById("hn-right").onclick = function() {
-            navigate("contact");
-        };
+        $(document)[0].getElementById("hn-left").style.opacity = 1;
+        $(document)[0].getElementById("hn-left").setAttribute("onclick", "navigate('resume')");
+        $(document)[0].getElementById("hn-right").style.opacity = 1;
+        $(document)[0].getElementById("hn-right").setAttribute("onclick", "navigate('contact')");
     }
     else {
-        parent.document.getElementById("hn-left").style.opacity = 1;
-        parent.document.getElementById("hn-left").onclick = function() {
-            navigate("project");
-        };
+        $(document)[0].getElementById("hn-left").style.opacity = 1;
+        $(document)[0].getElementById("hn-left").setAttribute("onclick", "navigate('project')");
+        $(document)[0].getElementById("hn-right").style.opacity = 0;
+        $(document)[0].getElementById("hn-right").setAttribute("onclick", "");
     }
     
     $(document)[0].getElementById("content-iframe").className = "faded";
     setTimeout(function() {
-        parent.document.getElementById("content-iframe").src = page+"/"+page+"_page.html";
+        $(document)[0].getElementById("content-iframe").src = page+"/"+page+"_page.html";
         $(document)[0].getElementById("content-iframe").className = "normal";
     }, (1 * 1000));
 }
