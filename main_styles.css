@@ -32,12 +32,18 @@ header {
 
 #header-text {
     font-family: 'Noticia Text', Tahoma, Geneva, sans-serif;
-    margin-top: 20px;
+    padding-top: 20px;
 }
 
 #header-main-text {
     color: #353334;
     font-size: 30px;
+    text-align: center;
+}
+
+.header-nav {
+    color: #686469;
+    opacity: 0;
     text-align: center;
 }
 
