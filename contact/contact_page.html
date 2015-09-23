@@ -9,53 +9,29 @@
 </head>
 <body>
     <div id="top-div">
-        <div class="row">
-            <div class="large-4 columns">
+        <div class="row full-width">
+            <div class="large-12 columns" id="contact-header">
+                <span>Drop a Line</span>
+            </div>
+        </div>
+        <div class="row full-width">
+            <div class="large-6 columns">
                 <div class="row">
-                    <a class="contact-icon"><i class="fa fa-github fa-3x"></i></a>
+                    <span>Connect with me</span>
                 </div>
                 <div class="row">
-                    <a class="contact-icon"><i class="fa fa-linkedin fa-3x"></i></a>
+                    <i class="fa fa-linkedin fa-2x contact-icon"></i>
                 </div>
             </div>
-            <div class="large-8 columns">
-                <form action="mailto:austin.kurtti@gmail.com" method="GET" enctype="text/plain">
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <div class="row collapse prefix-radius">
-                                <div class="small-3 columns">
-                                    <span class="prefix">Email</span>
-                                </div>
-                                <div class="small-9 columns">
-                                    <input type="text" required="true" placeholder="email@example.com">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="large-12 columns">
-                            <div class="row collapse prefix-radius">
-                                <div class="small-3 columns">
-                                    <span class="prefix">Subject</span>
-                                </div>
-                                <div class="small-9 columns">
-                                    <input type="text" required="true" name="subject" placeholder="Hello!">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="large-12 columns">
-                            <div class="row collapse prefix-radius">
-                                <div class="small-3 columns">
-                                    <span class="prefix">Message</span>
-                                </div>
-                                <div class="small-9 columns">
-                                    <textarea type="text" required="true" name="body" placeholder="Super secret message..."></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="large-6 columns">
+                <span>Send me an email</span>
+                <form action="http://formspree.io/austin.kurtti@gmail.com" method="POST">
+                    <input type="text" name="name" placeholder="Name"/>
+                    <input type="email" name="_replyto" placeholder="Email"/>
+                    <textarea type="text" name="message" placeholder="Message"></textarea>
+                    <input type="text" name="_gotcha" style="display:none;"/>
+                    <button id="submit-btn" type="submit">Send</button>
                 </form>
-                <div class="row" id="submit">
-                    <a class="submit-btn submit-btn-point" href="#">SEND</a>
-                </div>
             </div>
         </div>
     </div>

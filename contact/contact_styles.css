@@ -27,6 +27,11 @@ body {
     padding: 50px;
 }
 
+#contact-header {
+    font-size: 28px;
+    margin-bottom: 50px;
+}
+
 .contact-icon {
     color: #686469;
 }
@@ -36,7 +41,7 @@ body {
 }
 
 .contact-icon:hover {
-    color: #ffc43d;
+    color: #3a735a;
     cursor: pointer;
 }
 
@@ -48,66 +53,45 @@ textarea {
     height: 150px;
 }
 
-#submit {
-    text-align: right;
-    padding-right: 15px;
-    position: relative;
-}
-
-.submit-btn {
-    background-color: #5d9c49;
-    color: #ffffff;
-	font-size: 16px;
-    padding-top: 15px;
-    padding-right: 25px;
-    padding-bottom: 15px;
-    padding-left: 25px;
-}
-
-.submit-btn:visited {
-    color: #ffffff;
-}
-
-.submit-btn:hover {
-    color: #ffffff;
-}
-
-.submit-btn:active {
-    color: #ffffff;
-}
-
-.submit-btn-point {
+#submit-btn {
+    background-color: transparent;
+    border: 3px solid #3a735a;
+    color: #3a735a;
     display: inline-block;
-    vertical-align: middle;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px 25px;
     position: relative;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    backface-visibility: hidden;
+    text-transform: uppercase;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
 }
-.submit-btn-point:before {
-    pointer-events: none;
+
+#submit-btn:after {
+    background-color: #3a735a;
+    content: '';
+    height: 100%;
+    left: 0;
     position: absolute;
+    top: 0;
+    width: 0%;
     z-index: -1;
-    content: "";
-    border-style: solid;
-    left: calc(50% - 12px);
-    top: 0px;
-    border-width: 0px 12px 12px 12px;
-    border-color: transparent transparent #5d9c49 transparent;
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
-    transition-duration: 0.2s;
-    -webkit-transition-property: transform;
-    -moz-transition-property: transform;
-    transition-property: transform;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
 }
-.submit-btn-point:hover:before, .submit-btn-point:active:before {
-    -webkit-transform: translateY(-10px);
-    -moz-transform: translateY(-10px);
-    transform: translateY(-10px);
+
+#submit-btn:hover, #submit-btn:active {
+    color: #fff;
+}
+
+#submit-btn:hover:after, #submit-btn:active:after {
+    width: 100%;
 }
 
 
