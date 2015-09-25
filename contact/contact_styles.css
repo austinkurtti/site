@@ -32,8 +32,25 @@ body {
     margin-bottom: 50px;
 }
 
+.contact-row {
+    padding-bottom: 50px;
+}
+
+.contact-row-header {
+    color: #3a735a;
+    font-size: 20px;
+    padding-bottom: 15px;
+}
+
 .contact-icon {
     color: #686469;
+    cursor: pointer;
+    margin-right: 40px;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
 }
 
 .contact-icon:visited {
@@ -42,7 +59,11 @@ body {
 
 .contact-icon:hover {
     color: #3a735a;
-    cursor: pointer;
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .contact-icon:active {
