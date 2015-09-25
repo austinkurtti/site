@@ -115,6 +115,16 @@ textarea {
     width: 100%;
 }
 
+#canvas-div {
+    height: 400px;
+    width: 400px;
+}
+
+#canvas {
+    height: 100%;
+    width: 100%;
+}
+
 
 
 /*****EXPERIMENTAL*****/
