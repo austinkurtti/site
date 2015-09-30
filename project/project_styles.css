@@ -30,3 +30,19 @@ body {
 .project-header {
     font-size: 28px;
 }
+
+.project-content {
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+.project-content-text {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#indago-logo {
+    height: 60px;
+    margin-left: 20px;
+    width: 60px;
+}
