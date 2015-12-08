@@ -48,14 +48,30 @@ header {
     text-align: center;
 }
 
-.header-nav {
+.nav-menu {
+    cursor: pointer;
+    float: right;
+    margin-top: 30px;
+    vertical-align: middle;
+    -webkit-transition: color 0.25s ease-out;
+    -moz-transition: color 0.25s ease-out;
+    -ms-transition: color 0.25s ease-out;
+    -o-transition: color 0.25s ease-out;
+    transition: color 0.25s ease-out;
+}
+
+.nav-menu:hover {
+    color: #3a735a;
+}
+
+/*.header-nav {
     color: #686469;
     opacity: 0;
     padding-top: 30px;
     text-align: center;
-}
+}*/
 
-.nav-container {
+/*.nav-container {
     cursor: pointer;
     display: inline-block;
     font-family: 'Roboto', Tahoma, Geneva, sans-serif;
@@ -64,7 +80,7 @@ header {
     -ms-transition: color 0.25s ease-out;
     -o-transition: color 0.25s ease-out;
     transition: color 0.25s ease-out;
-}
+}*/
 
 @-webkit-keyframes bounce-horizontal-up {
   16.65% {-webkit-transform: translateY(7px);}
