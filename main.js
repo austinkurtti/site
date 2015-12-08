@@ -1,6 +1,10 @@
 $(document).ready(function() {
     $(document).foundation();
     
+    $('.tooltip').tooltipster({
+        theme: 'tooltip-theme'
+    });
+    
     $("#hmt-span").click(function() {
         navigate("home");
     });
@@ -10,6 +14,10 @@ $(document).ready(function() {
         $(document)[0].getElementById("content-iframe").setAttribute("height", currentPage.clientHeight);
     }
 });
+
+function backToTop() {
+    $("body").animate({scrollTop:0}, 1000);
+}
 
 function navigate(page) {
     if(page == "home") {

@@ -66,6 +66,47 @@ header {
     transition: color 0.25s ease-out;
 }
 
+@-webkit-keyframes bounce-horizontal-up {
+  16.65% {-webkit-transform: translateY(7px);}
+  33.3% {-webkit-transform: translateY(-5px);}
+  49.95% {-webkit-transform: translateY(3px);}
+  66.6% {-webkit-transform: translateY(-1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@-moz-keyframes bounce-horizontal-up {
+  16.65% {-webkit-transform: translateY(7px);}
+  33.3% {-webkit-transform: translateY(-5px);}
+  49.95% {-webkit-transform: translateY(3px);}
+  66.6% {-webkit-transform: translateY(-1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@-ms-keyframes bounce-horizontal-up {
+  16.65% {-webkit-transform: translateY(7px);}
+  33.3% {-webkit-transform: translateY(-5px);}
+  49.95% {-webkit-transform: translateY(3px);}
+  66.6% {-webkit-transform: translateY(-1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@-o-keyframes bounce-horizontal-up {
+  16.65% {-webkit-transform: translateY(7px);}
+  33.3% {-webkit-transform: translateY(-5px);}
+  49.95% {-webkit-transform: translateY(3px);}
+  66.6% {-webkit-transform: translateY(-1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@keyframes bounce-horizontal-up {
+  16.65% {-webkit-transform: translateY(7px);}
+  33.3% {-webkit-transform: translateY(-5px);}
+  49.95% {-webkit-transform: translateY(3px);}
+  66.6% {-webkit-transform: translateY(-1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+
 @-webkit-keyframes bounce-horizontal-left {
   16.65% {-webkit-transform: translateX(7px);}
   33.3% {-webkit-transform: translateX(-5px);}
@@ -146,6 +187,47 @@ header {
   66.6% {-webkit-transform: translateX(1px);}
   83.25% {-webkit-transform: translateX(0px);}
   100% {-webkit-transform: translateX(0px);}
+}
+
+@-webkit-keyframes bounce-horizontal-down {
+  16.65% {-webkit-transform: translateY(-7px);}
+  33.3% {-webkit-transform: translateY(5px);}
+  49.95% {-webkit-transform: translateY(-3px);}
+  66.6% {-webkit-transform: translateY(1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@-moz-keyframes bounce-horizontal-down {
+  16.65% {-webkit-transform: translateY(-7px);}
+  33.3% {-webkit-transform: translateY(5px);}
+  49.95% {-webkit-transform: translateY(-3px);}
+  66.6% {-webkit-transform: translateY(1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@-ms-keyframes bounce-horizontal-down {
+  16.65% {-webkit-transform: translateY(-7px);}
+  33.3% {-webkit-transform: translateY(5px);}
+  49.95% {-webkit-transform: translateY(-3px);}
+  66.6% {-webkit-transform: translateY(1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@-o-keyframes bounce-horizontal-down {
+  16.65% {-webkit-transform: translateY(-7px);}
+  33.3% {-webkit-transform: translateY(5px);}
+  49.95% {-webkit-transform: translateY(-3px);}
+  66.6% {-webkit-transform: translateY(1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@keyframes bounce-horizontal-down {
+  16.65% {-webkit-transform: translateY(-7px);}
+  33.3% {-webkit-transform: translateY(5px);}
+  49.95% {-webkit-transform: translateY(-3px);}
+  66.6% {-webkit-transform: translateY(1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
 }
 
 .nav-container:hover {
@@ -239,6 +321,33 @@ footer {
     padding-top:50px;
     padding-bottom:50px;
     text-align: center;
+}
+
+#back-to-top {
+    margin-top: 20px;
+    padding: 5px;
+}
+
+#back-to-top:hover {
+    color: #3a735a;
+    cursor: pointer;
+    -webkit-animation: bounce-horizontal-up 0.75s ease-out;
+    -moz-animation: bounce-horizontal-up 0.75s ease-out;
+    -ms-animation: bounce-horizontal-up 0.75s ease-out;
+    -o-animation: bounce-horizontal-up 0.75s ease-out;
+    animation: bounce-horizontal-up 0.75s ease-out;
+}
+
+.tooltip-theme {
+	background: #3a735a;
+	color: #fff;
+}
+
+.tooltip-theme .tooltipster-content {
+    font-family: 'Roboto', Tahoma, Geneva, sans-serif;
+	font-size: 16px;
+	line-height: 16px;
+	padding: 8px 10px;
 }
 
 
