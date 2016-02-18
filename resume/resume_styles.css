@@ -60,8 +60,18 @@ body {
     text-align: center;
 }
 
+.skills-header {
+    color: #000000;
+    font-weight: bold;
+    margin-left: 70px;
+}
+
+.skills-banner-item-container {
+    margin: 20px 0px;
+}
+
 .skills-banner-item {
-    margin: 10px 0px 10px 0px;
+    font-size: 5em;
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
     -ms-transition: all 0.2s ease;
