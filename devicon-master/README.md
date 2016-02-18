@@ -1,14 +1,21 @@
-# devicon V2
+# Devicon v2
 
-devicon aims to gather all logos representing development languages and tools.
+[http://devicon.fr/](http://devicon.fr/)
 
-See all available icons on the [project page](http://konpa.github.io/devicon/).
+Devicon aims to gather all logos representing development languages and tools.
+Each icon comes in several versions: font/svg, original/plain/line, colored/not colored, wordmark/no wordmark.
+
+Devicon it's 78 icons and 200+ versions. And it's growing!
+
+See all available icons on the [new website](http://devicon.fr/).
 
 #### Icon requests
 
 Please leave a comment [here](https://github.com/konpa/devicon/issues/11) in order to request an icon.
 
 ## How to use
+
+For a super fast setup go check [devicon.fr](http://devicon.fr/)
 
 _2 ways of using devicon:_
 
@@ -62,8 +69,26 @@ _2 ways of using devicon:_
   <i class="devicon-git-plain-wordmark colored"></i>
 ```
 
-##### See the [devicon.json file](https://github.com/konpa/devicon/blob/master/devicon.json) or [the project page](http://konpa.github.io/devicon/) for complete and up to date reference of icon's available versions.
+##### NPM and Bower packages
+
+You can install devicon as a dependency to your project either with NPM or Bower
+
+```
+  // NPM
+  npm install --save devicon
+  
+  // Bower
+  bower install --save devicon
+```
+
+<sub>Final font is build with [Icomoon app](https://icomoon.io/)</sub>
+
+##### See the [devicon.json file](https://github.com/konpa/devicon/blob/master/devicon.json) or [devicon.fr](http://devicon.fr/) for complete and up to date reference of icon's available versions.
 
 ## Contribute
 
 Please have a look at the CONTRIBUTING.md file
+
+Under [MIT Licence](https://github.com/konpa/devicon/blob/master/LICENSE)
+
+<sub>All product names, logos, and brandsare property of their respective owners. All company, product and service names used in this website are for identification purposes only. Use of these names, logos, and brands does not imply endorsement.</sub>
