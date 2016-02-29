@@ -41,8 +41,8 @@ body {
     padding-bottom: 20px;
 }
 
-#indago-logo {
-    height: 60px;
+.logo-img {
+    height: 50px;
     margin-left: 20px;
-    width: 60px;
+    width: 50px;
 }
