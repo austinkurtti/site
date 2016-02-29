@@ -1,0 +1,73 @@
+/************************************/
+/********** Tromino styles **********/
+/************************************/
+body {
+    background: #fff;
+    color: #70798A;
+    cursor: auto;
+    font-family: 'Roboto', Tahoma, Geneva, sans-serif;
+    font-size: 100%;
+    font-style: normal;
+    font-weight: normal;
+    height: 100%;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.right {
+    float: right;
+}
+.left {
+    float: left;
+}
+.hidden {
+    display: none;
+}
+
+.trom-btn {
+    background-color: #fff;
+    border: 2px solid #70798A;
+    border-radius: 0.4rem;
+    box-shadow: none;
+    color: #70798A;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0.6rem 1.1rem;
+    transition: all 0.15s linear;
+}
+.trom-btn:hover {
+    background-color: #70798A;
+    color: #fff;
+}
+.trom-btn.success {
+    background-color: #fff;
+    border-color: #6DC992;
+    color: #6DC992;
+}
+.trom-btn.success:hover {
+    background-color: #6DC992;
+    color: #fff;
+}
+.trom-btn.caution {
+    background-color: #fff;
+    border-color: #F0A956;
+    color: #F0A956;
+}
+.trom-btn.caution:hover {
+    background-color: #F0A956;
+    color: #fff;
+}
+.trom-btn.failure {
+    background-color: #fff;
+    border-color: #F27474;
+    color: #F27474;
+}
+.trom-btn.failure:hover {
+    background-color: #F27474;
+    color: #fff;
+}
