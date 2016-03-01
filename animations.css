@@ -1,0 +1,163 @@
+@-webkit-keyframes bounce-horizontal-up {
+  16.65% {-webkit-transform: translateY(7px);}
+  33.3% {-webkit-transform: translateY(-5px);}
+  49.95% {-webkit-transform: translateY(3px);}
+  66.6% {-webkit-transform: translateY(-1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@-moz-keyframes bounce-horizontal-up {
+  16.65% {-webkit-transform: translateY(7px);}
+  33.3% {-webkit-transform: translateY(-5px);}
+  49.95% {-webkit-transform: translateY(3px);}
+  66.6% {-webkit-transform: translateY(-1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@-ms-keyframes bounce-horizontal-up {
+  16.65% {-webkit-transform: translateY(7px);}
+  33.3% {-webkit-transform: translateY(-5px);}
+  49.95% {-webkit-transform: translateY(3px);}
+  66.6% {-webkit-transform: translateY(-1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@-o-keyframes bounce-horizontal-up {
+  16.65% {-webkit-transform: translateY(7px);}
+  33.3% {-webkit-transform: translateY(-5px);}
+  49.95% {-webkit-transform: translateY(3px);}
+  66.6% {-webkit-transform: translateY(-1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@keyframes bounce-horizontal-up {
+  16.65% {-webkit-transform: translateY(7px);}
+  33.3% {-webkit-transform: translateY(-5px);}
+  49.95% {-webkit-transform: translateY(3px);}
+  66.6% {-webkit-transform: translateY(-1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+
+@-webkit-keyframes bounce-horizontal-left {
+  16.65% {-webkit-transform: translateX(7px);}
+  33.3% {-webkit-transform: translateX(-5px);}
+  49.95% {-webkit-transform: translateX(3px);}
+  66.6% {-webkit-transform: translateX(-1px);}
+  83.25% {-webkit-transform: translateX(0px);}
+  100% {-webkit-transform: translateX(0px);}
+}
+@-moz-keyframes bounce-horizontal-left {
+  16.65% {-moz-transform: translateX(7px);}
+  33.3% {-moz-transform: translateX(-5px);}
+  49.95% {-moz-transform: translateX(3px);}
+  66.6% {-moz-transform: translateX(-1px);}
+  83.25% {-moz-transform: translateX(0px);}
+  100% {-moz-transform: translateX(0px);}
+}
+@-ms-keyframes bounce-horizontal-left {
+  16.65% {-ms-transform: translateX(7px);}
+  33.3% {-ms-transform: translateX(-5px);}
+  49.95% {-ms-transform: translateX(3px);}
+  66.6% {-ms-transform: translateX(-1px);}
+  83.25% {-ms-transform: translateX(0px);}
+  100% {-ms-transform: translateX(0px);}
+}
+@-o-keyframes bounce-horizontal-left {
+  16.65% {-o-transform: translateX(7px);}
+  33.3% {-o-transform: translateX(-5px);}
+  49.95% {-o-transform: translateX(3px);}
+  66.6% {-o-transform: translateX(-1px);}
+  83.25% {-o-transform: translateX(0px);}
+  100% {-o-transform: translateX(0px);}
+}
+@keyframes bounce-horizontal-left {
+  16.65% {transform: translateX(7px);}
+  33.3% {transform: translateX(-5px);}
+  49.95% {transform: translateX(3px);}
+  66.6% {transform: translateX(-1px);}
+  83.25% {transform: translateX(0px);}
+  100% {transform: translateX(0px);}
+}
+
+@-webkit-keyframes bounce-horizontal-right {
+  16.65% {-webkit-transform: translateX(-7px);}
+  33.3% {-webkit-transform: translateX(5px);}
+  49.95% {-webkit-transform: translateX(-3px);}
+  66.6% {-webkit-transform: translateX(1px);}
+  83.25% {-webkit-transform: translateX(0px);}
+  100% {-webkit-transform: translateX(0px);}
+}
+@-moz-keyframes bounce-horizontal-right {
+  16.65% {-webkit-transform: translateX(-7px);}
+  33.3% {-webkit-transform: translateX(5px);}
+  49.95% {-webkit-transform: translateX(-3px);}
+  66.6% {-webkit-transform: translateX(1px);}
+  83.25% {-webkit-transform: translateX(0px);}
+  100% {-webkit-transform: translateX(0px);}
+}
+@-ms-keyframes bounce-horizontal-right {
+  16.65% {-webkit-transform: translateX(-7px);}
+  33.3% {-webkit-transform: translateX(5px);}
+  49.95% {-webkit-transform: translateX(-3px);}
+  66.6% {-webkit-transform: translateX(1px);}
+  83.25% {-webkit-transform: translateX(0px);}
+  100% {-webkit-transform: translateX(0px);}
+}
+@-o-keyframes bounce-horizontal-right {
+  16.65% {-webkit-transform: translateX(-7px);}
+  33.3% {-webkit-transform: translateX(5px);}
+  49.95% {-webkit-transform: translateX(-3px);}
+  66.6% {-webkit-transform: translateX(1px);}
+  83.25% {-webkit-transform: translateX(0px);}
+  100% {-webkit-transform: translateX(0px);}
+}
+@keyframes bounce-horizontal-right {
+  16.65% {-webkit-transform: translateX(-7px);}
+  33.3% {-webkit-transform: translateX(5px);}
+  49.95% {-webkit-transform: translateX(-3px);}
+  66.6% {-webkit-transform: translateX(1px);}
+  83.25% {-webkit-transform: translateX(0px);}
+  100% {-webkit-transform: translateX(0px);}
+}
+
+@-webkit-keyframes bounce-horizontal-down {
+  16.65% {-webkit-transform: translateY(-7px);}
+  33.3% {-webkit-transform: translateY(5px);}
+  49.95% {-webkit-transform: translateY(-3px);}
+  66.6% {-webkit-transform: translateY(1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@-moz-keyframes bounce-horizontal-down {
+  16.65% {-webkit-transform: translateY(-7px);}
+  33.3% {-webkit-transform: translateY(5px);}
+  49.95% {-webkit-transform: translateY(-3px);}
+  66.6% {-webkit-transform: translateY(1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@-ms-keyframes bounce-horizontal-down {
+  16.65% {-webkit-transform: translateY(-7px);}
+  33.3% {-webkit-transform: translateY(5px);}
+  49.95% {-webkit-transform: translateY(-3px);}
+  66.6% {-webkit-transform: translateY(1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@-o-keyframes bounce-horizontal-down {
+  16.65% {-webkit-transform: translateY(-7px);}
+  33.3% {-webkit-transform: translateY(5px);}
+  49.95% {-webkit-transform: translateY(-3px);}
+  66.6% {-webkit-transform: translateY(1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}
+@keyframes bounce-horizontal-down {
+  16.65% {-webkit-transform: translateY(-7px);}
+  33.3% {-webkit-transform: translateY(5px);}
+  49.95% {-webkit-transform: translateY(-3px);}
+  66.6% {-webkit-transform: translateY(1px);}
+  83.25% {-webkit-transform: translateY(0px);}
+  100% {-webkit-transform: translateY(0px);}
+}

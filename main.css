@@ -1,73 +1,147 @@
-/************************************/
-/********** Tromino styles **********/
-/************************************/
+/* PASTELL PALLET
+    #CAC05F - yellow
+    #C4A3BF - purple
+    #D19576 - red
+    #83C4C3 - blue
+    #8FCE8E - green
+    #70798A - blue-gray
+    #909090 - gray
+*/
+
+/*******************/
+/*** Body styles ***/
+/*******************/
 body {
-    background: #fff;
-    color: #70798A;
-    cursor: auto;
+    background-image: url("images/black-mountains-bkg-2.jpg");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-attachment: fixed;
     font-family: 'Roboto', Tahoma, Geneva, sans-serif;
-    font-size: 100%;
-    font-style: normal;
-    font-weight: normal;
-    height: 100%;
-    line-height: 1.5;
+    font-size: 1em;
+}
+.full-width {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: initial;
+    width: 100%;
+}
+
+/*********************/
+/*** Header styles ***/
+/*********************/
+header {
+    background-color: #e3e3e3;
+    border-bottom: 4px solid #70798A;
+}
+#header {
+    font-family: 'Noticia Text', Tahoma, Geneva, sans-serif;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+#header-title {
+    color: #353334;
+    font-size: 1.5em;
+    text-align: center;
+}
+#header-title span {
+    color: #70798A;
+    font-weight: bold;
+}
+.header-sub-title {
+    color: #909090;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+/**********************/
+/*** Content styles ***/
+/**********************/
+#content {
+    background: #fff;
     margin: 0;
-    padding: 0;
+    width: 100%;
+}
+.section {
+    margin: 0;
+    max-width: 70em;
+    padding-top: 20px;
+    padding-right: 50px;
+    padding-bottom: 20px;
+    padding-left: 50px;
+    width: 100%;
+}
+.section-header {
+    font-size: 2em;
 }
 
-a:hover {
-    cursor: pointer;
+/*********************/
+/*** Footer styles ***/
+/*********************/
+footer {
+    background: #c3c3c3;
+    font-size: 12px;
+    margin-top: -8px;
+    padding-top:50px;
+    padding-bottom:50px;
+    text-align: center;
 }
-
-.right {
-    float: right;
+#back-to-top {
+    margin-top: 20px;
+    padding: 20px;
 }
-.left {
-    float: left;
-}
-.hidden {
-    display: none;
-}
-
-.trom-btn {
-    background-color: #fff;
-    border: 2px solid #70798A;
-    border-radius: 0.4rem;
-    box-shadow: none;
+#back-to-top:hover {
     color: #70798A;
     cursor: pointer;
+    -webkit-animation: bounce-horizontal-up 0.75s ease-out;
+    -moz-animation: bounce-horizontal-up 0.75s ease-out;
+    -ms-animation: bounce-horizontal-up 0.75s ease-out;
+    -o-animation: bounce-horizontal-up 0.75s ease-out;
+    animation: bounce-horizontal-up 0.75s ease-out;
+}
+.overlay {
+    background: rgba(0, 0, 0, 0.7);
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: opacity 0.5s;
+    visibility: hidden;
+}
+.overlay:target {
+    opacity: 1;
+    visibility: visible;
+}
+.popup {
+    background: #fff;
+    border-radius: 4px;
+    margin: 100px auto;
+    padding: 20px;
+    position: relative;
+    transition: all 0.5s ease-out;
+    width: 30%;
+}
+.popup-header {
+    color: #70798A;
+    font-size: 18px;
     font-weight: bold;
-    padding: 0.6rem 1.1rem;
-    transition: all 0.15s linear;
+    margin-top: 0;
 }
-.trom-btn:hover {
-    background-color: #70798A;
-    color: #fff;
+.popup-content {
+    font-size: 14px;
+    margin-top: 10px;
+    max-height: 30%;
+    overflow: auto;
+    text-align: left;
 }
-.trom-btn.success {
-    background-color: #fff;
-    border-color: #6DC992;
-    color: #6DC992;
+.close-popup {
+    color: #000;
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    transition: all 0.25s;
 }
-.trom-btn.success:hover {
-    background-color: #6DC992;
-    color: #fff;
-}
-.trom-btn.caution {
-    background-color: #fff;
-    border-color: #F0A956;
-    color: #F0A956;
-}
-.trom-btn.caution:hover {
-    background-color: #F0A956;
-    color: #fff;
-}
-.trom-btn.failure {
-    background-color: #fff;
-    border-color: #F27474;
-    color: #F27474;
-}
-.trom-btn.failure:hover {
-    background-color: #F27474;
-    color: #fff;
+.close-popup:hover {
+    color: #D19576;
 }
