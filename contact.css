@@ -1,0 +1,19 @@
+textarea {
+    height: 100px;
+}
+
+#submit-btn {
+    background-color: #fff;
+    border: 2px solid #D19436;
+    color: #D19436;
+    font-weight: bold;
+    outline: none;
+    padding: 0.5em 1.5em;
+    text-transform: uppercase;
+    transition: all 0.15s linear;
+}
+
+#submit-btn:hover {
+    background-color: #D19436;
+    color: #fff;
+}

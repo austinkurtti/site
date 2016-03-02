@@ -1,4 +1,4 @@
-/* PASTELL PALLET
+/* PASTELL PALETTE
     #CAC05F - yellow
     #C4A3BF - purple
     #D19576 - red
@@ -6,6 +6,12 @@
     #8FCE8E - green
     #70798A - blue-gray
     #909090 - gray
+*/
+
+/* DICOLOR PALETTE
+    #DF614D - red (component accents)
+    #D19436 - orange (text accents)
+    #646464 - gray
 */
 
 /*******************/
@@ -31,7 +37,7 @@ body {
 /*********************/
 header {
     background-color: #e3e3e3;
-    border-bottom: 4px solid #70798A;
+    border-bottom: 4px solid #646464;
     position: fixed;
     width: 100%;
     z-index: 100;
@@ -47,7 +53,7 @@ header {
     text-align: center;
 }
 #header-title span {
-    color: #70798A;
+    color: #D19436;
     font-weight: bold;
 }
 .header-sub-title {
@@ -81,7 +87,7 @@ header {
 /*    text-align: center;*/
 }
 .section-column-header {
-    color: #70798A;
+    color: #D19436;
     font-size: 1.3em;
 }
 
@@ -90,7 +96,7 @@ header {
 /*********************/
 footer {
     background: #c3c3c3;
-    font-size: 12px;
+    font-size: 0.75em;
     margin-top: -8px;
     padding-top:50px;
     padding-bottom:50px;
@@ -101,7 +107,7 @@ footer {
     padding: 20px;
 }
 #back-to-top:hover {
-    color: #70798A;
+    color: #DF614D;
     cursor: pointer;
     -webkit-animation: bounce-horizontal-up 0.75s ease-out;
     -moz-animation: bounce-horizontal-up 0.75s ease-out;
@@ -134,13 +140,13 @@ footer {
     width: 30%;
 }
 .popup-header {
-    color: #70798A;
-    font-size: 18px;
+    color: #D19436;
+    font-size: 1.5em;
     font-weight: bold;
     margin-top: 0;
 }
 .popup-content {
-    font-size: 14px;
+    font-size: 1.2em;
     margin-top: 10px;
     max-height: 30%;
     overflow: auto;
@@ -154,5 +160,19 @@ footer {
     transition: all 0.25s;
 }
 .close-popup:hover {
-    color: #D19576;
+    color: #DF614D;
+}
+
+/**********************/
+/*** Tooltip styles ***/
+/**********************/
+.tooltip-theme {
+	background: #DF614D;
+	color: #fff;
+}
+.tooltip-theme .tooltipster-content {
+    font-family: 'Roboto', Tahoma, Geneva, sans-serif;
+	font-size: 16px;
+	line-height: 16px;
+	padding: 8px 10px;
 }

@@ -91,7 +91,27 @@
             
         </div>
         <div class="row section" id="contact">
-            
+            <div class="row">
+                <div class="large-12 columns">
+                    <span class="section-header">Contact</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-5 large-push-1 columns section-column">
+                    <span class="section-column-header">Send a quick message</span>
+                    <form action="http://formspree.io/austin.kurtti@gmail.com" method="POST">
+                        <input type="text" name="name" placeholder="Name"/>
+                        <input type="email" name="_replyto" placeholder="Email"/>
+                        <textarea type="text" name="message" placeholder="Message"></textarea>
+                        <input type="text" name="color" placeholder="What is your favorite color?"/>
+                        <input type="text" name="_gotcha" style="display:none;"/>
+                        <button id="submit-btn" type="submit">Send</button>
+                    </form>
+                </div>
+                <div class="large-5 large-pull-1 columns section-column">
+                    <span class="section-column-header">Other methods</span>
+                </div>
+            </div>
         </div>
     </div>
     
