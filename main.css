@@ -32,6 +32,9 @@ body {
 header {
     background-color: #e3e3e3;
     border-bottom: 4px solid #70798A;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
 }
 #header {
     font-family: 'Noticia Text', Tahoma, Geneva, sans-serif;
@@ -58,12 +61,13 @@ header {
 /**********************/
 #content {
     background: #fff;
-    margin: 0;
+    padding-top: 93px;
     width: 100%;
 }
 .section {
     margin: 0;
-    max-width: 70em;
+    max-width: 100%;
+/*    max-width: 70em;*/
     padding-top: 20px;
     padding-right: 50px;
     padding-bottom: 20px;
@@ -72,6 +76,13 @@ header {
 }
 .section-header {
     font-size: 2em;
+}
+.section-column {
+/*    text-align: center;*/
+}
+.section-column-header {
+    color: #70798A;
+    font-size: 1.3em;
 }
 
 /*********************/
