@@ -4,6 +4,10 @@ $(document).ready(function() {
     $('.tooltip').tooltipster({
         theme: 'tooltip-theme'
     });
+    $('.basics-tooltip').tooltipster({
+        position: 'bottom',
+        theme: 'tooltip-theme'
+    });
     
     $("#hmt-span").click(function() {
         navigate("home");

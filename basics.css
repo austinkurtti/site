@@ -1,5 +1,9 @@
 #basics:hover .basics-item-container:not(:hover) {
+    height: 7em;
+    margin-top: 1em;
+    margin-bottom: 1em;
     opacity: 0.5;
+    width: 7em;
 }
 .basics-item {
     text-align: center;
@@ -10,11 +14,11 @@
     height: 9em;
     margin: 0 auto;
     width: 9em;
-    -webkit-transition: all 0.15s linear;
-    -moz-transition: all 0.15s linear;
-    -ms-transition: all 0.15s linear;
-    -o-transition: all 0.15s linear;
-    transition: all 0.15s linear;
+    -webkit-transition: all 0.25s linear;
+    -moz-transition: all 0.25s linear;
+    -ms-transition: all 0.25s linear;
+    -o-transition: all 0.25s linear;
+    transition: all 0.25s linear;
 }
 .basics-item-container i {
     color: #909090;
@@ -25,11 +29,11 @@
     -ms-transform: translateY(-50%);
     -o-transform: translateY(-50%);
     transform: translateY(-50%);
-    -webkit-transition: all 0.15s linear;
-    -moz-transition: all 0.15s linear;
-    -ms-transition: all 0.15s linear;
-    -o-transition: all 0.15s linear;
-    transition: all 0.15s linear;
+    -webkit-transition: all 0.25s linear;
+    -moz-transition: all 0.25s linear;
+    -ms-transition: all 0.25s linear;
+    -o-transition: all 0.25s linear;
+    transition: all 0.25s linear;
 }
 .basics-item-container:hover {
     background: #fff;
