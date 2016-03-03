@@ -62,19 +62,23 @@ header {
 /*** Content styles ***/
 /**********************/
 #content {
-    background: #fff;
+    background: transparent;
     padding-top: 93px;
     width: 100%;
 }
 .section {
+    background: #fff;
     margin: 0;
     max-width: 100%;
 /*    max-width: 70em;*/
-    padding-top: 20px;
+    padding-top: 60px;
     padding-right: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 60px;
     padding-left: 50px;
     width: 100%;
+}
+.section:nth-child(even) {
+    background: #eee;
 }
 .section-header {
     font-size: 2em;
