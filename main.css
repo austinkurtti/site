@@ -21,6 +21,12 @@ body {
     max-width: initial;
     width: 100%;
 }
+a:link, a:visited {
+    color: #D19436;
+}
+a:hover, a:active {
+    color: #C18426;
+}
 
 /*********************/
 /*** Header styles ***/
