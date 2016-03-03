@@ -1,0 +1,44 @@
+#intro {
+    background: transparent;
+}
+#intro-row-0 {
+    height: 100%;
+}
+#intro-pic {
+    background-image: url("images/prof_pic.jpg");
+    background-position: center;
+    border: 2px solid #fff;
+    border-radius: 8em;
+    height: 16em;
+    margin: auto;
+    width: 16em;
+    -webkit-transform: translateY(50%);
+    -moz-transform: translateY(50%);
+    -ms-transform: translateY(50%);
+    -o-transform: translateY(50%);
+    transform: translateY(50%);
+}
+#intro-pic-container {
+    height: 100%;
+}
+#intro-scroll {
+    color: #fff;
+    cursor: pointer;
+    padding: 1em;
+    -webkit-transition: all 0.15s linear;
+    -moz-transition: all 0.15s linear;
+    -ms-transition: all 0.15s linear;
+    -o-transition: all 0.15s linear;
+    transition: all 0.15s linear;
+}
+#intro-scroll:hover {
+    color: #DF614D;
+    -webkit-animation: bounce-horizontal-down 0.75s ease-out;
+    -moz-animation: bounce-horizontal-down 0.75s ease-out;
+    -ms-animation: bounce-horizontal-down 0.75s ease-out;
+    -o-animation: bounce-horizontal-down 0.75s ease-out;
+    animation: bounce-horizontal-down 0.75s ease-out;
+}
+#intro-scroll-container {
+    text-align: center;
+}
