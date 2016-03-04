@@ -18,9 +18,20 @@ $(document).ready(function() {
         headerHeight = $("#header").height() + 4;
     introHeight = totalHeight - headerHeight;
     $("#intro").height(introHeight - 120);
+    
+    /* Slick */
+    $(document).ready(function() {
+        $(".skills-slider").slick({
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            infinite: true
+        });
+    });
 });
 
-function toIntro() {
+function toBasics() {
     $("body").animate({scrollTop:introHeight}, 1500);
 }
 

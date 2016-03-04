@@ -1,3 +1,4 @@
+/* General animations */
 @-webkit-keyframes bounce-horizontal-up {
   16.65% {-webkit-transform: translateY(7px);}
   33.3% {-webkit-transform: translateY(-5px);}

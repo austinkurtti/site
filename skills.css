@@ -1,0 +1,14 @@
+.skills-row {
+    padding-top: 20px;
+    padding-bottom: 60px;
+}
+.skills-item {
+    font-size: 5em;
+}
+.skills-item-container {
+    text-align: center;
+}
+.slick-prev:before,
+.slick-next:before {
+    color: #DF614D;
+}
