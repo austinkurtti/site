@@ -5,7 +5,7 @@
     height: 100%;
 }
 #intro-pic {
-    background-image: url("images/prof_pic.jpg");
+    background-image: url("../images/prof_pic.jpg");
     background-position: center;
     border: 2px solid #fff;
     border-radius: 8em;
