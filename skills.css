@@ -19,9 +19,12 @@
     color: #D19436;
     font-size: 1.2em;
     font-weight: bold;
+    margin-top: 0;
 }
 #tools-content {
     margin-top: 10px;
+    max-height: 30%;
+    overflow: auto;
 }
 .tools-item {
     display: block;
