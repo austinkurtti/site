@@ -12,3 +12,18 @@
 .slick-next:before {
     color: #DF614D;
 }
+#tools {
+    text-align: center;
+}
+#tools-header {
+    color: #D19436;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+#tools-content {
+    margin-top: 10px;
+}
+.tools-item {
+    display: block;
+    font-size: 0.9em;
+}

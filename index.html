@@ -172,9 +172,33 @@
                 <div class=" large-2 columns skills-item-container"><i class="devicon-nodejs-plain colored skills-item tooltip" title="Node.js"></i></div>
                 <div class=" large-2 large-pull-4 columns skills-item-container"><i class="devicon-sass-plain colored skills-item tooltip" title="Sass"></i></div>
             </div>
-        </section>
-        <section class="row section" id="tools">
-            
+            <div id="tools">
+                <span><a href="#tools-popup">Other tools</a></span>
+                <div id="tools-popup" class="overlay">
+                    <div class="popup">
+                        <span id="tools-header">Tools</span>
+                        <a href="#skills"><i class="fa fa-times fa-2x close-popup"></i></a>
+                        <div class="row" id="tools-content">
+                            <div class="large-6 columns tools-column">
+                                <span class="tools-item">Notepad++</span>
+                                <span class="tools-item">PuTTY</span>
+                                <span class="tools-item">Eclipse</span>
+                                <span class="tools-item">Brackets</span>
+                                <span class="tools-item">Google Apps</span>
+                                <span class="tools-item">OpenOffice</span>
+                            </div>
+                            <div class="large-6 columns tools-column">
+                                <span class="tools-item">Microsoft Office</span>
+                                <span class="tools-item">NetBeans</span>
+                                <span class="tools-item">Android Studio</span>
+                                <span class="tools-item">Github</span>
+                                <span class="tools-item">WinSCP</span>
+                                <span class="tools-item">Visual Studio</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <section class="row section" id="projects">
             
@@ -210,7 +234,7 @@
                 <span>"You miss 100% of the shots you don't take." - <i>Wayne Gretzky</i><br><br><br></span>
             </div>
             <div class="large-12 columns" id="credits">
-                <span>Click <a href="#credits-popup">here</a> for credits<br>Designed and built by Austin Kurtti</span>
+                <span><a href="#credits-popup">Credits</a><br>Designed and built by Austin Kurtti</span>
             </div>
             <div class="large-12 columns" style="text-align:center;">
                 <i class="tooltip fa fa-chevron-up fa-1x" id="back-to-top" title="Back to Top" onclick="backToTop()"></i>

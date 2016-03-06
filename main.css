@@ -83,6 +83,7 @@ header {
 .section-header {
     font-size: 2em;
     margin-bottom: 30px;
+    text-align: left;
 }
 .section-column {
 /*    text-align: center;*/
