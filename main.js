@@ -13,21 +13,28 @@ $(document).ready(function() {
         theme: 'tooltip-theme'
     });
     
+    /* Slick */
+    $(".skills-slider").slick({
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        infinite: true
+    });
+    
     /* Stretch intro section */
     var totalHeight = $(window).height(),
         headerHeight = $("#header").height() + 4;
     introHeight = totalHeight - headerHeight;
     $("#intro").height(introHeight - 120);
     
-    /* Slick */
-    $(document).ready(function() {
-        $(".skills-slider").slick({
-            slidesToShow: 6,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 3000,
-            infinite: true
-        });
+    /* Update progress bar on scroll */
+    $(window).scroll(function() {
+        var scroll = $(window).scrollTop(),
+            docH = $(document).height(),
+            winH = $(window).height();
+        progress = (scroll / (docH-winH)) * 100;
+        $("#progress-bar").css("width", progress.toFixed(2)+"%");
     });
 });
 

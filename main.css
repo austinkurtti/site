@@ -33,7 +33,6 @@ a:hover, a:active {
 /*********************/
 header {
     background-color: #e3e3e3;
-    border-bottom: 4px solid #646464;
     position: fixed;
     width: 100%;
     z-index: 100;
@@ -56,6 +55,11 @@ header {
     color: #909090;
     font-size: 0.8em;
     text-align: center;
+}
+#progress-bar{
+    background-color: #646464;
+    height: 4px;
+    width: 0%;
 }
 
 /**********************/
