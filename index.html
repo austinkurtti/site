@@ -204,15 +204,30 @@
         <section class="row section" id="projects">
             
         </section>
-        <section class="row section" id="contact">
-            <div class="row">
-                <div class="large-12 columns">
-                    <h3 class="section-header">Contact</h3>
-                </div>
+    </div>
+    
+    <footer>
+        <div class="row">
+            <div class="large-12 columns" id="quote">
+                <span>"You miss 100% of the shots you don't take." - <i>Wayne Gretzky</i><br><br><br></span>
             </div>
-            <div class="row">
-                <div class="large-5 large-push-1 columns section-column">
-                    <h4 class="section-column-header">Send a quick message</h4>
+            <div class="large-12 columns" id="connect">
+                <a href="https://www.linkedin.com/in/austinkurtti"><i class="fa fa-linkedin fa-2x connect-icon"></i></a>
+                <a href="#email-popup"><i class="fa fa-envelope fa-2x connect-icon"></i></a>
+                <a href="https://github.com/austinkurtti"><i class="fa fa-github fa-2x connect-icon"></i></a>
+            </div>
+            <div class="large-12 columns" id="credits">
+                <span><a href="#credits-popup">Credits</a><br>Designed and built by Austin Kurtti</span>
+            </div>
+            <div class="large-12 columns" style="text-align:center;">
+                <i class="tooltip fa fa-chevron-up fa-1x" id="back-to-top" title="Back to Top" onclick="backToTop()"></i>
+            </div>
+        </div>
+        <div id="email-popup" class="overlay">
+            <div class="popup">
+                <span class="popup-header">Drop a line</span>
+                <a href="#connect"><i class="fa fa-times fa-2x close-popup"></i></a>
+                <div class="popup-content">
                     <form action="http://formspree.io/austin.kurtti@gmail.com" method="POST">
                         <input type="text" name="name" placeholder="Name"/>
                         <input type="email" name="_replyto" placeholder="Email"/>
@@ -222,23 +237,6 @@
                         <button id="submit-btn" type="submit">Send</button>
                     </form>
                 </div>
-                <div class="large-5 large-pull-1 columns section-column">
-                    <h4 class="section-column-header">Other methods</h4>
-                </div>
-            </div>
-        </section>
-    </div>
-    
-    <footer>
-        <div class="row">
-            <div class="large-12 columns" id="quote">
-                <span>"You miss 100% of the shots you don't take." - <i>Wayne Gretzky</i><br><br><br></span>
-            </div>
-            <div class="large-12 columns" id="credits">
-                <span><a href="#credits-popup">Credits</a><br>Designed and built by Austin Kurtti</span>
-            </div>
-            <div class="large-12 columns" style="text-align:center;">
-                <i class="tooltip fa fa-chevron-up fa-1x" id="back-to-top" title="Back to Top" onclick="backToTop()"></i>
             </div>
         </div>
         <div id="credits-popup" class="overlay">
