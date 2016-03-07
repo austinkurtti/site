@@ -1,9 +1,9 @@
 #basics:hover .basics-item-container:not(:hover) {
-    height: 7em;
-    margin-top: 1em;
-    margin-bottom: 1em;
+/*    height: 7em;*/
+/*    margin-top: 1em;*/
+/*    margin-bottom: 1em;*/
     opacity: 0.5;
-    width: 7em;
+/*    width: 7em;*/
 }
 .basics-item {
     text-align: center;
@@ -12,7 +12,7 @@
     border: 1px solid #909090;
     border-radius: 4.5em;
     height: 9em;
-    margin: 0 auto;
+    margin: 10px auto;
     width: 9em;
     -webkit-transition: all 0.25s linear;
     -moz-transition: all 0.25s linear;

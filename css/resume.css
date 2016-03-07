@@ -1,3 +1,8 @@
+@media only screen and (max-width: 64.0624em) {
+    .resume-small-margin {
+        margin-top: 40px;
+    }
+}
 .resume-row {
     padding-top: 10px;
 }
