@@ -26,7 +26,7 @@ $(document).ready(function() {
     var totalHeight = $(window).height(),
         headerHeight = $("#header").height() + 4;
     introHeight = totalHeight - headerHeight;
-    $("#intro").height(introHeight - 120);
+    $("#intro").height(introHeight - 170);
     
     /* Update progress bar on scroll */
     $(window).scroll(function() {
