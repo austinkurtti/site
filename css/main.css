@@ -75,9 +75,9 @@ header {
     margin: 0;
     max-width: 100%;
 /*    max-width: 70em;*/
-    padding-top: 60px;
+    padding-top: 80px;
     padding-right: 50px;
-    padding-bottom: 60px;
+    padding-bottom: 90px;
     padding-left: 50px;
     width: 100%;
 }
@@ -89,10 +89,7 @@ header {
     margin-bottom: 30px;
     text-align: left;
 }
-.section-column {
-/*    text-align: center;*/
-}
-.section-column-header {
+.section-sub-header {
     color: #D19436;
     font-size: 1.3em;
 }
