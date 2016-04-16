@@ -89,11 +89,13 @@
 }
 .slick-prev:before
 {
-    content: '←';
+/*    content: '←';*/
+    content: '\25C4';
 }
 [dir='rtl'] .slick-prev:before
 {
-    content: '→';
+/*    content: '→';*/
+    content: '\25BA';
 }
 
 .slick-next
@@ -107,11 +109,13 @@
 }
 .slick-next:before
 {
-    content: '→';
+/*    content: '→';*/
+    content: '\25BA';
 }
 [dir='rtl'] .slick-next:before
 {
-    content: '←';
+/*    content: '←';*/
+    content: '\25C4';
 }
 
 /* Dots */
