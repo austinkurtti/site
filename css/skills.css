@@ -17,6 +17,12 @@
 .white {
     color: #FFFFFF;
 }
+.slick-prev:before {
+    content: '\25C4';
+}
+.slick-next:before {
+    content: '\25BA';
+}
 .slick-prev:before,
 .slick-next:before {
     color: #FA4E71;
