@@ -24,9 +24,9 @@ $(document).ready(function() {
     
     /* Stretch intro section */
     var totalHeight = $(window).height(),
-        headerHeight = $("#header").height() + 4;
+        headerHeight = $("#header").height();
     introHeight = totalHeight - headerHeight;
-    $("#intro").height(introHeight - 170);
+    $("#intro").height(introHeight - 214);
     
     /* Update progress bar on scroll */
     $(window).scroll(function() {

@@ -1,15 +1,21 @@
+#basics {
+    background: #61B0FF;
+}
 #basics:hover .basics-item-container:not(:hover) {
 /*    height: 7em;*/
 /*    margin-top: 1em;*/
 /*    margin-bottom: 1em;*/
-    opacity: 0.5;
+    opacity: 0.3;
 /*    width: 7em;*/
+}
+#basics .section-header {
+    color: #FFFFFF;
 }
 .basics-item {
     text-align: center;
 }
 .basics-item-container {
-    border: 1px solid #909090;
+    border: 2px solid #FFFFFF;
     border-radius: 4.5em;
     height: 9em;
     margin: 10px auto;
@@ -21,7 +27,7 @@
     transition: all 0.25s linear;
 }
 .basics-item-container i {
-    color: #909090;
+    color: #FFFFFF;
     position: relative;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -36,9 +42,8 @@
     transition: all 0.25s linear;
 }
 .basics-item-container:hover {
-    background: #fff;
-    border-color: #646464;
+    background: #FFFFFF;
 }
 .basics-item-container:hover i {
-    color: #DF614D;
+    color: #61B0FF;
 }

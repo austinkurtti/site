@@ -1,7 +1,8 @@
-/* DICOLOR PALETTE
-    #DF614D - red (component accents)
-    #D19436 - orange (text accents)
-    #646464 - gray
+/* COLORFUL PALETTE
+    #61B0FF - blue
+    #814EFA - purple
+    #FA4E71 - pink
+    #C7FA4E - lime
 */
 
 /*******************/
@@ -22,17 +23,17 @@ body {
     width: 100%;
 }
 a:link, a:visited {
-    color: #D19436;
+    color: #FA4E71;
 }
 a:hover, a:active {
-    color: #C18426;
+    color: #EA3E61;
 }
 
 /*********************/
 /*** Header styles ***/
 /*********************/
 header {
-    background-color: #e3e3e3;
+    background-color: #61B0FF;
     position: fixed;
     width: 100%;
     z-index: 100;
@@ -44,11 +45,11 @@ header {
 }
 #header-title {
     color: #353334;
-    font-size: 1.5em;
+    font-size: 2.5em;
     text-align: center;
 }
 #header-title span {
-    color: #D19436;
+    color: #FFFFFF;
     font-weight: bold;
 }
 .header-sub-title {
@@ -71,13 +72,13 @@ header {
     width: 100%;
 }
 .section {
-    background: #fff;
+    background: #FFF;
     margin: 0;
     max-width: 100%;
 /*    max-width: 70em;*/
-    padding-top: 80px;
+    padding-top: 100px;
     padding-right: 50px;
-    padding-bottom: 90px;
+    padding-bottom: 100px;
     padding-left: 50px;
     width: 100%;
 }
@@ -85,12 +86,13 @@ header {
     background: #eee;
 }
 .section-header {
+    color: #646464;
     font-size: 2em;
-    margin-bottom: 30px;
+    padding-bottom: 50px;
     text-align: left;
 }
 .section-sub-header {
-    color: #D19436;
+    color: #FA4E71;
     font-size: 1.3em;
 }
 
@@ -98,10 +100,9 @@ header {
 /*** Footer styles ***/
 /*********************/
 footer {
-    background: #e3e3e3;
-    border-top: 4px solid #646464;
+    background: #444;
     border-top: ;
-    font-size: 0.75em;
+    color: #FFFFFF;
     padding-top: 50px;
     padding-bottom: 30px;
     text-align: center;
@@ -110,20 +111,20 @@ footer {
     margin-bottom: 25px;
 }
 .connect-icon {
-    color: #646464;
+    color: #FFFFFF;
     cursor: pointer;
     margin: 0 20px;
     transition: all 0.15s linear;
 }
 .connect-icon:hover {
-    color: #DF614D;
+    color: #C7FA4E;
 }
 #back-to-top {
     margin-top: 20px;
     padding: 20px;
 }
 #back-to-top:hover {
-    color: #DF614D;
+    color: #C7FA4E;
     cursor: pointer;
     -webkit-animation: bounce-horizontal-up 0.75s ease-out;
     -moz-animation: bounce-horizontal-up 0.75s ease-out;
@@ -158,12 +159,13 @@ footer {
     width: 40%;
 }
 .popup-header {
-    color: #D19436;
+    color: #61B0FF;
     font-size: 1.5em;
     font-weight: bold;
     margin-top: 0;
 }
 .popup-content {
+    color: #000;
     font-size: 1.2em;
     margin-top: 10px;
     max-height: 50%;
@@ -178,15 +180,15 @@ footer {
     transition: all 0.25s;
 }
 .close-popup:hover {
-    color: #DF614D;
+    color: #FA4E71;
 }
 
 /**********************/
 /*** Tooltip styles ***/
 /**********************/
 .tooltip-theme {
-	background: #DF614D;
-	color: #fff;
+	background: #C7FA4E;
+	color: #646464;
 }
 .tooltip-theme .tooltipster-content {
     font-family: 'Roboto', Tahoma, Geneva, sans-serif;

@@ -1,3 +1,9 @@
+#skills {
+    background: #814EFA;
+}
+#skills .section-header {
+    color: #FFFFFF;
+}
 .skills-row {
     padding-top: 20px;
     padding-bottom: 60px;
@@ -8,16 +14,19 @@
 .skills-item-container {
     text-align: center;
 }
+.white {
+    color: #FFFFFF;
+}
 .slick-prev:before,
 .slick-next:before {
-    color: #DF614D;
+    color: #FA4E71;
 }
 #tools {
     text-align: center;
 }
 #tools-header {
-    color: #D19436;
-    font-size: 1.2em;
+    color: #61B0FF;
+    font-size: 1.5em;
     font-weight: bold;
     margin-top: 0;
 }
@@ -28,5 +37,5 @@
 }
 .tools-item {
     display: block;
-    font-size: 0.9em;
+    font-size: 1.2em;
 }

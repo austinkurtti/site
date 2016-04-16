@@ -7,7 +7,7 @@
 #intro-pic {
     background-image: url("../images/prof_pic.jpg");
     background-position: center;
-    border: 2px solid #fff;
+    border: 2px solid #FFFFFF;
     border-radius: 8em;
     height: 16em;
     margin: auto;
@@ -22,7 +22,7 @@
     height: 100%;
 }
 #intro-scroll {
-    color: #fff;
+    color: #FFFFFF;
     cursor: pointer;
     padding: 1em;
     -webkit-transition: all 0.15s linear;
@@ -32,7 +32,7 @@
     transition: all 0.15s linear;
 }
 #intro-scroll:hover {
-    color: #DF614D;
+    color: #C7FA4E;
     -webkit-animation: bounce-horizontal-down 0.75s ease-out;
     -moz-animation: bounce-horizontal-down 0.75s ease-out;
     -ms-animation: bounce-horizontal-down 0.75s ease-out;
