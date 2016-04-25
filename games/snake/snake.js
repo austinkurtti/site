@@ -9,10 +9,16 @@ var cellWidth = 10,
 
 // give canvas variables values when ready
 $(document).ready(function() {
+    $(document).foundation();
+    
     canvas = $("#snake-canvas")[0];
+    canvas.height = 500;
+    canvas.width = 500;
     context = canvas.getContext("2d");
     canvasHeight = $("#snake-canvas").height();
     canvasWidth = $("#snake-canvas").width();
+    
+    paintCanvas();
 });
 
 function gameOver() {
@@ -33,12 +39,16 @@ function createFood() {
     };
 }
 
-function paint() {
+function paintCanvas() {
     context.fillStyle = "white";
     context.fillRect(0, 0, canvasWidth, canvasHeight);
     context.strokeStyle = "black";
     context.strokeRect(0, 0, canvasWidth, canvasHeight);
+}
 
+function paint() {
+    paintCanvas();
+    
     var nextX = snakeArray[0].x;
     var nextY = snakeArray[0].y;
 

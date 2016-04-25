@@ -4,11 +4,22 @@
     <meta charset="UTF-8">
     <title>Snake</title>
     
+    <link rel="stylesheet" href="../../foundation-5.5.2.custom/css/normalize.css">
+    <link rel="stylesheet" href="../../foundation-5.5.2.custom/css/foundation.css">
+    <link rel="stylesheet" type="text/css" href="snake.css">
+    
     <script type="text/javascript" src="../../foundation-5.5.2.custom/js/vendor/jquery.js"></script>
+    <script src="../../foundation-5.5.2.custom/js/foundation/foundation.js"></script>
     <script type="text/javascript" src="snake.js"></script>
 </head>
 <body>
-    <canvas id="snake-canvas" height="500" width="500"></canvas>
-    <button onclick="init()">Start</button>
+    <div class="row" id="content">
+        <div class="large-12 columns">
+            <button id="start-btn" onclick="init()">Start</button>
+        </div>
+        <div class="large-12 columns">
+            <canvas id="snake-canvas" height="100" width="100"></canvas>
+        </div>
+    </div>
 </body>
 </html>
