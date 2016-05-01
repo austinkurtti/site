@@ -1,4 +1,5 @@
-var init;
+// form variables
+var difficultyRadio;
 
 // canvas variables
 var canvas, context, canvasHeight, canvasWidth;
@@ -11,17 +12,57 @@ var cellWidth = 10,
 $(document).ready(function() {
     $(document).foundation();
     
+    difficultyRadio = $("input[name=difficulty]");
+    difficultyRadio.on("change", setCanvasVars);
+    
     canvas = $("#snake-canvas")[0];
-    canvas.height = 500;
-    canvas.width = 500;
     context = canvas.getContext("2d");
+});
+
+function setCanvasVars() {
+    var difficulty = $("input[name=difficulty]:checked").val(),
+        size;
+    
+    switch(difficulty) {
+        case "easy":
+            size = 300;
+        break;
+        
+        case "medium":
+            size = 250;
+        break;
+        
+        case "hard":
+            size = 200;
+        break;
+        
+        case "pro":
+            size = 150;
+        break;
+    }
+    
+    canvas.height = size;
+    canvas.width = size;
     canvasHeight = $("#snake-canvas").height();
     canvasWidth = $("#snake-canvas").width();
     
     paintCanvas();
-});
+}
+
+function init() {
+    difficultyRadio.attr("disabled", true);
+    
+    direction = "right";
+    createSnake(5);
+    createFood();
+    score = 0;
+    
+    gameLoop = setInterval(paint, 60);
+}
 
 function gameOver() {
+    difficultyRadio.attr("disabled", false);
+    
     clearInterval(gameLoop);
 }
 
@@ -126,12 +167,3 @@ $(document).keydown(function(e) {
         direction = "down";
     }
 });
-
-function init() {
-    direction = "right";
-    createSnake(5);
-    createFood();
-    score = 0;
-    
-    gameLoop = setInterval(paint, 60);
-}
