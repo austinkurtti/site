@@ -6,6 +6,7 @@
     
     <link rel="stylesheet" href="../../foundation-5.5.2.custom/css/normalize.css">
     <link rel="stylesheet" href="../../foundation-5.5.2.custom/css/foundation.css">
+    <link rel="stylesheet" href="../../font-awesome-4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../../css/base.css">
     <link rel="stylesheet" type="text/css" href="snake.css">
     
@@ -16,7 +17,7 @@
 <body>
     <div class="row" id="content">
         <div class="large-12 columns">
-            <a href="../main.html">Back to Games Library</a>
+            <a href="../main.html"><i class="fa fa-chevron-left fa-1x"></i>&nbsp;&nbsp;Back to Games Library</a>
         </div>
         <div class="large-12 columns">
             <span>Difficulty</span>
@@ -25,10 +26,16 @@
             <input id="difficultyEasy" type="radio" name="difficulty" value="easy"><label for="difficultyEasy">Easy</label>
             <input id="difficultyMedium" type="radio" name="difficulty" value="medium"><label for="difficultyMedium">Medium</label>
             <input id="difficultyHard" type="radio" name="difficulty" value="hard"><label for="difficultyHard">Hard</label>
-            <input id="difficultyHard" type="radio" name="difficulty" value="pro"><label for="difficultyHard">Pro</label>
+            <input id="difficultyPro" type="radio" name="difficulty" value="pro"><label for="difficultyPro">Pro</label>
         </div>
         <div class="large-12 columns">
             <canvas id="snake-canvas" height="100" width="100"></canvas>
+        </div>
+        <div class="large-12 columns">
+            <span>High Score</span>
+        </div>
+        <div class="large-12 columns">
+            <span id="high-score">0</span>
         </div>
     </div>
 </body>
