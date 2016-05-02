@@ -8,3 +8,6 @@ body {
 #canvas {
     display: inline;
 }
+.form-label {
+    font-weight: bold;
+}

@@ -14,7 +14,7 @@ var cellWidth = 10,
 $(document).ready(function() {
     $(document).foundation();
     
-    highScore = $("#high-score");
+//    highScore = $("#high-score");
     difficultyRadio = $("input[name=difficulty]");
     difficultyRadio.on("change", setCanvasVars);
     
@@ -76,6 +76,8 @@ function gameOver() {
     paintCanvas(true);
     gameStarted = false;
     
+    var difficulty = $("input[name=difficulty]:checked").val();
+    highScore = $("#"+difficulty+"-high-score");
     if(score > parseInt(highScore.text())) {
         highScore.text(score);
     }
