@@ -51,7 +51,7 @@ header {
 /**********************/
 /*** Content styles ***/
 /**********************/
-#content {
+#main-content {
     background: transparent;
     padding-top: 93px;
     width: 100%;
@@ -70,15 +70,23 @@ header {
 .section:nth-child(even) {
     background: #eee;
 }
+.section-content {
+    padding-right: 15%;
+    padding-left: 15%;
+}
 .section-header {
     color: #646464;
-    font-size: 2em;
+    display: block;
+    font-size: 2.5em;
     padding-bottom: 50px;
-    text-align: left;
+    text-align: center;
 }
 .section-sub-header {
     color: #FA4E71;
-    font-size: 1.3em;
+    font-size: 1.5em;
+}
+.section-content .section-content-row:not(:first-child) {
+    padding-top: 40px;
 }
 
 /*********************/

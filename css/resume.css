@@ -3,15 +3,17 @@
         margin-top: 40px;
     }
 }
-.resume-row {
-    padding-top: 10px;
+.section-content-row .resume-row + .resume-row {
+    padding-top: 20px;
 }
 .resume-header {
     color: #646464;
+    font-size: 1.2em;
     font-weight: bold;
 }
 .resume-sub-header {
     display: block;
-    font-size: 0.8em;
-    font-style: italic;
+}
+.resume-location {
+    color: #61B0FF;
 }
