@@ -13,15 +13,6 @@ $(document).ready(function() {
         theme: 'tooltip-theme'
     });
     
-    /* Slick */
-    $(".skills-slider").slick({
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        infinite: true
-    });
-    
     /* Stretch intro section */
     var totalHeight = $(window).height(),
         headerHeight = $("#header").height();
