@@ -1,0 +1,14 @@
+nav {
+    background-color: midnightblue;
+    color: white;
+}
+
+.nav-bar-title {
+    font-family: 'Monoton', sans-serif;
+    font-size: 2.5em;
+}
+
+main {
+    font-family: 'Raleway', sans-serif;
+    padding-top: 4.8em;
+}
