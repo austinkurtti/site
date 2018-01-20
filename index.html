@@ -14,7 +14,7 @@
     <title>Austin Kurtti</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark">
+    <nav class="navbar fixed-top navbar-expand-lg">
         <div class="navbar-brand">Austin Kurtti</div>
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation menu">
             <i class="fas fa-2x fa-bars"></i>
@@ -22,39 +22,87 @@
         <div class="navbar-collapse collapse" id="navMenu">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Square 1</a>
+                    <a class="nav-link" id="basics-link" href="#basics">Square one</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">I Got Learned</a>
+                    <a class="nav-link" id="education-link" href="#education">I got learned</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Nine to Fives</a>
+                    <a class="nav-link" id="experience-link" href="#experience">Nine to fives</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Party Tricks</a>
+                    <a class="nav-link" id="skills-link" href="#skills">Party tricks</a>
                 </li>
             </ul>
         </div>
     </nav>
     <main role="main" class="container-fluid">
-        <section class="row">
-            <div class="section-title col-4 align-self-center">Square 1</div>
-            <div class="col-8 align-self-center">Content</div>
+        <section class="row" id="basics">
+            <div class="section-header col-sm-4 align-self-center">
+                <span class="main-title">Square one</span>
+                <span class="sub-title">(About me)</span>
+            </div>
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-sm-6" id="basics-one">
+                        Midwest-bred
+                    </div>
+                    <div class="col-sm-6" id="basics-two">
+                        Coffee/beer
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6" id="basics-three">
+                        Coding
+                    </div>
+                    <div class="col-sm-6" id="basics-four">
+                        Movies/skiing/traveling
+                    </div>
+                </div>
+            </div>
         </section>
-        <section class="row">
-            <div class="col-8 align-self-center">Content</div>
-            <div class="section-title col-4 align-self-center">I Got Learned</div>
+        <section class="row" id="education">
+            <div class="section-text-content col-sm-8">
+                <div class="row" id="ku-title">
+                    <div class="col-sm-12">University of Kansas</div>
+                </div>
+                <div class="row" id="ku-content">
+                    <div class="col-sm-4">
+                        <i class="ku-content-i fas fa-3x fa-calendar"></i>
+                        <span class="ku-content-detail">Graduated May 2017</span>
+                    </div>
+                    <div class="col-sm-4">
+                        <i class="ku-content-i fas fa-3x fa-graduation-cap"></i>
+                        <span class="ku-content-detail">B.S. Computer Science</span>
+                        <span class="ku-content-detail">Business Minor</span>
+                    </div>
+                    <div class="col-sm-4">
+                        <i class="ku-content-i fas fa-3x fa-map-marker-alt"></i>
+                        <span class="ku-content-detail">Lawrence, KS</span>
+                    </div>
+                </div>
+            </div>
+            <div class="section-header col-sm-4 align-self-center">
+                <span class="main-title">I got learned</span>
+                <span class="sub-title">(Education)</span>
+            </div>
         </section>
-        <section class="row">
-            <div class="section-title col-4 align-self-center">Nine to Fives</div>
-            <div class="col-8 align-self-center">Content</div>
+        <section class="row" id="experience">
+            <div class="section-header col-sm-4 align-self-center">
+                <span class="main-title">Nine to fives</span>
+                <span class="sub-title">(Experience)</span>
+            </div>
+            <div class="col-sm-8">Content</div>
         </section>
-        <section class="row">
-            <div class="col-8 align-self-center">Content</div>
-            <div class="section-title col-4 align-self-center">Party Tricks</div>
+        <section class="row" id="skills">
+            <div class="col-sm-8">Content</div>
+            <div class="section-header col-sm-4 align-self-center">
+                <span class="main-title">Party tricks</span>
+                <span class="sub-title">(Skills)</span>
+            </div>
         </section>
     </main>
-    <footer class="container-fluid bg-dark">
+    <footer class="container-fluid">
         { Contact stuff goes here }
     </footer>
     

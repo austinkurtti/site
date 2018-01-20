@@ -1,6 +1,47 @@
+/* Color palette
+
+Blue: #61B0FF
+Yellow: #C7FA4E
+Purple: #814EFA
+Pink: #FA4E71
+    Tint: #FB6483
+    Shade: #DB4463
+Slate gray: #646464
+
+*/
+
+/*****************/
+/* Media queries */
+/*****************/
+@media (min-width: 576px) {
+    #basics .col-sm-6 {
+        height: 200px;
+    }
+}
+
+@media (min-width: 768px) {
+    #basics .col-sm-6 {
+        height: 200px;
+    }
+}
+
+@media (min-width: 992px) {
+    #basics .col-sm-6 {
+        height: 225px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #basics .col-sm-6 {
+        height: 325px;
+    }
+}
+
+/***********/
 /* Nav bar */
+/***********/
 nav {
-    background-color: midnightblue;
+    background-color: black;
     color: white;
 }
 
@@ -18,29 +59,169 @@ nav {
     color: white;
 }
 
-.navbar .nav-link:hover {
-    color: coral;
+.navbar #basics-link:hover {
+    color: #FA4E71;
 }
 
+.navbar #education-link:hover {
+    color: #61B0FF;
+}
+
+.navbar #experience-link:hover {
+    color: #C7FA4E;
+}
+
+.navbar #skills-link:hover {
+    color: #814EFA;
+}
+
+/************/
 /* Sections */
+/************/
 main {
     font-family: 'Raleway', sans-serif;
-    padding-top: 4.8em;
+    padding-top: 5.4em;
 }
 
+#basics {
+    background-color: #FA4E71;
+}
+
+#experience {
+    background-color: #C7FA4E;
+}
+
+#education, #skills {
+    background-color: white;
+}
+
+/*
 section {
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
+    padding-top: 3em;
+    padding-bottom: 3em;
 }
+*/
 
-.section-title {
-    color: coral;
-    font-size: 3.5em;
+.section-header {
     text-align: center;
 }
 
+/***************/
+/* Main titles */
+/***************/
+.section-header .main-title {
+    display: block;
+    font-size: 3.5em;
+}
+
+#basics .main-title {
+    color: #FFFFFF;
+}
+
+#education .main-title {
+    color: #61B0FF;
+}
+
+#experience .main-title {
+    color: black;
+}
+
+#skills .main-title {
+    color: #814EFA;
+}
+
+/**************/
+/* Sub titles */
+/**************/
+.section-header .sub-title {
+    display: block;
+    font-weight: bold;
+}
+
+#basics .sub-title {
+    color: white;
+}
+
+#experience .sub-title {
+    color: black;
+}
+
+#education .sub-title, #skills .sub-title {
+    color: #646464;
+}
+
+
+/*****************/
+/* Content items */
+/*****************/
+.section-text-content {
+    padding-right: 3em;
+    padding-left: 3em;
+}
+
+#basics-one {
+    background-color: #DB4463;
+}
+
+#basics-two {
+    background-color: #FB6483;
+}
+
+#basics-three {
+    background-color: #FB6483;
+}
+
+#basics-four {
+    background-color: #DB4463;
+}
+
+#education .section-text-content {
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+
+/*
+#education .section-text-content::before {
+    background-image: url("../resources/images/ku-logo.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    height: 100%;
+    opacity: 0.15;
+    position: absolute;
+    width: 100%;
+}
+*/
+
+#ku-title {
+    font-size: 2em;
+    margin-bottom: 1.5em;
+    text-align: center;
+}
+
+#ku-content {
+    text-align: center;
+}
+
+.ku-content-i {
+    color: #61B0FF;
+    margin-bottom: 0.5em;
+}
+
+.ku-content-detail {
+    display: block;
+}
+
+/**********/
 /* Footer */
+/**********/
 footer {
+    background-color: black;
     color: white;
     padding-top: 1.5em;
     padding-bottom: 1.5em;
