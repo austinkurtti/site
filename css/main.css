@@ -2,6 +2,8 @@
 
 Blue: #61B0FF
 Yellow: #C7FA4E
+    Tint: #D5FB7A
+    Shade: #AEDB44
 Purple: #814EFA
 Pink: #FA4E71
     Tint: #FB6483
@@ -25,19 +27,23 @@ Slate gray: #646464
     #basics-two {
         background-color: #DB4463;
     }
+    
+    #experience-one {
+        border-top: .3em dashed black;
+        border-right: .3em dashed black;
+        border-left: .3em dashed black;
+    }
+    
+    #experience-two {
+        border-right: .3em dashed black;
+        border-bottom: .3em dashed black;
+        border-left: .3em dashed black;
+    }
 }
 
 @media (min-width: 576px) { /* sm */
     #basics .col-md-6 {
         height: 200px;
-    }
-    
-    #basics-one {
-        background-color: #FB6483;
-    }
-    
-    #basics-two {
-        background-color: #DB4463;
     }
 }
 
@@ -60,26 +66,20 @@ Slate gray: #646464
         height: 275px;
     }
     
-    #basics-one {
-        background-color: #DB4463;
+    #experience-one {
+        border-right: none;
+        border-bottom: .3em dashed black;
     }
-
-    #basics-two {
-        background-color: #FB6483;
+    
+    #experience-two {
+        border-top: .3em dashed black;
+        border-left: none;
     }
 }
 
 @media (min-width: 1200px) { /* xl */
     #basics .col-md-6 {
         height: 350px;
-    }
-    
-    #basics-one {
-        background-color: #DB4463;
-    }
-
-    #basics-two {
-        background-color: #FB6483;
     }
 }
 
@@ -200,9 +200,27 @@ section {
 /*****************/
 /* Content items */
 /*****************/
-.section-text-content {
-    padding-right: 3em;
-    padding-left: 3em;
+.section-content {
+    padding: 3em;
+}
+
+.section-content-title {
+    font-size: 2em;
+    margin-bottom: 1.5em;
+    text-align: center;
+}
+
+.section-content-primary {
+    margin-bottom: 1.5em;
+    text-align: center;
+}
+
+.section-content-detail {
+    display: block;
+}
+
+.section-content-i {
+    margin-bottom: .5em;
 }
 
 #basics-three {
@@ -223,11 +241,6 @@ section {
     top: 35%;
 }
 
-#education .section-text-content {
-    padding-top: 3em;
-    padding-bottom: 3em;
-}
-
 /*
 #education .section-text-content::before {
     background-image: url("../resources/images/ku-logo.png");
@@ -246,23 +259,20 @@ section {
 }
 */
 
-#ku-title {
-    font-size: 2em;
-    margin-bottom: 1.5em;
-    text-align: center;
-}
-
-#ku-content {
-    text-align: center;
-}
-
-.ku-content-i {
+.education-content-i {
     color: #61B0FF;
-    margin-bottom: 0.5em;
 }
 
-.ku-content-detail {
-    display: block;
+#experience-one {
+    background-color: white;
+}
+
+#experience-two {
+    background-color: white;
+}
+
+.experience-content-i {
+    color: #C7FA4E;
 }
 
 /**********/
