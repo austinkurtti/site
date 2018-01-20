@@ -13,27 +13,73 @@ Slate gray: #646464
 /*****************/
 /* Media queries */
 /*****************/
-@media (min-width: 576px) {
-    #basics .col-sm-6 {
-        height: 200px;
+@media (min-width: 0px) { /* xs */
+    #basics .col-md-6 {
+        height: 150px;
+    }
+    
+    #basics-one {
+        background-color: #FB6483;
+    }
+    
+    #basics-two {
+        background-color: #DB4463;
     }
 }
 
-@media (min-width: 768px) {
-    #basics .col-sm-6 {
+@media (min-width: 576px) { /* sm */
+    #basics .col-md-6 {
         height: 200px;
+    }
+    
+    #basics-one {
+        background-color: #FB6483;
+    }
+    
+    #basics-two {
+        background-color: #DB4463;
     }
 }
 
-@media (min-width: 992px) {
-    #basics .col-sm-6 {
+@media (min-width: 768px) { /* md */
+    #basics .col-md-6 {
         height: 225px;
     }
+    
+    #basics-one {
+        background-color: #DB4463;
+    }
+
+    #basics-two {
+        background-color: #FB6483;
+    }
 }
 
-@media (min-width: 1200px) {
-    #basics .col-sm-6 {
-        height: 325px;
+@media (min-width: 992px) { /* lg */
+    #basics .col-md-6 {
+        height: 275px;
+    }
+    
+    #basics-one {
+        background-color: #DB4463;
+    }
+
+    #basics-two {
+        background-color: #FB6483;
+    }
+}
+
+@media (min-width: 1200px) { /* xl */
+    #basics .col-md-6 {
+        height: 350px;
+    }
+    
+    #basics-one {
+        background-color: #DB4463;
+    }
+
+    #basics-two {
+        background-color: #FB6483;
     }
 }
 
@@ -79,7 +125,7 @@ nav {
 /* Sections */
 /************/
 main {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     padding-top: 5.4em;
 }
 
@@ -159,20 +205,22 @@ section {
     padding-left: 3em;
 }
 
-#basics-one {
-    background-color: #DB4463;
-}
-
-#basics-two {
-    background-color: #FB6483;
-}
-
 #basics-three {
     background-color: #FB6483;
 }
 
 #basics-four {
     background-color: #DB4463;
+}
+
+.basics-detail {
+    color: white;
+}
+
+.basics-detail svg {
+    left: 43%;
+    position: absolute;
+    top: 35%;
 }
 
 #education .section-text-content {
