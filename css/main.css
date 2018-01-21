@@ -5,6 +5,8 @@ Yellow: #C7FA4E
     Tint: #D5FB7A
     Shade: #AEDB44
 Purple: #814EFA
+    Tint: #9164FB
+    Shade: #7144DB
 Pink: #FA4E71
     Tint: #FB6483
     Shade: #DB4463
@@ -282,6 +284,10 @@ section {
     color: #C7FA4E;
     padding-right: .3em;
     padding-left: .3em;
+}
+
+.skills-content-i {
+    color: #814EFA;
 }
 
 /**********/
