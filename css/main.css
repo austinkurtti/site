@@ -364,7 +364,7 @@ section {
 .contact-icon-i {
     color: white;
     cursor: pointer;
-    transition: color 0.15s ease-in-out;
+    transition: color .15s ease-in-out;
 }
 
 .contact-icon-i:hover {
@@ -394,4 +394,22 @@ footer {
     margin-top: 1em;
     margin-bottom: 1em;
     text-align: center;
+}
+
+.footer-link-i {
+    color: white;
+    cursor: pointer;
+    transition: color .15s ease-in-out;
+}
+
+.footer-links .fa-linkedin:hover {
+    color: #814EFA;
+}
+
+.footer-links .fa-envelope-square:hover {
+    color: #C7FA4E;
+}
+
+.footer-links .fa-github-square:hover {
+    color: #61B0FF;
 }
