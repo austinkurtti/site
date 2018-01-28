@@ -10,6 +10,9 @@ Purple: #814EFA
 Pink: #FA4E71
     Tint: #FB6483
     Shade: #DB4463
+Orange: #FA814E
+    Tint: #FB9164
+    Shade: #DB7144
 Slate gray: #646464
 
 */
@@ -123,6 +126,10 @@ nav {
     color: #814EFA;
 }
 
+.navbar #contact-link:hover {
+    color: #FA814E;
+}
+
 /************/
 /* Sections */
 /************/
@@ -137,6 +144,10 @@ main {
 
 #experience {
     background-color: #C7FA4E;
+}
+
+#contact {
+    background-color: #FA814E;
 }
 
 #education, #skills {
@@ -163,8 +174,8 @@ section {
     padding-top: .5em;
 }
 
-#basics .main-title {
-    color: #FFFFFF;
+#basics .main-title, #contact .main-title {
+    color: white;
 }
 
 #education .main-title {
@@ -188,7 +199,7 @@ section {
     padding-bottom: 2em;
 }
 
-#basics .sub-title {
+#basics .sub-title, #contact .sub-title {
     color: white;
 }
 
@@ -263,6 +274,11 @@ section {
 }
 */
 
+.education-content-item {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
 .education-content-i {
     color: #61B0FF;
 }
@@ -334,6 +350,34 @@ section {
 
 #skills-advanced {
     background-color: #7144DB;
+}
+
+#contact .section-content {
+    background-color: #FB9164;
+}
+
+.contact-icon {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.contact-icon-i {
+    color: white;
+    cursor: pointer;
+    transition: color 0.15s ease-in-out;
+}
+
+.contact-icon-i:hover {
+    color: #DB7144;
+}
+
+#contact-form {
+    color: white;
+    font-weight: bold;
+}
+
+#inputGotcha {
+    display: none;
 }
 
 /**********/
