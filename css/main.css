@@ -238,6 +238,9 @@ section {
     margin-bottom: .5em;
 }
 
+/**********/
+/* Basics */
+/**********/
 #basics-three {
     background-color: #FB6483;
 }
@@ -256,6 +259,9 @@ section {
     top: 35%;
 }
 
+/*************/
+/* Education */
+/*************/
 /*
 #education .section-text-content::before {
     background-image: url("../resources/images/ku-logo.png");
@@ -283,6 +289,9 @@ section {
     color: #61B0FF;
 }
 
+/**************/
+/* Experience */
+/**************/
 #experience-one {
     background-color: white;
 }
@@ -302,56 +311,39 @@ section {
     padding-left: .3em;
 }
 
+/**********/
+/* Skills */
+/**********/
 .skills-content-i {
     color: #814EFA;
 }
 
-.skill-scale {
-    color: white;
+.skill-category {
     font-weight: bold;
-    text-align: center;
+    text-align: right;
 }
 
-.skill-scale-item {
-    border-bottom: 4px solid white;
-    padding-top: .5em;
-    padding-bottom: .5em;
-}
-
-#skill-scale-novice {
-    background-color: #9164FB;
-}
-
-#skill-scale-intermediate {
-    background-color: #814EFA;
-}
-
-#skill-scale-advanced {
-    background-color: #7144DB;
-}
-
-.skills {
+.skill-category-content {
     color: white;
-    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
-.skills-category {
-    padding-top: .5em;
-    padding-bottom: .5em;
-}
-
-#skills-novice {
-    background-color: #9164FB;
-}
-
-#skills-intermediate {
-    background-color: #814EFA;
-}
-
-#skills-advanced {
+#advanced-skills {
     background-color: #7144DB;
 }
 
+#intermediate-skills {
+    background-color: #814EFA;
+}
+
+#novice-skills {
+    background-color: #9164FB;
+}
+
+/***********/
+/* Contact */
+/***********/
 #contact .section-content {
     background-color: #FB9164;
 }
