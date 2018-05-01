@@ -254,9 +254,50 @@ section {
 }
 
 .basics-detail svg {
-    left: 43%;
+    animation: 1s ease-out detailSvgSlide;
+    left: 44%;
     position: absolute;
-    top: 35%;
+    top: 25%;
+}
+
+.basics-detail-content {
+    left: 0%;
+    padding: 1em;
+    position: absolute;
+    text-align: center;
+    top: 60%;
+    width: 100%;
+}
+
+.basics-detail-content > span {
+    animation: 1s ease-out detailContentFade;
+    border: .3em dashed;
+    border-color: white;
+    padding: 1em;
+}
+
+@keyframes detailSvgSlide {
+    0% {
+        top: 40%;
+    }
+    100% {
+        top: 25%;
+    }
+}
+
+@keyframes detailContentFade {
+    0% {
+        border-color: #FFFFFF00;
+        color: #FFFFFF00;
+    }
+    50% {
+        border-color: #FFFFFF00;
+        color: #FFFFFF00;
+    }
+    100% {
+        border-color: white;
+        color: white;
+    }
 }
 
 /*************/
