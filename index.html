@@ -1,324 +1,266 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, inital-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Austin Kurtti</title>
     
-    <link rel="stylesheet" href="foundation-5.5.2.custom/css/normalize.css">
-    <link rel="stylesheet" href="foundation-5.5.2.custom/css/foundation.css">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Noticia Text">
-    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="Hover-master/css/hover.css">
-    <link rel="stylesheet" href="devicon-master/devicon.min.css">
-    <link rel="stylesheet" href="devicon-master/devicon-colors.css">
-    <link rel="stylesheet" href="tooltipster-master/css/tooltipster.css">
-    <link rel="stylesheet" type="text/css" href="css/base.css">
-    <link rel="stylesheet" type="text/css" href="css/animations.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/intro.css">
-    <link rel="stylesheet" type="text/css" href="css/basics.css">
-    <link rel="stylesheet" type="text/css" href="css/resume.css">
-    <link rel="stylesheet" type="text/css" href="css/expertise.css">
-    <link rel="stylesheet" type="text/css" href="css/projects.css">
-    <link rel="stylesheet" type="text/css" href="css/contact.css">
-
-    <script src="foundation-5.5.2.custom/js/vendor/jquery.js"></script>
-    <script src="foundation-5.5.2.custom/js/foundation/foundation.js"></script>
-    <script src="foundation-5.5.2.custom/js/foundation/foundation.magellan.js"></script>
-    <script type="text/javascript" src="tooltipster-master/js/jquery.tooltipster.min.js"></script>
-    <script type="text/javascript" src="scripts/main.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="./resources/bootstrap/bootstrap.min.css">
+    <!-- Google font -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Monoton|Montserrat">
+    <!-- Custom -->
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    
+    <title>Austin Kurtti</title>
 </head>
 <body>
-    <header>
-        <div class="row" id="header">
-            <div class="large-12 columns">
-                <div class="large-12 columns" id="header-title">
-                    <span>Austin Kurtti</span>
+    <nav class="navbar fixed-top navbar-expand-lg">
+        <div class="navbar-brand">Austin Kurtti</div>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation menu">
+            <i class="fas fa-2x fa-bars"></i>
+        </button>
+        <div class="navbar-collapse collapse" id="navMenu">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" id="basics-link" href="#basics">Square one</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="education-link" href="#education">I got learned</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="experience-link" href="#experience">Nine to fives</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="skills-link" href="#skills">Party tricks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="contact-link" href="#contact">Drop a line</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main role="main" class="container-fluid">
+        <section class="row" id="basics">
+            <div class="section-header col-md-4 align-self-center">
+                <span class="main-title">Square one.</span>
+                <span class="sub-title">(About me)</span>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="basics-detail col-md-6" id="basics-one">
+                        <i class="basics-detail-i fas fa-3x fa-map d-lg-none"></i>
+                        <i class="basics-detail-i fas fa-4x fa-map d-none d-lg-block"></i>
+                        <div class="basics-detail-content">
+                            <span>Midwest-bred</span>
+                        </div>
+                    </div>
+                    <div class="basics-detail col-md-6" id="basics-two">
+                        <i class="basics-detail-i fas fa-3x fa-coffee d-lg-none"></i>
+                        <i class="basics-detail-i fas fa-4x fa-coffee d-none d-lg-block"></i>
+                        <div class="basics-detail-content">
+                            <span>Coffee &amp; beer lover</span>
+                        </div>
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="basics-detail col-md-6" id="basics-three">
+                        <i class="basics-detail-i fas fa-3x fa-code d-lg-none"></i>
+                        <i class="basics-detail-i fas fa-4x fa-code d-none d-lg-block"></i>
+                        <div class="basics-detail-content">
+                            <span>Passionate coder</span>
+                        </div>
+                    </div>
+                    <div class="basics-detail col-md-6" id="basics-four">
+                        <i class="basics-detail-i fas fa-3x fa-heart d-lg-none"></i>
+                        <i class="basics-detail-i fas fa-4x fa-heart d-none d-lg-block"></i>
+                        <div class="basics-detail-content">
+                            <span>Movies &#8226; skiing &#8226; traveling</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="row" id="education">
+            <div class="section-header col-md-4 d-md-none align-self-center">
+                <span class="main-title">I got learned.</span>
+                <span class="sub-title">(Education)</span>
+            </div>
+            <div class="section-content col-md-8">
+                <div class="row">
+                    <div class="section-content-title col-md-12">University of Kansas</div>
+                </div>
+                <div class="section-content-primary row">
+                    <div class="education-content-item col-6 col-md-4">
+                        <i class="section-content-i education-content-i fas fa-3x fa-calendar"></i>
+                        <span class="section-content-detail">Graduated May 2017</span>
+                    </div>
+                    <div class="education-content-item col-6 col-md-4">
+                        <i class="section-content-i education-content-i fas fa-3x fa-graduation-cap"></i>
+                        <span class="section-content-detail">B.S. Computer Science</span>
+                        <span class="section-content-detail">Business Minor</span>
+                    </div>
+                    <div class="education-content-item col-12 col-md-4">
+                        <i class="section-content-i education-content-i fas fa-3x fa-map-marker-alt"></i>
+                        <span class="section-content-detail">Lawrence, KS</span>
+                    </div>
+                </div>
+            </div>
+            <div class="section-header col-md-4 d-none d-md-block align-self-center">
+                <span class="main-title">I got learned.</span>
+                <span class="sub-title">(Education)</span>
+            </div>
+        </section>
+        <section class="row" id="experience">
+            <div class="section-header col-lg-4 align-self-center">
+                <span class="main-title">Nine to fives.</span>
+                <span class="sub-title">(Experience)</span>
+            </div>
+            <div class="section-content col-lg-4" id="experience-one">
+                <div class="row">
+                    <div class="section-content-title col-lg-12">AllofE Solutions</div>
+                </div>
+                <div class="section-content-primary row">
+                    <div class="col-6">
+                        <i class="section-content-i experience-content-i fas fa-2x fa-calendar"></i>
+                        <span class="section-content-detail">Feb 2014 - Mar 2017</span>
+                    </div>
+                    <div class="col-6">
+                        <i class="section-content-i experience-content-i fas fa-2x fa-map-marker-alt"></i>
+                        <span class="section-content-detail">Lawrence, KS</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">As a web developer intern at AllofE Solutions some of my responsibilities included contributing to the design of new interfaces, updating and improving established code bases and managing diverse databases. The senior developers gave me the exposure and understanding of basic web technologies that allowed me to shape a <span class="experience-highlight">solid foundation</span> of web development skills for myself.<br><br>It was a privilage to work with their team of talented developers and marketers on a wide array of products. My time with AllofE provided <span class="experience-highlight">invaluable experience</span> for my academic work and was a solid platform to launch my professional career.</div>
+                </div>
+            </div>
+            <div class="section-content col-lg-4" id="experience-two">
+                <div class="row">
+                    <div class="section-content-title col-lg-12">LockPath</div>
+                </div>
+                <div class="section-content-primary row">
+                    <div class="col-6">
+                        <i class="section-content-i experience-content-i fas fa-2x fa-calendar"></i>
+                        <span class="section-content-detail">June 2107 - Present</span>
+                    </div>
+                    <div class="col-6">
+                        <i class="section-content-i experience-content-i fas fa-2x fa-map-marker-alt"></i>
+                        <span class="section-content-detail">Overland Park, KS</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">I currently work at LockPath as a <span class="experience-highlight">software engineer</span>. LockPath is a rapidly growing company and recently relocated to the Sprint Nextel campus to increase office space.<br><br>On day one, I joined the back-end team where I started building knowledge of the data layers behind their flagship product, <span class="experience-highlight">Keylight</span>. After about six months, I switched to the front-end team to work on a crucial UI/UX overhaul for Keylight's view/edit pages. I continue to flex my web development skills while learning about more <span class="experience-highlight">modern technologies</span>. It has been a great experience to work with such an accomplished team.</div>
+                </div>
+            </div>
+        </section>
+        <section class="row" id="skills">
+            <div class="section-header col-md-4 d-md-none align-self-center">
+                <span class="main-title">Party tricks.</span>
+                <span class="sub-title">(Skills)</span>
+            </div>
+            <div class="section-content col-md-8">
+                <div class="row">
+                    <div class="section-content-title col-md-12">Highlights</div>
+                </div>
+                <div class="section-content-primary row">
+                    <div class="col-6 col-md-3">
+                        <i class="section-content-i skills-content-i fab fa-4x fa-html5"></i>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <i class="section-content-i skills-content-i fab fa-4x fa-js"></i>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <i class="section-content-i skills-content-i fab fa-4x fa-git"></i>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <i class="section-content-i skills-content-i fab fa-4x fa-css3-alt"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="section-content-title col-md-12">Others</div>
+                </div>
+                <div class="row">
+                    <div class="skill-category col-3 align-self-center">Advanced</div>
+                    <div class="skill-category-content col-9" id="advanced-skills">PHP - SQL - jQuery - C# - Github - Bitbucket - Windows</div>
+                </div>
+                <div class="row">
+                    <div class="skill-category col-3 align-self-center">Intermediate</div>
+                    <div class="skill-category-content col-9" id="intermediate-skills">ASP.NET - Angular - Bootstrap - ExtJS - Visual Studio (Code) - TypeScript - Android</div>
+                </div>
+                <div class="row">
+                    <div class="skill-category col-3 align-self-center">Novice</div>
+                    <div class="skill-category-content col-9" id="novice-skills">D3JS - C++ - macOS - iOS</div>
+                </div>
+            </div>
+            <div class="section-header col-md-4 d-none d-md-block align-self-center">
+                <span class="main-title">Party tricks.</span>
+                <span class="sub-title">(Skills)</span>
+            </div>
+        </section>
+        <section class="row" id="contact">
+            <div class="section-header col-md-4 align-self-center">
+                <span class="main-title">Drop a line.</span>
+                <span class="sub-title">(Contact me)</span>
+            </div>
+            <div class="section-content col-md-8">
+                <div class="row">
+                    <div class="col-md-3 align-self-center text-center">
+                        <div class="row">
+                            <div class="contact-icon col-6 col-md-12">
+                                <a href="https://www.linkedin.com/in/austinkurtti"><i class="contact-icon-i fab fa-3x fa-linkedin-in"></i></a>
+                            </div>
+                            <div class="contact-icon col-6 col-md-12">
+                                <a href="https://github.com/austinkurtti"><i class="contact-icon-i fab fa-3x fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <form id="contact-form" action="https://formspree.io/austin.kurtti@gmail.com" method="POST">
+                            <div class="form-group">
+                                <label for="inputName">Name</label>
+                                <input class="form-control" id="inputName" type="text" name="name" placeholder="Name"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail">Email</label>
+                                <input class="form-control" id="inputEmail" type="email" name="_replyto" placeholder="Email"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputMessage">Message</label>
+                                <textarea class="form-control" id="inputMessage" type="text" name="message" placeholder="Message" rows="4"></textarea>
+                            </div>
+                            <input id="inputGotcha" type="text" name="_gotcha"/>
+                            <button class="btn btn-secondary" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="container-fluid">
+        <div class="footer-links row justify-content-center">
+            <div class="col-auto">
+                <a href="https://www.linkedin.com/in/austinkurtti"><i class="footer-link-i fab fa-2x fa-linkedin"></i></a>
+            </div>
+            <div class="col-auto">
+                <a href="mailto:austin.kurtti@gmail.com"><i class="footer-link-i fas fa-2x fa-envelope-square"></i></a>
+            </div>
+            <div class="col-auto">
+                <a href="https://github.com/austinkurtti"><i class="footer-link-i fab fa-2x fa-github-square"></i></a>
             </div>
         </div>
-        <div id="progress-bar">&nbsp;</div>
-    </header>
-    
-    <div id="main-content">
-        <section class="row section" id="intro">
-            <div class="row" id="intro-row-0">
-                <div class="large-12 columns" id="intro-pic-container">
-                    <div id="intro-pic"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="large-12 columns" id="intro-scroll-container">
-                    <i class="fa fa-chevron-down fa-1x tooltip" id="intro-scroll" title="There's more!" onclick="toBasics()"></i>
-                </div>
-            </div>
-        </section>
-        <section class="row section" id="basics">
-            <div class="row">
-                <div class="large-12 columns">
-                    <h3 class="section-header">The Basics</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="large-2 medium-4 small-6 columns basics-item">
-                    <div class="basics-item-container basics-tooltip" title="Traveling">
-                        <i class="fa fa-map fa-3x"></i>
-                    </div>
-                </div>
-                <div class="large-2 medium-4 small-6 columns basics-item">
-                    <div class="basics-item-container basics-tooltip" title="Sports">
-                        <i class="fa fa-futbol-o fa-3x"></i>
-                    </div>
-                </div>
-                <div class="large-2 medium-4 small-6 columns basics-item">
-                    <div class="basics-item-container basics-tooltip" title="Coffee">
-                        <i class="fa fa-coffee fa-3x"></i>
-                    </div>
-                </div>
-                <div class="large-2 medium-4 small-6 columns basics-item">
-                    <div class="basics-item-container basics-tooltip" title="Skiing">
-                        <i class="fa fa-snowflake-o fa-3x"></i>
-                    </div>
-                </div>
-                <div class="large-2 medium-4 small-6 columns basics-item">
-                    <div class="basics-item-container basics-tooltip" title="Coding">
-                        <i class="fa fa-code fa-3x"></i>
-                    </div>
-                </div>
-                <div class="large-2 medium-4 small-6 columns basics-item">
-                    <div class="basics-item-container basics-tooltip" title="Beer">
-                        <i class="fa fa-beer fa-3x"></i>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="row section" id="resume">
-            <div class="row">
-                <div class="large-12 columns">
-                    <h3 class="section-header">R&eacute;sum&eacute;</h3>
-                </div>
-            </div>
-            <div class="section-content">
-                <div class="row section-content-row">
-                    <div class="large-12 columns">
-                        <h4 class="section-sub-header">Education</h4>
-                        <div class="row resume-row">
-                            <div class="large-4 columns">
-                                <span class="resume-header">University of Kansas</span>
-                                <span class="resume-sub-header">Graduated May 2017</span>
-                                <span class="resume-sub-header">B.S. Computer Science, Business Minor</span>
-                                <span class="resume-location"><i class="fa fa-map-marker"></i>&nbsp;Lawrence, KS</span>
-                            </div>
-                            <div class="large-8 columns">
-                                <span class="resume-description">Notable courses:<br>Programming I, Programming II, Discrete Structures, Programming Language Paradigms, Software Engineering I, Theory of Computing, Data Structures, Algorithms, Computer Architecture, Expert Systems, Operating Systems, Computer Graphics, GPGPU Programming, Applied Mathematical Statistics I, Embedded Systems, Calculus I, Calculus II</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row section-content-row">
-                    <div class="large-12 columns">
-                        <h4 class="section-sub-header">Experience</h4>
-                        <div class="row resume-row">
-                            <div class="large-4 columns">
-                                <span class="resume-header">LockPath, Inc.</span>
-                                <span class="resume-sub-header">June 2017 - Present</span>
-                                <span class="resume-location"><i class="fa fa-map-marker"></i>&nbsp;Overland Park, KS</span>
-                            </div>
-                            <div class="large-8 columns">
-                                <span class="resume-description">I currently work for LockPath as a software engineer. Learning how to develop in C# and Angular has been great, and I'm excited to continue learning more about that environment. LockPath has been growing rapidly (highlighted by their move to the Sprint campus) and plans to almost double in size by next year.</span>
-                            </div>
-                        </div>
-                        <div class="row resume-row">
-                            <div class="large-4 columns">
-                                <span class="resume-header">AllofE Solutions</span><br>
-                                <span class="resume-sub-header">Feb 2014 - Mar 2017</span>
-                                <span class="resume-location"><i class="fa fa-map-marker"></i>&nbsp;Lawrence, KS</span>
-                            </div>
-                            <div class="large-8 columns">
-                                <span class="resume-description">As a web developer at AllofE Solutions, I contributed to the design of new interfaces, updated and improved established code bases, fixed bugs, and managed diverse databases. While performing these tasks, I continually developed my personal skillset. My fluency in and understanding of PHP, HTML5, CSS, Ext JS, jQuery, Git, and MySQL grew every day. It was a privilage to learn more about debugging complex code, problem solve, and work on various client-facing projects with their team of talented developers. My experience with AllofE has proved invaluable to my academic work and jump starting my professional career.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="row section" id="expertise">
-            <div class="row">
-                <div class="large-12 columns">
-                    <h3 class="section-header">Expertise</h3>
-                </div>
-            </div>
-            <div class="section-content">
-                <div class="row section-content-row">
-                    <div class="large-12 columns">
-                        <h4 class="section-sub-header">Skills</h4>
-                        <div class="large-4 columns">
-                            <ul class="expertise-items">
-                                <li>HTML5</li>
-                                <li>CSS3</li>
-                                <li>JavaScript</li>
-                                <li>PHP</li>
-                                <li>Windows</li>
-                                <li>Java</li>
-                                <li>Git</li>
-                                <li>ExtJS Framework</li>
-                            </ul>
-                        </div>
-                        <div class="large-2 columns">
-                            <ul class="expertise-ratings">
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                            </ul>
-                        </div>
-                        <div class="large-4 columns">
-                            <ul class="expertise-items">
-                                <li>MySQL</li>
-                                <li>Foundation 5</li>
-                                <li>jQuery</li>
-                                <li>Android</li>
-                                <li>Bootstrap 3</li>
-                                <li>C++</li>
-                                <li>D3JS</li>
-                                <li>C#</li>
-                            </ul>
-                        </div>
-                        <div class="large-2 columns">
-                            <ul class="expertise-ratings">
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i>&nbsp;<i class="fa fa-circle-o"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i>&nbsp;<i class="fa fa-circle-o"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="row section-content-row">
-                    <div class="large-12 columns">
-                        <h4 class="section-sub-header">Tools</h4>
-                        <div class="large-4 columns">
-                            <ul class="expertise-items">
-                                <li>Chrome</li>
-                                <li>Brackets</li>
-                                <li>Notepad++</li>
-                                <li>Firefox</li>
-                                <li>PuTTY</li>
-                                <li>Github</li>
-                            </ul>
-                        </div>
-                        <div class="large-2 columns">
-                            <ul class="expertise-ratings">
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                            </ul>
-                        </div>
-                        <div class="large-4 columns">
-                            <ul class="expertise-items">
-                                <li>WinSCP</li>
-                                <li>HeidiSQL</li>
-                                <li>IntelliJ IDEA, Android Studio</li>
-                                <li>Internet Explorer</li>
-                                <li>GIMP 2</li>
-                                <li>Visual Studio</li>
-                            </ul>
-                        </div>
-                        <div class="large-2 columns">
-                            <ul class="expertise-ratings">
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                                <li><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle-o"></i>&nbsp;<i class="fa fa-circle-o"></i>&nbsp;<i class="fa fa-circle-o"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="row section" id="projects">
-            <div class="row">
-                <div class="large-12 columns">
-                    <h3 class="section-header">Projects</h3>
-                </div>
-            </div>
-            <div class="section-content">
-                <div class="row section-content-row">
-                    <div class="large-12 columns">
-                        <h4 class="section-sub-header">Tromino</h4>
-                        <span>This is a personal project of mine to create an Android app! The app's primary functionality is to maintain homework, exams and classes. The project spawned from my desire to have a more customizable solution for keeping track of my academic work and managing my time effectively. Ultimately, I just want to learn more about mobile software and grow my skills as an Android developer. If the app turns out well, I might publish it to the Google Play store. You can learn more about it <a class="tooltip" title="Available soon!">here!</a></span>
-                    </div>
-                </div>
-                <div class="row section-content-row">
-                    <div class="large-12 columns">
-                        <h4 class="section-sub-header project-header">This Website</h4>
-                        <span>Since this website is a reflection of myself for others to see, it is continuously adjusted as my experience, skills and interests change. I strive to keep it updated with my best understanding of current web design standards to maintain a fresh look and natural functionality.<!--If you'd like to check out the web-based arcade game library I'm building, <a href="games/main.html">click here!</a>--></span>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-    
-    <footer>
-        <div class="row">
-            <div class="large-12 columns">
-                <span>Contact Links</span>
-            </div>
-            <div class="large-12 columns" id="connect">
-                <a href="https://www.linkedin.com/in/austinkurtti"><i class="fa fa-linkedin fa-2x connect-icon"></i></a>
-                <a href="#email-popup"><i class="fa fa-envelope fa-2x connect-icon"></i></a>
-                <a href="https://github.com/austinkurtti"><i class="fa fa-github fa-2x connect-icon"></i></a>
-            </div>
-            <div class="large-12 columns" id="credits">
-                <span><a href="#credits-popup">Credits</a><br><i class="fa fa-copyright"></i>&nbsp;2017 Austin Kurtti</span>
-            </div>
-            <div class="large-12 columns" style="text-align:center;">
-                <i class="tooltip fa fa-chevron-up fa-1x" id="back-to-top" title="Back to Top" onclick="backToTop()"></i>
-            </div>
-        </div>
-        <div id="email-popup" class="overlay">
-            <div class="popup">
-                <span class="popup-header">Drop a line</span>
-                <a href="#connect"><i class="fa fa-times fa-2x close-popup"></i></a>
-                <div class="popup-content">
-                    <form action="http://formspree.io/austin.kurtti@gmail.com" method="POST">
-                        <input type="text" name="name" placeholder="Name"/>
-                        <input type="email" name="_replyto" placeholder="Email"/>
-                        <textarea type="text" name="message" placeholder="Message"></textarea>
-                        <input type="text" name="color" placeholder="What is your favorite color?"/>
-                        <input type="text" name="_gotcha" style="display:none;"/>
-                        <button id="submit-btn" type="submit">Send</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div id="credits-popup" class="overlay">
-            <div class="popup">
-                <span class="popup-header">Credits</span>
-                <a href="#credits"><i class="fa fa-times fa-2x close-popup"></i></a>
-                <div class="popup-content">
-                    <span>Icons by <a href="https://fortawesome.github.io/Font-Awesome/" target="_blank">Font Awesome</a></span><br>
-                    <span>Responsive framework by <a href="http://foundation.zurb.com/" target="_blank">Foundation</a></span><br>
-                    <span>Tooltips by <a href="http://iamceege.github.io/tooltipster/" target="_blank">Tooltipster</a></span><br>
-                    <span>Icon carousel by <a href="http://kenwheeler.github.io/slick/" target="_blank">Slick</a></span>
-                </div>
-            </div>
+        <div class="row text-center">
+            <div class="col-12"><i class="far fa-copyright"></i>&nbsp;Austin Kurtti</div>
         </div>
     </footer>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <script src="./resources/bootstrap/bootstrap.min.js"></script>
+    <!-- Font Awesome -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+    <!-- Custom -->
+    <script src="scripts/main.js"></script>
 </body>
 </html>

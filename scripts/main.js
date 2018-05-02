@@ -1,38 +1,12 @@
-var introHeight = 0;
+var navOffset = 0;
 
 $(document).ready(function() {
-    /* Foundation */
-    $(document).foundation();
+    navOffset = $("nav").height();
     
-    /* Tooltips */
-    $('.tooltip').tooltipster({
-        theme: 'tooltip-theme'
-    });
-    $('.basics-tooltip').tooltipster({
-        position: 'bottom',
-        theme: 'tooltip-theme'
-    });
-    
-    /* Stretch intro section */
-    var totalHeight = $(window).height(),
-        headerHeight = $("#header").height();
-    introHeight = totalHeight - headerHeight;
-    $("#intro").height(introHeight - 214);
-    
-    /* Update progress bar on scroll */
-    $(window).scroll(function() {
-        var scroll = $(window).scrollTop(),
-            docH = $(document).height(),
-            winH = $(window).height();
-        progress = (scroll / (docH-winH)) * 100;
-        $("#progress-bar").css("width", progress.toFixed(2)+"%");
+    $("a.nav-link").click(function(e) {
+        e.preventDefault();
+        
+        var section = $(this).attr("href");
+        $("html, body").animate({ scrollTop: $(section).offset().top - navOffset });
     });
 });
-
-function toBasics() {
-    $("body").animate({scrollTop:introHeight}, 1500);
-}
-
-function backToTop() {
-    $("body").animate({scrollTop:0}, 1500);
-}
