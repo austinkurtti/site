@@ -33,6 +33,23 @@ Slate gray: #646464
         background-color: #DB4463;
     }
     
+    .basics-detail svg {
+        margin-top: .3em;
+    }
+    
+    @keyframes detailSvgSlide {
+        0% {
+            margin-top: 1.2em;
+        }
+        100% {
+            margin-top: .3em;
+        }
+    }
+    
+    .basics-detail-content, .basics-detail-content > span {
+        padding: .5em;
+    }
+    
     #experience-one {
         border-top: .3em dashed black;
         border-right: .3em dashed black;
@@ -50,6 +67,19 @@ Slate gray: #646464
     #basics .col-md-6 {
         height: 200px;
     }
+    
+    .basics-detail svg {
+        margin-top: .7em;
+    }
+    
+    @keyframes detailSvgSlide {
+        0% {
+            margin-top: 1.7em;
+        }
+        100% {
+            margin-top: .7em;
+        }
+    }
 }
 
 @media (min-width: 768px) { /* md */
@@ -64,11 +94,41 @@ Slate gray: #646464
     #basics-two {
         background-color: #FB6483;
     }
+    
+    .basics-detail svg {
+        margin-top: .8em;
+    }
+    
+    @keyframes detailSvgSlide {
+        0% {
+            margin-top: 1.9em;
+        }
+        100% {
+            margin-top: .8em;
+        }
+    }
 }
 
 @media (min-width: 992px) { /* lg */
     #basics .col-md-6 {
         height: 275px;
+    }
+    
+    .basics-detail svg {
+        margin-top: .8em;
+    }
+    
+    @keyframes detailSvgSlide {
+        0% {
+            margin-top: 2em;
+        }
+        100% {
+            margin-top: .8em;
+        }
+    }
+    
+    .basics-detail-content, .basics-detail-content > span {
+        padding: 1em;
     }
     
     #experience-one {
@@ -85,6 +145,19 @@ Slate gray: #646464
 @media (min-width: 1200px) { /* xl */
     #basics .col-md-6 {
         height: 350px;
+    }
+    
+    .basics-detail svg {
+        margin-top: 1em;
+    }
+    
+    @keyframes detailSvgSlide {
+        0% {
+            margin-top: 2.2em;
+        }
+        100% {
+            margin-top: 1em;
+        }
     }
 }
 
@@ -254,15 +327,14 @@ section {
 }
 
 .basics-detail svg {
-    animation: 1s ease-out detailSvgSlide;
-    left: 44%;
-    position: absolute;
-    top: 25%;
+    animation: 1.5s ease-out detailSvgSlide;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .basics-detail-content {
     left: 0%;
-    padding: 1em;
     position: absolute;
     text-align: center;
     top: 60%;
@@ -270,19 +342,9 @@ section {
 }
 
 .basics-detail-content > span {
-    animation: 1s ease-out detailContentFade;
+    animation: 1.5s ease-out detailContentFade;
     border: .3em dashed;
     border-color: white;
-    padding: 1em;
-}
-
-@keyframes detailSvgSlide {
-    0% {
-        top: 40%;
-    }
-    100% {
-        top: 25%;
-    }
 }
 
 @keyframes detailContentFade {
