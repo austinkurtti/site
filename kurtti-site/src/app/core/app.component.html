@@ -1,6 +1,13 @@
 <!-- Sticky nav header -->
-<header>
-    {{ title }}
+<header class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-12 col-md-auto">
+            <span id="title">{{ title }}</span>
+        </div>
+        <div class="col-3 col-md-auto">
+            <a class="content-link" [routerLink]="about">Square one</a>
+        </div>
+    </div>
 </header>
 <!-- Page content -->
 <main>

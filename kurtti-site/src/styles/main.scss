@@ -1,0 +1,8 @@
+@import './colors.scss';
+@import './settings.scss';
+
+body {
+    background-color: $off-white;
+    font-family: $default-font-family;
+    font-size: $default-font-size;
+}
