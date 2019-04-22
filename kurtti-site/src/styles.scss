@@ -1,5 +1,5 @@
-@import './colors.scss';
-@import './settings.scss';
+// https://github.com/angular/angular-cli/wiki/stories-global-styles
+@import 'variables';
 
 body {
     background-color: $off-white;
