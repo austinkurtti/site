@@ -4,8 +4,14 @@
         <div class="col-12 col-md-auto">
             <span id="title">{{ title }}</span>
         </div>
-        <div class="col-3 col-md-auto">
-            <a class="content-link" [routerLink]="about">Square one</a>
+        <div class="col-4 col-md-auto">
+            <a class="content-link" routerLink="/about">About</a>
+        </div>
+        <div class="col-4 col-md-auto">
+            <a class="content-link" routerLink="/resume">Resume</a>
+        </div>
+        <div class="col-4 col-md-auto">
+            <a class="content-link" routerLink="/contact">Contact</a>
         </div>
     </div>
 </header>
@@ -13,3 +19,11 @@
 <main>
     <router-outlet></router-outlet>
 </main>
+
+<footer class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-center">
+            <i class="far fa-copyright"></i> Austin Kurtti
+        </div>
+    </div>
+</footer>
