@@ -1,8 +1,46 @@
 // https://github.com/angular/angular-cli/wiki/stories-global-styles
 @import 'variables';
 
+// Defaults
 body {
     background-color: $off-white;
     font-family: $default-font-family;
     font-size: $default-font-size;
+}
+
+// Random color classes
+.color-1 {
+    color: $pink;
+}
+.color-1-bg {
+    background-color: $pink;
+}
+.color-2 {
+    color: $blue;
+}
+.color-2-bg {
+    background-color: $blue;
+}
+.color-3 {
+    color: $green;
+}
+.color-3-bg {
+    background-color: $green;
+}
+.color-4 {
+    color: $purple;
+}
+.color-4-bg {
+    background-color: $purple;
+}
+.color-5 {
+    color: $orange;
+}
+.color-5-bg {
+    background-color: $orange;
+}
+
+// Utilities
+.border-dashed {
+    border-style: dashed;
 }
