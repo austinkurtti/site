@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
     providedIn: 'root'
 })
-export class RandomService {
+export class ColorService {
     // Based off $class-colors in src/style-paths/_variables.scss
     private _fullNumberPool = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     private _numberPool = [];

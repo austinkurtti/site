@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RandomService } from '@singletons/random.service';
+import { ColorService } from '@singletons/color.service';
 
 @Component({
     selector: 'resume',
@@ -13,15 +13,15 @@ export class ResumeComponent implements OnInit {
     public skillsColor: string;
 
     constructor(
-        private _randomService: RandomService
+        private _colorService: ColorService
     ) { }
 
     public ngOnInit() {
-        this._randomService.resetNumberPool();
-        this.educationColor = this._randomService.getRandomColorClass([4, 5, 6]);
-        this.experienceColor = this._randomService.getRandomColorClass();
+        this._colorService.resetNumberPool();
+        this.educationColor = this._colorService.getRandomColorClass([4, 5, 6]);
+        this.experienceColor = this._colorService.getRandomColorClass();
         this.experienceColorBg = `${this.experienceColor}-bg`;
-        this.skillsColor = this._randomService.getRandomColorClass([4, 5, 6]);
+        this.skillsColor = this._colorService.getRandomColorClass([4, 5, 6]);
     }
 
 }

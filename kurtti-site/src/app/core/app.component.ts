@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RandomService } from '@singletons/random.service';
+import { ColorService } from '@singletons/color.service';
 
 @Component({
     selector: 'app-root',
@@ -13,13 +13,13 @@ export class AppComponent implements OnInit {
     public contactColor: string;
 
     constructor(
-        private _randomService: RandomService
+        private _colorService: ColorService
     ) { }
 
     public ngOnInit() {
-        this._randomService.resetNumberPool();
-        this.aboutColor = `${this._randomService.getRandomColorClass()}-hov`;
-        this.resumeColor = `${this._randomService.getRandomColorClass()}-hov`;
-        this.contactColor = `${this._randomService.getRandomColorClass()}-hov`;
+        this._colorService.resetNumberPool();
+        this.aboutColor = `${this._colorService.getRandomColorClass()}-hov`;
+        this.resumeColor = `${this._colorService.getRandomColorClass()}-hov`;
+        this.contactColor = `${this._colorService.getRandomColorClass()}-hov`;
     }
 }
