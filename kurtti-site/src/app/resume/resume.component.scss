@@ -2,9 +2,20 @@
 
 h6 {
     color: $black;
-    font-weight: bold;
 }
 
 mark {
     background-color: $black;
+}
+
+[class^=devicon-] {
+    font-size: $base-size * 2.5;
+
+    &.highlight {
+        font-size: $base-size * 4;
+    }
+}
+
+.border-dashed {
+    border-width: $base-size * .33;
 }

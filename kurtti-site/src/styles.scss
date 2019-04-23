@@ -4,8 +4,10 @@
 // Defaults
 body {
     background-color: $off-white;
+    color: $black;
     font-family: $default-font-family;
     font-size: $default-font-size;
+    overflow-x: hidden;
 }
 
 h1 {
