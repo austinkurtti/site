@@ -17,10 +17,11 @@ export class ResumeComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
-        this.educationColor = this._randomService.getRandomColorClass();
+        this._randomService.resetNumberPool();
+        this.educationColor = this._randomService.getRandomColorClass([4, 5, 6]);
         this.experienceColor = this._randomService.getRandomColorClass();
-        this.experienceColorBg = this.experienceColor + '-bg';
-        this.skillsColor = this._randomService.getRandomColorClass();
+        this.experienceColorBg = `${this.experienceColor}-bg`;
+        this.skillsColor = this._randomService.getRandomColorClass([4, 5, 6]);
     }
 
 }

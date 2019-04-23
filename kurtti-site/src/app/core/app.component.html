@@ -5,13 +5,13 @@
             <span id="title">{{ title }}</span>
         </div>
         <div class="col-4 col-md-auto">
-            <a class="content-link" routerLink="/about">About</a>
+            <a routerLink="/about" [ngClass]="aboutColor" >About</a>
         </div>
         <div class="col-4 col-md-auto">
-            <a class="content-link" routerLink="/resume">Resume</a>
+            <a routerLink="/resume" [ngClass]="resumeColor">Resume</a>
         </div>
         <div class="col-4 col-md-auto">
-            <a class="content-link" routerLink="/contact">Contact</a>
+            <a routerLink="/contact" [ngClass]="contactColor">Contact</a>
         </div>
     </div>
 </header>

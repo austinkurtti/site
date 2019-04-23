@@ -9,11 +9,3 @@ header, footer {
     font-family: 'Monoton';
     font-size: $default-font-size * 2.5;
 }
-
-.content-link {
-    color: $white;
-
-    &:hover {
-        text-decoration: none;
-    }
-}

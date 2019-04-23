@@ -8,36 +8,26 @@ body {
     font-size: $default-font-size;
 }
 
-// Random color classes
-.color-1 {
-    color: $pink;
+h1 {
+    font-size: $default-font-size * 3.5;
 }
-.color-1-bg {
-    background-color: $pink;
+
+a {
+    color: $white;
+
+    &:hover {
+        text-decoration: none;
+    }
 }
-.color-2 {
-    color: $blue;
-}
-.color-2-bg {
-    background-color: $blue;
-}
-.color-3 {
-    color: $green;
-}
-.color-3-bg {
-    background-color: $green;
-}
-.color-4 {
-    color: $purple;
-}
-.color-4-bg {
-    background-color: $purple;
-}
-.color-5 {
-    color: $orange;
-}
-.color-5-bg {
-    background-color: $orange;
+
+// Color classes
+@for $i from 1 through length($class-colors) {
+    .color-#{$i}, .color-#{$i}-hov:hover {
+        color: nth($class-colors, $i);
+    }
+    .color-#{$i}-bg {
+        background-color: nth($class-colors, $i);
+    }
 }
 
 // Utilities

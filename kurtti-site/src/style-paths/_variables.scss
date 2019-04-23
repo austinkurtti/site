@@ -2,13 +2,20 @@
 $black                      : #333;
 $white                      : #fff;
 $off-white                  : #eee;
-$pink                       : #fa4e71;
+$red                        : #fa4e71;
 $orange                     : #fa814e;
+$gold                       : #ffb061;
 $yellow                     : #c7fa4e;
 $green                      : #4efa81;
+$teal                       : #4efad7;
 $blue                       : #61b0ff;
 $purple                     : #814efa;
+$magenta                    : #d74efa;
+
+$class-colors: $red, $orange, $gold, $yellow, $green, $teal, $blue, $purple, $magenta;
 
 // Settings
+$base-size                  : 1rem;
+
 $default-font-family        : 'Montserrat', sans-serif;
-$default-font-size          : 1rem;
+$default-font-size          : $base-size;
