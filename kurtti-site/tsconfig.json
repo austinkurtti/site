@@ -3,6 +3,7 @@
     "compilerOptions": {
         "baseUrl": "./",
         "paths": {
+            "@directives/*": ["src/app/@directives/*"],
             "@singletons/*": ["src/app/@services/*"]
         },
         "outDir": "./dist/out-tsc",

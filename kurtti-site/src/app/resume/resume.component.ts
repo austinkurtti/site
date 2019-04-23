@@ -8,9 +8,14 @@ import { ColorService } from '@singletons/color.service';
 })
 export class ResumeComponent implements OnInit {
     public educationColor: string;
+    public educationDefer = 'invisible';
     public experienceColor: string;
     public experienceColorBg: string;
+    public experienceDefer = 'invisible';
     public skillsColor: string;
+    public skillsDefer = 'invisible';
+
+    public deferThreshold = .25;
 
     constructor(
         private _colorService: ColorService
