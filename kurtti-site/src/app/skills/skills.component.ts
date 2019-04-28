@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'about',
-    templateUrl: './about.component.html',
-    styleUrls: ['./about.component.scss']
+    selector: 'skills',
+    styleUrls: ['./skills.component.scss'],
+    templateUrl: './skills.component.html'
 })
-export class AboutComponent implements OnInit {
+export class SkillsComponent implements OnInit {
     public deferThreshold = .25;
     public deferClass = 'invisible';
 

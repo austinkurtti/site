@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
-    {path: '', pathMatch: 'full', redirectTo:'about'},
-    {path: 'about', loadChildren: '../about/about.module#AboutModule'},
-    {path: 'resume', loadChildren: '../resume/resume.module#ResumeModule'},
-    {path: 'contact', loadChildren: '../contact/contact.module#ContactModule'}
+    { path: '', component: AppComponent }
 ];
 
 @NgModule({

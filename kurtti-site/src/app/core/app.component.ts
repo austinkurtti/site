@@ -8,9 +8,6 @@ import { ColorService } from '@singletons/color.service';
 })
 export class AppComponent implements OnInit {
     public title = 'Austin Kurtti';
-    public aboutColor: string;
-    public resumeColor: string;
-    public contactColor: string;
 
     constructor(
         private _colorService: ColorService
@@ -18,8 +15,5 @@ export class AppComponent implements OnInit {
 
     public ngOnInit() {
         this._colorService.resetNumberPool();
-        this.aboutColor = `${this._colorService.getRandomColorClass()}-hov`;
-        this.resumeColor = `${this._colorService.getRandomColorClass()}-hov`;
-        this.contactColor = `${this._colorService.getRandomColorClass()}-hov`;
     }
 }

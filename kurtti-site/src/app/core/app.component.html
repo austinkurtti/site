@@ -1,31 +1,36 @@
-<!-- Sticky nav header -->
-<header class="container-fluid sticky-top">
-    <div class="row align-items-center text-center">
-        <div class="col-12 col-md-auto">
-            <span id="title">{{ title }}</span>
+<!-- Side bar -->
+<aside class="h-100 position-fixed">
+    <!-- <h1>Austin Kurtti</h1> -->
+    <svg class="h-100 w-100">
+        <symbol id="title-symbol">
+            <text text-anchor="middle" x="50%" y="50%" class="title-text">{{ title }}</text>
+        </symbol>
+        <g>
+            <use xlink:href="#title-symbol" id="outline"></use>
+            <use xlink:href="#title-symbol" id="fill"></use>
+        </g>
+    </svg>
+</aside>
+<!-- Content -->
+<main class="position-static">
+    <about></about>
+    <education></education>
+    <experience></experience>
+    <skills></skills>
+    <footer class="row no-gutters py-3 justify-content-center align-items-center">
+        <div class="col-auto mr-3">
+            <i class="far fa-copyright"></i> {{ title }}
         </div>
-        <div class="col-4 col-md-auto">
-            <a routerLink="/about" [ngClass]="aboutColor" >About</a>
+        <div class="col-auto">
+            <a href="https://github.com/austinkurtti">
+                <i class="fab fa-2x fa-linkedin"></i>
+            </a>
+            <a class="mx-3" href="mailto:austin.kurtti@gmail.com">
+                <i class="fas fa-2x fa-envelope-square"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/austinkurtti">
+                <i class="fab fa-2x fa-github-square"></i>
+            </a>
         </div>
-        <div class="col-4 col-md-auto">
-            <a routerLink="/resume" [ngClass]="resumeColor">Resume</a>
-        </div>
-        <div class="col-4 col-md-auto">
-            <a routerLink="/contact" [ngClass]="contactColor">Contact</a>
-        </div>
-    </div>
-</header>
-
-<!-- Page content -->
-<main>
-    <router-outlet></router-outlet>
+    </footer>
 </main>
-
-<!-- Footer -->
-<footer class="py-4">
-    <div class="row text-center">
-        <div class="col-12">
-            <i class="far fa-copyright"></i> Austin Kurtti
-        </div>
-    </div>
-</footer>

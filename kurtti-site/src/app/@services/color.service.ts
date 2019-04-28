@@ -26,6 +26,10 @@ export class ColorService {
      * @memberof RandomService
      */
     public getRandomColorClass = (excludeNums: Array<number> = []): string => {
+        if (!this._numberPool.length || this._numberPool.length <= excludeNums.length) {
+            this.resetNumberPool();
+        }
+
         // Get available numbers from which to generate the color class
         const nums = [...this._numberPool].filter(num => {
             return !excludeNums.includes(num);

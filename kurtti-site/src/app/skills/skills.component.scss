@@ -1,0 +1,13 @@
+@import 'variables';
+
+[class^=devicon-] {
+    font-size: $base-size * 2.5;
+
+    &.highlight {
+        font-size: $base-size * 4;
+    }
+
+    &.other {
+        padding-left: $base-size * 2;
+    }
+}

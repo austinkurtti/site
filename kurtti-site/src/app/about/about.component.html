@@ -1,5 +1,22 @@
-<section class="row">
-    <div class="col-12 text-center">
-        <h1 class="py-3">Square one.</h1>
+<!-- <section class="h-100">
+    <i>Picture of me</i>
+</section> -->
+<section class="text-center" [ngClass]="deferClass" deferLoad [threshold]="deferThreshold" (onLoad)="deferClass='defer-load'">
+    <h1 class="text-left">Square one.</h1>
+    <div class="row no-gutters">
+        <div class="col-6">
+            <h3>Midwest-bred</h3>
+        </div>
+        <div class="col-6">
+            <h3>Food fan</h3>
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-6">
+            <h3>Traveler</h3>
+        </div>
+        <div class="col-6">
+            <h3>Passionate coder</h3>
+        </div>
     </div>
 </section>

@@ -2,24 +2,42 @@
 @import 'variables';
 
 // Defaults
+html {
+    height: 100%;
+}
+
 body {
     background-color: $off-white;
     color: $black;
     font-family: $default-font-family;
     font-size: $default-font-size;
+    height: 100%;
     overflow-x: hidden;
+    overflow-y: hidden;
+    animation-name: bodyOverflow;
+    animation-duration: 2s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+    animation-delay: 5s;
+}
+
+section {
+    padding-top: $base-size * 4;
+    padding-bottom: $base-size * 4;
+    padding-left: $base-size * 3;
+    padding-right: $base-size * 3;
+}
+
+h2, h4, h5, h6 {
+    margin-bottom: 0;
 }
 
 h1 {
-    font-size: $default-font-size * 3.5;
+    margin-bottom: $base-size * 4;
 }
 
-a {
-    color: $white;
-
-    &:hover {
-        text-decoration: none;
-    }
+h3 {
+    margin-bottom: $base-size * 2;
 }
 
 // Color classes
@@ -35,4 +53,71 @@ a {
 // Utilities
 .border-dashed {
     border-style: dashed;
+}
+
+.list-unstyled {
+    margin-bottom: 0;
+}
+
+// Defered loading
+.defer-load {
+    animation: 1s linear deferFade;
+}
+
+// Keyframes
+@keyframes titleOutline {
+    from {
+        stroke-dashoffset: 100%;
+    }
+    to {
+        stroke-dashoffset: 0%;
+    }
+}
+
+@keyframes titleFill {
+    from {
+        fill-opacity: 0;
+    }
+    to {
+        fill-opacity: 1;
+    }
+}
+
+@keyframes titleSlide {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 35%;
+    }
+}
+
+@keyframes bodyOverflow {
+    0% {
+        overflow-y: hidden;
+    }
+    99% {
+        overflow-y: hidden;
+    }
+    100% {
+        overflow-y: auto;
+    }
+}
+
+@keyframes mainVisibility {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes deferFade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
