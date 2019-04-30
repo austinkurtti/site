@@ -1,15 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { BaseComponent } from '@base/base.component';
 
 @Component({
     selector: 'education',
     styleUrls: ['./education.component.scss'],
     templateUrl: './education.component.html'
 })
-export class EducationComponent implements OnInit {
-    public deferThreshold = .25;
-    public deferClass = 'invisible';
-
-    public ngOnInit() {
-        // asdf
-    }
-}
+export class EducationComponent extends BaseComponent {}

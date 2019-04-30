@@ -3,6 +3,7 @@
     "compilerOptions": {
         "baseUrl": "./",
         "paths": {
+            "@base/*": ["src/app/@base/*"],
             "@directives/*": ["src/app/@directives/*"],
             "@singletons/*": ["src/app/@services/*"]
         },

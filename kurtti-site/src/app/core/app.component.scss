@@ -33,11 +33,21 @@ aside {
         animation-fill-mode: forwards;
         animation-delay: 2s;
     }
+
+    .song {
+        opacity: 0;
+        animation-name: mainVisibility;
+        animation-duration: 2s;
+        animation-timing-function: ease-in;
+        animation-fill-mode: forwards;
+        animation-delay: 5s;
+    }
 }
 
 main {
     background-color: $double-off-white;
-    margin-left: 35%;
+    color: $white;
+    margin-left: 30%;
     opacity: 0;
     animation-name: mainVisibility;
     animation-duration: 2s;
@@ -50,11 +60,11 @@ footer {
     background-color: $black;
     color: $white;
 
-    a {
+    .email {
         color: $white;
-    
+
         &:hover {
-            text-decoration: none;
+            color: $yellow;
         }
     }
 }

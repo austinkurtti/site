@@ -1,7 +1,7 @@
-<section class="text-center" [ngClass]="deferClass" deferLoad [threshold]="deferThreshold" (onLoad)="deferClass='defer-load'">
+<section class="text-center" [ngClass]="colorClass + ' ' + deferClass" deferLoad [threshold]="deferThreshold" (onLoad)="deferClass='defer-load'">
     <h1 class="text-left">I got learned.</h1>
-    <h3>University of Kansas</h3>
-    <div class="row no-gutters">
+    <h3 [ngClass]="colorClassLight">University of Kansas</h3>
+    <div class="row no-gutters p-5" [ngClass]="colorClassDark">
         <div class="col-4">
             <i class="fas fa-3x fa-calendar mb-3"></i>
             <br>

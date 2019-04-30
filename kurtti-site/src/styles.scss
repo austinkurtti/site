@@ -21,40 +21,67 @@ body {
     animation-delay: 5s;
 }
 
-section {
-    padding-top: $base-size * 4;
-    padding-bottom: $base-size * 4;
-    padding-left: $base-size * 3;
-    padding-right: $base-size * 3;
-}
-
 h2, h4, h5, h6 {
     margin-bottom: 0;
 }
 
 h1 {
-    margin-bottom: $base-size * 4;
+    padding: $base-size * 3;
+    margin-bottom: 0;
 }
 
 h3 {
-    margin-bottom: $base-size * 2;
+    padding-bottom: $base-size * 2;
+    margin-bottom: 0;
 }
 
 // Color classes
 @for $i from 1 through length($class-colors) {
-    .color-#{$i}, .color-#{$i}-hov:hover {
-        color: nth($class-colors, $i);
-    }
-    .color-#{$i}-bg {
+    .color-#{$i} {
         background-color: nth($class-colors, $i);
+    }
+    .color-#{$i}-light {
+        background-color: lighten(nth($class-colors, $i), 5%);
+    }
+    .color-#{$i}-dark {
+        background-color: darken(nth($class-colors, $i), 5%);
+    }
+}
+
+// Brand color classes
+.github-purple {
+    color: $white;
+
+    &:hover {
+        color: $github-purple;
+    }
+}
+
+.linkedin-blue {
+    color: $white;
+
+    &:hover {
+        color: $linkedin-blue;
+    }
+}
+
+.spotify-green {
+    color: $black;
+
+    &:hover {
+        color: $spotify-green;
+    }
+}
+
+.youtube-red {
+    color: $black;
+
+    &:hover {
+        color: $youtube-red;
     }
 }
 
 // Utilities
-.border-dashed {
-    border-style: dashed;
-}
-
 .list-unstyled {
     margin-bottom: 0;
 }
@@ -88,7 +115,7 @@ h3 {
         width: 100%;
     }
     to {
-        width: 35%;
+        width: 30%;
     }
 }
 

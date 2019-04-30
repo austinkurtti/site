@@ -5,15 +5,21 @@ $off-white                  : #eee;
 $double-off-white           : #ddd;
 $red                        : #fa4e71;
 $orange                     : #fa814e;
-$gold                       : #ffb061;
+// $gold                       : #ffb061;
 $yellow                     : #c7fa4e;
-$green                      : #4efa81;
-$teal                       : #4efad7;
+// $green                      : #4efa81;
+// $teal                       : #4efad7;
 $blue                       : #61b0ff;
 $purple                     : #814efa;
-$magenta                    : #d74efa;
+// $magenta                    : #d74efa;
 
-$class-colors: $red, $orange, $gold, $yellow, $green, $teal, $blue, $purple, $magenta;
+$class-colors: $red, $orange, $blue, $purple;
+
+// Brand colors
+$github-purple              : #6e5494;
+$linkedin-blue              : #0077b5;
+$spotify-green              : #1ed760;
+$youtube-red                : #ff0000;
 
 // Settings
 $base-size                  : 1rem;

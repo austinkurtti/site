@@ -2,21 +2,41 @@
     <i>Picture of me</i>
 </section> -->
 <section class="text-center" [ngClass]="deferClass" deferLoad [threshold]="deferThreshold" (onLoad)="deferClass='defer-load'">
-    <h1 class="text-left">Square one.</h1>
+    <h1 class="text-left" [ngClass]="colorClass">Square one.</h1>
     <div class="row no-gutters">
-        <div class="col-6">
+        <div class="col-6 p-5" [ngClass]="colorClassLight">
             <h3>Midwest-bred</h3>
+            <ul class="list-unstyled">
+                <li>Born in Kansas</li>
+                <li>Moved to Minnesota</li>
+                <li>Now living in Kansas again</li>
+            </ul>
         </div>
-        <div class="col-6">
-            <h3>Food fan</h3>
+        <div class="col-6 p-5" [ngClass]="colorClassDark">
+            <h3>Sports fan</h3>
+            <ul class="list-unstyled">
+                <li>Vikings, Twins, Wild, Wolves, MN United</li>
+                <li>Favorite to watch is KU basketball</li>
+                <li>Rock Chalk!</li>
+            </ul>
         </div>
     </div>
     <div class="row no-gutters">
-        <div class="col-6">
+        <div class="col-6 p-5" [ngClass]="colorClassLight">
             <h3>Traveler</h3>
+            <ul class="list-unstyled">
+                <li>Backpacked in Scotland</li>
+                <li>Scuba dived in Jamaica</li>
+                <li>Attempting to fill in a beer cap map</li>
+            </ul>
         </div>
-        <div class="col-6">
+        <div class="col-6 p-5" [ngClass]="colorClassDark">
             <h3>Passionate coder</h3>
+            <ul class="list-unstyled">
+                <li>Front-end is my favorite</li>
+                <li>Continuously improving</li>
+                <li>Always learning</li>
+            </ul>
         </div>
     </div>
 </section>

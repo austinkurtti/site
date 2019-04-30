@@ -1,7 +1,6 @@
 <!-- Side bar -->
 <aside class="h-100 position-fixed">
-    <!-- <h1>Austin Kurtti</h1> -->
-    <svg class="h-100 w-100">
+    <svg class="h-75 w-100">
         <symbol id="title-symbol">
             <text text-anchor="middle" x="50%" y="50%" class="title-text">{{ title }}</text>
         </symbol>
@@ -10,6 +9,20 @@
             <use xlink:href="#title-symbol" id="fill"></use>
         </g>
     </svg>
+    <div class="song h-25 w-100 text-center">
+        <p>
+            What I'm listening to:
+            <br>
+            Sorry You're Sick - Anderson East
+            <br>
+            <a class="btn spotify-green m-2" href="https://open.spotify.com/track/1yJISuvwXVeClWaDvm1IqF?si=ub8zuoAURn2RlrCFcW51ig" target="_blank">
+                <i class="fab fa-2x fa-spotify"></i>
+            </a>
+            <a class="btn youtube-red m-2" href="https://www.youtube.com/watch?v=fPY-oyR9A10" target="_blank">
+                <i class="fab fa-2x fa-youtube"></i>
+            </a>
+        </p>
+    </div>
 </aside>
 <!-- Content -->
 <main class="position-static">
@@ -22,13 +35,13 @@
             <i class="far fa-copyright"></i> {{ title }}
         </div>
         <div class="col-auto">
-            <a href="https://github.com/austinkurtti">
+            <a class="btn linkedin-blue m-2" href="https://www.linkedin.com/in/austinkurtti">
                 <i class="fab fa-2x fa-linkedin"></i>
             </a>
-            <a class="mx-3" href="mailto:austin.kurtti@gmail.com">
+            <a class="btn email m-2" href="mailto:austin.kurtti@gmail.com">
                 <i class="fas fa-2x fa-envelope-square"></i>
             </a>
-            <a href="https://www.linkedin.com/in/austinkurtti">
+            <a class="btn github-purple m-2" href="https://github.com/austinkurtti">
                 <i class="fab fa-2x fa-github-square"></i>
             </a>
         </div>
