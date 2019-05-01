@@ -110,12 +110,21 @@ h3 {
     }
 }
 
-@keyframes titleSlide {
+@keyframes titleSlideLeft {
     from {
         width: 100%;
     }
     to {
         width: 30%;
+    }
+}
+
+@keyframes titleSlideUp {
+    from {
+        height: 100%;
+    }
+    to {
+        height: 15%;
     }
 }
 

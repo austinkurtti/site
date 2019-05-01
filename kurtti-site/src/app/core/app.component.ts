@@ -7,8 +7,6 @@ import { ColorService } from '@singletons/color.service';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    public title = 'Austin Kurtti';
-
     constructor(
         private _colorService: ColorService
     ) { }

@@ -1,8 +1,8 @@
-<!-- Side bar -->
-<aside class="h-100 position-fixed">
+<!-- Side bar (lg and above) -->
+<aside class="h-100 position-fixed d-none d-lg-block">
     <svg class="h-75 w-100">
         <symbol id="title-symbol">
-            <text text-anchor="middle" x="50%" y="50%" class="title-text">{{ title }}</text>
+            <text text-anchor="middle" x="50%" y="50%" class="title-text">Austin Kurtti</text>
         </symbol>
         <g>
             <use xlink:href="#title-symbol" id="outline"></use>
@@ -11,7 +11,7 @@
     </svg>
     <div class="song h-25 w-100 text-center">
         <p>
-            What I'm listening to:
+            My latest song on repeat:
             <br>
             Sorry You're Sick - Anderson East
             <br>
@@ -24,15 +24,27 @@
         </p>
     </div>
 </aside>
+<!-- Header (md and down) -->
+<header class="w-100 sticky-top d-block d-lg-none">
+    <svg class="h-100 w-100">
+        <symbol id="title-symbol">
+            <text text-anchor="middle" class="title-text">Austin Kurtti</text>
+        </symbol>
+        <g>
+            <use xlink:href="#title-symbol" id="outline"></use>
+            <use xlink:href="#title-symbol" id="fill"></use>
+        </g>
+    </svg>
+</header>
 <!-- Content -->
-<main class="position-static">
+<ng-template #contentTemplate>
     <about></about>
     <education></education>
     <experience></experience>
     <skills></skills>
     <footer class="row no-gutters py-3 justify-content-center align-items-center">
         <div class="col-auto mr-3">
-            <i class="far fa-copyright"></i> {{ title }}
+            <i class="far fa-copyright"></i> Austin Kurtti
         </div>
         <div class="col-auto">
             <a class="btn linkedin-blue m-2" href="https://www.linkedin.com/in/austinkurtti">
@@ -46,4 +58,12 @@
             </a>
         </div>
     </footer>
+</ng-template>
+<!-- Pairs with aside -->
+<main class="with-aside position-static d-none d-lg-block">
+    <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template>
+</main>
+<!-- Pairs with header -->
+<main class="with-header position-static d-block d-lg-none">
+    <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template>
 </main>

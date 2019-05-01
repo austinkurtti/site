@@ -2,15 +2,14 @@
 
 aside {
     width: 100%;
-    animation-name: titleSlide;
+    animation-name: titleSlideLeft;
     animation-duration: 2s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
     animation-delay: 3.5s;
 
     .title-text {
-        // font-family: 'Monoton';
-        font-size: $default-font-size * 4;
+        font-size: $default-font-size * 3;
     }
 
     #outline {
@@ -44,16 +43,54 @@ aside {
     }
 }
 
+header {
+    background-color: $white;
+    height: 100%;
+    animation-name: titleSlideUp;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    animation-delay: 3.5s;
+
+    .title-text {
+        font-size: $default-font-size * 1.5;
+    }
+
+    #outline {
+        fill: none;
+        stroke: $black;
+        stroke-dasharray: 100%;
+        stroke-dashoffset: 0;
+        animation-name: titleOutline;
+        animation-duration: 4s;
+        animation-timing-function: ease-in;
+        animation-fill-mode: forwards;
+    }
+
+    #fill {
+        fill: $black;
+        fill-opacity: 0;
+        animation-name: titleFill;
+        animation-duration: 1s;
+        animation-timing-function: ease-in;
+        animation-fill-mode: forwards;
+        animation-delay: 2s;
+    }
+}
+
 main {
     background-color: $double-off-white;
     color: $white;
-    margin-left: 30%;
-    opacity: 0;
-    animation-name: mainVisibility;
-    animation-duration: 2s;
-    animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
-    animation-delay: 5s;
+
+    &.with-aside {
+        margin-left: 30%;
+        opacity: 0;
+        animation-name: mainVisibility;
+        animation-duration: 2s;
+        animation-timing-function: ease-in;
+        animation-fill-mode: forwards;
+        animation-delay: 5s;
+    }
 }
 
 footer {
