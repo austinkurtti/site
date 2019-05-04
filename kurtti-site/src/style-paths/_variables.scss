@@ -4,21 +4,16 @@ $white                      : #fff;
 $off-white                  : #eee;
 $double-off-white           : #ddd;
 $red                        : #fa4e71;
-$red-complement             : #4efad7;
 $orange                     : #fa814e;
-$orange-complement          : #4ec7fa;
-// $gold                       : #ffb061;
-// $yellow                     : #c7fa4e;
-// $green                      : #4efa81;
-// $teal                       : #4efad7;
+$yellow                     : #c7fa4e;
+$green                      : #4efa81;
+$teal                       : #4efad7;
 $blue                       : #61b0ff;
-$blue-complement            : #ffb061;
 $purple                     : #814efa;
-$purple-complement          : #c7fa4e;
 $magenta                    : #d74efa;
 
 $class-colors: $red, $orange, $blue, $purple;
-$class-complement-colors: $red-complement, $orange-complement, $blue-complement, $purple-complement;
+$class-complement-colors: $teal, $blue, $orange, $yellow;
 
 // Brand colors
 $github-purple              : #6e5494;
@@ -49,3 +44,6 @@ $body-overflow-duration     : 1.5s;
 $body-overflow-delay        : $main-visibility-delay;
 $defer-load-name            : deferLoad;
 $defer-load-duration        : 1s;
+$rainbow-name               : rainbow;
+$rainbow-duration           : 2s;
+$rainbow-delay              : 0s;

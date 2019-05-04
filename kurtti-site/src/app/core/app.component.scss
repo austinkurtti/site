@@ -8,6 +8,10 @@ aside {
     animation-fill-mode: forwards;
     animation-delay: $title-slide-delay;
 
+    &.rainbow {
+        padding-right: 70%;
+    }
+
     .song {
         opacity: 0;
         animation-name: $main-visibility-name;
@@ -26,6 +30,10 @@ header {
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
     animation-delay: $title-slide-delay;
+
+    &.rainbow {
+        height: 15%;
+    }
 }
 
 .title-text {

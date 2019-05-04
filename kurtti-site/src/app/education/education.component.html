@@ -1,5 +1,5 @@
 <section class="text-center" [ngClass]="colorClass + ' ' + deferClass" deferLoad [threshold]="deferThreshold" (onLoad)="deferClass='defer-load'">
-    <h1 class="text-left">I got learned.</h1>
+    <h1 class="text-left" [innerHtml]="title"></h1>
     <h3 [ngClass]="colorClassLight">University of Kansas</h3>
     <div class="row no-gutters px-5 py-0" [ngClass]="colorClassDark">
         <div class="col-6 col-md-4 py-5">

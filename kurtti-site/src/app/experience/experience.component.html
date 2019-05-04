@@ -1,5 +1,5 @@
 <section class="text-center" [ngClass]="colorClass + ' ' + deferClass" deferLoad [threshold]="deferThreshold" (onLoad)="deferClass='defer-load'">
-    <h1 class="text-left">Nine to fives.</h1>
+    <h1 class="text-left" [innerHtml]="title"></h1>
     <div class="row no-gutters">
         <div class="col-12 col-lg-6 p-5" [ngClass]="colorClassDark">
             <h3>AllofE Solutions</h3>

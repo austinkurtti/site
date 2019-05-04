@@ -1,8 +1,8 @@
 <!-- Side bar (lg and above) -->
-<aside class="h-100 position-fixed d-none d-lg-block">
+<aside #aside class="h-100 position-fixed d-none d-lg-block">
     <svg class="h-75 w-100">
-        <text text-anchor="middle" x="50%" y="50%" class="title-text" id="outline">Austin Kurtti</text>
-        <text text-anchor="middle" x="50%" y="50%" class="title-text" id="fill">Austin Kurtti</text>
+        <text text-anchor="middle" x="50%" y="50%" class="title-text" id="outline">{{ title }}</text>
+        <text text-anchor="middle" x="50%" y="50%" class="title-text" id="fill">{{ title }}</text>
     </svg>
     <div class="song h-25 w-100 text-center">
         <label class="d-block">My latest song on repeat:</label>
@@ -16,10 +16,10 @@
     </div>
 </aside>
 <!-- Header (md and down) -->
-<header class="w-100 sticky-top d-block d-lg-none">
+<header #header class="w-100 sticky-top d-block d-lg-none">
     <svg class="h-100 w-100">
-        <text text-anchor="middle" x="50%" y="55%" class="title-text" id="outline">Austin Kurtti</text>
-        <text text-anchor="middle" x="50%" y="55%" class="title-text" id="fill">Austin Kurtti</text>
+        <text text-anchor="middle" x="50%" y="55%" class="title-text" id="outline">{{ title }}</text>
+        <text text-anchor="middle" x="50%" y="55%" class="title-text" id="fill">{{ title }}</text>
     </svg>
 </header>
 <!-- Content -->

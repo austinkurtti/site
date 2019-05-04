@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '@base/base.component';
 
 @Component({
@@ -6,4 +6,13 @@ import { BaseComponent } from '@base/base.component';
     styleUrls: ['./education.component.scss'],
     templateUrl: './education.component.html'
 })
-export class EducationComponent extends BaseComponent {}
+export class EducationComponent extends BaseComponent implements OnInit {
+    public ngOnInit() {
+        super.ngOnInit();
+        this.title = 'I got learned.';
+    }
+
+    protected secretActivated = (): void => {
+        this.title = '&#129380; &#9898; &#9898;';
+    }
+}
