@@ -1,19 +1,24 @@
-// Colors
+// App Colors
 $black                      : #333;
 $white                      : #fff;
 $off-white                  : #eee;
 $double-off-white           : #ddd;
 $red                        : #fa4e71;
+$red-complement             : #4efad7;
 $orange                     : #fa814e;
+$orange-complement          : #4ec7fa;
 // $gold                       : #ffb061;
-$yellow                     : #c7fa4e;
+// $yellow                     : #c7fa4e;
 // $green                      : #4efa81;
 // $teal                       : #4efad7;
 $blue                       : #61b0ff;
+$blue-complement            : #ffb061;
 $purple                     : #814efa;
-// $magenta                    : #d74efa;
+$purple-complement          : #c7fa4e;
+$magenta                    : #d74efa;
 
 $class-colors: $red, $orange, $blue, $purple;
+$class-complement-colors: $red-complement, $orange-complement, $blue-complement, $purple-complement;
 
 // Brand colors
 $github-purple              : #6e5494;
@@ -26,3 +31,21 @@ $base-size                  : 1rem;
 
 $default-font-family        : 'Montserrat', sans-serif;
 $default-font-size          : $base-size;
+
+$title-outline-name         : titleOutline;
+$title-outline-duration     : 2s;
+$title-fill-name            : titleFill;
+$title-fill-duration        : 1s;
+$title-fill-delay           : $title-outline-duration;
+$title-slide-header-name    : titleSlideHeader;
+$title-slide-aside-name     : titleSlideAside;
+$title-slide-duration       : 1.5s;
+$title-slide-delay          : $title-fill-delay + $title-fill-duration + .5s; // .5s pause
+$main-visibility-name       : mainVisibility;
+$main-visibility-duration   : 1.5s;
+$main-visibility-delay      : $title-slide-delay + $title-slide-duration;
+$body-overflow-name         : bodyOverflow;
+$body-overflow-duration     : 1.5s;
+$body-overflow-delay        : $main-visibility-delay;
+$defer-load-name            : deferLoad;
+$defer-load-duration        : 1s;
