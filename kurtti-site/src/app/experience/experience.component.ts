@@ -9,10 +9,11 @@ import { BaseComponent } from '@base/base.component';
 export class ExperienceComponent extends BaseComponent implements OnInit {
     public ngOnInit() {
         super.ngOnInit();
-        this.title = 'Nine to fives.';
+        this.title = 'NINE TO FIVES.';
     }
 
     protected secretActivated = (): void => {
-        this.title = '&#128344; &#10145; &#128340;';
+        // Clock @ 9 -- right arrow -- clock @ 5
+        // this.title = '&#128344; &#10145; &#128340;';
     }
 }

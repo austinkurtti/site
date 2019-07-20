@@ -9,10 +9,11 @@ import { BaseComponent } from '@base/base.component';
 export class EducationComponent extends BaseComponent implements OnInit {
     public ngOnInit() {
         super.ngOnInit();
-        this.title = 'I got learned.';
+        this.title = 'I GOT LEARNED.';
     }
 
     protected secretActivated = (): void => {
-        this.title = '&#129380; &#9898; &#9898;';
+        // Red cup -- ping pong ball (x2)
+        // this.title = '&#129380; &#9898; &#9898;';
     }
 }

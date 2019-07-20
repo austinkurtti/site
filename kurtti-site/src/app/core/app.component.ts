@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { ColorService } from '@singletons/color.service';
-import { fromEvent } from 'rxjs';
+import { fromEvent, timer } from 'rxjs';
 import { takeWhile, filter } from 'rxjs/operators';
 import { SecretService } from '@singletons/secret.service';
 
@@ -10,8 +10,8 @@ import { SecretService } from '@singletons/secret.service';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, AfterViewInit {
-    @ViewChild('aside') aside: ElementRef<any>;
-    @ViewChild('header') header: ElementRef<any>;
+    @ViewChild('header') header: ElementRef;
+    @ViewChild('main') main: ElementRef;
 
     public title = 'Austin Kurtti';
     public secretActivated = false;
@@ -33,6 +33,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     public ngAfterViewInit() {
+        timer(5000).subscribe(() => {
+            this._renderer.addClass(this.main.nativeElement, 'd-block');
+        });
         fromEvent(document, 'keyup')
             .pipe(takeWhile(x => !this.secretActivated))
             .subscribe((e: KeyboardEvent) => {
@@ -51,7 +54,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         // ? Add confetti and/or cursor effects
         console.log('KONAMI CODE ENTERED');
         this.title = 'Party Time';
-        this._renderer.addClass(this.aside.nativeElement, 'rainbow');
         this._renderer.addClass(this.header.nativeElement, 'rainbow');
     }
 }

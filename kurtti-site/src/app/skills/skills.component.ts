@@ -9,10 +9,10 @@ import { BaseComponent } from '@base/base.component';
 export class SkillsComponent extends BaseComponent implements OnInit {
     public ngOnInit() {
         super.ngOnInit();
-        this.title = 'Skill set.';
+        this.title = 'SKILL SET.';
     }
 
     protected secretActivated = (): void => {
-        this.title = '"I have a particular set of skills." - Liam Neeson';
+        // this.title = '"I have a particular set of skills." - Liam Neeson';
     }
 }

@@ -13,7 +13,7 @@ body {
     font-size: $default-font-size;
     height: 100%;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: scroll;
     animation-name: $body-overflow-name;
     animation-duration: $body-overflow-duration;
     animation-timing-function: ease-in;
@@ -21,9 +21,28 @@ body {
     animation-delay: $body-overflow-delay;
 }
 
-::selection {
-    background-color: $magenta;
+section {
+    border-bottom: .25rem solid $black;
+
+    .background {
+        left: 0;
+        opacity: 0.5;
+        top: 0;
+    }
+
+    .content {
+        padding: $base-size * 5 0;
+    }
 }
+
+.section-title-text {
+    font-size: $section-title-font-size;
+    font-weight: $section-title-font-weight;
+}
+
+// ::selection {
+//     background-color: $magenta;
+// }
 
 h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0;
@@ -34,31 +53,47 @@ h1 {
 }
 
 h3 {
+    font-weight: bold;
     padding-bottom: $base-size * 2;
 }
 
 // Color classes
+.color-black {
+    color: $black;
+    fill: $black;
+    stroke: $black;
+}
+
 @for $i from 1 through length($class-colors) {
     .color-#{$i} {
-        background-color: nth($class-colors, $i);
+        // background-color: nth($class-colors, $i);
+        color: nth($class-colors, $i);
+        fill: nth($class-colors, $i);
+        stroke: nth($class-colors, $i);
         
-        &::selection, h1::selection, h3::selection, p::selection, li::selection, label::selection {
-            background-color: nth($class-complement-colors, $i);
-        }
+        // &::selection, h1::selection, h3::selection, p::selection, li::selection, label::selection {
+        //     background-color: nth($class-complement-colors, $i);
+        // }
     }
     .color-#{$i}-light {
-        background-color: lighten(nth($class-colors, $i), 5%);
+        // background-color: lighten(nth($class-colors, $i), 5%);
+        color: lighten(nth($class-colors, $i), 5%);
+        fill: lighten(nth($class-colors, $i), 5%);
+        stroke: lighten(nth($class-colors, $i), 5%);
 
-        &::selection, h1::selection, h3::selection, p::selection, li::selection, label::selection {
-            background-color: nth($class-complement-colors, $i);
-        }
+        // &::selection, h1::selection, h3::selection, p::selection, li::selection, label::selection {
+        //     background-color: nth($class-complement-colors, $i);
+        // }
     }
     .color-#{$i}-dark {
-        background-color: darken(nth($class-colors, $i), 5%);
+        // background-color: darken(nth($class-colors, $i), 5%);
+        color: darken(nth($class-colors, $i), 5%);
+        fill: darken(nth($class-colors, $i), 5%);
+        stroke: darken(nth($class-colors, $i), 5%);
 
-        &::selection, h1::selection, h3::selection, p::selection, li::selection, label::selection {
-            background-color: nth($class-complement-colors, $i);
-        }
+        // &::selection, h1::selection, h3::selection, p::selection, li::selection, label::selection {
+        //     background-color: nth($class-complement-colors, $i);
+        // }
     }
 }
 
@@ -95,9 +130,15 @@ h3 {
     }
 }
 
-// Utilities
+// Misc
 .list-unstyled {
     margin-bottom: 0;
+}
+
+.defer-load {
+    animation-name: $defer-load-name;
+    animation-duration: $defer-load-duration;
+    animation-timing-function: linear;
 }
 
 .rainbow {
@@ -110,17 +151,10 @@ h3 {
     animation-delay: $rainbow-delay !important;
 }
 
-// Defered loading
-.defer-load {
-    animation-name: $defer-load-name;
-    animation-duration: $defer-load-duration;
-    animation-timing-function: linear;
-}
-
 // Keyframes
 @keyframes #{$title-outline-name} {
     from {
-        stroke-dashoffset: 250;
+        stroke-dashoffset: 100;
     }
     to {
         stroke-dashoffset: 0;
@@ -136,16 +170,7 @@ h3 {
     }
 }
 
-@keyframes #{$title-slide-aside-name} {
-    from {
-        width: 100%;
-    }
-    to {
-        width: 30%;
-    }
-}
-
-@keyframes #{$title-slide-header-name} {
+@keyframes #{$title-slide-name} {
     from {
         height: 100%;
     }
@@ -154,24 +179,21 @@ h3 {
     }
 }
 
-@keyframes #{$main-visibility-name} {
-    from {
-        opacity: 0;
+@keyframes #{$svg-font-size-name} {
+    0% {
+        font-size: $default-font-size;
     }
-    to {
-        opacity: 1;
+    100% {
+        font-size: $default-font-size * 2.5;
     }
 }
 
-@keyframes #{$body-overflow-name} {
+@keyframes #{$slant-appear-name} {
     0% {
-        overflow-y: hidden;
-    }
-    99% {
-        overflow-y: hidden;
+        opacity: 0;
     }
     100% {
-        overflow-y: auto;
+        opacity: 1;
     }
 }
 

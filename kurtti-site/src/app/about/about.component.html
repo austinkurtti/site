@@ -1,50 +1,50 @@
-<!-- <section class="h-100">
-    <i>Picture of me</i>
-</section> -->
-<section class="text-center" [ngClass]="deferClass" deferLoad [threshold]="deferThreshold" (onLoad)="deferClass='defer-load'">
-    <h1 class="text-left" [ngClass]="colorClass" [innerHtml]="title"></h1>
-    <div class="row no-gutters">
-        <div class="col-12 col-lg-6 p-5" [ngClass]="colorClassLight">
-            <h3>Midwest-bred</h3>
-            <ul class="list-unstyled">
-                <li>Born in Kansas</li>
-                <li>Moved to Minnesota</li>
-                <li>Now living in Kansas again</li>
-            </ul>
+<!-- ? Maybe add a selfie -->
+<section #section class="text-center position-relative" [ngClass]="deferClass" deferLoad [threshold]="deferThreshold" (onLoad)="deferClass='defer-load'">
+    <!-- <svg class="background position-absolute h-100 w-100" [attr.viewBox]="backgroundViewBox">
+        <path #end [attr.d]="backgroundPath1" [ngClass]="colorClassDark"></path>
+        <path #end [attr.d]="backgroundPath2" [ngClass]="colorClass"></path>
+    </svg> -->
+    <div class="content">
+        <!-- TODO: Componentize section title -->
+        <svg class="w-100">
+            <text text-anchor="left" x="3.2rem" y="52%" class="section-title-text" [ngClass]="colorClass">{{ title }}</text>
+            <text text-anchor="left" x="3rem" y="50%" class="section-title-text color-black">{{ title }}</text>
+        </svg>
+        <div class="row no-gutters">
+            <div class="col-12 col-lg-6 p-5">
+                <h3 [ngClass]="colorClass">MIDWEST-BRED</h3>
+                <ul class="list-unstyled">
+                    <li>Born in Kansas</li>
+                    <li>Moved to Minnesota</li>
+                    <li>Now living in Kansas again</li>
+                </ul>
+            </div>
+            <div class="col-12 col-lg-6 p-5">
+                <h3 [ngClass]="colorClass">SPORTS FAN</h3>
+                <ul class="list-unstyled">
+                    <li>Minnesota teams</li>
+                    <li>College basketball</li>
+                    <li>Rock Chalk!</li>
+                </ul>
+            </div>
         </div>
-        <div class="col-12 col-lg-6 p-5" [ngClass]="colorClassDark">
-            <h3>Sports fan</h3>
-            <ul class="list-unstyled">
-                <li>Vikings, Twins, Wild, Wolves, MN United</li>
-                <li>Favorite to watch is KU basketball</li>
-                <li>Rock Chalk!</li>
-            </ul>
-        </div>
-    </div>
-    <div class="row no-gutters">
-        <div class="col-6 d-none d-lg-block p-5" [ngClass]="colorClassDark">
-            <h3>Traveler</h3>
-            <ul class="list-unstyled">
-                <li>Backpacked in Scotland</li>
-                <li>Scuba dived in Jamaica</li>
-                <li>Attempting to fill in a beer cap map</li>
-            </ul>
-        </div>
-        <div class="col-12 col-lg-6 p-5" [ngClass]="colorClassLight">
-            <h3>Passionate coder</h3>
-            <ul class="list-unstyled">
-                <li>Front-end is my favorite</li>
-                <li>Continuously improving</li>
-                <li>Always learning</li>
-            </ul>
-        </div>
-        <div class="col-12 d-block d-lg-none p-5" [ngClass]="colorClassDark">
-            <h3>Traveler</h3>
-            <ul class="list-unstyled">
-                <li>Backpacked in Scotland</li>
-                <li>Scuba dived in Jamaica</li>
-                <li>Attempting to fill in a beer cap map</li>
-            </ul>
+        <div class="row no-gutters">
+            <div class="col-6 d-none d-lg-block p-5">
+                <h3 [ngClass]="colorClass">TRAVELER</h3>
+                <ul class="list-unstyled">
+                    <li>Skiied all over the Rockies</li>
+                    <li>Backpacked in Scotland</li>
+                    <li>Scuba dived in Jamaica</li>
+                </ul>
+            </div>
+            <div class="col-12 col-lg-6 p-5">
+                <h3 [ngClass]="colorClass">WEB DEVELOPER</h3>
+                <ul class="list-unstyled">
+                    <li>Full-stack capable</li>
+                    <li>Passionate about front-end</li>
+                    <li>Always learning and improving</li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>

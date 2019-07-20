@@ -1,8 +1,18 @@
-// App Colors
+// App colors
 $black                      : #333;
 $white                      : #fff;
 $off-white                  : #eee;
-$double-off-white           : #ddd;
+// $double-off-white           : #ddd;
+$app-blue                   : #3968cb;
+$app-turquoise              : #10e7e2;
+$app-red                    : #ff2153;
+$app-pink                   : #ff68a8;
+
+// $class-colors: $red, $orange, $blue, $purple;
+$class-colors: $app-blue, $app-turquoise, $app-red, $app-pink;
+// $class-complement-colors: $teal, $blue, $orange, $yellow;
+
+// Rainbow colors
 $red                        : #fa4e71;
 $orange                     : #fa814e;
 $yellow                     : #c7fa4e;
@@ -11,9 +21,6 @@ $teal                       : #4efad7;
 $blue                       : #61b0ff;
 $purple                     : #814efa;
 $magenta                    : #d74efa;
-
-$class-colors: $red, $orange, $blue, $purple;
-$class-complement-colors: $teal, $blue, $orange, $yellow;
 
 // Brand colors
 $github-purple              : #6e5494;
@@ -26,24 +33,36 @@ $base-size                  : 1rem;
 
 $default-font-family        : 'Montserrat', sans-serif;
 $default-font-size          : $base-size;
+$section-title-font-size    : $default-font-size * 3;
+$section-title-font-weight  : bold;
 
+// Animations
 $title-outline-name         : titleOutline;
 $title-outline-duration     : 2s;
+
 $title-fill-name            : titleFill;
 $title-fill-duration        : 1s;
 $title-fill-delay           : $title-outline-duration;
-$title-slide-header-name    : titleSlideHeader;
-$title-slide-aside-name     : titleSlideAside;
+
+$title-slide-name           : titleSlide;
 $title-slide-duration       : 1.5s;
-$title-slide-delay          : $title-fill-delay + $title-fill-duration + .5s; // .5s pause
-$main-visibility-name       : mainVisibility;
-$main-visibility-duration   : 1.5s;
-$main-visibility-delay      : $title-slide-delay + $title-slide-duration;
+$title-slide-delay          : $title-fill-delay + $title-fill-duration + .5s; // .5s breath
+
+$svg-font-size-name         : svgFontSize;
+$svg-font-size-duration     : $title-slide-duration;
+$svg-font-size-delay        : $title-slide-delay;
+
 $body-overflow-name         : bodyOverflow;
 $body-overflow-duration     : 1.5s;
-$body-overflow-delay        : $main-visibility-delay;
+$body-overflow-delay        : $title-slide-delay + $title-slide-duration;
+
+$slant-appear-name          : slantSlide;
+$slant-appear-duration      : .5s;
+$slant-appear-delay         : $body-overflow-delay;
+
 $defer-load-name            : deferLoad;
 $defer-load-duration        : 1s;
+
 $rainbow-name               : rainbow;
 $rainbow-duration           : 2s;
 $rainbow-delay              : 0s;

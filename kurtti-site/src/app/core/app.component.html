@@ -1,5 +1,5 @@
 <!-- Side bar (lg and above) -->
-<aside #aside class="h-100 position-fixed d-none d-lg-block">
+<!-- <aside #aside class="h-100 position-fixed d-none d-lg-block">
     <svg class="h-75 w-100">
         <text text-anchor="middle" x="50%" y="50%" class="title-text" id="outline">{{ title }}</text>
         <text text-anchor="middle" x="50%" y="50%" class="title-text" id="fill">{{ title }}</text>
@@ -14,20 +14,33 @@
             <i class="fab fa-2x fa-youtube"></i>
         </a>
     </div>
-</aside>
-<!-- Header (md and down) -->
-<header #header class="w-100 sticky-top d-block d-lg-none">
-    <svg class="h-100 w-100">
-        <text text-anchor="middle" x="50%" y="55%" class="title-text" id="outline">{{ title }}</text>
-        <text text-anchor="middle" x="50%" y="55%" class="title-text" id="fill">{{ title }}</text>
-    </svg>
+</aside> -->
+<!-- Header -->
+<header #header class="w-100 sticky-top">
+    <div class="position-relative h-100 w-100">
+        <svg class="position-absolute h-100 w-25" viewBox="0 0 128 128">
+            <defs>
+                <path id="slant" d="M16,0 L64,128 L112,128 L64,0 Z"></path>
+            </defs>
+            <use xlink:href="#slant" x="-50%" class="slant color-3"></use>
+            <use xlink:href="#slant" x="-33.3%" class="slant color-2"></use>
+            <use xlink:href="#slant" x="33.3%" class="slant color-4"></use>
+            <use xlink:href="#slant" x="50%" class="slant color-1"></use>
+        </svg>
+        <svg class="position-absolute h-100 w-100" viewBox="0 0 128 128">
+            <text text-anchor="middle" x="50%" y="55%" id="outline">{{ title }}</text>
+            <text text-anchor="middle" x="50%" y="55%" id="fill">{{ title }}</text>
+        </svg>
+        <!-- ? Contact icons on right -->
+    </div>
 </header>
 <!-- Content -->
-<ng-template #contentTemplate>
+<main #main class="position-static">
     <about></about>
     <education></education>
     <experience></experience>
     <skills></skills>
+    <!-- Footer -->
     <footer class="row no-gutters py-3 justify-content-center align-items-center">
         <div class="col-auto mr-3">
             <i class="far fa-copyright"></i> Austin Kurtti
@@ -44,12 +57,4 @@
             </a>
         </div>
     </footer>
-</ng-template>
-<!-- Pairs with aside -->
-<main class="with-aside position-static d-none d-lg-block">
-    <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template>
-</main>
-<!-- Pairs with header -->
-<main class="with-header position-static d-block d-lg-none">
-    <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template>
 </main>

@@ -1,31 +1,10 @@
 @import 'variables';
 
-aside {
-    width: 100%;
-    animation-name: $title-slide-aside-name;
-    animation-duration: $title-slide-duration;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: forwards;
-    animation-delay: $title-slide-delay;
-
-    &.rainbow {
-        padding-right: 70%;
-    }
-
-    .song {
-        opacity: 0;
-        animation-name: $main-visibility-name;
-        animation-duration: $main-visibility-duration;
-        animation-timing-function: ease-in;
-        animation-fill-mode: forwards;
-        animation-delay: $main-visibility-delay;
-    }
-}
-
 header {
     background-color: $white;
+    border-bottom: .25rem solid $black;
     height: 100%;
-    animation-name: $title-slide-header-name;
+    animation-name: $title-slide-name;
     animation-duration: $title-slide-duration;
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
@@ -36,15 +15,21 @@ header {
     }
 }
 
-.title-text {
-    font-size: $default-font-size * 3;
+svg {
+    font-size: $default-font-size;
+    animation-name: $svg-font-size-name;
+    animation-duration: $svg-font-size-duration;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    animation-delay: $svg-font-size-delay;
 }
 
 #outline {
     fill: none;
     stroke: $black;
-    stroke-dasharray: 250;
-    stroke-dashoffset: 250;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    stroke-width: .02rem;
     animation-name: $title-outline-name;
     animation-duration: $title-outline-duration;
     animation-timing-function: ease-in;
@@ -61,19 +46,31 @@ header {
     animation-delay: $title-fill-delay;
 }
 
-main {
-    background-color: $double-off-white;
-    color: $white;
+.slant {
+    opacity: 0;
+    animation-name: $slant-appear-name;
+    animation-duration: $slant-appear-duration;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+    animation-delay: $slant-appear-delay;
 
-    &.with-aside {
-        margin-left: 30%;
-        opacity: 0;
-        animation-name: $main-visibility-name;
-        animation-duration: $main-visibility-duration;
-        animation-timing-function: ease-in;
-        animation-fill-mode: forwards;
-        animation-delay: $main-visibility-delay;
+    &.color-2 {
+        animation-delay: $slant-appear-delay + .1s;
     }
+
+    &.color-4 {
+        animation-delay: $slant-appear-delay + .2s;
+    }
+
+    &.color-1 {
+        animation-delay: $slant-appear-delay + .3s;
+    }
+}
+
+main {
+    background-color: $off-white;
+    color: $black;
+    display: none;
 }
 
 footer {
@@ -84,7 +81,7 @@ footer {
         color: $white;
 
         &:hover {
-            color: $magenta;
+            color: $app-red;
         }
     }
 }
