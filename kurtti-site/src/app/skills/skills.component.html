@@ -1,63 +1,27 @@
-<section class="text-center" [ngClass]="deferClass" deferLoad [threshold]="deferThreshold" (onLoad)="deferClass='defer-load'">
+<section class="text-center position-relative" [ngClass]="deferClass" deferLoad [threshold]="deferThreshold" (onLoad)="deferClass='defer-load'">
     <div class="content">
-        <svg class="w-100">
-            <text text-anchor="left" x="3.2rem" y="52%" class="section-title-text" [ngClass]="colorClass">{{ title }}</text>
-            <text text-anchor="left" x="3rem" y="50%" class="section-title-text color-black">{{ title }}</text>
-        </svg>
-        <h3 [ngClass]="colorClass">HIGHLIGHTS</h3>
-        <div class="row no-gutters pt-0 px-0 pb-5">
-            <div class="col-3">
-                <i class="devicon-html5-plain highlight" title="HTML5"></i>
-            </div>
-            <div class="col-3">
-                <i class="devicon-angularjs-plain highlight" title="Angular"></i>
-            </div>
-            <div class="col-3">
-                <i class="devicon-typescript-plain highlight" title="Typescript"></i>
-            </div>
-            <div class="col-3">
-                <i class="devicon-css3-plain highlight" title="CSS3"></i>
+        <div class="row no-gutters">
+            <div class="col-lg-4 offset-lg-2">
+                <section-title [text]="title" [colorClass]="colorClass"></section-title>
             </div>
         </div>
-        <h3 [ngClass]="colorClass">OTHERS</h3>
-        <div class="row no-gutters p-0">
-            <div class="col-4 col-md-2 pb-5">
-                <i class="devicon-visualstudio-plain other" title="Visual Studio"></i>
+        <div class="row no-gutters justify-content-center text-left mb-5">
+            <div class="col-lg-4">
+                <h2>My Focus</h2>
             </div>
-            <div class="col-4 col-md-2 pb-5">
-                <i class="devicon-git-plain other" title="Git"></i>
-            </div>
-            <div class="col-4 col-md-2 pb-5">
-                <i class="devicon-javascript-plain other" title="Javascript"></i>
-            </div>
-            <div class="col-4 col-md-2 pb-5">
-                <i class="devicon-bitbucket-plain other" title="Bitbucket"></i>
-            </div>
-            <div class="col-4 col-md-2 pb-5">
-                <i class="devicon-windows8-plain other" title="Windows"></i>
-            </div>
-            <div class="col-4 col-md-2 pb-5">
-                <i class="devicon-csharp-plain other" title="C#"></i>
+            <div class="col-lg-4">
+                <p>While I identify mostly as a frontender, I am capable of flexing skills on both sides of the tech stack. I most enjoy creating cool pages for users to interact with, but understanding the data those pages present is important to building the best possible user experience. When I have a good understanding of all of the technical elements of a web environment, it only leads to better results.</p>
+                <p>On my off time, I tend to find myself exploring Angular and applying some of what I've learned to this site and other projects. However, expanding my knowledge with other tools is never far off my mind.</p>
             </div>
         </div>
-        <div class="row no-gutters p-0">
-            <div class="col-4 col-md-2 pb-5">
-                <i class="devicon-sass-plain other" title="Sass"></i>
+        <div class="row no-gutters justify-content-center text-left mb-5">
+            <div class="col-lg-8">
+                <h2>Tech</h2>
             </div>
-            <div class="col-4 col-md-2 pb-5">
-                <i class="devicon-bootstrap-plain other" title="Bootstrap"></i>
-            </div>
-            <div class="col-4 col-md-2 pb-5">
-                <i class="devicon-dot-net-plain other" title=".NET"></i>
-            </div>
-            <div class="col-4 col-md-2 pb-5">
-                <i class="devicon-php-plain other" title="PHP"></i>
-            </div>
-            <div class="col-4 col-md-2 pb-5">
-                <i class="devicon-mysql-plain other" title="MySQL/TSQL"></i>
-            </div>
-            <div class="col-4 col-md-2 pb-5">
-                <i class="devicon-android-plain other" title="Android"></i>
+        </div>
+        <div class="row no-gutters justify-content-center mb-5">
+            <div class="col-lg-8">
+                <skill-carousel [skills]="skills" [colorClass]="colorClass"></skill-carousel>
             </div>
         </div>
     </div>

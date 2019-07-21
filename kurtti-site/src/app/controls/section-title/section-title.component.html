@@ -1,0 +1,8 @@
+<!-- <svg class="w-100 ml-5 my-5">
+    <text text-anchor="start" alignment-baseline="hanging" x=".4rem" y=".2rem" class="section-title-text" [ngClass]="colorClass">{{ text }}</text>
+    <text text-anchor="start" alignment-baseline="hanging" x=".2rem" class="section-title-text color-black">{{ text }}</text>
+</svg> -->
+<div class="section-title-container position-relative mb-5">
+    <h1 class="position-absolute" [ngClass]="colorClass">{{ text }}</h1>
+    <h1 class="position-absolute">{{ text }}</h1>
+</div>

@@ -15,7 +15,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
 
     public ngOnInit() {
         super.ngOnInit();
-        this.title = 'ABOUT ME.';
+        this.title = 'About me.';
     }
 
     // public ngAfterViewInit() {

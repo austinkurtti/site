@@ -8,11 +8,15 @@ import { AboutComponent } from '../about/about.component';
 import { EducationComponent } from '../education/education.component';
 import { ExperienceComponent } from '../experience/experience.component';
 import { SkillsComponent } from '../skills/skills.component';
+import { SectionTitleComponent } from '../controls/section-title/section-title.component';
+import { SkillCarouselComponent } from '../controls/skill-slider/skill-carousel.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         DeferLoadDirective,
+        SectionTitleComponent,
+        SkillCarouselComponent,
         AboutComponent,
         EducationComponent,
         ExperienceComponent,

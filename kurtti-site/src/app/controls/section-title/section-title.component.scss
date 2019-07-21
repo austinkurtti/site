@@ -1,0 +1,19 @@
+@import 'variables';
+
+// svg {
+//     height: $base-size * 3;
+// }
+
+.section-title-container {
+    height: $base-size * 3;
+
+    h1:first-child {
+        left: .1rem;
+        top: .1rem;
+    }
+
+    h1:last-child {
+        left: -.1rem;
+        top: -.1rem;
+    }
+}

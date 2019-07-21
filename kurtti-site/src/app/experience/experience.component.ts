@@ -9,7 +9,7 @@ import { BaseComponent } from '@base/base.component';
 export class ExperienceComponent extends BaseComponent implements OnInit {
     public ngOnInit() {
         super.ngOnInit();
-        this.title = 'NINE TO FIVES.';
+        this.title = 'Nine to Fives.';
     }
 
     protected secretActivated = (): void => {

@@ -3,7 +3,7 @@ $black                      : #333;
 $white                      : #fff;
 $off-white                  : #eee;
 // $double-off-white           : #ddd;
-$app-blue                   : #3968cb;
+$app-blue                   : #4782ff;
 $app-turquoise              : #10e7e2;
 $app-red                    : #ff2153;
 $app-pink                   : #ff68a8;
@@ -33,8 +33,6 @@ $base-size                  : 1rem;
 
 $default-font-family        : 'Montserrat', sans-serif;
 $default-font-size          : $base-size;
-$section-title-font-size    : $default-font-size * 3;
-$section-title-font-weight  : bold;
 
 // Animations
 $title-outline-name         : titleOutline;
@@ -61,7 +59,7 @@ $slant-appear-duration      : .5s;
 $slant-appear-delay         : $body-overflow-delay;
 
 $defer-load-name            : deferLoad;
-$defer-load-duration        : 1s;
+$defer-load-duration        : .5s;
 
 $rainbow-name               : rainbow;
 $rainbow-duration           : 2s;

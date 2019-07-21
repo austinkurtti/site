@@ -2,8 +2,9 @@
 
 header {
     background-color: $white;
-    border-bottom: .25rem solid $black;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .15);
     height: 100%;
+    z-index: 999;
     animation-name: $title-slide-name;
     animation-duration: $title-slide-duration;
     animation-timing-function: ease-in-out;
@@ -68,9 +69,10 @@ svg {
 }
 
 main {
-    background-color: $off-white;
+    background-color: $white;
     color: $black;
     display: none;
+    padding-top: 5%;
 }
 
 footer {
