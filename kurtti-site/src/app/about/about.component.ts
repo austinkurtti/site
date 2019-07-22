@@ -32,7 +32,6 @@ export class AboutComponent extends BaseComponent implements OnInit {
     // }
 
     protected secretActivated = (): void => {
-        // Arm flex -- sunglasses face -- peace sign
-        // this.title = '&#128170; &#128526; &#9996;';
+        // TODO: something fun
     }
 }

@@ -1,5 +1,6 @@
 // https://github.com/angular/angular-cli/wiki/stories-global-styles
 @import 'variables';
+@import 'keyframes';
 
 // Defaults
 html {
@@ -14,15 +15,9 @@ body {
     height: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
-    animation-name: $body-overflow-name;
-    animation-duration: $body-overflow-duration;
-    animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
-    animation-delay: $body-overflow-delay;
 }
 
 section {
-    // border-bottom: .25rem solid $black;
     transform: translateX(10%);
 
     // .background {
@@ -35,10 +30,6 @@ section {
         padding: $base-size * 10 0;
     }
 }
-
-// ::selection {
-//     background-color: $magenta;
-// }
 
 h1 {
     font-size: $default-font-size * 3;
@@ -89,6 +80,24 @@ p:not(:last-child) {
     padding: $base-size * 2 $base-size;
 }
 
+.contact-icon {
+    &-white {
+        color: $white;
+
+        &:hover {
+            color: $app-blue;
+        }
+    }
+
+    &-black {
+        color: $black;
+
+        &:hover {
+            color: $app-blue;
+        }
+    }
+}
+
 // Color classes
 .color-black {
     color: $black;
@@ -98,159 +107,30 @@ p:not(:last-child) {
 
 @for $i from 1 through length($class-colors) {
     .color-#{$i} {
-        // background-color: nth($class-colors, $i);
         color: nth($class-colors, $i);
         fill: nth($class-colors, $i);
         stroke: nth($class-colors, $i);
-        
-        // &::selection, h1::selection, h3::selection, p::selection, li::selection, label::selection {
-        //     background-color: nth($class-complement-colors, $i);
-        // }
     }
     .color-#{$i}-light {
-        // background-color: lighten(nth($class-colors, $i), 5%);
         color: lighten(nth($class-colors, $i), 5%);
         fill: lighten(nth($class-colors, $i), 5%);
         stroke: lighten(nth($class-colors, $i), 5%);
-
-        // &::selection, h1::selection, h3::selection, p::selection, li::selection, label::selection {
-        //     background-color: nth($class-complement-colors, $i);
-        // }
     }
     .color-#{$i}-dark {
-        // background-color: darken(nth($class-colors, $i), 5%);
         color: darken(nth($class-colors, $i), 5%);
         fill: darken(nth($class-colors, $i), 5%);
         stroke: darken(nth($class-colors, $i), 5%);
-
-        // &::selection, h1::selection, h3::selection, p::selection, li::selection, label::selection {
-        //     background-color: nth($class-complement-colors, $i);
-        // }
-    }
-}
-
-// Brand color classes
-.github-purple {
-    color: $white;
-
-    &:hover {
-        color: $github-purple;
-    }
-}
-
-.linkedin-blue {
-    color: $white;
-
-    &:hover {
-        color: $linkedin-blue;
-    }
-}
-
-.spotify-green {
-    color: $black;
-
-    &:hover {
-        color: $spotify-green;
-    }
-}
-
-.youtube-red {
-    color: $black;
-
-    &:hover {
-        color: $youtube-red;
     }
 }
 
 // Misc
-.list-unstyled {
-    margin-bottom: 0;
-}
-
 .defer-load {
     transform: translateX(0%);
-    transition-duration: $defer-load-duration;
+    transition-duration: $opacity-duration;
     transition-property: transform;
     transition-timing-function: linear;
-    animation-name: $defer-load-name;
-    animation-duration: $defer-load-duration;
+    animation-name: $opacity-name;
+    animation-duration: $opacity-duration;
     animation-timing-function: linear;
     animation-fill-mode: forwards;
-}
-
-.rainbow {
-    background: linear-gradient(130deg, $red, $orange, $yellow, $green, $teal, $blue, $purple, $magenta);
-    background-size: 1000% 1000%;
-    animation-name: $rainbow-name !important;
-    animation-duration: $rainbow-duration !important;
-    animation-timing-function: ease !important;
-    animation-iteration-count: infinite !important;
-    animation-delay: $rainbow-delay !important;
-}
-
-// Keyframes
-@keyframes #{$title-outline-name} {
-    from {
-        stroke-dashoffset: 100;
-    }
-    to {
-        stroke-dashoffset: 0;
-    }
-}
-
-@keyframes #{$title-fill-name} {
-    from {
-        fill-opacity: 0;
-    }
-    to {
-        fill-opacity: 1;
-    }
-}
-
-@keyframes #{$title-slide-name} {
-    from {
-        height: 100%;
-    }
-    to {
-        height: 10%;
-    }
-}
-
-@keyframes #{$svg-font-size-name} {
-    0% {
-        font-size: $default-font-size;
-    }
-    100% {
-        font-size: $default-font-size * 2.5;
-    }
-}
-
-@keyframes #{$slant-appear-name} {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes #{$defer-load-name} {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes #{$rainbow-name} {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
 }

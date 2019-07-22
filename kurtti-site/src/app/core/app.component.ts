@@ -51,9 +51,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     private _secretActivated = (): void => {
-        // ? Add confetti and/or cursor effects
-        console.log('KONAMI CODE ENTERED');
-        this.title = 'Party Time';
-        this._renderer.addClass(this.header.nativeElement, 'rainbow');
+        // TODO: something fun
+        // console.log('KONAMI CODE ENTERED');
     }
 }

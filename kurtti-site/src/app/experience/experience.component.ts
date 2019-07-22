@@ -13,7 +13,6 @@ export class ExperienceComponent extends BaseComponent implements OnInit {
     }
 
     protected secretActivated = (): void => {
-        // Clock @ 9 -- right arrow -- clock @ 5
-        // this.title = '&#128344; &#10145; &#128340;';
+        // TODO: something fun
     }
 }

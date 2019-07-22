@@ -1,70 +1,84 @@
 @import 'variables';
+@import 'keyframes';
 
 header {
     background-color: $white;
     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .15);
     height: 100%;
     z-index: 999;
-    animation-name: $title-slide-name;
-    animation-duration: $title-slide-duration;
-    animation-timing-function: ease-in-out;
+    animation-name: $header-slide-name;
+    animation-duration: $header-slide-duration;
+    animation-delay: $header-slide-delay;
+    animation-timing-function: $header-slide-timing;
     animation-fill-mode: forwards;
-    animation-delay: $title-slide-delay;
 
-    &.rainbow {
-        height: 15%;
-    }
-}
+    .header-slants {
+        min-width: 164px;
+        width: 10%;
 
-svg {
-    font-size: $default-font-size;
-    animation-name: $svg-font-size-name;
-    animation-duration: $svg-font-size-duration;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: forwards;
-    animation-delay: $svg-font-size-delay;
-}
-
-#outline {
-    fill: none;
-    stroke: $black;
-    stroke-dasharray: 100;
-    stroke-dashoffset: 100;
-    stroke-width: .02rem;
-    animation-name: $title-outline-name;
-    animation-duration: $title-outline-duration;
-    animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
-}
-
-#fill {
-    fill: $black;
-    fill-opacity: 0;
-    animation-name: $title-fill-name;
-    animation-duration: $title-fill-duration;
-    animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
-    animation-delay: $title-fill-delay;
-}
-
-.slant {
-    opacity: 0;
-    animation-name: $slant-appear-name;
-    animation-duration: $slant-appear-duration;
-    animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
-    animation-delay: $slant-appear-delay;
-
-    &.color-2 {
-        animation-delay: $slant-appear-delay + .1s;
+        .slant {
+            opacity: 0;
+            animation-name: $opacity-name;
+            animation-duration: $opacity-duration;
+            animation-delay: $header-animations-duration;
+            animation-timing-function: $opacity-timing;
+            animation-fill-mode: forwards;
+        
+            &.color-2 {
+                animation-delay: $header-animations-duration + .1s;
+            }
+        
+            &.color-4 {
+                animation-delay: $header-animations-duration + .2s;
+            }
+        
+            &.color-1 {
+                animation-delay: $header-animations-duration + .3s;
+            }
+        }
     }
 
-    &.color-4 {
-        animation-delay: $slant-appear-delay + .2s;
+    .header-title {
+        font-size: $default-font-size;
+        animation-name: $title-size-name;
+        animation-duration: $title-size-duration;
+        animation-delay: $title-size-delay;
+        animation-timing-function: $title-size-timing;
+        animation-fill-mode: forwards;
+
+        #outline {
+            fill: none;
+            font-family: 'Permanent Marker', $default-font-family;
+            stroke: $black;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            stroke-width: .02rem;
+            animation-name: $title-outline-name;
+            animation-duration: $title-outline-duration;
+            animation-timing-function: $title-outline-timing;
+            animation-fill-mode: forwards;
+        }
+
+        #fill {
+            fill: $black;
+            fill-opacity: 0;
+            font-family: 'Permanent Marker', $default-font-family;
+            animation-name: $title-fill-name;
+            animation-duration: $title-fill-duration;
+            animation-delay: $title-fill-delay;
+            animation-timing-function: $title-fill-timing;
+            animation-fill-mode: forwards;
+        }
     }
 
-    &.color-1 {
-        animation-delay: $slant-appear-delay + .3s;
+    .header-icons {
+        opacity: 0;
+        right: 0%;
+        transform: scale(0);
+        animation: $opacity-name $opacity-duration $opacity-timing,
+                   $grow-name $grow-duration $grow-timing;
+        animation-delay: $header-animations-duration;
+        animation-fill-mode: forwards;
     }
 }
 
@@ -78,12 +92,4 @@ main {
 footer {
     background-color: $black;
     color: $white;
-
-    .email {
-        color: $white;
-
-        &:hover {
-            color: $app-red;
-        }
-    }
 }

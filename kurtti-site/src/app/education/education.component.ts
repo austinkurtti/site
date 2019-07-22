@@ -13,7 +13,6 @@ export class EducationComponent extends BaseComponent implements OnInit {
     }
 
     protected secretActivated = (): void => {
-        // Red cup -- ping pong ball (x2)
-        // this.title = '&#129380; &#9898; &#9898;';
+        // TODO: something fun
     }
 }

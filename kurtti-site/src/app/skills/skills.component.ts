@@ -7,6 +7,7 @@ import { BaseComponent } from '@base/base.component';
     templateUrl: './skills.component.html'
 })
 export class SkillsComponent extends BaseComponent implements OnInit {
+    public autoScrollCarousel = false;
     public skills = [
         'devicon-html5-plain',
         'devicon-angularjs-plain',
@@ -32,7 +33,12 @@ export class SkillsComponent extends BaseComponent implements OnInit {
         this.title = 'Skill set.';
     }
 
+    public onDeferLoad = (): void => {
+        this.deferClass = 'defer-load';
+        this.autoScrollCarousel = true;
+    }
+
     protected secretActivated = (): void => {
-        // this.title = '"I have a particular set of skills." - Liam Neeson';
+        // TODO: something fun
     }
 }

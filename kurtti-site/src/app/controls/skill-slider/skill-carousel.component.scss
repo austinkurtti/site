@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'keyframes';
 
 .skill-carousel {
     list-style: none;
@@ -29,17 +30,17 @@
 
         &.shrink {
             transform: scale(0);
-            animation-name: shrink;
-            animation-duration: .25s;
-            animation-timing-function: ease-in;
+            animation-name: $shrink-name;
+            animation-duration: $shrink-duration;
+            animation-timing-function: $shrink-timing;
             animation-fill-mode: backwards;
         }
 
         &.grow {
             transform: scale(1);
-            animation-name: grow;
-            animation-duration: .25s;
-            animation-timing-function: ease-in;
+            animation-name: $grow-name;
+            animation-duration: $grow-duration;
+            animation-timing-function: $grow-timing;
             animation-fill-mode: backwards;
         }
 
@@ -58,23 +59,5 @@
         &:first-child {
             margin-right: 2rem;
         }
-    }
-}
-
-@keyframes shrink {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(0);
-    }
-}
-
-@keyframes grow {
-    from {
-        transform: scale(0);
-    }
-    to {
-        transform: scale(1);
     }
 }

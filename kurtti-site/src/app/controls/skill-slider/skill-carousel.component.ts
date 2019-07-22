@@ -1,34 +1,57 @@
-import { Component, Input, ViewChild, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
-import { timer } from 'rxjs';
+import { Component, Input, ViewChild, AfterViewInit, Renderer2, ElementRef, OnDestroy, HostListener, OnChanges, SimpleChanges } from '@angular/core';
+import { timer, Subscription } from 'rxjs';
 
 @Component({
     selector: 'skill-carousel',
     templateUrl: './skill-carousel.component.html',
     styleUrls: ['./skill-carousel.component.scss']
 })
-export class SkillCarouselComponent implements AfterViewInit {
+export class SkillCarouselComponent implements OnChanges, AfterViewInit, OnDestroy {
     @Input() skills: string[] = [];
     @Input() colorClass: string = '';
+    @Input() autoScroll = false;
 
     @ViewChild('skillCarousel') skillCarousel: ElementRef;
 
     public leftIndex = 0;
-    public rightIndex = 5;
+    public rightIndex = 0;
     public numCarouselSkills = 6;
     public carouselSkills: string[] = [];
+
+    private _autoScrollInterval = 5000; // 5 seconds
+    private _autoScrollTimer: Subscription;
 
     constructor(
         private _renderer: Renderer2
     ) {}
 
+    public ngOnChanges(changes: SimpleChanges) {
+        if ('autoScroll' in changes && changes['autoScroll'].currentValue && !this._autoScrollTimer) {
+            this._startAutoScrollTimer();
+        }
+    }
+
     public ngAfterViewInit() {
+        this.rightIndex = this.numCarouselSkills - 1;
         for (let i = 0; i < this.numCarouselSkills; i++) {
             this._renderer.appendChild(this.skillCarousel.nativeElement, this._getNextSkill(i));
         }
     }
 
-    public shiftSkills = (change: number): void => {
-        if (change === 1) {
+    public ngOnDestroy() {
+        this._stopAutoScrollTimer();
+    }
+
+    @HostListener('mouseover') onMouseOver = () => {
+        this._stopAutoScrollTimer();
+    }
+
+    @HostListener('mouseout') onMouseOut = () => {
+        this._startAutoScrollTimer();
+    }
+
+    public scrollCarousel = (change: 'left' | 'right'): void => {
+        if (change === 'right') {
             // Update indexes
             this.leftIndex = this.leftIndex === this.skills.length - 1 ? 0 : this.leftIndex + 1;
             this.rightIndex = this.rightIndex === this.skills.length - 1 ? 0 : this.rightIndex + 1;
@@ -64,7 +87,7 @@ export class SkillCarouselComponent implements AfterViewInit {
                 this._renderer.removeClass(nextSkill, 'position-absolute');
                 this._renderer.removeStyle(nextSkill, 'right');
             });
-        } else if (change === -1) {
+        } else if (change === 'left') {
             // Update indexes
             this.leftIndex = this.leftIndex === 0 ? this.skills.length - 1 : this.leftIndex - 1;
             this.rightIndex = this.rightIndex === 0 ? this.skills.length - 1 : this.rightIndex - 1;
@@ -113,5 +136,18 @@ export class SkillCarouselComponent implements AfterViewInit {
         this._renderer.addClass(newI, this.colorClass);
         this._renderer.appendChild(newLi, newI);
         return newLi;
+    }
+
+    private _startAutoScrollTimer = (): void => {
+        this._autoScrollTimer = timer(this._autoScrollInterval, this._autoScrollInterval).subscribe(() => {
+            this.scrollCarousel('right');
+        });
+    }
+
+    private _stopAutoScrollTimer = (): void => {
+        if (this._autoScrollTimer) {
+            this._autoScrollTimer.unsubscribe();
+            this._autoScrollTimer = null;
+        }
     }
 }

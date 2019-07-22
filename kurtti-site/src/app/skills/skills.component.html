@@ -1,4 +1,4 @@
-<section class="text-center position-relative" [ngClass]="deferClass" deferLoad [threshold]="deferThreshold" (onLoad)="deferClass='defer-load'">
+<section class="text-center position-relative" [ngClass]="deferClass" deferLoad [threshold]="deferThreshold" (onLoad)="onDeferLoad()">
     <div class="content">
         <div class="row no-gutters">
             <div class="col-lg-4 offset-lg-2">
@@ -21,7 +21,7 @@
         </div>
         <div class="row no-gutters justify-content-center mb-5">
             <div class="col-lg-8">
-                <skill-carousel [skills]="skills" [colorClass]="colorClass"></skill-carousel>
+                <skill-carousel [skills]="skills" [colorClass]="colorClass" [autoScroll]="autoScrollCarousel"></skill-carousel>
             </div>
         </div>
     </div>
