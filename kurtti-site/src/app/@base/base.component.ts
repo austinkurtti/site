@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { ColorService } from '@singletons/color.service';
 import { SecretService } from '@singletons/secret.service';
 import { filter } from 'rxjs/operators';
@@ -15,6 +15,8 @@ export abstract class BaseComponent implements OnInit, AfterViewInit {
 
     protected animationsComplete$ = new BehaviorSubject<boolean>(false);
 
+    private _animationsComplete = false;
+
     constructor(
         protected _colorService: ColorService,
         protected _secretService: SecretService
@@ -30,10 +32,19 @@ export abstract class BaseComponent implements OnInit, AfterViewInit {
     }
 
     public ngAfterViewInit() {
-        timer(5100).subscribe(() => {
+        timer(5010).subscribe(() => {
+            this._animationsComplete = true;
             this.animationsComplete$.next(true);
         });
     }
 
+    @HostListener('window:resize') onResize = () => {
+        if (this._animationsComplete) {
+            this.windowResized();
+        }
+    }
+
+    protected abstract windowResized(): void;
+    
     protected abstract secretActivated(): void;
 }

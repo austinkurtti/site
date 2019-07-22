@@ -20,11 +20,36 @@ body {
 section {
     transform: translateX(10%);
 
-    // .background {
-    //     left: 0;
-    //     opacity: 0.5;
-    //     top: 0;
-    // }
+    &.defer-load {
+        transform: translateX(0%);
+        transition-duration: $opacity-duration;
+        transition-property: transform;
+        transition-timing-function: linear;
+        animation-name: $opacity-name;
+        animation-duration: $opacity-duration;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+    }
+
+    .background-cover {
+        background-color: $white;
+        transform: translateY(0%);
+        z-index: -1;
+
+        &.defer-load {
+            transform: translateY(100%);
+            transition-duration: .5s;
+            transition-property: transform;
+            transition-timing-function: linear;
+        }
+    }
+
+    .background {
+        left: 0;
+        opacity: 0.2;
+        top: 0;
+        z-index: -2;
+    }
 
     .content {
         padding: $base-size * 10 0;
@@ -112,25 +137,13 @@ p:not(:last-child) {
         stroke: nth($class-colors, $i);
     }
     .color-#{$i}-light {
-        color: lighten(nth($class-colors, $i), 5%);
-        fill: lighten(nth($class-colors, $i), 5%);
-        stroke: lighten(nth($class-colors, $i), 5%);
+        color: lighten(nth($class-colors, $i), 15%);
+        fill: lighten(nth($class-colors, $i), 15%);
+        stroke: lighten(nth($class-colors, $i), 15%);
     }
     .color-#{$i}-dark {
-        color: darken(nth($class-colors, $i), 5%);
-        fill: darken(nth($class-colors, $i), 5%);
-        stroke: darken(nth($class-colors, $i), 5%);
+        color: darken(nth($class-colors, $i), 15%);
+        fill: darken(nth($class-colors, $i), 15%);
+        stroke: darken(nth($class-colors, $i), 15%);
     }
-}
-
-// Misc
-.defer-load {
-    transform: translateX(0%);
-    transition-duration: $opacity-duration;
-    transition-property: transform;
-    transition-timing-function: linear;
-    animation-name: $opacity-name;
-    animation-duration: $opacity-duration;
-    animation-timing-function: linear;
-    animation-fill-mode: forwards;
 }
