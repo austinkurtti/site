@@ -15,17 +15,8 @@
             <text text-anchor="middle" x="50%" y="55%" id="outline">{{ title }}</text>
             <text text-anchor="middle" x="50%" y="55%" id="fill">{{ title }}</text>
         </svg>
-        <!-- TODO: Templatize contact icons -->
         <div class="header-icons position-absolute h-100 d-none d-md-flex align-items-center">
-            <a class="btn contact-icon-black m-2" href="https://www.linkedin.com/in/austinkurtti">
-                <i class="fab fa-2x fa-linkedin"></i>
-            </a>
-            <a class="btn contact-icon-black m-2" href="mailto:austin.kurtti@gmail.com">
-                <i class="fas fa-2x fa-envelope-square"></i>
-            </a>
-            <a class="btn contact-icon-black m-2" href="https://github.com/austinkurtti">
-                <i class="fab fa-2x fa-github-square"></i>
-            </a>
+            <contact-icons [iconClass]="'contact-icon-black'"></contact-icons>
         </div>
     </div>
 </header>
@@ -39,18 +30,10 @@
     <!-- Footer -->
     <footer class="row no-gutters py-3 justify-content-center align-items-center">
         <div class="col-auto mr-3">
-            <i class="far fa-copyright"></i> Austin Kurtti
+            <i class="far fa-copyright"></i> {{ title }}
         </div>
         <div class="col-auto">
-            <a class="btn contact-icon-white m-2" href="https://www.linkedin.com/in/austinkurtti">
-                <i class="fab fa-2x fa-linkedin"></i>
-            </a>
-            <a class="btn contact-icon-white m-2" href="mailto:austin.kurtti@gmail.com">
-                <i class="fas fa-2x fa-envelope-square"></i>
-            </a>
-            <a class="btn contact-icon-white m-2" href="https://github.com/austinkurtti">
-                <i class="fab fa-2x fa-github-square"></i>
-            </a>
+            <contact-icons [iconClass]="'contact-icon-white'"></contact-icons>
         </div>
     </footer>
 </main>
