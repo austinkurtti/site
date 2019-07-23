@@ -40,7 +40,7 @@ export class AboutComponent extends BaseComponent implements OnInit, AfterViewIn
     }
 
     public onDeferLoad = (): void => {
-        this.deferClass = 'defer-load';
+        this.backgroundDeferClass = this.contentDeferClass = 'defer-load';
         timer(500).subscribe(() => {
             this._renderer.removeChild(this.section.nativeElement, this.bgCover.nativeElement);
         });
@@ -58,7 +58,7 @@ export class AboutComponent extends BaseComponent implements OnInit, AfterViewIn
         const width = this.section.nativeElement.clientWidth;
         const height = this.section.nativeElement.clientHeight;
         this.backgroundViewBox = `0 0 ${width} ${height}`;
-        this.backgroundPath1 = `M${width*.6},0 L${width*.3},${height*.35} L${width*.3},${height*.55} L${width*.8},0 Z`;
-        this.backgroundPath2 = `M${width*.3},${height*.35} L${width*.3},${height*.55} L${width*.55},${height} L${width*.75},${height} Z`;
+        this.backgroundPath1 = `M${width*.62},0 L${width*.2},${height*.37} L${width*.22},${height*.55} L${width*.8},0 Z`;
+        this.backgroundPath2 = `M${width*.2},${height*.37} L${width*.22},${height*.55} L${width*.5},${height} L${width*.65},${height} Z`;
     }
 }

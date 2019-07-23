@@ -1,18 +1,20 @@
 <section deferLoad
     class="text-center position-relative"
     #section
-    [ngClass]="deferClass"
     [threshold]="deferThreshold"
     (onLoad)="onDeferLoad()">
     <div class="background-cover position-absolute h-100 w-100"
         #backgroundCover
-        [ngClass]="deferClass">
+        [ngClass]="backgroundDeferClass">
     </div>
     <svg class="background position-absolute h-100 w-100" [attr.viewBox]="backgroundViewBox">
         <path #end [attr.d]="backgroundPath2" [ngClass]="colorClassDark"></path>
+        <path #end [attr.d]="backgroundPath4" [ngClass]="colorClassDark"></path>
         <path #end [attr.d]="backgroundPath1" [ngClass]="colorClass"></path>
+        <path #end [attr.d]="backgroundPath3" [ngClass]="colorClass"></path>
     </svg>
-    <div class="content">
+    <div class="content"
+        [ngClass]="contentDeferClass">
         <div class="row no-gutters">
             <div class="col-lg-4 offset-lg-2">
                 <section-title [text]="title" [colorClass]="colorClass"></section-title>

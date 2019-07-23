@@ -7,7 +7,8 @@ import { BehaviorSubject, timer } from 'rxjs';
 @Component({})
 export abstract class BaseComponent implements OnInit, AfterViewInit {
     public deferThreshold = .4;
-    public deferClass = 'invisible';
+    public backgroundDeferClass = '';
+    public contentDeferClass = 'invisible';
     public colorClass = '';
     public colorClassLight = '';
     public colorClassDark = '';
@@ -32,7 +33,7 @@ export abstract class BaseComponent implements OnInit, AfterViewInit {
     }
 
     public ngAfterViewInit() {
-        timer(5010).subscribe(() => {
+        timer(5050).subscribe(() => {
             this._animationsComplete = true;
             this.animationsComplete$.next(true);
         });

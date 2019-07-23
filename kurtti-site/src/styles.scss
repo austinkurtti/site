@@ -18,18 +18,7 @@ body {
 }
 
 section {
-    transform: translateX(10%);
-
-    &.defer-load {
-        transform: translateX(0%);
-        transition-duration: $opacity-duration;
-        transition-property: transform;
-        transition-timing-function: linear;
-        animation-name: $opacity-name;
-        animation-duration: $opacity-duration;
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
-    }
+    transform: translateX(0%);
 
     .background-cover {
         background-color: $white;
@@ -46,13 +35,25 @@ section {
 
     .background {
         left: 0;
-        opacity: 0.2;
+        opacity: 0.15;
         top: 0;
         z-index: -2;
     }
 
     .content {
         padding: $base-size * 10 0;
+        transform: translateX(10%);
+
+        &.defer-load {
+            transform: translateX(0%);
+            transition-duration: $opacity-duration;
+            transition-property: transform;
+            transition-timing-function: linear;
+            animation-name: $opacity-name;
+            animation-duration: $opacity-duration;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+        }
     }
 }
 
@@ -137,13 +138,13 @@ p:not(:last-child) {
         stroke: nth($class-colors, $i);
     }
     .color-#{$i}-light {
-        color: lighten(nth($class-colors, $i), 15%);
-        fill: lighten(nth($class-colors, $i), 15%);
-        stroke: lighten(nth($class-colors, $i), 15%);
+        color: lighten(nth($class-colors, $i), 25%);
+        fill: lighten(nth($class-colors, $i), 25%);
+        stroke: lighten(nth($class-colors, $i), 25%);
     }
     .color-#{$i}-dark {
-        color: darken(nth($class-colors, $i), 15%);
-        fill: darken(nth($class-colors, $i), 15%);
-        stroke: darken(nth($class-colors, $i), 15%);
+        color: darken(nth($class-colors, $i), 25%);
+        fill: darken(nth($class-colors, $i), 25%);
+        stroke: darken(nth($class-colors, $i), 25%);
     }
 }

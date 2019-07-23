@@ -16,6 +16,8 @@ export class ExperienceComponent extends BaseComponent implements OnInit, AfterV
     public backgroundViewBox = '0 0 0 0';
     public backgroundPath1 = '';
     public backgroundPath2 = '';
+    public backgroundPath3 = '';
+    public backgroundPath4 = '';
 
     constructor(
         protected _colorService: ColorService,
@@ -40,7 +42,7 @@ export class ExperienceComponent extends BaseComponent implements OnInit, AfterV
     }
 
     public onDeferLoad = (): void => {
-        this.deferClass = 'defer-load';
+        this.backgroundDeferClass = this.contentDeferClass = 'defer-load';
         timer(500).subscribe(() => {
             this._renderer.removeChild(this.section.nativeElement, this.bgCover.nativeElement);
         });
@@ -58,8 +60,9 @@ export class ExperienceComponent extends BaseComponent implements OnInit, AfterV
         const width = this.section.nativeElement.clientWidth;
         const height = this.section.nativeElement.clientHeight;
         this.backgroundViewBox = `0 0 ${width} ${height}`;
-        // TODO: experience ribbon
-        this.backgroundPath1 = `M${width*.55},0 L${width*.2},${height*.25} L${width*.21},${height*.4} L${width*.75},0 Z`;
-        this.backgroundPath2 = `M${width*.2},${height*.25} L${width*.21},${height*.4} L${width*.85},${height*.75} L${width*.86},${height*.6} Z`;
+        this.backgroundPath1 = `M${width*.4},0 L${width*.25},0 L${width*.66},${height*.4} L${width*.6},${height*.17} Z`;
+        this.backgroundPath2 = `M${width*.6},${height*.17} L${width*.66},${height*.4} L${width*.64},${height*.55} L${width*.53},${height*.71} Z`;
+        this.backgroundPath3 = `M${width*.64},${height*.55} L${width*.53},${height*.71} L${width*.15},${height*.82} L${width*.16},${height*.68} Z`;
+        this.backgroundPath4 = `M${width*.16},${height*.68} L${width*.15},${height*.82} L${width*.4},${height} L${width*.6},${height} Z`;
     }
 }

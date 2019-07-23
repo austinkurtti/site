@@ -16,6 +16,7 @@ export class SkillsComponent extends BaseComponent implements OnInit, AfterViewI
     public backgroundViewBox = '0 0 0 0';
     public backgroundPath1 = '';
     public backgroundPath2 = '';
+    public backgroundPath3 = '';
     public autoScrollCarousel = false;
     public skills = [
         'devicon-html5-plain',
@@ -60,7 +61,7 @@ export class SkillsComponent extends BaseComponent implements OnInit, AfterViewI
     }
 
     public onDeferLoad = (): void => {
-        this.deferClass = 'defer-load';
+        this.backgroundDeferClass = this.contentDeferClass = 'defer-load';
         this.autoScrollCarousel = true;
         timer(500).subscribe(() => {
             this._renderer.removeChild(this.section.nativeElement, this.bgCover.nativeElement);
@@ -79,8 +80,8 @@ export class SkillsComponent extends BaseComponent implements OnInit, AfterViewI
         const width = this.section.nativeElement.clientWidth;
         const height = this.section.nativeElement.clientHeight;
         this.backgroundViewBox = `0 0 ${width} ${height}`;
-        // TODO: skills ribbon
-        this.backgroundPath1 = `M${width*.55},0 L${width*.2},${height*.25} L${width*.21},${height*.4} L${width*.75},0 Z`;
-        this.backgroundPath2 = `M${width*.2},${height*.25} L${width*.21},${height*.4} L${width*.85},${height*.75} L${width*.86},${height*.6} Z`;
+        this.backgroundPath1 = `M${width*.6},0 L${width*.4},0 L${width*.85},${height*.35} L${width*.84},${height*.17} Z`;
+        this.backgroundPath2 = `M${width*.84},${height*.17} L${width*.85},${height*.35} L${width*.2},${height*.62} L${width*.19},${height*.48} Z`;
+        this.backgroundPath3 = `M${width*.19},${height*.48} L${width*.2},${height*.62} L${width*.45},${height} L${width*.6},${height} Z`;
     }
 }

@@ -41,7 +41,7 @@ export class EducationComponent extends BaseComponent implements OnInit, AfterVi
     }
 
     public onDeferLoad = (): void => {
-        this.deferClass = 'defer-load';
+        this.backgroundDeferClass = this.contentDeferClass = 'defer-load';
         timer(500).subscribe(() => {
             this._renderer.removeChild(this.section.nativeElement, this.bgCover.nativeElement);
         });
@@ -59,8 +59,8 @@ export class EducationComponent extends BaseComponent implements OnInit, AfterVi
         const width = this.section.nativeElement.clientWidth;
         const height = this.section.nativeElement.clientHeight;
         this.backgroundViewBox = `0 0 ${width} ${height}`;
-        this.backgroundPath1 = `M${width*.55},0 L${width*.2},${height*.25} L${width*.21},${height*.4} L${width*.75},0 Z`;
-        this.backgroundPath2 = `M${width*.2},${height*.25} L${width*.21},${height*.4} L${width*.85},${height*.75} L${width*.86},${height*.6} Z`;
-        this.backgroundPath3 = `M${width*.86},${height*.6} L${width*.85},${height*.75} L${width*.45},${height} L${width*.25},${height} Z`;
+        this.backgroundPath1 = `M${width*.5},0 L${width*.71},${height*.43} L${width*.72},${height*.15} L${width*.65},0 Z`;
+        this.backgroundPath2 = `M${width*.72},${height*.15} L${width*.71},${height*.43} L${width*.12},${height*.8} L${width*.11},${height*.63} Z`;
+        this.backgroundPath3 = `M${width*.11},${height*.63} L${width*.12},${height*.8} L${width*.25},${height} L${width*.4},${height} Z`;
     }
 }
