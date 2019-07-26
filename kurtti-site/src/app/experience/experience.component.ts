@@ -29,7 +29,7 @@ export class ExperienceComponent extends BaseComponent implements OnInit, AfterV
 
     public ngOnInit() {
         super.ngOnInit();
-        this.title = 'Nine to Fives.';
+        this.title = 'Experience.';
     }
 
     public ngAfterViewInit() {
