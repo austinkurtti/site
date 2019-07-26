@@ -8,23 +8,10 @@ export class ColorService {
     private _fullNumberPool = [1, 2, 3, 4];
     private _numberPool = [];
 
-    /**
-     * Resets the available number pool.
-     * 
-     * @returns {void}
-     * @memberof RandomService
-     */
     public resetNumberPool = (): void => {
         this._numberPool = [...this._fullNumberPool];
     }
 
-    /**
-     * Generates a random color class based on available number pool minus any excluded numbers.
-     * 
-     * @param {Array<number>} excludeNums Array of numbers to exclude from generation
-     * @returns {string} Generated color class
-     * @memberof RandomService
-     */
     public getRandomColorClass = (excludeNums: Array<number> = []): string => {
         if (!this._numberPool.length || this._numberPool.length <= excludeNums.length) {
             this.resetNumberPool();

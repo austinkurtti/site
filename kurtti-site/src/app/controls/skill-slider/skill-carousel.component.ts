@@ -20,6 +20,7 @@ export class SkillCarouselComponent implements OnChanges, AfterViewInit, OnDestr
 
     private _autoScrollInterval = 5000; // 5 seconds
     private _autoScrollTimer: Subscription;
+    private _autoScrollDebounce = false;
 
     constructor(
         private _renderer: Renderer2
@@ -51,6 +52,12 @@ export class SkillCarouselComponent implements OnChanges, AfterViewInit, OnDestr
     }
 
     public scrollCarousel = (change: 'left' | 'right'): void => {
+        if (this._autoScrollDebounce) {
+            return;
+        }
+
+        this._autoScrollDebounce = true;
+
         if (change === 'right') {
             // Update indexes
             this.leftIndex = this.leftIndex === this.skills.length - 1 ? 0 : this.leftIndex + 1;
@@ -86,6 +93,7 @@ export class SkillCarouselComponent implements OnChanges, AfterViewInit, OnDestr
                 this._renderer.removeClass(nextSkill, 'grow');
                 this._renderer.removeClass(nextSkill, 'position-absolute');
                 this._renderer.removeStyle(nextSkill, 'right');
+                this._autoScrollDebounce = false;
             });
         } else if (change === 'left') {
             // Update indexes
@@ -122,6 +130,7 @@ export class SkillCarouselComponent implements OnChanges, AfterViewInit, OnDestr
                 this._renderer.removeClass(nextSkill, 'grow');
                 this._renderer.removeClass(nextSkill, 'position-absolute');
                 this._renderer.removeStyle(nextSkill, 'left');
+                this._autoScrollDebounce = false;
             });
         }
     }
