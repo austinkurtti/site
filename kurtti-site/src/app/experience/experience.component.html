@@ -1,0 +1,47 @@
+<section deferLoad
+    class="text-center position-relative"
+    #section
+    [threshold]="deferThreshold"
+    (onLoad)="onDeferLoad()">
+    <div class="background-cover position-absolute h-100 w-100"
+        #backgroundCover
+        [ngClass]="backgroundDeferClass">
+    </div>
+    <svg class="background position-absolute h-100 w-100 d-none d-lg-block" [attr.viewBox]="backgroundViewBox">
+        <path #end [attr.d]="backgroundPath2" [ngClass]="colorClassDark"></path>
+        <path #end [attr.d]="backgroundPath4" [ngClass]="colorClassDark"></path>
+        <path #end [attr.d]="backgroundPath1" [ngClass]="colorClass"></path>
+        <path #end [attr.d]="backgroundPath3" [ngClass]="colorClass"></path>
+    </svg>
+    <div class="content"
+        [ngClass]="contentDeferClass">
+        <div class="row no-gutters px-5 px-lg-0">
+            <div class="col offset-lg-2">
+                <section-title [text]="title" [colorClass]="colorClass"></section-title>
+            </div>
+        </div>
+        <div class="row no-gutters justify-content-center text-left mb-5 px-5 px-lg-0">
+            <div class="col-12 col-lg-4">
+                <h2>AllofE Solutions</h2>
+                <h3>Feb 2014 - Mar 2017</h3>
+                <h3 class="mb-3 mb-lg-0">Lawrence, KS</h3>
+            </div>
+            <div class="col-12 col-lg-4">
+                <p>As a web developer intern at AllofE Solutions I got my first taste of professional development routines. I contributed to the design of new interfaces, updated legacy code and managed diverse databases. The projects I was involved in at AllofE introduced me to modern web technologies and allowed me to build a solid foundation of web development skills.</p>
+                <p>It was a privilage to work with AllofE's team of talented developers on a wide array of products. My time there provided invaluable experience for academic work and shaped into a solid platform from which to launch my career.</p>
+            </div>
+        </div>
+        <div class="row no-gutters justify-content-center text-left px-5 px-lg-0">
+            <div class="col-12 col-lg-4">
+                <h2>Lockpath</h2>
+                <h3>June 2017 - Present</h3>
+                <h3 class="mb-3 mb-lg-0">Overland Park, KS</h3>
+            </div>
+            <div class="col-12 col-lg-4">
+                <p>I currently work at Lockpath as a full-stack software engineer. On day one I joined the back-end team and developed a good understanding of the business logic behind their flagship product, Keylight. After several months I switched to focus on front-end work and assist with a crucial UI/UX overhaul for Keylight involving converting the app to Angular.</p>
+                <p>More recently, I have been present on both sides of Keylight's tech stack. I continue to be involved in the overall Angular conversion while also building and refining associated REST API endpoints. These projects continue to teach me about advanced software architecture principles, modern coding standards and timeline management.</p>
+            </div>
+        </div>
+        <!-- ? Section about capstone project -->
+    </div>
+</section>

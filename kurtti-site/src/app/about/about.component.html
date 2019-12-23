@@ -1,0 +1,41 @@
+<!-- ? Add a selfie -->
+<section deferLoad
+    class="text-center position-relative"
+    #section
+    [threshold]="deferThreshold"
+    (onLoad)="onDeferLoad()">
+    <div class="background-cover position-absolute h-100 w-100"
+        #backgroundCover
+        [ngClass]="backgroundDeferClass">
+    </div>
+    <svg class="background position-absolute h-100 w-100 d-none d-lg-block" [attr.viewBox]="backgroundViewBox">
+        <path #end [attr.d]="backgroundPath1" [ngClass]="colorClassDark"></path>
+        <path #end [attr.d]="backgroundPath2" [ngClass]="colorClass"></path>
+    </svg>
+    <div class="content"
+        [ngClass]="contentDeferClass">
+        <div class="row no-gutters px-5 px-lg-0">
+            <div class="col offset-lg-2">
+                <section-title [text]="title" [colorClass]="colorClass"></section-title>
+            </div>
+        </div>
+        <div class="row no-gutters justify-content-center text-left mb-5 px-5 px-lg-0">
+            <div class="col-12 col-lg-4">
+                <h2 class="mb-3 mb-lg-0">Background</h2>
+            </div>
+            <div class="col-12 col-lg-4">
+                <p>I was born in Kansas, where I lived for several years before moving to Minnesota. After finishing high school, I came back to Kansas to attend college at the University of Kansas. By this time, I had developed a strong sense for math and science and chose to pursue an engineering major.</p>
+                <p>It only took one programming class for me to realize that I loved to code. My curiosity for coding was not always satisfied in the classroom, which lead me to explore different languages on my own through personal projects.</p>
+            </div>
+        </div>
+        <div class="row no-gutters justify-content-center text-left px-5 px-lg-0">
+            <div class="col-12 col-lg-4">
+                <h2 class="mb-3 mb-lg-0">Motivation</h2>
+            </div>
+            <div class="col-12 col-lg-4">
+                <p>Applying my programming knowledge to practical problems brings me a great sense of accomplishment. Especially when the end results of my work make a positive impact on others.</p>
+                <p>Experimenting with new techonology improves my understanding of programming concepts, and I continually strive to keep myself up-to-date on the latest principles and techniques of web development.</p>
+            </div>
+        </div>
+    </div>
+</section>

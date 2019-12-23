@@ -1,0 +1,39 @@
+<!-- Header -->
+<header #header
+    class="w-100 position-fixed">
+    <div class="position-relative h-100 w-100">
+        <svg class="header-slants position-absolute h-100" viewBox="0 0 128 128">
+            <defs>
+                <path id="slant" d="M16,0 L64,128 L112,128 L64,0 Z"></path>
+            </defs>
+            <use xlink:href="#slant" x="-50%" class="slant color-3"></use>
+            <use xlink:href="#slant" x="-33.3%" class="slant color-2"></use>
+            <use xlink:href="#slant" x="33.3%" class="slant color-4"></use>
+            <use xlink:href="#slant" x="50%" class="slant color-1"></use>
+        </svg>
+        <svg class="header-title position-absolute h-100 w-100" viewBox="0 0 128 128">
+            <text text-anchor="middle" x="50%" y="55%" id="outline">{{ title }}</text>
+            <text text-anchor="middle" x="50%" y="55%" id="fill">{{ title }}</text>
+        </svg>
+        <div class="header-icons position-absolute h-100 d-none d-md-flex align-items-center">
+            <contact-icons [iconClass]="'contact-icon-black'"></contact-icons>
+        </div>
+    </div>
+</header>
+<!-- Content -->
+<main #main
+    class="position-static">
+    <about></about>
+    <education></education>
+    <experience></experience>
+    <skills></skills>
+    <!-- Footer -->
+    <footer class="row no-gutters py-3 justify-content-center align-items-center">
+        <div class="col-auto mr-3">
+            <i class="far fa-copyright"></i> {{ title }}
+        </div>
+        <div class="col-auto">
+            <contact-icons [iconClass]="'contact-icon-white'"></contact-icons>
+        </div>
+    </footer>
+</main>

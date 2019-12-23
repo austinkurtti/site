@@ -1,0 +1,42 @@
+<section deferLoad
+    class="text-center position-relative"
+    #section
+    [threshold]="deferThreshold"
+    (onLoad)="onDeferLoad()">
+    <div class="background-cover position-absolute h-100 w-100"
+        #backgroundCover
+        [ngClass]="backgroundDeferClass">
+    </div>
+    <svg class="background position-absolute h-100 w-100 d-none d-lg-block" [attr.viewBox]="backgroundViewBox">
+        <path #end [attr.d]="backgroundPath1" [ngClass]="colorClassDark"></path>
+        <path #end [attr.d]="backgroundPath3" [ngClass]="colorClassDark"></path>
+        <path #end [attr.d]="backgroundPath2" [ngClass]="colorClass"></path>
+    </svg>
+    <div class="content"
+        [ngClass]="contentDeferClass">
+        <div class="row no-gutters px-5 px-lg-0">
+            <div class="col offset-lg-2">
+                <section-title [text]="title" [colorClass]="colorClass"></section-title>
+            </div>
+        </div>
+        <div class="row no-gutters justify-content-center text-left mb-5 px-5 px-lg-0">
+            <div class="col-12 col-lg-4">
+                <h2 class="mb-3 mb-lg-0">My Focus</h2>
+            </div>
+            <div class="col-12 col-lg-4">
+                <p>While I identify mostly as a frontender, I am capable of flexing skills on both sides of the tech stack. I most enjoy creating cool pages for users to interact with, but understanding the data those pages present is important to building the best possible user experience. When I have a good understanding of all of the technical elements of a web environment, it only leads to better results.</p>
+                <p>On my off time, I tend to find myself exploring Angular and applying some of what I've learned to this site and other projects. However, expanding my knowledge with other tools is never far off my mind.</p>
+            </div>
+        </div>
+        <div class="row no-gutters justify-content-center text-left mb-5 px-5 px-lg-0">
+            <div class="col-12 col-lg-8">
+                <h2>Tech</h2>
+            </div>
+        </div>
+        <div class="row no-gutters justify-content-center mb-5 px-5 px-lg-0">
+            <div class="col-12 col-lg-8">
+                <skill-carousel [skills]="skills" [colorClass]="colorClass" [autoScroll]="autoScrollCarousel"></skill-carousel>
+            </div>
+        </div>
+    </div>
+</section>

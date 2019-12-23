@@ -1,0 +1,150 @@
+// https://github.com/angular/angular-cli/wiki/stories-global-styles
+@import 'variables';
+@import 'keyframes';
+
+// Defaults
+html {
+    height: 100%;
+}
+
+body {
+    background-color: $white;
+    color: $black;
+    font-family: $default-font-family;
+    font-size: $default-font-size;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+section {
+    transform: translateX(0%);
+
+    .background-cover {
+        background-color: $white;
+        transform: translateY(0%);
+        z-index: -1;
+
+        &.defer-load {
+            transform: translateY(100%);
+            transition-duration: .5s;
+            transition-property: transform;
+            transition-timing-function: linear;
+        }
+    }
+
+    .background {
+        left: 0;
+        opacity: 0.15;
+        top: 0;
+        z-index: -2;
+    }
+
+    .content {
+        padding: $base-size * 10 0;
+        transform: translateX(10%);
+
+        &.defer-load {
+            transform: translateX(0%);
+            transition-duration: $opacity-duration;
+            transition-property: transform;
+            transition-timing-function: linear;
+            animation-name: $opacity-name;
+            animation-duration: $opacity-duration;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+        }
+    }
+}
+
+h1 {
+    font-size: $default-font-size * 3;
+    font-weight: bold;
+    height: $default-font-size * 3;
+    line-height: $default-font-size * 3;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: $default-font-size * 1.5;
+    font-weight: bold;
+    height: $default-font-size * 1.5;
+    line-height: $default-font-size * 1.5;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-size: $default-font-size;
+    font-style: italic;
+    height: $default-font-size;
+    line-height: $default-font-size;
+    margin: 0;
+}
+
+h2:not(:last-child), h3:not(:last-child) {
+    margin-bottom: $base-size;
+}
+
+label, p {
+    font-weight: bold;
+    margin: 0;
+}
+
+label {
+    display: block;
+    margin-top: $base-size;
+}
+
+p:not(:last-child) {
+    margin-bottom: $base-size;
+}
+
+.content-card {
+    background-color: $off-white;
+    padding: $base-size * 2 $base-size;
+}
+
+.contact-icon {
+    &-white {
+        color: $white;
+
+        &:hover {
+            color: $app-blue;
+        }
+    }
+
+    &-black {
+        color: $black;
+
+        &:hover {
+            color: $app-blue;
+        }
+    }
+}
+
+// Color classes
+.color-black {
+    color: $black;
+    fill: $black;
+    stroke: $black;
+}
+
+@for $i from 1 through length($class-colors) {
+    .color-#{$i} {
+        color: nth($class-colors, $i);
+        fill: nth($class-colors, $i);
+        stroke: nth($class-colors, $i);
+    }
+    .color-#{$i}-light {
+        color: lighten(nth($class-colors, $i), 25%);
+        fill: lighten(nth($class-colors, $i), 25%);
+        stroke: lighten(nth($class-colors, $i), 25%);
+    }
+    .color-#{$i}-dark {
+        color: darken(nth($class-colors, $i), 25%);
+        fill: darken(nth($class-colors, $i), 25%);
+        stroke: darken(nth($class-colors, $i), 25%);
+    }
+}
