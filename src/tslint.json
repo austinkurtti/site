@@ -4,14 +4,19 @@
         "directive-selector": [
             true,
             "attribute",
-            "app",
+            "ak",
             "camelCase"
         ],
         "component-selector": [
             true,
             "element",
-            "app",
+            "ak",
             "kebab-case"
-        ]
+        ],
+        "variable-name": {
+            "options": [
+                "allow-leading-underscore"
+            ]
+        }
     }
 }

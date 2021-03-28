@@ -5,7 +5,7 @@ import { ColorService } from '@singletons/color.service';
 import { SecretService } from '@singletons/secret.service';
 
 @Component({
-    selector: 'about',
+    selector: 'ak-about',
     templateUrl: './about.component.html',
     styleUrls: ['./about.component.scss']
 })
@@ -58,7 +58,7 @@ export class AboutComponent extends BaseComponent implements OnInit, AfterViewIn
         const width = this.section.nativeElement.clientWidth;
         const height = this.section.nativeElement.clientHeight;
         this.backgroundViewBox = `0 0 ${width} ${height}`;
-        this.backgroundPath1 = `M${width*.62},0 L${width*.2},${height*.37} L${width*.22},${height*.55} L${width*.8},0 Z`;
-        this.backgroundPath2 = `M${width*.2},${height*.37} L${width*.22},${height*.55} L${width*.5},${height} L${width*.65},${height} Z`;
+        this.backgroundPath1 = `M${width * .62},0 L${width * .2},${height * .37} L${width * .22},${height * .55} L${width * .8},0 Z`;
+        this.backgroundPath2 = `M${width * .2},${height * .37} L${width * .22},${height * .55} L${width * .5},${height} L${width * .65},${height} Z`;
     }
 }

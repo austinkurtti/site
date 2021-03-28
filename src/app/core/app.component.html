@@ -16,24 +16,24 @@
             <text text-anchor="middle" x="50%" y="55%" id="fill">{{ title }}</text>
         </svg>
         <div class="header-icons position-absolute h-100 d-none d-md-flex align-items-center">
-            <contact-icons [iconClass]="'contact-icon-black'"></contact-icons>
+            <ak-contact-icons [iconClass]="'contact-icon-black'"></ak-contact-icons>
         </div>
     </div>
 </header>
 <!-- Content -->
 <main #main
     class="position-static">
-    <about></about>
-    <education></education>
-    <experience></experience>
-    <skills></skills>
+    <ak-about></ak-about>
+    <ak-education></ak-education>
+    <ak-experience></ak-experience>
+    <ak-skills></ak-skills>
     <!-- Footer -->
     <footer class="row no-gutters py-3 justify-content-center align-items-center">
         <div class="col-auto mr-3">
             <i class="far fa-copyright"></i> {{ title }}
         </div>
         <div class="col-auto">
-            <contact-icons [iconClass]="'contact-icon-white'"></contact-icons>
+            <ak-contact-icons [iconClass]="'contact-icon-white'"></ak-contact-icons>
         </div>
     </footer>
 </main>

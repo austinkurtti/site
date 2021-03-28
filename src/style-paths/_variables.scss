@@ -2,12 +2,12 @@
 $black                      : #333;
 $white                      : #fff;
 $off-white                  : #eee;
-$app-blue                   : #4782ff;
-$app-turquoise              : #10e7e2;
-$app-red                    : #ff2153;
-$app-pink                   : #ff68a8;
+$theme-blue                 : #4782ff;
+$theme-green                : #47ff47;
+$theme-purple               : #8247ff;
+$theme-red                  : #ff4747;
 
-$class-colors: $app-blue, $app-turquoise, $app-red, $app-pink;
+$class-colors: $theme-blue, $theme-green, $theme-purple, $theme-red;
 
 // Settings
 $base-size                  : 1rem;

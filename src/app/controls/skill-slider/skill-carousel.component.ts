@@ -2,13 +2,13 @@ import { Component, Input, ViewChild, AfterViewInit, Renderer2, ElementRef, OnDe
 import { timer, Subscription } from 'rxjs';
 
 @Component({
-    selector: 'skill-carousel',
+    selector: 'ak-skill-carousel',
     templateUrl: './skill-carousel.component.html',
     styleUrls: ['./skill-carousel.component.scss']
 })
 export class SkillCarouselComponent implements OnChanges, AfterViewInit, OnDestroy {
     @Input() skills: string[] = [];
-    @Input() colorClass: string = '';
+    @Input() colorClass = '';
     @Input() autoScroll = false;
 
     @ViewChild('skillCarousel') skillCarousel: ElementRef;
@@ -27,7 +27,7 @@ export class SkillCarouselComponent implements OnChanges, AfterViewInit, OnDestr
     ) {}
 
     public ngOnChanges(changes: SimpleChanges) {
-        if ('autoScroll' in changes && changes['autoScroll'].currentValue && !this._autoScrollTimer) {
+        if ('autoScroll' in changes && changes.autoScroll.currentValue && !this._autoScrollTimer) {
             this._startAutoScrollTimer();
         }
     }
@@ -79,7 +79,7 @@ export class SkillCarouselComponent implements OnChanges, AfterViewInit, OnDestr
             this._renderer.addClass(nextSkill, 'position-absolute');
             this._renderer.setStyle(nextSkill, 'right', '0%');
             this._renderer.appendChild(this.skillCarousel.nativeElement, nextSkill);
-            
+
             // Clean up after animations have finished
             timer(250).subscribe(() => {
                 // Remove animations

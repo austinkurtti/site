@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'contact-icons',
+    selector: 'ak-contact-icons',
     templateUrl: './contact-icons.component.html',
     styleUrls: ['./contact-icons.component.scss']
 })

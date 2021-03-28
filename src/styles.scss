@@ -111,7 +111,7 @@ p:not(:last-child) {
         color: $white;
 
         &:hover {
-            color: $app-blue;
+            color: $theme-blue;
         }
     }
 
@@ -119,7 +119,7 @@ p:not(:last-child) {
         color: $black;
 
         &:hover {
-            color: $app-blue;
+            color: $theme-blue;
         }
     }
 }

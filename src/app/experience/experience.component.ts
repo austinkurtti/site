@@ -5,7 +5,7 @@ import { SecretService } from '@singletons/secret.service';
 import { timer } from 'rxjs';
 
 @Component({
-    selector: 'experience',
+    selector: 'ak-experience',
     styleUrls: ['./experience.component.scss'],
     templateUrl: './experience.component.html'
 })
@@ -60,9 +60,9 @@ export class ExperienceComponent extends BaseComponent implements OnInit, AfterV
         const width = this.section.nativeElement.clientWidth;
         const height = this.section.nativeElement.clientHeight;
         this.backgroundViewBox = `0 0 ${width} ${height}`;
-        this.backgroundPath1 = `M${width*.4},0 L${width*.25},0 L${width*.66},${height*.4} L${width*.6},${height*.17} Z`;
-        this.backgroundPath2 = `M${width*.6},${height*.17} L${width*.66},${height*.4} L${width*.64},${height*.55} L${width*.53},${height*.71} Z`;
-        this.backgroundPath3 = `M${width*.64},${height*.55} L${width*.53},${height*.71} L${width*.15},${height*.82} L${width*.16},${height*.68} Z`;
-        this.backgroundPath4 = `M${width*.16},${height*.68} L${width*.15},${height*.82} L${width*.4},${height} L${width*.6},${height} Z`;
+        this.backgroundPath1 = `M${width * .4},0 L${width * .25},0 L${width * .66},${height * .4} L${width * .6},${height * .17} Z`;
+        this.backgroundPath2 = `M${width * .6},${height * .17} L${width * .66},${height * .4} L${width * .64},${height * .55} L${width * .53},${height * .71} Z`;
+        this.backgroundPath3 = `M${width * .64},${height * .55} L${width * .53},${height * .71} L${width * .15},${height * .82} L${width * .16},${height * .68} Z`;
+        this.backgroundPath4 = `M${width * .16},${height * .68} L${width * .15},${height * .82} L${width * .4},${height} L${width * .6},${height} Z`;
     }
 }

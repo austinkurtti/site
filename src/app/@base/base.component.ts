@@ -45,6 +45,6 @@ export abstract class BaseComponent implements OnInit, AfterViewInit {
     }
 
     protected abstract windowResized(): void;
-    
+
     protected abstract secretActivated(): void;
 }

@@ -5,7 +5,7 @@ import { SecretService } from '@singletons/secret.service';
 import { timer } from 'rxjs';
 
 @Component({
-    selector: 'skills',
+    selector: 'ak-skills',
     styleUrls: ['./skills.component.scss'],
     templateUrl: './skills.component.html'
 })
@@ -80,8 +80,8 @@ export class SkillsComponent extends BaseComponent implements OnInit, AfterViewI
         const width = this.section.nativeElement.clientWidth;
         const height = this.section.nativeElement.clientHeight;
         this.backgroundViewBox = `0 0 ${width} ${height}`;
-        this.backgroundPath1 = `M${width*.6},0 L${width*.4},0 L${width*.85},${height*.35} L${width*.84},${height*.17} Z`;
-        this.backgroundPath2 = `M${width*.84},${height*.17} L${width*.85},${height*.35} L${width*.2},${height*.62} L${width*.19},${height*.48} Z`;
-        this.backgroundPath3 = `M${width*.19},${height*.48} L${width*.2},${height*.62} L${width*.45},${height} L${width*.6},${height} Z`;
+        this.backgroundPath1 = `M${width * .6},0 L${width * .4},0 L${width * .85},${height * .35} L${width * .84},${height * .17} Z`;
+        this.backgroundPath2 = `M${width * .84},${height * .17} L${width * .85},${height * .35} L${width * .2},${height * .62} L${width * .19},${height * .48} Z`;
+        this.backgroundPath3 = `M${width * .19},${height * .48} L${width * .2},${height * .62} L${width * .45},${height} L${width * .6},${height} Z`;
     }
 }

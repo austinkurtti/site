@@ -1,8 +1,8 @@
-<section deferLoad
+<section akDeferLoad
     class="text-center position-relative"
     #section
     [threshold]="deferThreshold"
-    (onLoad)="onDeferLoad()">
+    (load)="onDeferLoad()">
     <div class="background-cover position-absolute h-100 w-100"
         #backgroundCover
         [ngClass]="backgroundDeferClass">
@@ -16,7 +16,7 @@
         [ngClass]="contentDeferClass">
         <div class="row no-gutters px-5 px-lg-0">
             <div class="col offset-lg-2">
-                <section-title [text]="title" [colorClass]="colorClass"></section-title>
+                <ak-section-title [text]="title" [colorClass]="colorClass"></ak-section-title>
             </div>
         </div>
         <div class="row no-gutters justify-content-center text-left mb-5 px-5 px-lg-0">
@@ -35,7 +35,7 @@
         </div>
         <div class="row no-gutters justify-content-center mb-5 px-5 px-lg-0">
             <div class="col-12 col-lg-8">
-                <skill-carousel [skills]="skills" [colorClass]="colorClass" [autoScroll]="autoScrollCarousel"></skill-carousel>
+                <ak-skill-carousel [skills]="skills" [colorClass]="colorClass" [autoScroll]="autoScrollCarousel"></ak-skill-carousel>
             </div>
         </div>
     </div>
