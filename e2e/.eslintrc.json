@@ -1,0 +1,69 @@
+{
+    "extends": "../../.eslintrc.json",
+    "ignorePatterns": [
+        "!**/*"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "*.ts"
+            ],
+            "parserOptions": {
+                "project": [
+                    "e2e//tsconfig.app.json",
+                    "e2e//tsconfig.spec.json",
+                    "e2e//e2e/tsconfig.json"
+                ],
+                "createDefaultProgram": true
+            },
+            "rules": {
+                "@angular-eslint/component-selector": [
+                    "error",
+                    {
+                        "type": "element",
+                        "prefix": "ak",
+                        "style": "kebab-case"
+                    }
+                ],
+                "@angular-eslint/directive-selector": [
+                    "error",
+                    {
+                        "type": "attribute",
+                        "prefix": "ak",
+                        "style": "camelCase"
+                    }
+                ],
+                "@typescript-eslint/explicit-member-accessibility": [
+                    "off",
+                    {
+                        "accessibility": "explicit"
+                    }
+                ],
+                "arrow-parens": [
+                    "off",
+                    "always"
+                ],
+                "import/order": "off",
+                "max-len": [
+                    "error",
+                    {
+                        "code": 170
+                    }
+                ],
+                "no-bitwise": "off",
+                "no-underscore-dangle": [
+                    2,
+                    {
+                        "allowAfterThis": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": [
+                "*.html"
+            ],
+            "rules": {}
+        }
+    ]
+}

@@ -5,6 +5,7 @@ import { filter } from 'rxjs/operators';
 import { BehaviorSubject, timer } from 'rxjs';
 
 @Directive()
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class BaseComponent implements OnInit, AfterViewInit {
     public deferThreshold = .4;
     public backgroundDeferClass = '';
@@ -23,6 +24,12 @@ export abstract class BaseComponent implements OnInit, AfterViewInit {
         protected _secretService: SecretService
     ) {}
 
+    @HostListener('window:resize') onResize = () => {
+        if (this._animationsComplete) {
+            this.windowResized();
+        }
+    };
+
     public ngOnInit() {
         this.colorClass = this._colorService.getRandomColorClass();
         this.colorClassLight = this.colorClass + '-light';
@@ -37,12 +44,6 @@ export abstract class BaseComponent implements OnInit, AfterViewInit {
             this._animationsComplete = true;
             this.animationsComplete$.next(true);
         });
-    }
-
-    @HostListener('window:resize') onResize = () => {
-        if (this._animationsComplete) {
-            this.windowResized();
-        }
     }
 
     protected abstract windowResized(): void;

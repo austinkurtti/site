@@ -60,7 +60,7 @@ export class SkillsComponent extends BaseComponent implements OnInit, AfterViewI
         });
     }
 
-    public onDeferLoad = (): void => {
+    public onDeferLoad(): void {
         this.backgroundDeferClass = this.contentDeferClass = 'defer-load';
         this.autoScrollCarousel = true;
         timer(500).subscribe(() => {
@@ -68,15 +68,15 @@ export class SkillsComponent extends BaseComponent implements OnInit, AfterViewI
         });
     }
 
-    protected windowResized = (): void => {
+    protected windowResized(): void {
         this._calculateBackground();
     }
 
-    protected secretActivated = (): void => {
+    protected secretActivated(): void {
         // TODO: something fun
     }
 
-    private _calculateBackground = (): void => {
+    private _calculateBackground(): void {
         const width = this.section.nativeElement.clientWidth;
         const height = this.section.nativeElement.clientHeight;
         this.backgroundViewBox = `0 0 ${width} ${height}`;

@@ -6,7 +6,7 @@ import { Directive, Input, Output, EventEmitter, ElementRef, AfterViewInit } fro
 export class DeferLoadDirective implements AfterViewInit {
     @Input() threshold = 0;
 
-    @Output() public load: EventEmitter<any> = new EventEmitter<any>();
+    @Output() public deferLoad: EventEmitter<any> = new EventEmitter<any>();
 
     private _intersectionObserver: IntersectionObserver;
 
@@ -21,17 +21,15 @@ export class DeferLoadDirective implements AfterViewInit {
         this._intersectionObserver.observe(this._elementRef.nativeElement as Element);
     }
 
-    private _checkForIntersection = (entries: Array<IntersectionObserverEntry>): void => {
+    private _checkForIntersection(entries: Array<IntersectionObserverEntry>): void {
         entries.forEach(entry => {
             if (this._checkIfIntersecting(entry)) {
-                this.load.emit();
+                this.deferLoad.emit();
                 this._intersectionObserver.unobserve(this._elementRef.nativeElement as Element);
                 this._intersectionObserver.disconnect();
             }
         });
     }
 
-    private _checkIfIntersecting = (entry: IntersectionObserverEntry): boolean => {
-        return entry.isIntersecting && entry.target === this._elementRef.nativeElement;
-    }
+    private _checkIfIntersecting = (entry: IntersectionObserverEntry): boolean => entry.isIntersecting && (entry.target === this._elementRef.nativeElement);
 }

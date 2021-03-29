@@ -26,6 +26,14 @@ export class SkillCarouselComponent implements OnChanges, AfterViewInit, OnDestr
         private _renderer: Renderer2
     ) {}
 
+    @HostListener('mouseover') onMouseOver = () => {
+        this._stopAutoScrollTimer();
+    };
+
+    @HostListener('mouseout') onMouseOut = () => {
+        this._startAutoScrollTimer();
+    };
+
     public ngOnChanges(changes: SimpleChanges) {
         if ('autoScroll' in changes && changes.autoScroll.currentValue && !this._autoScrollTimer) {
             this._startAutoScrollTimer();
@@ -43,15 +51,7 @@ export class SkillCarouselComponent implements OnChanges, AfterViewInit, OnDestr
         this._stopAutoScrollTimer();
     }
 
-    @HostListener('mouseover') onMouseOver = () => {
-        this._stopAutoScrollTimer();
-    }
-
-    @HostListener('mouseout') onMouseOut = () => {
-        this._startAutoScrollTimer();
-    }
-
-    public scrollCarousel = (change: 'left' | 'right'): void => {
+    public scrollCarousel(change: 'left' | 'right'): void {
         if (this._autoScrollDebounce) {
             return;
         }
@@ -135,7 +135,7 @@ export class SkillCarouselComponent implements OnChanges, AfterViewInit, OnDestr
         }
     }
 
-    private _getNextSkill = (nextSkillIndex: number): any => {
+    private _getNextSkill(nextSkillIndex: number): any {
         const newLi = this._renderer.createElement('li');
         this._renderer.setProperty(newLi, 'id', `skill-${nextSkillIndex}`);
         this._renderer.addClass(newLi, 'skill');
@@ -147,13 +147,13 @@ export class SkillCarouselComponent implements OnChanges, AfterViewInit, OnDestr
         return newLi;
     }
 
-    private _startAutoScrollTimer = (): void => {
+    private _startAutoScrollTimer(): void {
         this._autoScrollTimer = timer(this._autoScrollInterval, this._autoScrollInterval).subscribe(() => {
             this.scrollCarousel('right');
         });
     }
 
-    private _stopAutoScrollTimer = (): void => {
+    private _stopAutoScrollTimer(): void {
         if (this._autoScrollTimer) {
             this._autoScrollTimer.unsubscribe();
             this._autoScrollTimer = null;

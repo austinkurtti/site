@@ -2,7 +2,7 @@
     class="text-center position-relative"
     #section
     [threshold]="deferThreshold"
-    (load)="onDeferLoad()">
+    (deferLoad)="onDeferLoad()">
     <div class="background-cover position-absolute h-100 w-100"
         #backgroundCover
         [ngClass]="backgroundDeferClass">
