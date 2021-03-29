@@ -11,7 +11,7 @@ export class SkillCarouselComponent implements OnChanges, AfterViewInit, OnDestr
     @Input() colorClass = '';
     @Input() autoScroll = false;
 
-    @ViewChild('skillCarousel') skillCarousel: ElementRef;
+    @ViewChild('skillCarousel', { static: true }) skillCarousel: ElementRef;
 
     public leftIndex = 0;
     public rightIndex = 0;

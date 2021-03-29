@@ -10,8 +10,8 @@ import { timer } from 'rxjs';
     templateUrl: './education.component.html'
 })
 export class EducationComponent extends BaseComponent implements OnInit, AfterViewInit {
-    @ViewChild('section') section: ElementRef;
-    @ViewChild('backgroundCover') bgCover: ElementRef;
+    @ViewChild('section', { static: true }) section: ElementRef;
+    @ViewChild('backgroundCover', { static: true }) bgCover: ElementRef;
 
     public backgroundViewBox = '0 0 0 0';
     public backgroundPath1 = '';

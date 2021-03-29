@@ -10,8 +10,8 @@ import { fromEvent, timer } from 'rxjs';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, AfterViewInit {
-    @ViewChild('header') header: ElementRef;
-    @ViewChild('main') main: ElementRef;
+    @ViewChild('header', { static: true }) header: ElementRef;
+    @ViewChild('main', { static: true }) main: ElementRef;
 
     public title = 'Austin Kurtti';
     public secretActivated = false;

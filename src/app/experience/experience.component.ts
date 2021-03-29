@@ -10,8 +10,8 @@ import { timer } from 'rxjs';
     templateUrl: './experience.component.html'
 })
 export class ExperienceComponent extends BaseComponent implements OnInit, AfterViewInit {
-    @ViewChild('section') section: ElementRef;
-    @ViewChild('backgroundCover') bgCover: ElementRef;
+    @ViewChild('section', { static: true }) section: ElementRef;
+    @ViewChild('backgroundCover', { static: true }) bgCover: ElementRef;
 
     public backgroundViewBox = '0 0 0 0';
     public backgroundPath1 = '';
