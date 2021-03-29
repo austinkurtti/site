@@ -1,9 +1,10 @@
-import { OnInit, AfterViewInit, HostListener } from '@angular/core';
+import { OnInit, AfterViewInit, HostListener, Directive } from '@angular/core';
 import { ColorService } from '@singletons/color.service';
 import { SecretService } from '@singletons/secret.service';
 import { filter } from 'rxjs/operators';
 import { BehaviorSubject, timer } from 'rxjs';
 
+@Directive()
 export abstract class BaseComponent implements OnInit, AfterViewInit {
     public deferThreshold = .4;
     public backgroundDeferClass = '';
