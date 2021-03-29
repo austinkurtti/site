@@ -2,16 +2,22 @@
     "compileOnSave": false,
     "compilerOptions": {
         "baseUrl": "./",
-    "downlevelIteration": true,
+        "downlevelIteration": true,
         "paths": {
-            "@base/*": ["src/app/@base/*"],
-            "@directives/*": ["src/app/@directives/*"],
-            "@singletons/*": ["src/app/@services/*"]
+            "@base/*": [
+                "src/app/@base/*"
+            ],
+            "@directives/*": [
+                "src/app/@directives/*"
+            ],
+            "@singletons/*": [
+                "src/app/@services/*"
+            ]
         },
         "outDir": "./dist/out-tsc",
         "sourceMap": true,
         "declaration": false,
-        "module": "esnext",
+        "module": "es2020",
         "moduleResolution": "node",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
