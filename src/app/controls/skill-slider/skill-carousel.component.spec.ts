@@ -1,11 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SkillCarouselComponent } from './skill-carousel.component';
 
 describe('SkillCarouselComponent', () => {
     let component: SkillCarouselComponent;
     let fixture: ComponentFixture<SkillCarouselComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [SkillCarouselComponent]
         })
