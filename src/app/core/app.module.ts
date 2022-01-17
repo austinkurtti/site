@@ -9,7 +9,7 @@ import { EducationComponent } from '../education/education.component';
 import { ExperienceComponent } from '../experience/experience.component';
 import { SkillsComponent } from '../skills/skills.component';
 import { SectionTitleComponent } from '../controls/section-title/section-title.component';
-import { SkillCarouselComponent } from '../controls/skill-slider/skill-carousel.component';
+import { SkillCarouselComponent } from '../controls/skill-carousel/skill-carousel.component';
 import { ContactIconsComponent } from '../controls/contact-icons/contact-icons.component';
 
 @NgModule({
@@ -30,6 +30,8 @@ import { ContactIconsComponent } from '../controls/contact-icons/contact-icons.c
         CommonModule
     ],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [
+        AppComponent
+    ]
 })
 export class AppModule { }

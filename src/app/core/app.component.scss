@@ -1,83 +1,31 @@
 @import 'variables';
 @import 'keyframes';
 
+$header-height: $base-size * 6;
+
 header {
     background-color: $white;
     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .15);
-    height: 100%;
+    height: $header-height;
+    padding-left: $base-size * 2;
+    padding-right: $base-size * 2;
     z-index: 999;
-    animation-name: $header-slide-name;
-    animation-duration: $header-slide-duration;
-    animation-delay: $header-slide-delay;
-    animation-timing-function: $header-slide-timing;
-    animation-fill-mode: forwards;
-
-    .header-slants {
-        min-width: 164px;
-        width: 10%;
-
-        .slant {
-            opacity: 0;
-            animation-name: $opacity-name;
-            animation-duration: $opacity-duration;
-            animation-delay: $header-animations-duration;
-            animation-timing-function: $opacity-timing;
-            animation-fill-mode: forwards;
-        
-            &.color-2 {
-                animation-delay: $header-animations-duration + .1s;
-            }
-        
-            &.color-4 {
-                animation-delay: $header-animations-duration + .2s;
-            }
-        
-            &.color-1 {
-                animation-delay: $header-animations-duration + .3s;
-            }
-        }
-    }
 
     .header-title {
-        font-size: $default-font-size;
-        animation-name: $title-size-name;
-        animation-duration: $title-size-duration;
-        animation-delay: $title-size-delay;
-        animation-timing-function: $title-size-timing;
+        font-family: 'Permanent Marker', $default-font-family;
+        font-size: $default-font-size * 2;
+        opacity: 0;
+        transform: scale(0);
+        animation: $opacity-name $opacity-duration $opacity-timing,
+                   $grow-name $grow-duration $grow-timing;
         animation-fill-mode: forwards;
-
-        #outline {
-            fill: none;
-            font-family: 'Permanent Marker', $default-font-family;
-            stroke: $black;
-            stroke-dasharray: 100;
-            stroke-dashoffset: 100;
-            stroke-width: .02rem;
-            animation-name: $title-outline-name;
-            animation-duration: $title-outline-duration;
-            animation-timing-function: $title-outline-timing;
-            animation-fill-mode: forwards;
-        }
-
-        #fill {
-            fill: $black;
-            fill-opacity: 0;
-            font-family: 'Permanent Marker', $default-font-family;
-            animation-name: $title-fill-name;
-            animation-duration: $title-fill-duration;
-            animation-delay: $title-fill-delay;
-            animation-timing-function: $title-fill-timing;
-            animation-fill-mode: forwards;
-        }
     }
 
     .header-icons {
         opacity: 0;
-        right: 0%;
         transform: scale(0);
         animation: $opacity-name $opacity-duration $opacity-timing,
                    $grow-name $grow-duration $grow-timing;
-        animation-delay: $header-animations-duration;
         animation-fill-mode: forwards;
     }
 }
@@ -85,11 +33,15 @@ header {
 main {
     background-color: $white;
     color: $black;
-    display: none;
-    padding-top: 5%;
+    padding-top: $header-height;
 }
 
 footer {
     background-color: $black;
     color: $white;
+    height: $base-size * 6;
+
+    .footer-text {
+        margin-right: $base-size * 2;
+    }
 }

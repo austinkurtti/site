@@ -58,6 +58,7 @@ export class SkillCarouselComponent implements OnChanges, AfterViewInit, OnDestr
 
         this._autoScrollDebounce = true;
 
+        //TODO - DRY this up
         if (change === 'right') {
             // Update indexes
             this.leftIndex = this.leftIndex === this.skills.length - 1 ? 0 : this.leftIndex + 1;

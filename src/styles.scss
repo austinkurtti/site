@@ -106,22 +106,15 @@ p:not(:last-child) {
     padding: $base-size * 2 $base-size;
 }
 
-.contact-icon {
-    &-white {
-        color: $white;
+:focus:not(:focus-visible) {
+    outline: none;
+}
 
-        &:hover {
-            color: $theme-blue;
-        }
-    }
-
-    &-black {
-        color: $black;
-
-        &:hover {
-            color: $theme-blue;
-        }
-    }
+:focus-visible, button:focus {
+    border-radius: $base-size / 5;
+    outline-color: $theme-blue;
+    outline-style: solid;
+    outline-width: $base-size / 5;
 }
 
 // Color classes

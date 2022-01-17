@@ -1,12 +1,9 @@
-import { OnInit, AfterViewInit, HostListener, Directive } from '@angular/core';
+import { OnInit, HostListener, Directive, ChangeDetectorRef } from '@angular/core';
 import { ColorService } from '@singletons/color.service';
-import { SecretService } from '@singletons/secret.service';
-import { filter } from 'rxjs/operators';
-import { BehaviorSubject, timer } from 'rxjs';
 
 @Directive()
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
-export abstract class BaseComponent implements OnInit, AfterViewInit {
+export abstract class BaseComponent implements OnInit {
     public deferThreshold = .4;
     public backgroundDeferClass = '';
     public contentDeferClass = 'invisible';
@@ -15,38 +12,26 @@ export abstract class BaseComponent implements OnInit, AfterViewInit {
     public colorClassDark = '';
     public title = '';
 
-    protected animationsComplete$ = new BehaviorSubject<boolean>(false);
-
-    private _animationsComplete = false;
-
     constructor(
         protected _colorService: ColorService,
-        protected _secretService: SecretService
+        protected _changeDetectorRef: ChangeDetectorRef
     ) {}
 
     @HostListener('window:resize') onResize = () => {
-        if (this._animationsComplete) {
-            this.windowResized();
-        }
+        this.windowResized();
     };
 
     public ngOnInit() {
         this.colorClass = this._colorService.getRandomColorClass();
         this.colorClassLight = this.colorClass + '-light';
         this.colorClassDark = this.colorClass + '-dark';
-        this._secretService.secretActivated$
-            .pipe(filter(x => x))
-            .subscribe(() => this.secretActivated());
     }
 
-    public ngAfterViewInit() {
-        timer(5050).subscribe(() => {
-            this._animationsComplete = true;
-            this.animationsComplete$.next(true);
-        });
+    public detectChangesSafely(): void {
+        if (!this._changeDetectorRef['destroyed']) {
+            this._changeDetectorRef.detectChanges();
+        }
     }
 
     protected abstract windowResized(): void;
-
-    protected abstract secretActivated(): void;
 }

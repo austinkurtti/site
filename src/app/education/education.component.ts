@@ -1,7 +1,6 @@
-import { Component, OnInit, Renderer2, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Renderer2, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '@base/base.component';
 import { ColorService } from '@singletons/color.service';
-import { SecretService } from '@singletons/secret.service';
 import { timer } from 'rxjs';
 
 @Component({
@@ -20,10 +19,10 @@ export class EducationComponent extends BaseComponent implements OnInit, AfterVi
 
     constructor(
         protected _colorService: ColorService,
-        protected _secretService: SecretService,
+        protected _changeDetectorRef: ChangeDetectorRef,
         private _renderer: Renderer2
     ) {
-        super(_colorService, _secretService);
+        super(_colorService, _changeDetectorRef);
     }
 
     public ngOnInit() {
@@ -32,12 +31,7 @@ export class EducationComponent extends BaseComponent implements OnInit, AfterVi
     }
 
     public ngAfterViewInit() {
-        super.ngAfterViewInit();
-        this.animationsComplete$.subscribe(complete => {
-            if (complete) {
-                this._calculateBackground();
-            }
-        });
+        this._calculateBackground();
     }
 
     public onDeferLoad(): void {
@@ -51,10 +45,6 @@ export class EducationComponent extends BaseComponent implements OnInit, AfterVi
         this._calculateBackground();
     }
 
-    protected secretActivated(): void {
-        // TODO: something fun
-    }
-
     private _calculateBackground(): void {
         const width = this.section.nativeElement.clientWidth;
         const height = this.section.nativeElement.clientHeight;
@@ -62,5 +52,6 @@ export class EducationComponent extends BaseComponent implements OnInit, AfterVi
         this.backgroundPath1 = `M${width * .5},0 L${width * .71},${height * .43} L${width * .72},${height * .15} L${width * .65},0 Z`;
         this.backgroundPath2 = `M${width * .72},${height * .15} L${width * .71},${height * .43} L${width * .12},${height * .8} L${width * .11},${height * .63} Z`;
         this.backgroundPath3 = `M${width * .11},${height * .63} L${width * .12},${height * .8} L${width * .25},${height} L${width * .4},${height} Z`;
+        this.detectChangesSafely();
     }
 }

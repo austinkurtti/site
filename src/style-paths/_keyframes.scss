@@ -1,59 +1,5 @@
 @import 'variables';
 
-$title-outline-name         : kfTitleOutline;
-$title-outline-duration     : 2s;
-$title-outline-timing       : ease-in;
-@keyframes #{$title-outline-name} {
-    from {
-        stroke-dashoffset: 100;
-    }
-    to {
-        stroke-dashoffset: 0;
-    }
-}
-
-$title-fill-name            : kfTitleFill;
-$title-fill-duration        : 1s;
-$title-fill-delay           : $title-outline-duration;
-$title-fill-timing          : ease-in;
-@keyframes #{$title-fill-name} {
-    from {
-        fill-opacity: 0;
-    }
-    to {
-        fill-opacity: 1;
-    }
-}
-
-$header-slide-name          : kfHeaderSlide;
-$header-slide-duration      : 1.5s;
-$header-slide-delay         : $title-fill-delay + $title-fill-duration + .5s; // .5s breath
-$header-slide-timing        : ease-in-out;
-@keyframes #{$header-slide-name} {
-    from {
-        height: 100%;
-    }
-    to {
-        height: 10%;
-    }
-}
-
-$title-size-name            : kfTitleSize;
-$title-size-duration        : $header-slide-duration;
-$title-size-delay           : $header-slide-delay;
-$title-size-timing          : ease-in-out;
-@keyframes #{$title-size-name} {
-    0% {
-        font-size: $default-font-size;
-    }
-    100% {
-        font-size: $default-font-size * 2.5;
-    }
-}
-
-// Total header animation time
-$header-animations-duration : $header-slide-delay + $header-slide-duration;
-
 $opacity-name               : kfOpacity;
 $opacity-duration           : .5s;
 $opacity-timing             : ease-in;
