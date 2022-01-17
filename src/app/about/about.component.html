@@ -1,22 +1,13 @@
 <!-- ? Add a selfie -->
-<section akDeferLoad
-    class="text-center position-relative"
-    #section
-    [threshold]="deferThreshold"
-    (deferLoad)="onDeferLoad()">
-    <div class="background-cover position-absolute h-100 w-100"
-        #backgroundCover
-        [ngClass]="backgroundDeferClass">
-    </div>
-    <svg class="background position-absolute h-100 w-100 d-none d-lg-block" [attr.viewBox]="backgroundViewBox">
-        <path #end [attr.d]="backgroundPath1" [ngClass]="colorClassDark"></path>
-        <path #end [attr.d]="backgroundPath2" [ngClass]="colorClass"></path>
-    </svg>
-    <div class="content"
-        [ngClass]="contentDeferClass">
+<section class="text-center position-relative">
+    <div akDeferLoad
+        class="content"
+        [ngClass]="deferClass"
+        [threshold]="deferThreshold"
+        (deferLoad)="deferLoad()">
         <div class="row no-gutters px-5 px-lg-0">
             <div class="col offset-lg-2">
-                <ak-section-title [text]="title" [colorClass]="colorClass"></ak-section-title>
+                <ak-section-title [text]="title" [colorClass]="titleColor"></ak-section-title>
             </div>
         </div>
         <div class="row no-gutters justify-content-center text-left mb-5 px-5 px-lg-0">

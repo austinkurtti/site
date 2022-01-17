@@ -8,8 +8,8 @@ html {
 }
 
 body {
-    background-color: $white;
-    color: $black;
+    background-color: $color-white;
+    color: $color-black;
     font-family: $default-font-family;
     font-size: $default-font-size;
     height: 100%;
@@ -21,7 +21,7 @@ section {
     transform: translateX(0%);
 
     .background-cover {
-        background-color: $white;
+        background-color: $color-white;
         transform: translateY(0%);
         z-index: -1;
 
@@ -102,7 +102,7 @@ p:not(:last-child) {
 }
 
 .content-card {
-    background-color: $off-white;
+    background-color: $color-ivory;
     padding: $base-size * 2 $base-size;
 }
 
@@ -112,32 +112,20 @@ p:not(:last-child) {
 
 :focus-visible, button:focus {
     border-radius: $base-size / 5;
-    outline-color: $theme-blue;
+    outline-color: $color-app-accent-2;
     outline-style: solid;
     outline-width: $base-size / 5;
 }
 
 // Color classes
-.color-black {
-    color: $black;
-    fill: $black;
-    stroke: $black;
+.color-app-accent-1 {
+    color: $color-app-accent-1;
+    fill: $color-app-accent-1;
+    stroke: $color-app-accent-1;
 }
 
-@for $i from 1 through length($class-colors) {
-    .color-#{$i} {
-        color: nth($class-colors, $i);
-        fill: nth($class-colors, $i);
-        stroke: nth($class-colors, $i);
-    }
-    .color-#{$i}-light {
-        color: lighten(nth($class-colors, $i), 25%);
-        fill: lighten(nth($class-colors, $i), 25%);
-        stroke: lighten(nth($class-colors, $i), 25%);
-    }
-    .color-#{$i}-dark {
-        color: darken(nth($class-colors, $i), 25%);
-        fill: darken(nth($class-colors, $i), 25%);
-        stroke: darken(nth($class-colors, $i), 25%);
-    }
+.color-app-accent-2 {
+    color: $color-app-accent-2;
+    fill: $color-app-accent-2;
+    stroke: $color-app-accent-2;
 }

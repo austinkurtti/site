@@ -15,18 +15,18 @@
         width: $base-size * 2;
 
         &-white {
-            color: $white;
+            color: $color-white;
 
             &:hover {
-                color: $theme-blue;
+                color: $color-app-accent-2;
             }
         }
 
         &-black {
-            color: $black;
+            color: $color-black;
 
             &:hover {
-                color: $theme-blue;
+                color: $color-app-accent-2;
             }
         }
     }
