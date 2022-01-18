@@ -1,13 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SectionDirective } from '@base/section.directive';
 import { colorAppAccent1 } from '../@constants/strings';
+import { TimelineEventModel, timelineEvents } from './timeline-point.model';
 
 @Component({
     selector: 'ak-experience',
     styleUrls: ['./experience.component.scss'],
     templateUrl: './experience.component.html'
 })
-export class ExperienceComponent extends SectionDirective {
+export class ExperienceComponent extends SectionDirective implements OnInit {
     public title = 'Experience.';
     public titleColor = colorAppAccent1;
+
+    public timelineStart = new Date(2013, 5);
+    public timelineYears: Date[] = [];
+    public timelineEvents = timelineEvents;
+    public selectedEvent: TimelineEventModel;
+
+    public ngOnInit(): void {
+        this.selectedEvent = timelineEvents[0];
+
+        const currentYear = new Date().getFullYear();
+        let year = this.timelineStart.getFullYear() + 1;
+        while (year <= currentYear) {
+            this.timelineYears.push(new Date(year, 0));
+            year++;
+        }
+    }
+
+    public selectEvent(point: TimelineEventModel): void {
+        this.selectedEvent = point;
+    }
 }

@@ -11,10 +11,12 @@ import { SkillsComponent } from '../skills/skills.component';
 import { SectionTitleComponent } from '../controls/section-title/section-title.component';
 import { ContactIconsComponent } from '../controls/contact-icons/contact-icons.component';
 import { TooltipDirective } from '@directives/tooltip.directive';
+import { TimelinePipe } from '../@pipes/timeline.pipe';
 
 @NgModule({
     declarations: [
         AppComponent,
+        TimelinePipe,
         DeferLoadDirective,
         TooltipDirective,
         ContactIconsComponent,

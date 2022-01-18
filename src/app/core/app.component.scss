@@ -12,7 +12,7 @@ header {
     z-index: 999;
 
     .header-title {
-        background: linear-gradient(45deg, $color-app-primary, $color-app-accent-1, $color-app-accent-2);
+        background: $color-app-gradient;
         background-clip: text;
         color: transparent;
         font-family: 'Permanent Marker', $default-font-family;

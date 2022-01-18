@@ -16,6 +16,7 @@ export class SkillsComponent extends SectionDirective implements OnInit {
     private _colorClasses = ['bg-color-app-primary', 'bg-color-app-accent-1', 'bg-color-app-accent-2'];
 
     public ngOnInit(): void {
+        // Randomize skill background colors
         let classes = [...this._colorClasses];
         this.skills.forEach(skill => {
             const color = classes[Math.floor(Math.random() * classes.length)];

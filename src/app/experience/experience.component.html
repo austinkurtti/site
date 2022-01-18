@@ -9,7 +9,7 @@
                 <ak-section-title [text]="title" [colorClass]="titleColor"></ak-section-title>
             </div>
         </div>
-        <div class="row no-gutters justify-content-center text-left mb-5 px-5 px-lg-0">
+        <!-- <div class="row no-gutters justify-content-center text-left mb-5 px-5 px-lg-0">
             <div class="col-12 col-lg-4">
                 <h2>AllofE Solutions</h2>
                 <h3>Feb 2014 - Mar 2017</h3>
@@ -29,6 +29,37 @@
             <div class="col-12 col-lg-4">
                 <p>I currently work at Lockpath as a full-stack software engineer. On day one I joined the back-end team and developed a good understanding of the business logic behind their flagship product, Keylight. After several months I switched to focus on front-end work and assist with a crucial UI/UX overhaul for Keylight involving converting the app to Angular.</p>
                 <p>More recently, I have been present on both sides of Keylight's tech stack. I continue to be involved in the overall Angular conversion while also building and refining associated REST API endpoints. These projects continue to teach me about advanced software architecture principles, modern coding standards and timeline management.</p>
+            </div>
+        </div> -->
+        <div class="timeline row no-gutters align-items-center mb-5">
+            <ng-container *ngFor="let year of timelineYears">
+                <div class="timeline-year-line"
+                    [ngStyle]="{'left': (timelineStart | timeline:year) + 'px'}">
+                </div>
+                <h2 class="timeline-year-text"
+                    [ngStyle]="{'left': (timelineStart | timeline:year) + 16 + 'px'}">
+                    {{ year | date:'y' }}
+                </h2>
+            </ng-container>
+            <i *ngFor="let event of timelineEvents"
+                tabindex="0"
+                class="timeline-event dark-focus fas fa-circle"
+                [ngStyle]="{'left': (timelineStart | timeline:event.startDate) + 'px'}"
+                (click)="selectEvent(event)">
+            </i>
+        </div>
+        <div class="row no-gutters justify-content-center text-left">
+            <div class="col-12 col-lg-4">
+                <h2>{{ selectedEvent.name }}</h2>
+                <h3>
+                    {{ selectedEvent.startDate | date:'MMM y' }}
+                    <ng-container *ngIf="selectedEvent.endDate">
+                        {{ ' - ' + (selectedEvent.endDate | date:'MMM y') }}
+                    </ng-container>
+                </h3>
+            </div>
+            <div class="col-12 col-lg-4">
+                <p [innerHtml]="selectedEvent.description"></p>
             </div>
         </div>
         <!-- ? Section about capstone project -->

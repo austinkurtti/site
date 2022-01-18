@@ -9,10 +9,7 @@
 
     &:hover {
         [class^=devicon-] {
-            transform: scale(110%);
-            transition-duration: .1s;
-            transition-property: transform;
-            transition-timing-function: linear;
+            transform: scale(125%);
         }
     }
 
@@ -20,5 +17,6 @@
         color: $color-white;
         font-size: $base-size * 4;
         pointer-events: none;
+        transition: ease-in transform .1s;
     }
 }

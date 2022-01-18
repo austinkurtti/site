@@ -7,6 +7,8 @@ $color-app-primary          : #1c4670;
 $color-app-accent-1         : #278ab0;
 $color-app-accent-2         : #1dc690;
 
+$color-app-gradient         : linear-gradient(45deg, $color-app-primary, $color-app-accent-1, $color-app-accent-2);
+
 // Settings
 $base-size                  : 1rem;
 
