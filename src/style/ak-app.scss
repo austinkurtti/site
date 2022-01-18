@@ -1,0 +1,133 @@
+@import 'variables';
+@import 'keyframes';
+
+// Global app styles
+html {
+    height: 100%;
+}
+
+body {
+    background-color: $color-white;
+    color: $color-black;
+    font-family: $default-font-family;
+    font-size: $default-font-size;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+section {
+    transform: translateX(0%);
+
+    .content {
+        padding: $base-size * 10 0;
+        transform: translateX(10%);
+
+        &.defer-load {
+            transform: translateX(0%);
+            transition-duration: $opacity-duration;
+            transition-property: transform;
+            transition-timing-function: linear;
+            animation-name: $opacity-name;
+            animation-duration: $opacity-duration;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+        }
+    }
+}
+
+h1 {
+    font-size: $default-font-size * 3;
+    font-weight: bold;
+    height: $default-font-size * 3;
+    line-height: $default-font-size * 3;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: $default-font-size * 1.5;
+    font-weight: bold;
+    height: $default-font-size * 1.5;
+    line-height: $default-font-size * 1.5;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-size: $default-font-size;
+    font-style: italic;
+    height: $default-font-size;
+    line-height: $default-font-size;
+    margin: 0;
+}
+
+h2:not(:last-child), h3:not(:last-child) {
+    margin-bottom: $base-size;
+}
+
+label, p {
+    font-weight: bold;
+    margin: 0;
+}
+
+label {
+    display: block;
+    margin-top: $base-size;
+}
+
+p:not(:last-child) {
+    margin-bottom: $base-size;
+}
+
+.content-card {
+    background-color: $color-ivory;
+    padding: $base-size * 2 $base-size;
+}
+
+:focus:not(:focus-visible) {
+    // Prevent focusable elements from getting focus styles on click
+    outline: none;
+}
+
+:focus-visible, button:focus {
+    border-radius: $base-size / 4;
+    outline-color: $color-app-accent-2;
+    outline-style: solid;
+    outline-width: $base-size / 4;
+
+    &.dark-focus {
+        outline-color: $color-black;
+    }
+}
+
+// Color classes
+.bg-color-app-primary {
+    background-color: $color-app-primary;
+}
+
+.bg-color-app-accent-1 {
+    background-color: $color-app-accent-1;
+}
+
+.bg-color-app-accent-2 {
+    background-color: $color-app-accent-2;
+}
+
+.color-app-primary {
+    color: $color-app-primary;
+    fill: $color-app-primary;
+    stroke: $color-app-primary;
+}
+
+.color-app-accent-1 {
+    color: $color-app-accent-1;
+    fill: $color-app-accent-1;
+    stroke: $color-app-accent-1;
+}
+
+.color-app-accent-2 {
+    color: $color-app-accent-2;
+    fill: $color-app-accent-2;
+    stroke: $color-app-accent-2;
+}

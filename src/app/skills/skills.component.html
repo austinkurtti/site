@@ -25,7 +25,16 @@
         </div>
         <div class="row no-gutters justify-content-center mb-5 px-5 px-lg-0">
             <div class="col-12 col-lg-8">
-                <!-- <ak-skill-carousel [skills]="skills" [colorClass]="colorClass" [autoScroll]="autoScrollCarousel"></ak-skill-carousel> -->
+                <div class="row no-gutters">
+                    <div *ngFor="let skill of skills"
+                        akTooltip
+                        tabindex="0"
+                        class="skill-wrapper dark-focus col-3 position-relative d-flex justify-content-center align-items-center"
+                        [ngClass]="skill.color"
+                        [tooltipContent]="skill.name">
+                        <i [ngClass]="skill.icon"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

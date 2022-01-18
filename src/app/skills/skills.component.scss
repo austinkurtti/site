@@ -1,0 +1,24 @@
+@import 'variables';
+
+.skill-wrapper {
+    height: $base-size * 12;
+
+    &:focus {
+        z-index: 100;
+    }
+
+    &:hover {
+        [class^=devicon-] {
+            transform: scale(110%);
+            transition-duration: .1s;
+            transition-property: transform;
+            transition-timing-function: linear;
+        }
+    }
+
+    [class^=devicon-] {
+        color: $color-white;
+        font-size: $base-size * 4;
+        pointer-events: none;
+    }
+}

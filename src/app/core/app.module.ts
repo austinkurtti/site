@@ -9,16 +9,16 @@ import { EducationComponent } from '../education/education.component';
 import { ExperienceComponent } from '../experience/experience.component';
 import { SkillsComponent } from '../skills/skills.component';
 import { SectionTitleComponent } from '../controls/section-title/section-title.component';
-import { SkillCarouselComponent } from '../controls/skill-carousel/skill-carousel.component';
 import { ContactIconsComponent } from '../controls/contact-icons/contact-icons.component';
+import { TooltipDirective } from '@directives/tooltip.directive';
 
 @NgModule({
     declarations: [
         AppComponent,
         DeferLoadDirective,
+        TooltipDirective,
         ContactIconsComponent,
         SectionTitleComponent,
-        SkillCarouselComponent,
         AboutComponent,
         EducationComponent,
         ExperienceComponent,

@@ -12,7 +12,7 @@ export class DeferLoadDirective implements AfterViewInit {
 
     constructor(
         private _elementRef: ElementRef
-    ) { }
+    ) {}
 
     public ngAfterViewInit() {
         this._intersectionObserver = new IntersectionObserver(entries => {
