@@ -29,3 +29,20 @@
         }
     }
 }
+
+.timeline-event-description {
+    background-color: $color-ivory;
+    min-height: $base-size * 18;
+    padding: $base-size * 3;
+    position: relative;
+
+    #selected-event-arrow {
+        border-color: transparent transparent $color-black transparent;
+        border-style: solid;
+        border-width: $base-size;
+        position: absolute;
+        top: -($base-size * 2);
+        transform: translateX(-25%);
+        transition: ease-in left .25s;
+    }
+}

@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SectionDirective } from '@base/section.directive';
-import { colorAppAccent1 } from '../@constants/strings';
+import { colorAppAccent2 } from '../@constants/strings';
 import { TimelineEventModel, timelineEvents } from './timeline-point.model';
+
+// TODO - fix timeline not resizing
 
 @Component({
     selector: 'ak-experience',
     styleUrls: ['./experience.component.scss'],
-    templateUrl: './experience.component.html'
+    templateUrl: './experience.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExperienceComponent extends SectionDirective implements OnInit {
     public title = 'Experience.';
-    public titleColor = colorAppAccent1;
+    public titleColor = colorAppAccent2;
 
-    public timelineStart = new Date(2013, 5);
+    public timelineStart = new Date(2013, 8);
     public timelineYears: Date[] = [];
     public timelineEvents = timelineEvents;
     public selectedEvent: TimelineEventModel;

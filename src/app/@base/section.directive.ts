@@ -3,7 +3,7 @@ import { deferLoadComplete } from '../@constants/strings';
 
 @Directive()
 export abstract class SectionDirective {
-    public deferThreshold = .4;
+    public deferThreshold = .25;
     public deferClass = 'invisible';
 
     public abstract title: string;
