@@ -5,13 +5,13 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { DeferLoadDirective } from '@directives/defer-load.directive';
 import { AboutComponent } from '../about/about.component';
-import { EducationComponent } from '../education/education.component';
 import { ExperienceComponent } from '../experience/experience.component';
 import { SkillsComponent } from '../skills/skills.component';
 import { SectionTitleComponent } from '../controls/section-title/section-title.component';
 import { ContactIconsComponent } from '../controls/contact-icons/contact-icons.component';
 import { TooltipDirective } from '@directives/tooltip.directive';
 import { TimelinePipe } from '../@pipes/timeline.pipe';
+import { IntroComponent } from '../intro/intro.component';
 
 @NgModule({
     declarations: [
@@ -21,8 +21,8 @@ import { TimelinePipe } from '../@pipes/timeline.pipe';
         TooltipDirective,
         ContactIconsComponent,
         SectionTitleComponent,
+        IntroComponent,
         AboutComponent,
-        EducationComponent,
         ExperienceComponent,
         SkillsComponent
     ],

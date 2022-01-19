@@ -34,20 +34,24 @@ export const timelineEvents: TimelineEventModel[] = [
         endDate: new Date(),
         name: 'Lockpath',
         description: 'Fresh out of college, I took a job as a Sofware Engineer with Lockpath. ' +
-                     'On day one I joined the back-end team and developed a good understanding of the business logic behind the flagship, Keylight. ' +
+                     'On day one I joined the back-end team and developed a good understanding of the business logic behind Keylight, the flagship web app. ' +
                      'After several months I transitioned into front-end work to help with a crucial UI/UX overhaul involving converting the Keylight app to Angular.' +
                      '<br><br>' +
-                     'I continue to be involved in the ongoing Angular conversion, while also contribute to building out the assocated REST API endpoints. ' +
-                     'More recently I have helped with developer onboarding, guiding new coding standards, and defining front-end architecture.'
+                     'I continue to be involved in the ongoing Angular conversion while also contributing to building out the assocated REST API endpoints. ' +
+                     'More recently, I have helped with developer onboarding, guiding new coding standards, and defining front-end architecture.'
     }),
     new TimelineEventModel({
         startDate: new Date(2019, 7),
         name: 'NAVEX Global Acquistion',
-        description: 'Lockpath is acquired by NAVEX Global, a company based out of Lake Oswego, Oregon.'
+        description: 'Lockpath is acquired by NAVEX Global, a company based out of Lake Oswego, Oregon.' +
+                     '<br><br>' +
+                     'Keylight is renamed to Lockpath IRM.'
     }),
     new TimelineEventModel({
         startDate: new Date(2022, 0),
         name: 'NAVEX Rebrand',
-        description: 'NAVEX Global rebrands, shortening their name to NAVEX.'
+        description: 'NAVEX Global rebrands, shortening the company name to NAVEX.' +
+                     '<br><br>' +
+                     'Lockpath IRM is renamed to NAVEX IRM.'
     })
 ];

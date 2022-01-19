@@ -23,8 +23,11 @@ section {
         padding: $base-size * 10 0;
         transform: translateX(10%);
 
-        &.defer-load {
+        &:not(.invisible) {
             transform: translateX(0%);
+        }
+
+        &.defer-load {
             transition-duration: $opacity-duration;
             transition-property: transform;
             transition-timing-function: linear;
@@ -37,6 +40,15 @@ section {
 }
 
 h1 {
+    font-size: $default-font-size * 6;
+    font-weight: bold;
+    height: $default-font-size * 6;
+    line-height: $default-font-size * 6;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+h2 {
     font-size: $default-font-size * 3;
     font-weight: bold;
     height: $default-font-size * 3;
@@ -45,7 +57,7 @@ h1 {
     text-transform: uppercase;
 }
 
-h2 {
+h3 {
     font-size: $default-font-size * 1.5;
     font-weight: bold;
     height: $default-font-size * 1.5;
@@ -54,15 +66,7 @@ h2 {
     text-transform: uppercase;
 }
 
-h3 {
-    font-size: $default-font-size;
-    font-style: italic;
-    height: $default-font-size;
-    line-height: $default-font-size;
-    margin: 0;
-}
-
-h2:not(:last-child), h3:not(:last-child) {
+h3:not(:last-child) {
     margin-bottom: $base-size;
 }
 
@@ -112,6 +116,12 @@ p:not(:last-child) {
 
 .bg-color-app-accent-2 {
     background-color: $color-app-accent-2;
+}
+
+.color-white {
+    color: $color-white;
+    fill: $color-white;
+    stroke: $color-white;
 }
 
 .color-app-primary {
