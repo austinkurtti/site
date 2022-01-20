@@ -35,3 +35,15 @@ $grow-timing                : ease-in;
         transform: scale(1);
     }
 }
+
+$rotate-name                : kfRotate;
+$rotate-duration            : 2s;
+$rotate-timing              : linear;
+@keyframes #{$rotate-name} {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

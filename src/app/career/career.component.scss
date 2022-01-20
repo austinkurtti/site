@@ -1,6 +1,7 @@
 @import 'variables';
+@import 'keyframes';
 
-.timeline {
+#timeline {
     background: $color-app-gradient;
     height: $base-size * 12;
     position: relative;
@@ -26,11 +27,34 @@
 
         &:hover {
             transform: scale(150%);
+
+            &::after {
+                border-color: $color-black;
+            }
+        }
+
+        &::after {
+            animation-duration: $rotate-duration;
+            animation-iteration-count: infinite;
+            animation-name: $rotate-name;
+            animation-timing-function: $rotate-timing;
+            border-color: $color-black transparent transparent transparent;
+            border-radius: 50%;
+            border-style: solid;
+            border-width: $base-size / 4;
+            content: "";
+            height: $base-size * 2;
+            left: -50%;
+            pointer-events: none;
+            position: absolute;
+            top: -50%;
+            transition: ease-in border-color .1s;
+            width: $base-size * 2;
         }
     }
 }
 
-.timeline-event-description {
+#timeline-event-description {
     background-color: $color-ivory;
     min-height: $base-size * 18;
     position: relative;
