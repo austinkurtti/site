@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { DeferLoadDirective } from '@directives/defer-load.directive';
 import { AboutComponent } from '../about/about.component';
-import { ExperienceComponent } from '../experience/experience.component';
+import { CareerComponent } from '../career/career.component';
 import { SkillsComponent } from '../skills/skills.component';
 import { SectionTitleComponent } from '../controls/section-title/section-title.component';
 import { ContactIconsComponent } from '../controls/contact-icons/contact-icons.component';
@@ -23,7 +23,7 @@ import { IntroComponent } from '../intro/intro.component';
         SectionTitleComponent,
         IntroComponent,
         AboutComponent,
-        ExperienceComponent,
+        CareerComponent,
         SkillsComponent
     ],
     imports: [

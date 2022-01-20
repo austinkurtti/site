@@ -6,13 +6,13 @@ import { TimelineEventModel, timelineEvents } from './timeline-point.model';
 // TODO - fix timeline not resizing
 
 @Component({
-    selector: 'ak-experience',
-    styleUrls: ['./experience.component.scss'],
-    templateUrl: './experience.component.html',
+    selector: 'ak-career',
+    styleUrls: ['./career.component.scss'],
+    templateUrl: './career.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExperienceComponent extends SectionDirective implements OnInit {
-    public title = 'Experience';
+export class CareerComponent extends SectionDirective implements OnInit {
+    public title = 'Career';
     public titleColor = colorAppAccent2;
 
     public timelineStart = new Date(2013, 8);
