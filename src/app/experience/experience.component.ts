@@ -12,7 +12,7 @@ import { TimelineEventModel, timelineEvents } from './timeline-point.model';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExperienceComponent extends SectionDirective implements OnInit {
-    public title = 'Experience.';
+    public title = 'Experience';
     public titleColor = colorAppAccent2;
 
     public timelineStart = new Date(2013, 8);

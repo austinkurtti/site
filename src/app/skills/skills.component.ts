@@ -9,7 +9,7 @@ import { skills } from './skill.model';
     templateUrl: './skills.component.html'
 })
 export class SkillsComponent extends SectionDirective implements OnInit {
-    public title = 'Skill set.';
+    public title = 'Skill set';
     public titleColor = colorAppAccent1;
     public skills = skills;
 

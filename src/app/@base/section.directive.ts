@@ -6,9 +6,6 @@ export abstract class SectionDirective {
     public deferThreshold = .25;
     public deferClass = 'invisible';
 
-    public abstract title: string;
-    public abstract titleColor: string;
-
     constructor(
         protected _changeDetectorRef: ChangeDetectorRef
     ) {}

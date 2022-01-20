@@ -8,6 +8,6 @@ import { colorAppAccent1 } from '../@constants/strings';
     styleUrls: ['./about.component.scss']
 })
 export class AboutComponent extends SectionDirective {
-    public title = 'About me.';
+    public title = 'About me';
     public titleColor = colorAppAccent1;
 }

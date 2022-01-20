@@ -13,11 +13,11 @@ export class SkillModel {
 export const skills: SkillModel[] = [
     new SkillModel({
         name: 'HTML5',
-        icon: 'devicon-html5-plain'
+        icon: 'fab fa-html5'
     }),
     new SkillModel({
         name: 'Angular',
-        icon: 'devicon-angularjs-plain'
+        icon: 'fab fa-angular'
     }),
     new SkillModel({
         name: 'Visual Studio Code',
@@ -29,7 +29,7 @@ export const skills: SkillModel[] = [
     }),
     new SkillModel({
         name: 'CSS3',
-        icon: 'devicon-css3-plain'
+        icon: 'fab fa-css3-alt'
     }),
     new SkillModel({
         name: 'C#',
@@ -41,54 +41,54 @@ export const skills: SkillModel[] = [
     }),
     new SkillModel({
         name: 'Git',
-        icon: 'devicon-git-plain'
+        icon: 'fab fa-git-alt'
     }),
     new SkillModel({
         name: 'Visual Studio',
         icon: 'devicon-visualstudio-plain'
     }),
     new SkillModel({
-        name: 'MySQL',
-        icon: 'devicon-mysql-plain'
+        name: 'SQL',
+        icon: 'fas fa-database'
     }),
     new SkillModel({
         name: 'Bootstrap',
-        icon: 'devicon-bootstrap-plain'
+        icon: 'fab fa-bootstrap'
     }),
     new SkillModel({
         name: 'Windows',
-        icon: 'devicon-windows8-plain'
+        icon: 'fab fa-windows'
     }),
     new SkillModel({
         name: 'Bitbucket',
-        icon: 'devicon-bitbucket-plain'
+        icon: 'fab fa-bitbucket'
     }),
     new SkillModel({
         name: 'PHP',
-        icon: 'devicon-php-plain'
+        icon: 'fab fa-php'
     }),
     new SkillModel({
         name: 'JavaScript',
-        icon: 'devicon-javascript-plain'
+        icon: 'fab fa-js'
     }),
     new SkillModel({
         name: 'Sass',
-        icon: 'devicon-sass-plain'
+        icon: 'fab fa-sass'
     }),
     new SkillModel({
         name: 'NodeJS',
-        icon: 'devicon-nodejs-plain'
+        icon: 'fab fa-node-js'
     }),
     new SkillModel({
         name: 'Confluence',
-        icon: 'devicon-confluence-plain'
+        icon: 'fab fa-confluence'
     }),
     new SkillModel({
         name: 'GitHub',
-        icon: 'devicon-github-plain'
+        icon: 'fab fa-github'
     }),
     new SkillModel({
         name: 'Jira',
-        icon: 'devicon-jira-plain'
+        icon: 'fab fa-jira'
     })
 ];

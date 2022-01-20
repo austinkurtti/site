@@ -8,11 +8,13 @@
     }
 
     &:hover {
+        .fas, .fab,
         [class^=devicon-] {
             transform: scale(125%);
         }
     }
 
+    .fas, .fab,
     [class^=devicon-] {
         color: $color-white;
         font-size: $base-size * 4;

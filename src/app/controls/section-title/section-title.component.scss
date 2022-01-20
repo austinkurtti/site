@@ -4,13 +4,14 @@
     height: $base-size * 3;
 
     :first-child {
-        left: .1rem;
-        top: .1rem;
+        left: -.1rem;
+        top: -.1rem;
+        z-index: 1;
     }
 
     :last-child {
-        left: -.1rem;
-        top: -.1rem;
+        left: .1rem;
+        top: .1rem;
         user-select: none;
     }
 }
