@@ -9,7 +9,7 @@
                 <ak-section-title [text]="title" [colorClass]="titleColor"></ak-section-title>
             </div>
         </div>
-        <div id="timeline" class="row no-gutters align-items-center mb-3">
+        <div id="timeline" class="row no-gutters align-items-center mb-3 px-5 px-lg-0">
             <ng-container *ngFor="let year of timelineYears">
                 <div class="timeline-year-line"
                     [ngStyle]="{'left': (timelineStart | timeline:year) + 'px'}">
@@ -26,11 +26,11 @@
                 (click)="selectEvent(event)">
             </i>
         </div>
-        <div id="timeline-event-description" class="row no-gutters justify-content-center text-left py-5">
+        <div id="timeline-event-description" class="row no-gutters justify-content-center text-left py-5 px-5 px-lg-0">
             <div id="selected-event-arrow"
                 [ngStyle]="{'left': (timelineStart | timeline:selectedEvent.startDate) + 'px'}">
             </div>
-            <div class="col-12 col-lg-4">
+            <div class="col-12 col-lg-4 mb-3 mb-lg-0">
                 <h3>{{ selectedEvent.name }}</h3>
                 <em>
                     {{ selectedEvent.startDate | date:'MMM y' }}
