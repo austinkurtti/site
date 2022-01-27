@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SectionDirective } from '@base/section.directive';
-import { colorAppAccent1 } from '../@constants/strings';
+import { aboutId, aboutText, colorAppAccent1 } from '../@constants/strings';
 
 @Component({
     selector: 'ak-about',
@@ -8,6 +8,8 @@ import { colorAppAccent1 } from '../@constants/strings';
     styleUrls: ['./about.component.scss']
 })
 export class AboutComponent extends SectionDirective {
-    public title = 'About me';
+    public navigationId = aboutId;
+
+    public title = aboutText;
     public titleColor = colorAppAccent1;
 }

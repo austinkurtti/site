@@ -8,6 +8,7 @@ import { baseSizePx } from '../@constants/numbers';
 export class TooltipDirective implements OnDestroy {
     @Input() tooltipContent: string;
     @Input() tooltipDelay = 500;
+    @Input() tooltipPosition: 'top' | 'right' = 'top'; // TODO - enum this and add left/bottom
 
     private _tooltipEl: HTMLDivElement = null;
     private _debounceSubscription: Subscription;
@@ -61,10 +62,18 @@ export class TooltipDirective implements OnDestroy {
             // Render the tooltip by appending it now, that way it's rendered size can be used to better position it
             this._renderer.appendChild(this._tooltipContainerEl, this._tooltipEl);
 
+            // TODO - add logic for repositioning if going off-screen
             // Position tooltip relative to the host element
             const hostRect = this._hostElement.nativeElement.getBoundingClientRect();
-            this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y - (baseSizePx) - (this._tooltipEl.clientHeight)}px`);
-            this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x + (hostRect.width / 2) - (this._tooltipEl.clientWidth / 2)}px`);
+            if (this.tooltipPosition === 'top') {
+                this._renderer.addClass(this._tooltipEl, 'top');
+                this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y - baseSizePx - this._tooltipEl.clientHeight}px`);
+                this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x + (hostRect.width / 2) - (this._tooltipEl.clientWidth / 2)}px`);
+            } else if (this.tooltipPosition === 'right') {
+                this._renderer.addClass(this._tooltipEl, 'right');
+                this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y + (hostRect.height / 2) - (this._tooltipEl.clientHeight / 2)}px`);
+                this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x + hostRect.width + baseSizePx}px`);
+            }
         });
     }
 

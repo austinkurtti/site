@@ -1,10 +1,12 @@
 import { Directive, ChangeDetectorRef } from '@angular/core';
-import { deferLoadComplete } from '../@constants/strings';
+import { deferLoad } from '../@constants/strings';
 
 @Directive()
 export abstract class SectionDirective {
     public deferThreshold = .25;
     public deferClass = 'invisible';
+
+    public abstract navigationId: string;
 
     constructor(
         protected _changeDetectorRef: ChangeDetectorRef
@@ -17,6 +19,6 @@ export abstract class SectionDirective {
     }
 
     public deferLoad(): void {
-        this.deferClass = deferLoadComplete;
+        this.deferClass = deferLoad;
     }
 }

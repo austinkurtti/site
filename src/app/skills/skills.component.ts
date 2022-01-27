@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SectionDirective } from '@base/section.directive';
-import { colorAppAccent1 } from '../@constants/strings';
+import { colorAppAccent1, skillsId, skillsText } from '../@constants/strings';
 import { skills } from './skill.model';
 
 @Component({
@@ -9,7 +9,9 @@ import { skills } from './skill.model';
     templateUrl: './skills.component.html'
 })
 export class SkillsComponent extends SectionDirective implements OnInit {
-    public title = 'Skill set';
+    public navigationId = skillsId;
+
+    public title = skillsText;
     public titleColor = colorAppAccent1;
     public skills = skills;
 

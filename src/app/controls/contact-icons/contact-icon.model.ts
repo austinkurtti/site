@@ -1,8 +1,8 @@
-export class ContactIcon {
+export class ContactIconModel {
     href: string;
     class: string;
 
-    constructor(options?: Partial<ContactIcon>) {
+    constructor(options?: Partial<ContactIconModel>) {
         if (options) {
             Object.assign(this, options);
         }

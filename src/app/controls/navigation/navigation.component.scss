@@ -1,0 +1,29 @@
+@import 'variables';
+
+#navigation-container {
+    background: $color-white;
+    border-radius: $base-size * 2;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .15);
+    left: $base-size;
+    padding: $base-size;
+    z-index: 999;
+
+    a {
+        color: $color-grey;
+        display: block;
+        transition: ease-in color .1s;
+
+        &:not(:last-child) {
+            margin-bottom: $base-size;
+        }
+
+        &.active {
+            color: $color-app-accent-2;
+        }
+
+        &:hover {
+            color: $color-app-accent-2;
+            text-decoration: none;
+        }
+    }
+}

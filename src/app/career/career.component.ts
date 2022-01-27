@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SectionDirective } from '@base/section.directive';
-import { colorAppAccent2 } from '../@constants/strings';
+import { careerId, careerText, colorAppAccent2 } from '../@constants/strings';
 import { TimelineEventModel, timelineEvents } from './timeline-point.model';
 
 // TODO - fix timeline not resizing
@@ -12,7 +12,9 @@ import { TimelineEventModel, timelineEvents } from './timeline-point.model';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CareerComponent extends SectionDirective implements OnInit {
-    public title = 'Career';
+    public navigationId = careerId;
+
+    public title = careerText;
     public titleColor = colorAppAccent2;
 
     public timelineStart = new Date(2013, 8);

@@ -18,14 +18,24 @@
 
         // For tooltip arrow
         &:after {
-            border-color: $color-black transparent transparent transparent;
             border-style: solid;
             border-width: $base-size;
             content: "";
-            left: 50%;
             position: absolute;
+        }
+
+        &.top:after {
+            border-color: $color-black transparent transparent transparent;
+            left: 50%;
             top: 100%;
             transform: translateX(-50%);
+        }
+
+        &.right:after {
+            border-color: transparent $color-black transparent transparent;
+            left: -($base-size * 2);
+            top: 50%;
+            transform: translateY(-50%);
         }
     }
 }

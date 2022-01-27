@@ -12,6 +12,7 @@ import { ContactIconsComponent } from '../controls/contact-icons/contact-icons.c
 import { TooltipDirective } from '@directives/tooltip.directive';
 import { TimelinePipe } from '../@pipes/timeline.pipe';
 import { IntroComponent } from '../intro/intro.component';
+import { NavigationComponent } from '../controls/navigation/navigation.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { IntroComponent } from '../intro/intro.component';
         TooltipDirective,
         ContactIconsComponent,
         SectionTitleComponent,
+        NavigationComponent,
         IntroComponent,
         AboutComponent,
         CareerComponent,
