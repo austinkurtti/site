@@ -72,11 +72,6 @@ label, p {
     margin: 0;
 }
 
-label {
-    display: block;
-    margin-top: $base-size;
-}
-
 p:not(:last-child) {
     margin-bottom: $base-size;
 }
