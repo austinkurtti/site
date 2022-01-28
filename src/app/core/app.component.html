@@ -1,17 +1,27 @@
-<div class="ak-tooltip-container"></div>
+<div id="ak-tooltip-container"></div>
+
+<div #headerMenuContent id="header-menu-content" class="position-fixed d-none p-3 text-center">
+    <ak-contact-icons class="d-block mb-3" [iconClass]="'contact-icon-black'"></ak-contact-icons>
+    <ak-navigation class="d-block" [orientation]="'vertical'"></ak-navigation>
+</div>
 
 <!-- Header -->
-<header #header class="position-fixed w-100 row no-gutters justify-content-between align-items-center">
-    <div class="col-auto header-title d-none d-md-flex">{{ title }}</div>
-    <div class="col-auto header-icons d-none d-md-flex">
-        <ak-contact-icons [iconClass]="'contact-icon-black'"></ak-contact-icons>
+<header #header class="position-fixed w-100 row no-gutters align-items-center">
+    <div id="header-title" class="col col-lg-3">
+        {{ title }}
+    </div>
+    <div id="header-nav" class="col-lg-6 d-none d-lg-flex text-center">
+        <ak-navigation class="d-block w-100"></ak-navigation>
+    </div>
+    <div id="header-icons" class="col-lg-3 d-none d-lg-flex text-right">
+        <ak-contact-icons class="d-block w-100" [iconClass]="'contact-icon-black'"></ak-contact-icons>
+    </div>
+    <div id="header-menu" class="col-auto d-flex d-lg-none text-center">
+        <i tabindex="0" class="fas fa-bars fa-2x" (click)="toggleMenu()"></i>
     </div>
 </header>
 
 <main #main class="position-static">
-    <!-- Nav control -->
-    <ak-navigation></ak-navigation>
-
     <!-- Content -->
     <ak-intro></ak-intro>
     <ak-about></ak-about>

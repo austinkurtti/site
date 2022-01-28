@@ -13,7 +13,7 @@ export class TooltipDirective implements OnDestroy {
     private _tooltipEl: HTMLDivElement = null;
     private _debounceSubscription: Subscription;
     private get _tooltipContainerEl(): HTMLDivElement {
-        return document.querySelector('.ak-tooltip-container');
+        return document.querySelector('#ak-tooltip-container');
     }
 
     constructor(

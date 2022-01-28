@@ -1,10 +1,6 @@
-<div #navContainer id="navigation-container" class="position-fixed">
-    <a #navAnchor
-        *ngFor="let anchor of navigationAnchors"
-        akTooltip
-        [href]="'#' + anchor.id"
-        [tooltipContent]="anchor.tooltip"
-        [tooltipPosition]="'right'">
-        <i class="fas fa-circle fa-2x"></i>
-    </a>
-</div>
+<a #navAnchor
+    *ngFor="let anchor of navigationAnchors"
+    [ngClass]="horizontal ? 'd-inline-block' : 'd-block'"
+    [href]="'#' + anchor.id">
+    {{ anchor.text }}
+</a>

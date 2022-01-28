@@ -1,6 +1,6 @@
 export class NavigationAnchorModel {
     id: string;
-    tooltip: string;
+    text: string;
 
     constructor(options?: Partial<NavigationAnchorModel>) {
         if (options) {

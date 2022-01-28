@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, Input, OnDestroy, QueryList, Renderer2, ViewChildren } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { aboutId, aboutText, careerId, careerText, introId, introText, skillsId, skillsText } from 'src/app/@constants/strings';
 import { NavigationAnchorModel } from './navigation.model';
@@ -9,25 +9,35 @@ import { NavigationAnchorModel } from './navigation.model';
     templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements AfterViewInit, OnDestroy {
-    @ViewChild('navContainer') navContainer: ElementRef;
+    @Input() orientation: 'horizontal' | 'vertical' = 'horizontal'; // TODO - enum this
+
     @ViewChildren('navAnchor') navAnchors: QueryList<ElementRef>;
+
+    @HostBinding('class.horizontal')
+    get horizontal() {
+        return this.orientation === 'horizontal';
+    }
+    @HostBinding('class.vertical')
+    get vertical() {
+        return this.orientation === 'vertical';
+    }
 
     public navigationAnchors = [
         new NavigationAnchorModel({
             id: introId,
-            tooltip: introText
+            text: introText
         }),
         new NavigationAnchorModel({
             id: aboutId,
-            tooltip: aboutText
+            text: aboutText
         }),
         new NavigationAnchorModel({
             id: careerId,
-            tooltip: careerText
+            text: careerText
         }),
         new NavigationAnchorModel({
             id: skillsId,
-            tooltip: skillsText
+            text: skillsText
         })
     ];
 
@@ -37,13 +47,6 @@ export class NavigationComponent implements AfterViewInit, OnDestroy {
     constructor(
         private _renderer: Renderer2
     ) {}
-
-    @HostListener('window:resize')
-    windowResize() {
-        const screenHeight = document.documentElement.clientHeight;
-        const navHeight = this.navContainer.nativeElement.offsetHeight;
-        this._renderer.setStyle(this.navContainer.nativeElement, 'top', `${(screenHeight - navHeight) / 2}px`);
-    }
 
     @HostListener('window:scroll')
     windowScroll() {
@@ -79,9 +82,6 @@ export class NavigationComponent implements AfterViewInit, OnDestroy {
     }
 
     public ngAfterViewInit(): void {
-        // Do intial positioning of the navigation component
-        this.windowResize();
-
         // Do initial nav anchor active calculation
         this.windowScroll();
     }
