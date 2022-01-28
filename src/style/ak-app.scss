@@ -88,6 +88,10 @@ p:not(:last-child) {
     outline-style: solid;
     outline-width: $base-size / 4;
 
+    &.light-focus {
+        outline-color: $color-white;
+    }
+
     &.dark-focus {
         outline-color: $color-black;
     }

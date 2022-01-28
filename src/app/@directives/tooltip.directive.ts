@@ -22,29 +22,34 @@ export class TooltipDirective implements OnDestroy {
     ) {}
 
     // Show events
-    @HostListener('mouseover', ['$event'])
-    mouseover($event) {
+    @HostListener('mouseover')
+    mouseover() {
         this._showTooltip();
     }
 
-    @HostListener('focus', ['$event'])
-    focus($event) {
+    @HostListener('focus')
+    focus() {
         this._showTooltip();
     }
 
     // Hide events
-    @HostListener('mouseout', ['$event'])
-    mouseout($event) {
+    @HostListener('mouseout')
+    mouseout() {
         this._hideTooltip();
     }
 
-    @HostListener('blur', ['$event'])
-    blur($event) {
+    @HostListener('blur')
+    blur() {
         this._hideTooltip();
     }
 
-    @HostListener('scroll', ['$event'])
-    scroll($event) {
+    @HostListener('scroll')
+    scroll() {
+        this._hideTooltip();
+    }
+
+    @HostListener('window:scroll')
+    windowResize() {
         this._hideTooltip();
     }
 
