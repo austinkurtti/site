@@ -1,6 +1,6 @@
 <section [id]="navigationId">
-    <div class="content">
-        <div class="row no-gutters px-5 px-lg-0">
+    <div class="content position-relative p-0">
+        <div class="row no-gutters align-items-center px-5 px-lg-0">
             <div class="col offset-lg-2">
                 <h1 class="color-white">
                     Hi,
@@ -8,6 +8,12 @@
                     I'm <span class="color-app-accent-2">Austin</span>
                 </h1>
             </div>
+        </div>
+        <div akTooltip
+            id="scroll-down"
+            class="position-absolute"
+            [tooltipContent]="'Keep scrolling!'">
+            <i class="fas fa-angle-double-down fa-2x"></i>
         </div>
     </div>
 </section>

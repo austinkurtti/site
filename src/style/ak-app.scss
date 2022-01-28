@@ -29,13 +29,13 @@ section {
         }
 
         &.defer-load {
-            transition-duration: $opacity-duration;
-            transition-property: transform;
-            transition-timing-function: linear;
             animation-name: $opacity-name;
             animation-duration: $opacity-duration;
             animation-timing-function: linear;
             animation-fill-mode: forwards;
+            transition-duration: $opacity-duration;
+            transition-property: transform;
+            transition-timing-function: linear;
         }
     }
 }

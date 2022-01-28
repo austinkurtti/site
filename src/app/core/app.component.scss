@@ -1,12 +1,10 @@
 @import 'variables';
 @import 'keyframes';
 
-$header-height: $base-size * 6;
-
 header {
     background-color: $color-white;
     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .15);
-    height: $header-height;
+    height: $base-size * 6;
     padding-left: $base-size * 2;
     padding-right: $base-size * 2;
     z-index: $z-index-header;
@@ -15,8 +13,6 @@ header {
         animation: $opacity-name $opacity-duration $opacity-timing,
                    $grow-name $grow-duration $grow-timing;
         animation-fill-mode: forwards;
-        opacity: 0;
-        transform: scale(0);
 
         span {
             background: $color-app-gradient;
@@ -33,9 +29,7 @@ header {
                    $grow-name $grow-duration $grow-timing;
         animation-fill-mode: forwards;
         font-size: $default-font-size * 1.25;
-        opacity: 0;
         text-transform: uppercase;
-        transform: scale(0);
     }
 
     #header-icons {
@@ -43,7 +37,6 @@ header {
                    $grow-name $grow-duration $grow-timing;
         animation-fill-mode: forwards;
         opacity: 0;
-        transform: scale(0);
     }
 
     #header-menu {
@@ -51,8 +44,6 @@ header {
                    $grow-name $grow-duration $grow-timing;
         animation-fill-mode: forwards;
         height: $base-size * 2;
-        opacity: 0;
-        transform: scale(0);
 
         i {
             cursor: pointer;
@@ -79,7 +70,6 @@ header {
 
 main {
     overflow-x: hidden;
-    padding-top: $header-height;
 }
 
 footer {

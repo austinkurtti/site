@@ -4,10 +4,10 @@ $opacity-name               : kfOpacity;
 $opacity-duration           : .5s;
 $opacity-timing             : ease-in;
 @keyframes #{$opacity-name} {
-    0% {
+    from {
         opacity: 0;
     }
-    100% {
+    to {
         opacity: 1;
     }
 }
@@ -45,5 +45,26 @@ $rotate-timing              : linear;
     }
     to {
         transform: rotate(360deg);
+    }
+}
+
+$bounce-name                : kfBounce;
+$bounce-duration            : 2s;
+$bounce-timing              : ease-in-out;
+@keyframes #{$bounce-name} {
+    0% {
+        transform: translateY(-50%);
+    }
+    15% {
+        transform: translateY(0%);
+    }
+    35% {
+        transform: translateY(-20%);
+    }
+    50% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(-50%);
     }
 }

@@ -1,5 +1,30 @@
 @import 'variables';
+@import 'keyframes';
 
 section {
     background-color: $color-app-primary;
+    min-height: 100vh;
+
+    .content {
+        animation: $opacity-name $opacity-duration $opacity-timing;
+        animation-fill-mode: forwards;
+        min-height: 100vh;
+
+        .row {
+            min-height: 100vh;
+        }
+
+        #scroll-down {
+            bottom: 0%;
+            color: $color-app-accent-1;
+            left: 50%;
+            transform: translateX(-50%);
+            user-select: none;
+
+            i {
+                animation: $bounce-name $bounce-duration $bounce-timing;
+                animation-iteration-count: infinite;
+            }
+        }
+    }
 }
