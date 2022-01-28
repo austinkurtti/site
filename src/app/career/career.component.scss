@@ -27,7 +27,7 @@
 
         &:hover {
             transform: scale(150%);
-            z-index: 1;
+            z-index: $z-index-bump;
 
             &::after {
                 border-color: $color-black;

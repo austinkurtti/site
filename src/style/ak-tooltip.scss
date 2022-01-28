@@ -5,7 +5,7 @@
     pointer-events: none;
     position: fixed;
     width: 100%;
-    z-index: 9999;
+    z-index: $z-index-tooltip;
 
     .ak-tooltip {
         background-color: $color-black;

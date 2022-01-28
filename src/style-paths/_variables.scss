@@ -12,8 +12,15 @@ $color-app-accent-2         : #1dc690;
 
 $color-app-gradient         : linear-gradient(45deg, $color-app-primary, $color-app-accent-1, $color-app-accent-2);
 
-// Settings
+// Core settings
 $base-size                  : 1rem;
+$base-z-index               : 0;
 
 $default-font-family        : 'Montserrat', sans-serif;
 $default-font-size          : $base-size;
+
+// Z-indexes
+$z-index-bump               : $base-z-index + 100;
+$z-index-header             : 1000;
+$z-index-menu               : $z-index-header;
+$z-index-tooltip            : 10000;

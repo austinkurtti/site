@@ -6,7 +6,7 @@
     :first-child {
         left: -.1rem;
         top: -.1rem;
-        z-index: 1;
+        z-index: $z-index-bump;
     }
 
     :last-child {
