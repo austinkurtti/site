@@ -15,15 +15,17 @@ header {
         animation: $opacity-name $opacity-duration $opacity-timing,
                    $grow-name $grow-duration $grow-timing;
         animation-fill-mode: forwards;
-        background: $color-app-gradient;
-        background-clip: text;
-        color: transparent;
-        font-family: 'Permanent Marker', $default-font-family;
-        font-size: $default-font-size * 2;
-        height: $base-size * 2;
-        line-height: $base-size * 2;
         opacity: 0;
         transform: scale(0);
+
+        span {
+            background: $color-app-gradient;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Permanent Marker', $default-font-family;
+            font-size: $default-font-size * 2;
+            line-height: $base-size * 2;
+        }
     }
 
     #header-nav {
