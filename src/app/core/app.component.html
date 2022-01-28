@@ -1,10 +1,5 @@
 <div id="ak-tooltip-container"></div>
 
-<div #headerMenuContent id="header-menu-content" class="position-fixed d-none p-3 text-center">
-    <ak-contact-icons class="d-block mb-3" [iconClass]="'contact-icon-black'"></ak-contact-icons>
-    <ak-navigation class="d-block" [orientation]="'vertical'"></ak-navigation>
-</div>
-
 <!-- Header -->
 <header #header class="position-fixed w-100 row no-gutters align-items-center">
     <div id="header-title" class="col col-lg-3">
@@ -20,6 +15,11 @@
         <i tabindex="0" class="fas fa-bars fa-2x" (click)="toggleMenu()"></i>
     </div>
 </header>
+
+<div #headerMenuContent id="header-menu-content" class="position-fixed d-none p-3 text-center">
+    <ak-contact-icons class="d-block mb-3" [iconClass]="'contact-icon-black'"></ak-contact-icons>
+    <ak-navigation class="d-block" [orientation]="'vertical'"></ak-navigation>
+</div>
 
 <main #main class="position-static">
     <!-- Content -->
