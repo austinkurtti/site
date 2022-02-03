@@ -1,0 +1,31 @@
+@import 'variables';
+
+:host {
+    &.horizontal {
+        height: $base-size * 2;
+
+        a:not(:last-child) {
+            margin-right: $base-size;
+        }
+    }
+
+    &.vertical {
+        a:not(:last-child) {
+            margin-bottom: $base-size;
+        }
+    }
+
+    a {
+        color: $color-black;
+        transition: ease-in color .1s;
+
+        &.active {
+            color: $color-app-accent-2;
+        }
+
+        &:hover {
+            color: $color-app-accent-2;
+            text-decoration: none;
+        }
+    }
+}

@@ -1,16 +1,26 @@
-// App colors
-$black                      : #333;
-$white                      : #fff;
-$off-white                  : #eee;
-$theme-blue                 : #4782ff;
-$theme-green                : #47ff47;
-$theme-purple               : #8247ff;
-$theme-red                  : #ff4747;
+// Colors
+$color-white                : #fff;
+$color-ivory                : #eaeaea;
+$color-light-grey           : #d3d3d3;
+$color-grey                 : #888;
+$color-dark-grey            : #434343;
+$color-black                : #333;
 
-$class-colors: $theme-blue, $theme-green, $theme-purple, $theme-red;
+$color-app-primary          : #1c4670;
+$color-app-accent-1         : #278ab0;
+$color-app-accent-2         : #1dc690;
 
-// Settings
+$color-app-gradient         : linear-gradient(45deg, $color-app-primary, $color-app-accent-1, $color-app-accent-2);
+
+// Core settings
 $base-size                  : 1rem;
+$base-z-index               : 0;
 
 $default-font-family        : 'Montserrat', sans-serif;
 $default-font-size          : $base-size;
+
+// Z-indexes
+$z-index-bump               : $base-z-index + 100;
+$z-index-header             : 1000;
+$z-index-menu               : $z-index-header;
+$z-index-tooltip            : 10000;

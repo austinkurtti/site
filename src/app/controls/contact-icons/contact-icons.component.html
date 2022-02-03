@@ -1,9 +1,5 @@
-<a class="btn m-2" href="https://www.linkedin.com/in/austinkurtti" [ngClass]="iconClass">
-    <i class="fab fa-2x fa-linkedin"></i>
-</a>
-<a class="btn m-2" href="mailto:austin.kurtti@gmail.com" [ngClass]="iconClass">
-    <i class="fas fa-2x fa-envelope-square"></i>
-</a>
-<a class="btn m-2" href="https://github.com/austinkurtti" [ngClass]="iconClass">
-    <i class="fab fa-2x fa-github-square"></i>
-</a>
+<div *ngFor="let icon of icons" class="contact-icon-wrapper">
+    <a class="contact-icon d-flex justify-content-center align-items-center" [href]="icon.href" [ngClass]="iconClass">
+        <i class="fa-2x" [ngClass]="icon.class"></i>
+    </a>
+</div>

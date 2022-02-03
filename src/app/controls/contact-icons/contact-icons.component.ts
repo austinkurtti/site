@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ContactIconModel } from './contact-icon.model';
 
 @Component({
     selector: 'ak-contact-icons',
@@ -7,4 +8,19 @@ import { Component, Input } from '@angular/core';
 })
 export class ContactIconsComponent {
     @Input() iconClass = '';
+
+    public icons = [
+        new ContactIconModel({
+            href: 'https://www.linkedin.com/in/austinkurtti',
+            class: 'fab fa-linkedin'
+        }),
+        new ContactIconModel({
+            href: 'mailto:austin.kurtti@gmail.com',
+            class: 'fas fa-envelope-square'
+        }),
+        new ContactIconModel({
+            href: 'https://github.com/austinkurtti',
+            class: 'fab fa-github-square'
+        }),
+    ];
 }

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { SkillCarouselComponent } from './skill-carousel.component';
+import { IntroComponent } from './intro.component';
 
-describe('SkillCarouselComponent', () => {
-    let component: SkillCarouselComponent;
-    let fixture: ComponentFixture<SkillCarouselComponent>;
+describe('IntroComponent', () => {
+    let component: IntroComponent;
+    let fixture: ComponentFixture<IntroComponent>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [SkillCarouselComponent]
+            declarations: [IntroComponent]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(SkillCarouselComponent);
+        fixture = TestBed.createComponent(IntroComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

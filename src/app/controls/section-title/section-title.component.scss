@@ -3,13 +3,15 @@
 .section-title-container {
     height: $base-size * 3;
 
-    h1:first-child {
-        left: .1rem;
-        top: .1rem;
-    }
-
-    h1:last-child {
+    :first-child {
         left: -.1rem;
         top: -.1rem;
+        z-index: $z-index-bump;
+    }
+
+    :last-child {
+        left: .1rem;
+        top: .1rem;
+        user-select: none;
     }
 }

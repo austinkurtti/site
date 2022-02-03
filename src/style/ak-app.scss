@@ -1,0 +1,98 @@
+@import 'variables';
+@import 'keyframes';
+
+// Global app styles
+html {
+    height: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: $color-ivory;
+    color: $color-black;
+    font-family: $default-font-family;
+    font-size: $default-font-size;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+section {
+    transform: translateX(0%);
+
+    .content {
+        padding: $base-size * 10 0;
+        transform: translateX(10%);
+
+        &:not(.invisible) {
+            transform: translateX(0%);
+        }
+
+        &.defer-load {
+            animation-name: $opacity-name;
+            animation-duration: $opacity-duration;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+            transition-duration: $opacity-duration;
+            transition-property: transform;
+            transition-timing-function: linear;
+        }
+    }
+}
+
+h1 {
+    font-size: $default-font-size * 6;
+    font-weight: bold;
+    line-height: $default-font-size * 6;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: $default-font-size * 3;
+    font-weight: bold;
+    line-height: $default-font-size * 3;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-size: $default-font-size * 1.5;
+    font-weight: bold;
+    line-height: $default-font-size * 1.5;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+h3:not(:last-child) {
+    margin-bottom: $base-size;
+}
+
+label, p {
+    font-weight: bold;
+    margin: 0;
+}
+
+p:not(:last-child) {
+    margin-bottom: $base-size;
+}
+
+:focus:not(:focus-visible) {
+    // Prevent focusable elements from getting focus styles on click
+    outline: none;
+}
+
+:focus-visible, button:focus {
+    border-radius: $base-size / 4;
+    outline-color: $color-app-accent-2;
+    outline-style: solid;
+    outline-width: $base-size / 4;
+
+    &.light-focus {
+        outline-color: $color-white;
+    }
+
+    &.dark-focus {
+        outline-color: $color-black;
+    }
+}

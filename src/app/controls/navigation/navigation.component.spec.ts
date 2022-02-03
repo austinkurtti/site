@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ExperienceComponent } from './experience.component';
+import { NavigationComponent } from './navigation.component';
 
-describe('ExperienceComponent', () => {
-    let component: ExperienceComponent;
-    let fixture: ComponentFixture<ExperienceComponent>;
+describe('NavigationComponent', () => {
+    let component: NavigationComponent;
+    let fixture: ComponentFixture<NavigationComponent>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ExperienceComponent]
+            declarations: [NavigationComponent]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ExperienceComponent);
+        fixture = TestBed.createComponent(NavigationComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

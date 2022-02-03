@@ -2,94 +2,82 @@
 @import 'keyframes';
 
 header {
-    background-color: $white;
+    background-color: $color-white;
     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .15);
-    height: 100%;
-    z-index: 999;
-    animation-name: $header-slide-name;
-    animation-duration: $header-slide-duration;
-    animation-delay: $header-slide-delay;
-    animation-timing-function: $header-slide-timing;
-    animation-fill-mode: forwards;
+    height: $base-size * 6;
+    padding-left: $base-size * 2;
+    padding-right: $base-size * 2;
+    z-index: $z-index-header;
 
-    .header-slants {
-        min-width: 164px;
-        width: 10%;
-
-        .slant {
-            opacity: 0;
-            animation-name: $opacity-name;
-            animation-duration: $opacity-duration;
-            animation-delay: $header-animations-duration;
-            animation-timing-function: $opacity-timing;
-            animation-fill-mode: forwards;
-        
-            &.color-2 {
-                animation-delay: $header-animations-duration + .1s;
-            }
-        
-            &.color-4 {
-                animation-delay: $header-animations-duration + .2s;
-            }
-        
-            &.color-1 {
-                animation-delay: $header-animations-duration + .3s;
-            }
-        }
-    }
-
-    .header-title {
-        font-size: $default-font-size;
-        animation-name: $title-size-name;
-        animation-duration: $title-size-duration;
-        animation-delay: $title-size-delay;
-        animation-timing-function: $title-size-timing;
-        animation-fill-mode: forwards;
-
-        #outline {
-            fill: none;
-            font-family: 'Permanent Marker', $default-font-family;
-            stroke: $black;
-            stroke-dasharray: 100;
-            stroke-dashoffset: 100;
-            stroke-width: .02rem;
-            animation-name: $title-outline-name;
-            animation-duration: $title-outline-duration;
-            animation-timing-function: $title-outline-timing;
-            animation-fill-mode: forwards;
-        }
-
-        #fill {
-            fill: $black;
-            fill-opacity: 0;
-            font-family: 'Permanent Marker', $default-font-family;
-            animation-name: $title-fill-name;
-            animation-duration: $title-fill-duration;
-            animation-delay: $title-fill-delay;
-            animation-timing-function: $title-fill-timing;
-            animation-fill-mode: forwards;
-        }
-    }
-
-    .header-icons {
-        opacity: 0;
-        right: 0%;
-        transform: scale(0);
+    #header-title {
         animation: $opacity-name $opacity-duration $opacity-timing,
                    $grow-name $grow-duration $grow-timing;
-        animation-delay: $header-animations-duration;
         animation-fill-mode: forwards;
+
+        span {
+            background: $color-app-gradient;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Permanent Marker', $default-font-family;
+            font-size: $default-font-size * 2;
+            line-height: $base-size * 2;
+        }
     }
+
+    #header-nav {
+        animation: $opacity-name $opacity-duration $opacity-timing,
+                   $grow-name $grow-duration $grow-timing;
+        animation-fill-mode: forwards;
+        font-size: $default-font-size * 1.25;
+        text-transform: uppercase;
+    }
+
+    #header-icons {
+        animation: $opacity-name $opacity-duration $opacity-timing,
+                   $grow-name $grow-duration $grow-timing;
+        animation-fill-mode: forwards;
+        opacity: 0;
+    }
+
+    #header-menu {
+        animation: $opacity-name $opacity-duration $opacity-timing,
+                   $grow-name $grow-duration $grow-timing;
+        animation-fill-mode: forwards;
+        height: $base-size * 2;
+
+        i {
+            cursor: pointer;
+            height: $base-size * 2;
+            transition: ease-in color .1s;
+            width: $base-size * 2;
+
+            &:hover {
+                color: $color-app-accent-2;
+            }
+        }
+    }
+}
+
+#header-menu-content {
+    background: $color-white;
+    border-radius: $base-size;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .15);
+    font-size: $default-font-size * 1.25;
+    text-transform: uppercase;
+    width: $base-size * 12;
+    z-index: $z-index-menu;
 }
 
 main {
-    background-color: $white;
-    color: $black;
-    display: none;
-    padding-top: 5%;
+    overflow-x: hidden;
 }
 
 footer {
-    background-color: $black;
-    color: $white;
+    background-color: $color-black;
+    color: $color-white;
+    height: $base-size * 6;
+
+    .footer-text {
+        margin-right: $base-size * 2;
+    }
 }
