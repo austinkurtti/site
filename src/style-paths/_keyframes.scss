@@ -68,3 +68,15 @@ $bounce-timing              : ease-in-out;
         transform: translateY(-50%);
     }
 }
+
+$bg-gradient-name           : kfGradientChange;
+$bg-gradient-duration       : 2s;
+$bg-gradient-timing         : ease-in-out;
+@keyframes #{$bg-gradient-name} {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: -100% -100%;
+    }
+}
