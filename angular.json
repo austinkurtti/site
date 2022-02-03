@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "personal": {
+        "site": {
             "root": "",
             "sourceRoot": "src",
             "projectType": "application",
@@ -18,14 +18,16 @@
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
                         "aot": true,
-                        "outputPath": "dist/personal",
+                        "baseHref": "/",
+                        "outputPath": "docs",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "src/tsconfig.app.json",
                         "assets": [
                             "src/favicon.ico",
-                            "src/assets"
+                            "src/assets",
+                            "src/CNAME"
                         ],
                         "styles": [
                             "../node_modules/@fortawesome/fontawesome-free/css/all.min.css",
