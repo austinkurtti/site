@@ -6,9 +6,10 @@ export const appRoutes: Routes = [
         pathMatch: 'full',
         loadChildren: () => import('../home/home.module').then(m => m.HomeModule)
     },
-    // {
-    //     path: 'games'
-    // },
+    {
+        path: 'games',
+        loadChildren: () => import('../games/games.module').then(m => m.GamesModule)
+    },
     {
         path: '**',
         redirectTo: ''
