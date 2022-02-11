@@ -1,6 +1,6 @@
 {
-    "name": "personal",
-    "version": "0.0.0",
+    "name": "site",
+    "version": "1.0.0",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
