@@ -1,5 +1,5 @@
 import { Directive, ChangeDetectorRef } from '@angular/core';
-import { deferLoad } from '../../@constants/strings';
+import { deferLoad } from '@constants/strings';
 
 @Directive()
 export abstract class SectionDirective {

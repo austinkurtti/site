@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { colorAppAccent1, skillsId, skillsText } from '@constants/strings';
-import { SectionDirective } from '../section/section.directive';
+import { SectionDirective } from '../@controls/section/section.directive';
 import { skills } from './skill.model';
 
 @Component({

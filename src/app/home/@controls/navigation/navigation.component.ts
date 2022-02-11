@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, Input, OnDestroy, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import { aboutId, aboutText, careerId, careerText, introId, introText, skillsId, skillsText } from '@constants/strings';
 import { Subscription, timer } from 'rxjs';
-import { aboutId, aboutText, careerId, careerText, introId, introText, skillsId, skillsText } from 'src/app/@constants/strings';
 import { NavigationAnchorModel } from './navigation.model';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Directive, ElementRef, HostListener, Input, OnDestroy, Renderer2 } from '@angular/core';
+import { baseSizePx } from '@constants/numbers';
 import { Subscription, timer } from 'rxjs';
-import { baseSizePx } from '../../@constants/numbers';
 
 @Directive({
     selector: '[akTooltip]'

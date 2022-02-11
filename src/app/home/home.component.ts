@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, Renderer2, ViewChild } from '@angular/core';
-import { baseSizePx } from '../@constants/numbers';
+import { baseSizePx } from '@constants/numbers';
 
 @Component({
     selector: 'ak-home',

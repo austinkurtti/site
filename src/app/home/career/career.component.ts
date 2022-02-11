@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { careerId, careerText, colorAppAccent2 } from '@constants/strings';
-import { SectionDirective } from 'src/app/home/section/section.directive';
+import { SectionDirective } from '../@controls/section/section.directive';
 import { TimelineEventModel, timelineEvents } from './timeline-point.model';
 
 // TODO - fix timeline not resizing
