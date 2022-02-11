@@ -19,6 +19,10 @@ $base-z-index               : 0;
 $default-font-family        : 'Montserrat', sans-serif;
 $default-font-size          : $base-size;
 
+// Breakpoints
+$breakpoint-tablet          : 768px;
+$breakpoint-desktop         : 992px;
+
 // Z-indexes
 $z-index-bump               : $base-z-index + 100;
 $z-index-header             : 1000;

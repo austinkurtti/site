@@ -14,11 +14,33 @@
         }
     }
 
-    .fas, .fab,
-    [class^=devicon-] {
-        color: $color-white;
-        font-size: $base-size * 4;
-        pointer-events: none;
-        transition: ease-in transform .1s;
+    @media (min-width: 0px) {
+        .fas, .fab,
+        [class^=devicon-] {
+            color: $color-white;
+            font-size: $base-size * 2.5;
+            pointer-events: none;
+            transition: ease-in transform .1s;
+        }
+    }
+
+    @media (min-width: $breakpoint-tablet) {
+        .fas, .fab,
+        [class^=devicon-] {
+            color: $color-white;
+            font-size: $base-size * 3.25;
+            pointer-events: none;
+            transition: ease-in transform .1s;
+        }
+    }
+
+    @media (min-width: $breakpoint-desktop) {
+        .fas, .fab,
+        [class^=devicon-] {
+            color: $color-white;
+            font-size: $base-size * 4;
+            pointer-events: none;
+            transition: ease-in transform .1s;
+        }
     }
 }
