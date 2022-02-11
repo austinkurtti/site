@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SectionDirective } from '@base/section.directive';
-import { aboutId, aboutText, colorAppAccent1 } from '../@constants/strings';
+import { aboutId, aboutText, colorAppAccent1 } from '@constants/strings';
+import { SectionDirective } from '../section/section.directive';
 
 @Component({
     selector: 'ak-about',

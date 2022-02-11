@@ -1,0 +1,38 @@
+<!-- Header -->
+<header #header class="position-fixed w-100 row no-gutters align-items-center">
+    <div id="header-title" class="col col-lg-3">
+        <span>{{ title }}</span>
+    </div>
+    <div id="header-nav" class="col-lg-6 d-none d-lg-flex text-center">
+        <ak-navigation class="d-block w-100"></ak-navigation>
+    </div>
+    <div id="header-icons" class="col-lg-3 d-none d-lg-flex text-right">
+        <ak-contact-icons class="d-block w-100" [iconClass]="'contact-icon-black'"></ak-contact-icons>
+    </div>
+    <div id="header-menu" class="col-auto d-flex d-lg-none text-center">
+        <i tabindex="0" class="fas fa-bars fa-2x" (click)="toggleMenu()"></i>
+    </div>
+</header>
+
+<div #headerMenuContent id="header-menu-content" class="position-fixed d-none p-3 text-center">
+    <ak-contact-icons class="d-block mb-3" [iconClass]="'contact-icon-black'"></ak-contact-icons>
+    <ak-navigation class="d-block" [orientation]="'vertical'"></ak-navigation>
+</div>
+
+<main #main class="position-static">
+    <!-- Content -->
+    <ak-intro></ak-intro>
+    <ak-about></ak-about>
+    <ak-career></ak-career>
+    <ak-skills></ak-skills>
+
+    <!-- Footer -->
+    <footer class="row no-gutters justify-content-center align-items-center">
+        <div class="col-auto footer-text">
+            <i class="far fa-copyright"></i>&nbsp;{{ title }}
+        </div>
+        <div class="col-auto">
+            <ak-contact-icons [iconClass]="'contact-icon-white'"></ak-contact-icons>
+        </div>
+    </footer>
+</main>

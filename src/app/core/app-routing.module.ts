@@ -1,13 +1,9 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
-
-const routes: Routes = [
-    { path: '', component: AppComponent }
-];
+import { RouterModule } from '@angular/router';
+import { appRoutes } from './app.routes';
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+    imports: [RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' })],
     exports: [RouterModule]
 })
 export class AppRoutingModule { }

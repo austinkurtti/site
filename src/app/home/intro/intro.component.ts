@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SectionDirective } from '@base/section.directive';
-import { introId } from '../@constants/strings';
+import { introId } from '@constants/strings';
+import { SectionDirective } from '../section/section.directive';
 
 @Component({
     selector: 'ak-intro',
