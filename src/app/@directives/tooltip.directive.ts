@@ -11,6 +11,7 @@ export class TooltipDirective implements OnDestroy {
     @Input() tooltipPosition: 'top' | 'right' = 'top'; // TODO - enum this and add left/bottom
 
     private _tooltipEl: HTMLDivElement = null;
+    private _unlisteners: Array<() => void> = [];
     private _debounceSubscription: Subscription;
     private get _tooltipContainerEl(): HTMLDivElement {
         return document.querySelector('#ak-tooltip-container');
@@ -21,7 +22,6 @@ export class TooltipDirective implements OnDestroy {
         private _renderer: Renderer2
     ) {}
 
-    // Show events
     @HostListener('mouseover')
     mouseover() {
         this._showTooltip();
@@ -32,32 +32,16 @@ export class TooltipDirective implements OnDestroy {
         this._showTooltip();
     }
 
-    // Hide events
-    @HostListener('mouseout')
-    mouseout() {
-        this._hideTooltip();
-    }
-
-    @HostListener('blur')
-    blur() {
-        this._hideTooltip();
-    }
-
-    @HostListener('scroll')
-    scroll() {
-        this._hideTooltip();
-    }
-
-    @HostListener('window:scroll')
-    windowResize() {
-        this._hideTooltip();
-    }
-
     public ngOnDestroy(): void {
         this._hideTooltip();
     }
 
     private _showTooltip(): void {
+        // Prevent duplicate tooltips
+        if (this._debounceSubscription) {
+            return;
+        }
+
         this._debounceSubscription = timer(this.tooltipDelay).subscribe(() => {
             // Create the tooltip element
             this._tooltipEl = this._renderer.createElement('div');
@@ -79,15 +63,38 @@ export class TooltipDirective implements OnDestroy {
                 this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y + (hostRect.height / 2) - (this._tooltipEl.clientHeight / 2)}px`);
                 this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x + hostRect.width + baseSizePx}px`);
             }
+
+            // Hide the tooltip once one of the hide events triggers
+            this._hideListen();
         });
+
+        // If there is a tooltipDelay, don't show the tooltip if any of the hide events trigger before the debounce finishes
+        if (this.tooltipDelay > 0) {
+            this._hideListen();
+        }
     }
 
-    private _hideTooltip(): void {
+    private _hideTooltip = (): void => {
         if (this._tooltipEl) {
             this._renderer.removeChild(this._tooltipContainerEl, this._tooltipEl);
             this._tooltipEl = null;
-        } else {
-            this._debounceSubscription?.unsubscribe();
         }
+
+        this._hideUnlisten();
+        this._debounceSubscription?.unsubscribe();
+        this._debounceSubscription = null;
+    };
+
+    private _hideListen(): void {
+        this._unlisteners.push(this._renderer.listen(this._hostElement.nativeElement, 'mouseout', this._hideTooltip));
+        this._unlisteners.push(this._renderer.listen(this._hostElement.nativeElement, 'blur', this._hideTooltip));
+        document.addEventListener('scroll', this._hideTooltip);
+        window.addEventListener('resize', this._hideTooltip);
+    }
+
+    private _hideUnlisten(): void {
+        this._unlisteners.forEach(unlistener => unlistener());
+        document.removeEventListener('scroll', this._hideTooltip);
+        window.removeEventListener('resize', this._hideTooltip);
     }
 }

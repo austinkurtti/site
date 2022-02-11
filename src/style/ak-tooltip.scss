@@ -11,7 +11,6 @@
         background-color: $color-black;
         border-radius: $base-size / 4;
         color: $color-white;
-        max-width: 15%;
         min-width: $base-size;
         padding: $base-size;
         position: absolute;
@@ -36,6 +35,24 @@
             left: -($base-size * 2);
             top: 50%;
             transform: translateY(-50%);
+        }
+    }
+
+    @media (min-width: 0px) {
+        .ak-tooltip {
+            max-width: 35%;
+        }
+    }
+
+    @media (min-width: $breakpoint-tablet) {
+        .ak-tooltip {
+            max-width: 25%;
+        }
+    }
+
+    @media (min-width: $breakpoint-desktop) {
+        .ak-tooltip {
+            max-width: 15%;
         }
     }
 }
