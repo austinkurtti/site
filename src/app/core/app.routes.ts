@@ -11,7 +11,11 @@ export const appRoutes: Routes = [
         loadChildren: () => import('../games/games.module').then(m => m.GamesModule)
     },
     {
+        path: 'page-not-found',
+        loadChildren: () => import('../page-not-found/page-not-found.module').then(m => m.PageNotFoundModule)
+    },
+    {
         path: '**',
-        redirectTo: ''
+        redirectTo: 'page-not-found'
     }
 ];
