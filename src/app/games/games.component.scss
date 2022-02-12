@@ -1,0 +1,16 @@
+@import 'variables';
+
+:host {
+    background-color: $color-ivory;
+    color: $color-white;
+    display: block;
+    height: 100%;
+
+    main {
+        padding: $base-size;
+
+        .game-tile-container {
+            padding: $base-size;
+        }
+    }
+}
