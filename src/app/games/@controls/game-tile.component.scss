@@ -23,7 +23,7 @@
                 background-color: $color-gray;
                 border-radius: $base-size;
                 padding: $base-size;
-                z-index: 1;
+                z-index: $z-index-bump;
             }
         }
 
