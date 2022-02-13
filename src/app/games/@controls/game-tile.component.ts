@@ -10,6 +10,7 @@ export class GameTileComponent {
     @Input() icon: string;
     @Input() name: string;
     @Input() route: string;
+    @Input() active = true;
 
     constructor(
         private _router: Router
@@ -19,8 +20,14 @@ export class GameTileComponent {
         return this.name.toLowerCase();
     }
 
+    @HostBinding('class.inactive') get classInactive() {
+        return !this.active;
+    }
+
     @HostListener('click')
     public routeToGame() {
-        this._router.navigateByUrl(`/games/${this.route}`);
+        if (this.active) {
+            this._router.navigateByUrl(`/games/${this.route}`);
+        }
     }
 }
