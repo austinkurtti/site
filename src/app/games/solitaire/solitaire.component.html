@@ -1,1 +1,39 @@
-Solitaire
+<header class="row no-gutters align-items-center position-fixed w-100">
+    <div class="col text-right">
+        <label class="mr-3">Time</label>
+        <span>{{ time }}</span>
+    </div>
+    <div class="col text-center">
+        <label class="mr-3">Score</label>
+        <span>{{ score }}</span>
+    </div>
+    <div class="col">
+        <label class="mr-3">Moves</label>
+        <span>{{ moves }}</span>
+    </div>
+</header>
+
+<main class="row no-gutters position-static h-100">
+    <div id="stock-col" class="col-auto h-100">
+        <div id="stock" [ngClass]="{'empty': !stock.length}">
+        </div>
+    </div>
+    <div class="col d-flex justify-content-around h-100">
+        <div *ngFor="let tableau of tableaus"
+            class="tableau">
+            <div *ngFor="let card of tableau; let i = index;"
+                class="solitaire-card"
+                [ngClass]="{'facedown': card.facedown}"
+                [ngStyle]="{'transform': 'translateY(' + ((i * 4 * baseSizePx) - (i * 12 * baseSizePx)) + 'px)'}">
+                <ng-container *ngIf="!card.facedown">
+                    {{ Suit[card.suit] + ' ' + Rank[card.rank] }}
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <div id="foundation-col" class="col-auto h-100">
+        <div *ngFor="let foundation of foundations"
+            class="foundation">
+        </div>
+    </div>
+</main>

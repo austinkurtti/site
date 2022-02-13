@@ -57,17 +57,16 @@
         font-weight: bold;
     }
 
+    // TODO - mixin for these game-specific styles
     &#solitaire {
-        $solitaire-color: #38b64a;
-
         .game-name {
-            background-color: lighten($solitaire-color, 25%);
-            border-color: $solitaire-color;
+            background-color: lighten($color-solitaire-green, 25%);
+            border-color: $color-solitaire-green;
         }
 
         &:hover {
             .game-icon {
-                border-color: $solitaire-color;
+                border-color: $color-solitaire-green;
             }
 
             .game-name {

@@ -44,6 +44,7 @@
                         "accessibility": "explicit"
                     }
                 ],
+                "@typescript-eslint/no-shadow": ["error"],
                 "arrow-parens": [
                     "off",
                     "always"
@@ -56,6 +57,7 @@
                     }
                 ],
                 "no-bitwise": "off",
+                "no-shadow": "off",
                 "no-underscore-dangle": [
                     2,
                     {
