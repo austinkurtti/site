@@ -1,0 +1,13 @@
+@import 'variables';
+
+:host {
+    background-color: $color-ivory;
+    display: block;
+    height: 100%;
+
+    #oops {
+        background-color: $color-light-gray;
+        border-radius: $base-size;
+        padding: $base-size * 5;
+    }
+}
