@@ -14,11 +14,14 @@ import { GamesComponent } from './games.component';
         RouterModule.forChild([
             {
                 path: '',
-                component: GamesComponent
-            },
-            {
-                path: 'solitaire',
-                loadChildren: () => import('./solitaire/solitaire.module').then(m => m.SolitaireModule)
+                component: GamesComponent,
+                children: [
+                    {
+                        path: 'sudoku',
+                        outlet: 'g',
+                        loadChildren: () => import('./sudoku/sudoku.module').then(m => m.SudokuModule)
+                    }
+                ]
             }
         ])
     ]

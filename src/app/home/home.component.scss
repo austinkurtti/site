@@ -49,6 +49,7 @@
                     $grow-name $grow-duration $grow-timing;
             animation-fill-mode: forwards;
             height: $base-size * 2;
+            padding-right: $base-size * 2;
 
             i {
                 cursor: pointer;

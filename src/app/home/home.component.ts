@@ -36,10 +36,7 @@ export class HomeComponent {
 
             const headerHeight = this.header.nativeElement.offsetHeight;
             this._renderer.setStyle(this.headerMenuContent.nativeElement, 'top', `${headerHeight + baseSizePx}px`);
-
-            const screenWidth = document.documentElement.clientWidth;
-            const menuWidth = this.headerMenuContent.nativeElement.offsetWidth;
-            this._renderer.setStyle(this.headerMenuContent.nativeElement, 'left', `${screenWidth - menuWidth - baseSizePx}px`);
+            this._renderer.setStyle(this.headerMenuContent.nativeElement, 'left', `${baseSizePx}px`);
         } else {
             this._renderer.addClass(this.headerMenuContent.nativeElement, 'd-none');
         }
