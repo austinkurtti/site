@@ -39,7 +39,6 @@ export class SudokuComponent implements AfterViewInit {
                     squareIndex,
                     cellIndex,
                     (index) => index < 3,
-                    (index) => index < 3,
                     (index) => index - 3,
                     (index) => index + 6
                 );
@@ -48,7 +47,6 @@ export class SudokuComponent implements AfterViewInit {
                 this._focusNextCell(
                     squareIndex,
                     cellIndex,
-                    (index) => index >= 6,
                     (index) => index >= 6,
                     (index) => index + 3,
                     (index) => index - 6
@@ -59,7 +57,6 @@ export class SudokuComponent implements AfterViewInit {
                     squareIndex,
                     cellIndex,
                     (index) => [0, 3, 6].includes(index),
-                    (index) => [0, 3, 6].includes(index),
                     (index) => index - 1,
                     (index) => index + 2
                 );
@@ -68,7 +65,6 @@ export class SudokuComponent implements AfterViewInit {
                 this._focusNextCell(
                     squareIndex,
                     cellIndex,
-                    (index) => [2, 5, 8].includes(index),
                     (index) => [2, 5, 8].includes(index),
                     (index) => index + 1,
                     (index) => index - 2
@@ -96,24 +92,32 @@ export class SudokuComponent implements AfterViewInit {
         event.preventDefault();
     }
 
+    /**
+     * Direction agnostic function that calculates which cell to focus next.
+     *
+     * @param squareIndex Current square index
+     * @param cellIndex Current cell index
+     * @param edgePredicate Function to determine if the cell occupies the direction's edge
+     * @param directionIndexModifier Function to return the direction's normal index change for a square or cell
+     * @param cellIndexNextSquareModifier Function to return the direction's cell index change for the next square
+     */
     private _focusNextCell(
         squareIndex: number,
         cellIndex: number,
-        boardEdgePredicate: (index: number) => boolean,
-        squareEdgePredicate: (index: number) => boolean,
-        squareIndexModifier: (index: number) => number,
-        cellIndexModifier: (index: number) => number
+        edgePredicate: (index: number) => boolean,
+        directionIndexModifier: (index: number) => number,
+        cellIndexNextSquareModifier: (index: number) => number
     ): void {
-        const onBoardEge = boardEdgePredicate(squareIndex);
-        const onSquareEdge = squareEdgePredicate(cellIndex);
+        const onBoardEge = edgePredicate(squareIndex);
+        const onSquareEdge = edgePredicate(cellIndex);
         const nextSquareIndex = !onBoardEge && onSquareEdge
-            ? squareIndexModifier(squareIndex)
+            ? directionIndexModifier(squareIndex)
             : squareIndex;
         const nextCellIndex = !onBoardEge && onSquareEdge
-            ? cellIndexModifier(cellIndex)
+            ? cellIndexNextSquareModifier(cellIndex)
             : onBoardEge && onSquareEdge
                 ? cellIndex
-                : squareIndexModifier(cellIndex);
+                : directionIndexModifier(cellIndex);
         (document.querySelector('#cell-' + nextSquareIndex + '-' + nextCellIndex) as HTMLElement).focus();
     }
 }
