@@ -1,0 +1,53 @@
+@import 'variables';
+
+$header-height: $base-size * 6;
+
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    #sudoku-header {
+        height: $header-height;
+    }
+
+    #sudoku-content {
+        display: flex;
+        flex: 1;
+
+        #sudoku-board {
+            border-style: solid;
+            border-width: $base-size / 8;
+
+            .sudoku-square {
+                border-style: solid;
+                border-width: $base-size / 8;
+
+                > .row {
+                    height: 100%;
+                }
+
+                .sudoku-cell {
+                    border-style: solid;
+                    border-width: $base-size / 8;
+                    display: flex;
+
+                    &.given {
+                        background-color: $color-sudoku-given;
+                    }
+
+                    &:focus, &:focus-visible {
+                        background-color: $color-sudoku-orange;
+                        border-radius: 0px;
+                        outline: none;
+                    }
+
+                    span {
+                        font-size: $default-font-size * 4;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+}

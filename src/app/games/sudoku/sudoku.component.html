@@ -1,1 +1,21 @@
-Sudoku
+<div id="sudoku-header" class="row no-gutters align-items-center justify-content-center">
+    Header
+</div>
+
+<div #sudokuContent id="sudoku-content" class="align-items-center justify-content-center">
+    <div #sudokuBoard id="sudoku-board" class="row no-gutters">
+        <div *ngFor="let square of board.squares; let squareIndex = index;" class="sudoku-square col-4">
+            <div class="row no-gutters">
+                <div *ngFor="let cell of square.cells; let cellIndex = index;"
+                    #sudokuCell
+                    tabindex="0"
+                    class="sudoku-cell col-4 align-items-center justify-content-center"
+                    [id]="'cell-' + squareIndex + '-' + cellIndex"
+                    [ngClass]="{ 'given': cell.given }"
+                    (keydown)="cellKeydown(squareIndex, cellIndex, $event)">
+                    <span class="position-absolute">{{ cell.value }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

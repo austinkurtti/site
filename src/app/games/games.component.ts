@@ -7,7 +7,7 @@ import { GameLinkModel } from './games.models';
     templateUrl: './games.component.html'
 })
 export class GamesComponent {
-    @ViewChild('gameLinks') gameLinks: ElementRef;
+    @ViewChild('gameLinks') gameLinksEl: ElementRef;
 
     public navOpen = true;
     public showPlaceholder = true;
@@ -24,9 +24,9 @@ export class GamesComponent {
     public toggleNav(): void {
         this.navOpen = !this.navOpen;
         if (this.navOpen) {
-            this._renderer.removeStyle(this.gameLinks.nativeElement, 'transform');
+            this._renderer.removeStyle(this.gameLinksEl.nativeElement, 'transform');
         } else {
-            this._renderer.setStyle(this.gameLinks.nativeElement, 'transform', 'translateX(-100%)');
+            this._renderer.setStyle(this.gameLinksEl.nativeElement, 'transform', 'translateX(-100%)');
         }
     }
 }
