@@ -2,19 +2,28 @@
     Header
 </div>
 
-<div #sudokuContent id="sudoku-content" class="align-items-center justify-content-center">
-    <div #sudokuBoard id="sudoku-board" class="row no-gutters">
-        <div *ngFor="let square of board.squares; let squareIndex = index;" class="sudoku-square col-4">
-            <div class="row no-gutters">
-                <div *ngFor="let cell of square.cells; let cellIndex = index;"
-                    #sudokuCell
-                    tabindex="0"
-                    class="sudoku-cell col-4 align-items-center justify-content-center"
-                    [id]="'cell-' + squareIndex + '-' + cellIndex"
-                    [ngClass]="{ 'given': cell.given }"
-                    (keydown)="cellKeydown(squareIndex, cellIndex, $event)">
-                    <span class="position-absolute">{{ cell.value }}</span>
-                </div>
+<ng-template #boardLoading>
+    <div id="sudoku-board-loading">
+        <i class="fas fa-circle-notch fa-spin"></i>
+        <span>Building your unique Sudoku...</span>
+    </div>
+</ng-template>
+
+<div #sudokuContent
+    id="sudoku-content"
+    class="align-items-center justify-content-center">
+    <div *ngIf="board.primed$ | async; else boardLoading;"
+        #sudokuBoard
+        id="sudoku-board">
+        <div *ngFor="let row of board.cells; let rowIndex = index;" class="row no-gutters">
+            <div *ngFor="let cell of row; let colIndex = index;"
+                #sudokuCell
+                tabindex="0"
+                class="sudoku-cell col align-items-center justify-content-center"
+                [id]="'cell-' + rowIndex + '-' + colIndex"
+                [ngClass]="{ 'given': cell.given }"
+                (keydown)="cellKeydown(rowIndex, colIndex, $event)">
+                <span class="position-absolute">{{ cell.value }}</span>
             </div>
         </div>
     </div>

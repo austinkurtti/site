@@ -1,12 +1,12 @@
-import { AfterViewInit, Component, ElementRef, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
-import { SudokuBoard } from './sudoku.models';
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { SudokuBoard, SudokuDifficulty } from './sudoku.models';
 
 @Component({
     selector: 'ak-sudoku',
     styleUrls: ['./sudoku.component.scss'],
     templateUrl: './sudoku.component.html'
 })
-export class SudokuComponent implements AfterViewInit {
+export class SudokuComponent implements OnInit, AfterViewInit {
     @ViewChild('sudokuContent') contentEl: ElementRef;
     @ViewChild('sudokuBoard') boardEl: ElementRef;
     @ViewChildren('sudokuCell') cellEls: QueryList<ElementRef>;
@@ -16,6 +16,10 @@ export class SudokuComponent implements AfterViewInit {
     constructor(
         private _renderer: Renderer2
     ) {}
+
+    public ngOnInit(): void {
+        this.board.prime(SudokuDifficulty.easy);
+    }
 
     public ngAfterViewInit(): void {
         const contentHeight = this.contentEl.nativeElement.clientHeight;
@@ -28,51 +32,27 @@ export class SudokuComponent implements AfterViewInit {
         this._renderer.setStyle(this.boardEl.nativeElement, 'width', size + 'px');
     }
 
-    public cellKeydown(squareIndex: number, cellIndex: number, event: KeyboardEvent): void {
+    public cellKeydown(rowIndex: number, colIndex: number, event: KeyboardEvent): void {
         if (event.defaultPrevented) {
             return;
         }
 
         switch (event.key) {
             case 'ArrowUp':
-                this._focusNextCell(
-                    squareIndex,
-                    cellIndex,
-                    (index) => index < 3,
-                    (index) => index - 3,
-                    (index) => index + 6
-                );
+                this._focusNextCell(rowIndex - 1, colIndex);
                 break;
             case 'ArrowDown':
-                this._focusNextCell(
-                    squareIndex,
-                    cellIndex,
-                    (index) => index >= 6,
-                    (index) => index + 3,
-                    (index) => index - 6
-                );
+                this._focusNextCell(rowIndex + 1, colIndex);
                 break;
             case 'ArrowLeft':
-                this._focusNextCell(
-                    squareIndex,
-                    cellIndex,
-                    (index) => [0, 3, 6].includes(index),
-                    (index) => index - 1,
-                    (index) => index + 2
-                );
+                this._focusNextCell(rowIndex, colIndex - 1);
                 break;
             case 'ArrowRight':
-                this._focusNextCell(
-                    squareIndex,
-                    cellIndex,
-                    (index) => [2, 5, 8].includes(index),
-                    (index) => index + 1,
-                    (index) => index - 2
-                );
+                this._focusNextCell(rowIndex, colIndex + 1);
                 break;
             case 'Backspace':
             case 'Delete':
-                this.board.squares[squareIndex].cells[cellIndex].value = void 0;
+                this.board.cells[rowIndex][colIndex].value = null;
                 break;
             case '1':
             case '2':
@@ -83,7 +63,7 @@ export class SudokuComponent implements AfterViewInit {
             case '7':
             case '8':
             case '9':
-                this.board.squares[squareIndex].cells[cellIndex].value = +event.key;
+                this.board.cells[rowIndex][colIndex].value = +event.key;
                 break;
             default:
                 return;
@@ -92,32 +72,9 @@ export class SudokuComponent implements AfterViewInit {
         event.preventDefault();
     }
 
-    /**
-     * Direction agnostic function that calculates which cell to focus next.
-     *
-     * @param squareIndex Current square index
-     * @param cellIndex Current cell index
-     * @param edgePredicate Function to determine if the cell occupies the direction's edge
-     * @param directionIndexModifier Function to return the direction's normal index change for a square or cell
-     * @param cellIndexNextSquareModifier Function to return the direction's cell index change for the next square
-     */
-    private _focusNextCell(
-        squareIndex: number,
-        cellIndex: number,
-        edgePredicate: (index: number) => boolean,
-        directionIndexModifier: (index: number) => number,
-        cellIndexNextSquareModifier: (index: number) => number
-    ): void {
-        const onBoardEge = edgePredicate(squareIndex);
-        const onSquareEdge = edgePredicate(cellIndex);
-        const nextSquareIndex = !onBoardEge && onSquareEdge
-            ? directionIndexModifier(squareIndex)
-            : squareIndex;
-        const nextCellIndex = !onBoardEge && onSquareEdge
-            ? cellIndexNextSquareModifier(cellIndex)
-            : onBoardEge && onSquareEdge
-                ? cellIndex
-                : directionIndexModifier(cellIndex);
-        (document.querySelector('#cell-' + nextSquareIndex + '-' + nextCellIndex) as HTMLElement).focus();
+    private _focusNextCell(rowIndex: number, colIndex: number): void {
+        const nextRowIndex = rowIndex < 0 ? 0 : rowIndex > 8 ? 8 : rowIndex;
+        const nextColIndex = colIndex < 0 ? 0 : colIndex > 8 ? 8 : colIndex;
+        (document.querySelector(`#cell-${nextRowIndex}-${nextColIndex}`) as HTMLElement).focus();
     }
 }
