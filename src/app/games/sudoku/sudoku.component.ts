@@ -52,15 +52,6 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
                 if (!building) {
                     this.board.state = SudokuState.running;
                     this._startTime = Date.now();
-                    // this._timerId = setInterval(() => {
-                    //     const deltaSeconds = Math.floor((Date.now() - this._startTime) / 1000);
-                    //     const timeParts = [
-                    //         Math.floor(deltaSeconds / 3600),
-                    //         Math.floor((deltaSeconds % 3600) / 60),
-                    //         Math.floor(deltaSeconds % 60)
-                    //     ];
-                    //     this.time$.next(timeParts.join(':').replace(/\b(\d)\b/g, '0$1'));
-                    // }, 100);
                     this._startTimer();
                 } else {
                     this._pauseSum = 0;
@@ -97,6 +88,10 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     public changeDifficulty(difficulty: SudokuDifficulty): void {
         this.difficulty = difficulty;
         this._buildSudoku();
+    }
+
+    public check(): void {
+        alert(this.board.valid);
     }
 
     public cellKeydown(rowIndex: number, colIndex: number, event: KeyboardEvent): void {

@@ -37,7 +37,7 @@ export class SudokuBoard {
 
             const squareRowStart = Math.floor(i / 3) * 3;
             const squareRowEnd = squareRowStart + 3;
-            const squareColStart = i % 3;
+            const squareColStart = (i % 3) * 3;
             const squareColEnd = squareColStart + 3;
             const square = this.cells.slice(squareRowStart, squareRowEnd).map(squareRow => squareRow.slice(squareColStart, squareColEnd));
             const squareValues = [...square[0], ...square[1], ...square[2]].map(squareCell => squareCell.value);
@@ -66,6 +66,12 @@ export class SudokuBoard {
 
         // Remove enough values according to the desired difficulty
         await this._makePuzzle(difficulty);
+    }
+
+    public reset(): void {
+        this.cells.forEach(row => {
+            row.filter(cell => !cell.given).forEach(cell => cell.value = null);
+        });
     }
 
     private _fillBoard(): boolean {
