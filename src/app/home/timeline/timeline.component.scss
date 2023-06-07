@@ -26,7 +26,7 @@
         }
 
         .timeline-event {
-            background: $color-white;
+            background-color: $color-white;
             border-radius: $base-size / 4;
             color: $color-black;
             display: inline-block;
@@ -37,6 +37,11 @@
             &.expandable {
                 cursor: pointer;
                 pointer-events: all;
+                transition: ease-in background-color .1s;
+
+                &:hover {
+                    background-color: $color-ivory;
+                }
             }
 
             .timeline-event-description {

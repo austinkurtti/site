@@ -82,6 +82,14 @@
         }
     }
 
+    .theme-toggle {
+        transition: ease-in color .1s;
+
+        &:hover {
+            color: $color-app-accent-2;
+        }
+    }
+
     main {
         overflow-x: hidden;
     }
