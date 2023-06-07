@@ -1,0 +1,50 @@
+@import 'variables';
+
+#timeline-ribbon {
+    background: $color-app-gradient;
+    padding: $base-size * 4 0 $base-size * 2 0;
+    position: relative;
+
+    .timeline-year-line {
+        border: 1px solid rgba($color: $color-white, $alpha: 0.4);
+        height: 100%;
+        position: absolute;
+        top: 0;
+    }
+
+    .timeline-year-text {
+        color: rgba($color: $color-white, $alpha: 0.4);
+        position: absolute;
+        top: $base-size;
+    }
+
+    .timeline-event-container {
+        width: 100%;
+
+        &:not(:last-child) {
+            margin-bottom: $base-size * 2;
+        }
+
+        .timeline-event {
+            background: $color-white;
+            border-radius: $base-size / 4;
+            display: inline-block;
+            padding: $base-size / 2 $base-size / 2 0 $base-size / 2;
+            pointer-events: none;
+            position: relative;
+
+            &.expandable {
+                cursor: pointer;
+                pointer-events: all;
+            }
+
+            .timeline-event-description {
+                padding-bottom: $base-size / 2;
+
+                i {
+                    margin-bottom: $base-size / 4;
+                }
+            }
+        }
+    }
+}

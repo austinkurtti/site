@@ -6,10 +6,10 @@ export const appRoutes: Routes = [
         pathMatch: 'full',
         loadChildren: () => import('../home/home.module').then(m => m.HomeModule)
     },
-    {
-        path: 'games',
-        loadChildren: () => import('../games/games.module').then(m => m.GamesModule)
-    },
+    // {
+    //     path: 'games',
+    //     loadChildren: () => import('../games/games.module').then(m => m.GamesModule)
+    // },
     {
         path: 'page-not-found',
         loadChildren: () => import('../page-not-found/page-not-found.module').then(m => m.PageNotFoundModule)

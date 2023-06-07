@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, Input, OnDestroy, QueryList, Renderer2, ViewChildren } from '@angular/core';
-import { aboutId, aboutText, careerId, careerText, introId, introText, skillsId, skillsText } from '@constants/strings';
+import { aboutId, aboutText, introId, introText, skillsId, skillsText, timelineId, timelineText } from '@constants/strings';
 import { Subscription, timer } from 'rxjs';
 import { NavigationAnchorModel } from './navigation.model';
 
@@ -32,8 +32,8 @@ export class NavigationComponent implements AfterViewInit, OnDestroy {
             text: aboutText
         }),
         new NavigationAnchorModel({
-            id: careerId,
-            text: careerText
+            id: timelineId,
+            text: timelineText
         }),
         new NavigationAnchorModel({
             id: skillsId,
