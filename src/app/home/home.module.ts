@@ -11,6 +11,7 @@ import { TimelinePipe } from './@pipes/timeline.pipe';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home.component';
 import { IntroComponent } from './intro/intro.component';
+import { SkillComponent } from './skills/skill/skill.component';
 import { SkillsComponent } from './skills/skills.component';
 import { TimelineComponent } from './timeline/timeline.component';
 
@@ -24,7 +25,8 @@ import { TimelineComponent } from './timeline/timeline.component';
         IntroComponent,
         AboutComponent,
         TimelineComponent,
-        SkillsComponent
+        SkillsComponent,
+        SkillComponent
     ],
     imports: [
         CommonModule,

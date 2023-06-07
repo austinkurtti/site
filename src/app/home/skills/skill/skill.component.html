@@ -1,0 +1,20 @@
+<div class="row no-gutters justify-content-center mb-2">
+    <div class="col-4" [ngClass]="'skill-' + level">
+        <div class="skill-notch"></div>
+        <div class="skill-notch"></div>
+        <div class="skill-notch"></div>
+        <div class="skill-notch"></div>
+        <div class="skill-notch"></div>
+    </div>
+</div>
+<div class="row no-gutters justify-content-center">
+    <div class="col-auto">
+        <i akTooltip
+            tabindex="0"
+            class="skill-icon"
+            [ngClass]="icon"
+            [tooltipContent]="name"
+            [tooltipPosition]="tooltipPosition.bottom">
+        </i>
+    </div>
+</div>
