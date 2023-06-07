@@ -19,6 +19,7 @@ section {
                     animation: $opacity-name $opacity-duration $opacity-timing;
                     animation-delay: .75s;
                     animation-fill-mode: forwards;
+                    color: $color-black;
                     opacity: 0;
                 }
 
@@ -26,6 +27,7 @@ section {
                     animation: $opacity-name $opacity-duration $opacity-timing;
                     animation-delay: 1.5s;
                     animation-fill-mode: forwards;
+                    color: $color-black;
                     opacity: 0;
                 }
 

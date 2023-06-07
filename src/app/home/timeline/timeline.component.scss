@@ -28,6 +28,7 @@
         .timeline-event {
             background: $color-white;
             border-radius: $base-size / 4;
+            color: $color-black;
             display: inline-block;
             padding: $base-size / 2 $base-size / 2 0 $base-size / 2;
             pointer-events: none;

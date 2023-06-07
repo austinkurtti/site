@@ -9,13 +9,13 @@
     <div id="header-nav" class="col-lg-6 d-none d-lg-flex text-center">
         <ak-navigation class="d-block w-100"></ak-navigation>
     </div>
-    <div id="header-icons" class="col-lg-3 d-none d-lg-flex text-right">
-        <ak-contact-icons class="d-block w-100" [iconClass]="'contact-icon-black'"></ak-contact-icons>
+    <div id="header-icons" class="col-lg-3 d-none d-lg-flex justify-content-end">
+        <i tabindex="0" class="fas fa-2x" [ngClass]="currentThemeValue ? 'fa-sun' : 'fa-moon'" (click)="toggleTheme()"></i>
     </div>
 </header>
 
 <div #headerMenuContent id="header-menu-content" class="position-fixed d-none p-3 text-center">
-    <ak-contact-icons class="d-block mb-3" [iconClass]="'contact-icon-black'"></ak-contact-icons>
+    <i tabindex="0" class="fas mb-3" [ngClass]="currentThemeValue ? 'fa-sun' : 'fa-moon'" (click)="toggleTheme()"></i>
     <ak-navigation class="d-block" [orientation]="'vertical'"></ak-navigation>
 </div>
 
@@ -32,7 +32,7 @@
             <i class="far fa-copyright"></i>&nbsp;{{ title }}
         </div>
         <div class="col-auto">
-            <ak-contact-icons [iconClass]="'contact-icon-white'"></ak-contact-icons>
+            <ak-contact-icons></ak-contact-icons>
         </div>
     </footer>
 </main>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ContactIconModel } from './contact-icon.model';
 
 @Component({
@@ -7,8 +7,6 @@ import { ContactIconModel } from './contact-icon.model';
     styleUrls: ['./contact-icons.component.scss']
 })
 export class ContactIconsComponent {
-    @Input() iconClass = '';
-
     public icons = [
         new ContactIconModel({
             href: 'https://www.linkedin.com/in/austinkurtti',

@@ -2,12 +2,12 @@
 @import 'keyframes';
 
 :host {
-    background-color: $color-ivory;
-    color: $color-black;
+    background-color: $theme-content-background;
+    color: $theme-font-color;
     display: block;
 
     header {
-        background-color: $color-white;
+        background-color: $theme-header-background;
         box-shadow: $default-box-shadow;
         height: $base-size * 6;
         padding-left: $base-size * 2;
@@ -42,6 +42,10 @@
                     $grow-name $grow-duration $grow-timing;
             animation-fill-mode: forwards;
             opacity: 0;
+
+            i {
+                cursor: pointer;
+            }
         }
 
         #header-menu {
@@ -65,13 +69,17 @@
     }
 
     #header-menu-content {
-        background: $color-white;
+        background: $theme-header-background;
         border-radius: $base-size;
         box-shadow: $default-box-shadow;
         font-size: $default-font-size * 1.25;
         text-transform: uppercase;
         width: $base-size * 12;
         z-index: $z-index-menu;
+
+        i {
+            cursor: pointer;
+        }
     }
 
     main {
@@ -79,8 +87,7 @@
     }
 
     footer {
-        background-color: $color-black;
-        color: $color-white;
+        background-color: $theme-footer-background;
         height: $base-size * 6;
 
         .footer-text {

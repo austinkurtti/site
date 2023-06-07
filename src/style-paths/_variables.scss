@@ -35,6 +35,14 @@ $default-font-family        : 'Montserrat', sans-serif;
 $default-font-size          : $base-size;
 
 // -----------------------------------------
+// Theme
+// -----------------------------------------
+$theme-header-background    : var(--theme-header-background);
+$theme-footer-background    : var(--theme-footer-background);
+$theme-content-background   : var(--theme-content-background);
+$theme-font-color           : var(--theme-font-color);
+
+// -----------------------------------------
 // Effects
 // -----------------------------------------
 $default-box-shadow         : 0 2px 10px 0 rgba(0, 0, 0, .15);
