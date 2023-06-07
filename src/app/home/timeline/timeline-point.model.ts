@@ -36,7 +36,7 @@ export const timelineEvents: TimelineEventModel[] = [
     new TimelineEventModel({
         startDate: new Date(2019, 7),
         endDate: new Date(),
-        name: 'Navex',
-        description: 'Lockpath was acquired in August 2019 by Navex Global, which rebranded to Navex at the beginning of 2022. My current position is Staff Software Engineer on the Navex IRM team. I am responsible for the overall architecture of the IRM Angular application, review pull requests from other engineers as a repository codeowner, and work with the product team to define acceptance criteria for upcoming projects.'
+        name: 'NAVEX',
+        description: 'Lockpath was acquired in August 2019 by NAVEX Global, which rebranded to NAVEX at the beginning of 2022. My current position is Staff Software Engineer on the NAVEX IRM team. I am responsible for the overall architecture of the IRM Angular application, review pull requests from other engineers as a repository codeowner, and work with the product team to define acceptance criteria for upcoming projects.'
     })
 ];
