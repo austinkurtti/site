@@ -1,0 +1,70 @@
+@import 'variables';
+
+$card-height        : $base-size * 12;
+$card-width         : $card-height * .714;
+
+:host {
+    background-color: $color-solitaire-green;
+    display: block;
+    height: 100%;
+
+    header {
+        background-color: $color-dark-gray;
+        color: $color-white;
+        height: $base-size * 6;
+    }
+
+    main {
+        padding-top: $base-size * 6;
+
+        #stock, .foundation, .solitaire-card {
+            border-radius: $base-size / 2;
+            height: $card-height;
+            width: $card-width;
+        }
+
+        .solitaire-card {
+            background-color: $color-white;
+            border-color: $color-white;
+            border-style: solid;
+            border-width: $base-size / 2;
+
+            &.facedown {
+                background-color: $color-solitaire-blue;
+            }
+        }
+
+        #stock-col {
+            background-color: $color-solitaire-dark-green;
+            padding: $base-size;
+
+            #stock {
+                background-color: $color-solitaire-blue;
+                border-color: $color-white;
+                border-style: solid;
+                border-width: $base-size / 2;
+
+                &.empty {
+                    background-color: $color-solitaire-green;
+                }
+            }
+        }
+
+        .tableau {
+            padding: $base-size;
+        }
+
+        #foundation-col {
+            background-color: $color-solitaire-dark-green;
+            padding: $base-size;
+
+            .foundation {
+                background-color: $color-solitaire-green;
+
+                &:not(:last-child) {
+                    margin-bottom: $base-size;
+                }
+            }
+        }
+    }
+}

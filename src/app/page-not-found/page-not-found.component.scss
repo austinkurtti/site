@@ -1,0 +1,13 @@
+@import 'variables';
+
+:host {
+    background-color: $theme-content-background;
+    display: block;
+    height: 100%;
+
+    #oops {
+        background-color: $color-light-gray;
+        border-radius: $base-size;
+        padding: $base-size * 5;
+    }
+}

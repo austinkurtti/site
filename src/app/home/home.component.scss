@@ -1,0 +1,105 @@
+@import 'variables';
+@import 'keyframes';
+
+:host {
+    background-color: $theme-content-background;
+    color: $theme-font-color;
+    display: block;
+
+    header {
+        background-color: $theme-primary-background;
+        box-shadow: $soft-box-shadow;
+        height: $base-size * 6;
+        padding-left: $base-size * 2;
+        padding-right: $base-size * 2;
+        z-index: $z-index-header;
+
+        #header-title {
+            animation: $opacity-name $opacity-duration $opacity-timing,
+                    $grow-name $grow-duration $grow-timing;
+            animation-fill-mode: forwards;
+
+            span {
+                background: $color-app-gradient;
+                background-clip: text;
+                color: transparent;
+                font-family: 'Permanent Marker', $default-font-family;
+                font-size: $default-font-size * 2;
+                line-height: $base-size * 2;
+            }
+        }
+
+        #header-nav {
+            animation: $opacity-name $opacity-duration $opacity-timing,
+                    $grow-name $grow-duration $grow-timing;
+            animation-fill-mode: forwards;
+            font-size: $default-font-size * 1.25;
+            text-transform: uppercase;
+        }
+
+        #header-icons {
+            animation: $opacity-name $opacity-duration $opacity-timing,
+                    $grow-name $grow-duration $grow-timing;
+            animation-fill-mode: forwards;
+            opacity: 0;
+
+            i {
+                cursor: pointer;
+            }
+        }
+
+        #header-menu {
+            animation: $opacity-name $opacity-duration $opacity-timing,
+                    $grow-name $grow-duration $grow-timing;
+            animation-fill-mode: forwards;
+            height: $base-size * 2;
+            padding-right: $base-size * 2;
+
+            i {
+                cursor: pointer;
+                height: $base-size * 2;
+                transition: ease-in color .1s;
+                width: $base-size * 2;
+
+                &:hover {
+                    color: $color-app-accent-2;
+                }
+            }
+        }
+    }
+
+    #header-menu-content {
+        background: $theme-primary-background;
+        border-radius: $base-size;
+        box-shadow: $soft-box-shadow;
+        font-size: $default-font-size * 1.25;
+        text-transform: uppercase;
+        width: $base-size * 12;
+        z-index: $z-index-menu;
+
+        i {
+            cursor: pointer;
+        }
+    }
+
+    .theme-toggle {
+        transition: ease-in color .1s;
+
+        &:hover {
+            color: $color-app-accent-2;
+        }
+    }
+
+    main {
+        overflow-x: hidden;
+    }
+
+    footer {
+        background-color: $theme-primary-background;
+        height: $base-size * 6;
+
+        .footer-text {
+            margin-right: $base-size * 2;
+        }
+    }
+}

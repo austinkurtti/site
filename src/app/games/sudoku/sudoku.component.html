@@ -1,0 +1,52 @@
+<div id="sudoku-header" class="row no-gutters align-items-center justify-content-center">
+    <div id="sudoku-timer" class="col text-right">
+        <i tabindex="0"
+            class="fas"
+            [ngClass]="{
+                'fa-play': board.state === SudokuState.paused,
+                'fa-pause': board.state === SudokuState.running
+            }"
+            (click)="changeState()">
+        </i>
+        <span>{{ time$ | async }}</span>
+    </div>
+    <div id="sudoku-difficulties" class="col-auto">
+        <button
+            [ngClass]="{ 'active': difficulty === SudokuDifficulty.easy }"
+            (click)="changeDifficulty(SudokuDifficulty.easy)">
+            <span>Easy</span>
+        </button>
+        <button
+            [ngClass]="{ 'active': difficulty === SudokuDifficulty.medium }"
+            (click)="changeDifficulty(SudokuDifficulty.medium)">
+            <span>Medium</span>
+        </button>
+        <button
+            [ngClass]="{ 'active': difficulty === SudokuDifficulty.hard }"
+            (click)="changeDifficulty(SudokuDifficulty.hard)">
+            <span>Hard</span>
+        </button>
+    </div>
+    <div id="sudoku-actions" class="col">
+        <button (click)="check()">Check</button>
+        <button (click)="board.reset()">Reset</button>
+    </div>
+</div>
+
+<div #sudokuContent
+    id="sudoku-content"
+    class="align-items-center justify-content-center">
+    <div #sudokuBoard id="sudoku-board">
+        <div *ngFor="let row of board.cells; let rowIndex = index;" class="row no-gutters">
+            <div *ngFor="let cell of row; let colIndex = index;"
+                #sudokuCell
+                tabindex="0"
+                class="sudoku-cell col align-items-center justify-content-center"
+                [id]="'cell-' + rowIndex + '-' + colIndex"
+                [ngClass]="{ 'building': (building$ | async), 'given': cell.given }"
+                (keydown)="cellKeydown(rowIndex, colIndex, $event)">
+                <span class="position-absolute">{{ cell.value }}</span>
+            </div>
+        </div>
+    </div>
+</div>

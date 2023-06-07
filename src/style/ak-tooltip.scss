@@ -8,9 +8,10 @@
     z-index: $z-index-tooltip;
 
     .ak-tooltip {
-        background-color: $color-black;
+        background-color: $theme-hoverable-background;
         border-radius: $base-size / 4;
-        color: $color-white;
+        color: $theme-hoverable-font-color;
+        font-weight: bold;
         min-width: $base-size;
         padding: $base-size;
         position: absolute;
@@ -24,15 +25,29 @@
         }
 
         &.top:after {
-            border-color: $color-black transparent transparent transparent;
+            border-color: $theme-hoverable-background transparent transparent transparent;
             left: 50%;
             top: 100%;
             transform: translateX(-50%);
         }
 
         &.right:after {
-            border-color: transparent $color-black transparent transparent;
+            border-color: transparent $theme-hoverable-background transparent transparent;
             left: -($base-size * 2);
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        &.bottom:after {
+            border-color: transparent transparent $theme-hoverable-background transparent;
+            left: 50%;
+            top: -50%;
+            transform: translateX(-50%);
+        }
+
+        &.left:after {
+            border-color: transparent transparent transparent $theme-hoverable-background;
+            left: 100%;
             top: 50%;
             transform: translateY(-50%);
         }
