@@ -45,6 +45,7 @@ section {
                 animation-delay: 2s;
                 animation-fill-mode: forwards;
                 border-radius: $base-size;
+                box-shadow: $hard-box-shadow;
                 height: 50vh;
                 opacity: 0;
             }

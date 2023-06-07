@@ -8,7 +8,7 @@
 
     header {
         background-color: $theme-primary-background;
-        box-shadow: $default-box-shadow;
+        box-shadow: $soft-box-shadow;
         height: $base-size * 6;
         padding-left: $base-size * 2;
         padding-right: $base-size * 2;
@@ -71,7 +71,7 @@
     #header-menu-content {
         background: $theme-primary-background;
         border-radius: $base-size;
-        box-shadow: $default-box-shadow;
+        box-shadow: $soft-box-shadow;
         font-size: $default-font-size * 1.25;
         text-transform: uppercase;
         width: $base-size * 12;

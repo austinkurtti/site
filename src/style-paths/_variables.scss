@@ -47,7 +47,8 @@ $theme-hoverable-font-color : var(--theme-hoverable-font-color);
 // -----------------------------------------
 // Effects
 // -----------------------------------------
-$default-box-shadow         : 0 2px 10px 0 rgba(0, 0, 0, .15);
+$soft-box-shadow            : 0 2px 10px 0 rgba(0, 0, 0, .15);
+$hard-box-shadow            : 0 2px 10px 0 rgba(0, 0, 0, .55);
 
 // -----------------------------------------
 // Breakpoints
