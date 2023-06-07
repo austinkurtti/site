@@ -37,11 +37,20 @@ section {
                     opacity: 0;
                 }
             }
+
+            img {
+                animation: $opacity-name $opacity-duration $opacity-timing;
+                animation-delay: 2s;
+                animation-fill-mode: forwards;
+                border-radius: $base-size;
+                height: 50vh;
+                opacity: 0;
+            }
         }
 
         #scroll-down {
             animation: $opacity-name $opacity-duration $opacity-timing;
-            animation-delay: 2s;
+            animation-delay: 2.25s;
             animation-fill-mode: forwards;
             bottom: 0%;
             color: $color-white;
