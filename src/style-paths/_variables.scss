@@ -37,10 +37,12 @@ $default-font-size          : $base-size;
 // -----------------------------------------
 // Theme
 // -----------------------------------------
-$theme-header-background    : var(--theme-header-background);
-$theme-footer-background    : var(--theme-footer-background);
+$theme-primary-background   : var(--theme-primary-background);
 $theme-content-background   : var(--theme-content-background);
 $theme-font-color           : var(--theme-font-color);
+
+$theme-hoverable-background : var(--theme-hoverable-background);
+$theme-hoverable-font-color : var(--theme-hoverable-font-color);
 
 // -----------------------------------------
 // Effects

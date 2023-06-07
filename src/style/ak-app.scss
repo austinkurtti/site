@@ -11,17 +11,21 @@ html {
     scroll-behavior: smooth;
 
     &[data-theme="light"] {
-        --theme-header-background: #{$color-white};
-        --theme-footer-background: #{$color-white};
+        --theme-primary-background: #{$color-white};
         --theme-content-background: #{$color-ivory};
         --theme-font-color: #{$color-black};
+
+        --theme-hoverable-background: #{$color-black};
+        --theme-hoverable-font-color: #{$color-white};
     }
 
     &[data-theme="dark"] {
-        --theme-header-background: #{$color-black};
-        --theme-footer-background: #{$color-black};
+        --theme-primary-background: #{$color-black};
         --theme-content-background: #{$color-dark-gray};
         --theme-font-color: #{$color-white};
+
+        --theme-hoverable-background: #{$color-white};
+        --theme-hoverable-font-color: #{$color-black};
     }
 }
 
@@ -67,6 +71,12 @@ h2 {
 }
 
 h3 {
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+h4 {
     font-weight: bold;
     margin: 0;
     text-transform: uppercase;
