@@ -36,6 +36,20 @@
             top: 50%;
             transform: translateY(-50%);
         }
+
+        &.bottom:after {
+            border-color: transparent transparent $color-black transparent;
+            left: 50%;
+            top: -50%;
+            transform: translateX(-50%);
+        }
+
+        &.left:after {
+            border-color: transparent transparent transparent $color-black;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
     }
 
     @media (min-width: 0px) {
