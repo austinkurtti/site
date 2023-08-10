@@ -141,13 +141,10 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private _buildSudoku(): void {
-        // TODO - Figure out why the Promise is blocking execution... using setTimeout to mimic expected behavior for now
         this.building$.next(true);
-        setTimeout(() => {
-            this.board.build(this.difficulty).then(() => {
-                this.building$.next(false);
-            });
-        }, 0);
+        this.board.workerBuild(this.difficulty).then(() => {
+            this.building$.next(false);
+        });
     }
 
     private _resizeBoard(): void {
