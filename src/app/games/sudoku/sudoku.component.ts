@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { SudokuBoard, SudokuDifficulty, SudokuState } from './sudoku.models';
+import { SudokuBoard } from './sudoku-board';
+import { SudokuCandidate, SudokuDifficulty, SudokuState } from './sudoku.models';
 
 @Component({
     selector: 'ak-sudoku',
@@ -15,11 +16,14 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public board = new SudokuBoard();
     public difficulty = SudokuDifficulty.easy;
+    public shifting = false;
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public SudokuDifficulty = SudokuDifficulty;
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public SudokuState = SudokuState;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    public SudokuCandidate = SudokuCandidate;
 
     public building$ = new BehaviorSubject<boolean>(false);
     public boardSize$ = new BehaviorSubject<number>(0);
@@ -94,12 +98,15 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
         alert(this.board.valid);
     }
 
+    // TODO: Find solution to needing to turn numlock off for shift + numpad combos OR display some kind of warning to turn numlock off
+    // https://stackoverflow.com/questions/55339015/shift-key-released-when-pressing-numpad
     public cellKeydown(rowIndex: number, colIndex: number, event: KeyboardEvent): void {
         if (event.defaultPrevented) {
             return;
         }
 
-        switch (event.key) {
+        const cell = this.board.cells[rowIndex][colIndex];
+        switch (event.code) {
             case 'ArrowUp':
                 this._focusNextCell(rowIndex - 1, colIndex);
                 break;
@@ -114,18 +121,89 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
                 break;
             case 'Backspace':
             case 'Delete':
-                this.board.cells[rowIndex][colIndex].value = null;
+                cell.value = null;
+                cell.candidates = 0;
                 break;
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-                this.board.cells[rowIndex][colIndex].value = +event.key;
+            case 'Digit1':
+            case 'Numpad1':
+                if (!this.shifting) {
+                    cell.value = 1;
+                    cell.candidates = 0;
+                } else if (!cell.value) {
+                    cell.candidates = cell.candidates.toggleFlag(SudokuCandidate.one);
+                }
+                break;
+            case 'Digit2':
+            case 'Numpad2':
+                if (!this.shifting) {
+                    cell.value = 2;
+                    cell.candidates = 0;
+                } else if (!cell.value) {
+                    cell.candidates = cell.candidates.toggleFlag(SudokuCandidate.two);
+                }
+                break;
+            case 'Digit3':
+            case 'Numpad3':
+                if (!this.shifting) {
+                    cell.value = 3;
+                    cell.candidates = 0;
+                } else if (!cell.value) {
+                    cell.candidates = cell.candidates.toggleFlag(SudokuCandidate.three);
+                }
+                break;
+            case 'Digit4':
+            case 'Numpad4':
+                if (!this.shifting) {
+                    cell.value = 4;
+                    cell.candidates = 0;
+                } else if (!cell.value) {
+                    cell.candidates = cell.candidates.toggleFlag(SudokuCandidate.four);
+                }
+                break;
+            case 'Digit5':
+            case 'Numpad5':
+                if (!this.shifting) {
+                    cell.value = 5;
+                    cell.candidates = 0;
+                } else if (!cell.value) {
+                    cell.candidates = cell.candidates.toggleFlag(SudokuCandidate.five);
+                }
+                break;
+            case 'Digit6':
+            case 'Numpad6':
+                if (!this.shifting) {
+                    cell.value = 6;
+                    cell.candidates = 0;
+                } else if (!cell.value) {
+                    cell.candidates = cell.candidates.toggleFlag(SudokuCandidate.six);
+                }
+                break;
+            case 'Digit7':
+            case 'Numpad7':
+                if (!this.shifting) {
+                    cell.value = 7;
+                    cell.candidates = 0;
+                } else if (!cell.value) {
+                    cell.candidates = cell.candidates.toggleFlag(SudokuCandidate.seven);
+                }
+                break;
+            case 'Digit8':
+            case 'Numpad8':
+                if (!this.shifting) {
+                    cell.value = 8;
+                    cell.candidates = 0;
+                } else if (!cell.value) {
+                    cell.candidates = cell.candidates.toggleFlag(SudokuCandidate.eight);
+                }
+                break;
+            case 'Digit9':
+            case 'Numpad9':
+                if (!this.shifting) {
+                    cell.value = 9;
+                    cell.candidates = 0;
+                } else if (!cell.value) {
+                    cell.candidates = cell.candidates.toggleFlag(SudokuCandidate.nine);
+                }
                 break;
             default:
                 return;
@@ -142,7 +220,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
 
     private _buildSudoku(): void {
         this.building$.next(true);
-        this.board.workerBuild(this.difficulty).then(() => {
+        this.board.build(this.difficulty).then(() => {
             this.building$.next(false);
         });
     }

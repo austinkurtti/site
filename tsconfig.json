@@ -4,11 +4,20 @@
         "baseUrl": "./",
         "downlevelIteration": true,
         "paths": {
+            "@constants/*": [
+                "src/app/@constants/*"
+            ],
             "@directives/*": [
                 "src/app/@directives/*"
             ],
-            "@constants/*": [
-                "src/app/@constants/*"
+            "@extensions/*": [
+                "src/app/@extensions/*"
+            ],
+            "@pipes/*": [
+                "src/app/@pipes/*"
+            ],
+            "@services/*": [
+                "src/app/@services/*"
             ]
         },
         "outDir": "./dist/out-tsc",

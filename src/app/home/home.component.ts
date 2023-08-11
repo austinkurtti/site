@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Renderer2, ViewChild } from '@angular/core';
 import { baseSizePx } from '@constants/numbers';
-import { LocalStorageService } from '../@services/local-storage.service';
+import { LocalStorageService } from '@services/local-storage.service';
 
 @Component({
     selector: 'ak-home',

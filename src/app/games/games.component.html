@@ -1,6 +1,6 @@
 <header class="position-fixed w-100 row no-gutters align-items-center">
     <div id="header-menu" class="col-auto">
-        <i tabindex="0" class="fas fa-bars fa-2x" (click)="toggleNav()"></i>
+        <i tabindex="0" class="fas fa-bars fa-2x" (click)="navOpen$.next(!navOpen$.value)"></i>
     </div>
     <div id="header-title" class="col">
         <span>Games</span>
@@ -23,7 +23,7 @@
     </div>
     <router-outlet
         name="g"
-        (activate)="showPlaceholder = false;"
-        (deactivate)="showPlaceholder = true;">
+        (activate)="gameActivate()"
+        (deactivate)="gameDeactivate()">
     </router-outlet>
 </main>
