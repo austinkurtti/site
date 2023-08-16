@@ -11,10 +11,16 @@ addEventListener('message', ({ data }) => {
     cells = [...new Array(9)].map(() => [...new Array(9)].map(() => new SudokuCell()));
     fillBoard();
 
+    // Save solution for easy comparison later
+    const solution = [...new Array(9)].map(() => [...new Array(9)].map(() => new SudokuCell()));
+    solution.forEach((row, rIndex) => {
+        row.forEach((cell, cIndex) => cell.value = cells[rIndex][cIndex].value);
+    });
+
     // Remove values according to given difficulty
     makePuzzle(data);
 
-    postMessage(cells);
+    postMessage({ solution, cells });
 });
 
 const fillBoard = (): boolean => {

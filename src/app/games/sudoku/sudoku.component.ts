@@ -95,7 +95,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public check(): void {
-        alert(this.board.valid);
+        this.board.validate();
     }
 
     // TODO: Find solution to needing to turn numlock off for shift + numpad combos OR display some kind of warning to turn numlock off
@@ -123,6 +123,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
             case 'Delete':
                 cell.value = null;
                 cell.candidates = 0;
+                cell.valid = null;
                 break;
             case 'Digit1':
             case 'Numpad1':

@@ -47,7 +47,9 @@
                 (keydown)="cellKeydown(rowIndex, colIndex, $event)"
                 (keydown.shift)="shifting = true"
                 (keyup.shift)="shifting = false">
-                <span class="normal position-absolute">{{ cell.value }}</span>
+                <span class="normal position-absolute" [ngClass]="{ 'valid': cell.valid === true, 'invalid': cell.valid === false }">
+                    {{ cell.value }}
+                </span>
                 <div class="candidate-row row no-gutters align-items-center text-center w-100">
                     <div class="col-4">
                         <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.one" class="candidate candidate-1">1</span>

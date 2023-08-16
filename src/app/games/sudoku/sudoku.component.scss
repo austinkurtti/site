@@ -146,6 +146,14 @@ $header-height: $base-size * 6;
                 .normal {
                     font-size: $default-font-size * 4;
                     font-weight: bold;
+
+                    &.valid {
+                        color: green;
+                    }
+    
+                    &.invalid {
+                        color: red;
+                    }
                 }
 
                 .candidate-row {

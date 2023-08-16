@@ -23,7 +23,7 @@ export enum SudokuCandidate {
 
 export class SudokuCell {
     public given: boolean;
-    public valid: boolean;
+    public valid?: boolean;
     public value?: number = null;
     public candidates = 0;
 }
