@@ -3,9 +3,16 @@
 // -----------------------------------------
 $color-white                : #fff;
 $color-ivory                : #eaeaea;
-$color-light-gray           : #d3d3d3;
-$color-gray                 : #888;
-$color-dark-gray            : #434343;
+$color-gray-100             : #ddd;
+$color-gray-200             : #ccc;
+$color-gray-300             : #bbb;
+$color-gray-400             : #9c9c9c;
+$color-gray-500             : #888;
+$color-gray                 : $color-gray-500;
+$color-gray-600             : #777;
+$color-gray-700             : #666;
+$color-gray-800             : #555;
+$color-slate                : #434343;
 $color-black                : #333;
 
 $color-app-primary          : #1c4670;
@@ -17,7 +24,6 @@ $color-error                : #d65252;
 $color-app-gradient         : linear-gradient(45deg, $color-app-primary, $color-app-accent-1, $color-app-accent-2);
 
 // Sudoku
-$color-sudoku-given         : #c8c8c8;
 $color-sudoku-orange        : #d69852;
 
 // Solitaire

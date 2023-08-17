@@ -21,7 +21,7 @@ html {
 
     &[data-theme="dark"] {
         --theme-primary-background: #{$color-black};
-        --theme-content-background: #{$color-dark-gray};
+        --theme-content-background: #{$color-slate};
         --theme-font-color: #{$color-white};
 
         --theme-hoverable-background: #{$color-white};

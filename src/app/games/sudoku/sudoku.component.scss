@@ -2,6 +2,7 @@
 @import 'keyframes';
 
 $header-height: $base-size * 6;
+$sudoku-border-width: $base-size / 5;
 
 :host {
     display: flex;
@@ -31,17 +32,17 @@ $header-height: $base-size * 6;
 
             button {
                 border-bottom-width: $base-size / 8;
-                border-color: $color-app-accent-1;
+                border-color: $color-slate;
                 border-left-width: $base-size / 16;
                 border-right-width: $base-size / 16;
                 border-style: solid;
                 border-top-width: $base-size / 8;
-                color: $color-app-accent-1;
+                color: $color-slate;
                 transition: ease-in background-color .1s,
                             ease-in color .1s;
 
                 &:hover {
-                    background-color: lighten($color-app-accent-1, 50%);
+                    background-color: lighten($color-slate, 50%);
                 }
                 
                 &:nth-child(1) {
@@ -65,7 +66,7 @@ $header-height: $base-size * 6;
                 }
 
                 &.active {
-                    background-color: $color-app-accent-1;
+                    background-color: $color-slate;
                     color: $color-white;
                 }
             }
@@ -73,15 +74,15 @@ $header-height: $base-size * 6;
 
         #sudoku-actions {
             button {
-                border-color: $color-app-accent-1;
+                border-color: $color-slate;
                 border-radius: $base-size / 4;
                 border-style: solid;
-                color: $color-app-accent-1;
+                color: $color-slate;
                 transition: ease-in background-color .1s,
                             ease-in color .1s;
 
                 &:hover {
-                    background-color: lighten($color-app-accent-1, 50%);
+                    background-color: lighten($color-slate, 50%);
                 }
 
                 &:not(:first-child) {
@@ -92,77 +93,103 @@ $header-height: $base-size * 6;
     }
 
     #sudoku-content {
-        display: flex;
         flex: 1;
-        flex-direction: column;
 
-        #sudoku-board {
-            border-style: solid;
-            border-width: $base-size / 4;
+        #sudoku-board-container {
             display: flex;
             flex-direction: column;
 
-            > .row {
-                flex: 1;
-
-                &:nth-child(1), &:nth-child(4), &:nth-child(7) {
-                    border-top: $base-size / 4 solid;
-                }
-
-                &:nth-child(3), &:nth-child(6), &:nth-child(9) {
-                    border-bottom: $base-size / 4 solid;
-                }
-            }
-
-            .sudoku-cell {
+            #sudoku-board {
                 border-style: solid;
-                border-width: $base-size / 8;
+                border-width: $sudoku-border-width;
                 display: flex;
                 flex-direction: column;
 
-                &:nth-child(1), &:nth-child(4), &:nth-child(7) {
-                    border-left: $base-size / 4 solid;
-                }
+                > .row {
+                    flex: 1;
 
-                &:nth-child(3), &:nth-child(6), &:nth-child(9) {
-                    border-right: $base-size / 4 solid;
-                }
-
-                &.building {
-                    animation: $color-pulse-name $color-pulse-duration $color-pulse-timing;
-                    animation-iteration-count: infinite;
-                }
-
-                &.given {
-                    background-color: $color-sudoku-given;
-                }
-
-                &:focus, &:focus-visible {
-                    background-color: $color-sudoku-orange;
-                    border-radius: 0px;
-                    outline: none;
-                }
-
-                .normal {
-                    font-size: $default-font-size * 4;
-                    font-weight: bold;
-
-                    &.valid {
-                        color: green;
+                    &:nth-child(1), &:nth-child(4), &:nth-child(7) {
+                        border-top: $sudoku-border-width solid;
                     }
+
+                    &:nth-child(3), &:nth-child(6), &:nth-child(9) {
+                        border-bottom: $sudoku-border-width solid;
+                    }
+                }
+
+                .sudoku-cell {
+                    border-style: solid;
+                    border-width: $sudoku-border-width / 2;
+                    display: flex;
+                    flex-direction: column;
+
+                    &:nth-child(1), &:nth-child(4), &:nth-child(7) {
+                        border-left: $sudoku-border-width solid;
+                    }
+
+                    &:nth-child(3), &:nth-child(6), &:nth-child(9) {
+                        border-right: $sudoku-border-width solid;
+                    }
+
+                    &:focus, &:focus-visible {
+                        border-radius: 0px;
+                        outline: none;
+                    }
+
+                    &.building {
+                        animation: $color-pulse-name $color-pulse-duration $color-pulse-timing;
+                        animation-iteration-count: infinite;
+                    }
+
+                    &.given {
+                        background-color: $color-gray-200;
+                    }
+
+                    &.active {
+                        background-color: $color-sudoku-orange;
+                    }
+
+                    .normal {
+                        font-size: $default-font-size * 4;
+                        font-weight: bold;
+
+                        &.valid {
+                            color: green;
+                        }
+        
+                        &.invalid {
+                            color: red;
+                        }
+                    }
+
+                    .candidate-row {
+                        flex: 1 1;
+                    }
+
+                    .candidate {
+                        font-size: $default-font-size * 1.5;
+                        line-height: 1;
+                    }
+                }
+            }
+        }
+
+        #sudoku-input-container {
+            margin-left: $base-size / 2;
+
+            .sudoku-input {
+                background-color: $color-gray-200;
+                border: $sudoku-border-width / 2 solid;
+                border-radius: $base-size / 4;
+                font-size: $default-font-size * 2;
+                font-weight: bold;
+                height: 100%;
+                transition: ease-in background-color .1s;
+                width: 100%;
     
-                    &.invalid {
-                        color: red;
-                    }
-                }
-
-                .candidate-row {
-                    flex: 1 1;
-                }
-
-                .candidate {
-                    font-size: $default-font-size * 1.5;
-                    line-height: 1;
+                &:hover {
+                    background-color: $color-gray-300;
+                    cursor: pointer;
                 }
             }
         }
