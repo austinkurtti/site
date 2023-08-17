@@ -186,8 +186,12 @@ $sudoku-border-width: $base-size / 5;
                 height: 100%;
                 transition: ease-in background-color .1s;
                 width: 100%;
+
+                &:disabled {
+                    pointer-events: none;
+                }
     
-                &:hover {
+                &:not(:disabled):hover {
                     background-color: $color-gray-300;
                     cursor: pointer;
                 }

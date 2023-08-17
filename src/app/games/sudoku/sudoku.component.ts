@@ -157,17 +157,14 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
             case 'Backspace':
             case 'Delete':
                 if (!this._activeCell.given) {
-                    this._activeCell.value = null;
-                    this._activeCell.candidates = 0;
-                    this._activeCell.valid = null;
+                    this._setCellValue(null);
                 }
                 break;
             case 'Digit1':
             case 'Numpad1':
                 if (!this._activeCell.given) {
                     if (!this.shifting) {
-                        this._activeCell.value = 1;
-                        this._activeCell.candidates = 0;
+                        this._setCellValue(1);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.one);
                     }
@@ -177,8 +174,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
             case 'Numpad2':
                 if (!this._activeCell.given) {
                     if (!this.shifting) {
-                        this._activeCell.value = 2;
-                        this._activeCell.candidates = 0;
+                        this._setCellValue(2);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.two);
                     }
@@ -188,8 +184,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
             case 'Numpad3':
                 if (!this._activeCell.given) {
                     if (!this.shifting) {
-                        this._activeCell.value = 3;
-                        this._activeCell.candidates = 0;
+                        this._setCellValue(3);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.three);
                     }
@@ -199,8 +194,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
             case 'Numpad4':
                 if (!this._activeCell.given) {
                     if (!this.shifting) {
-                        this._activeCell.value = 4;
-                        this._activeCell.candidates = 0;
+                        this._setCellValue(4);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.four);
                     }
@@ -210,8 +204,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
             case 'Numpad5':
                 if (!this._activeCell.given) {
                     if (!this.shifting) {
-                        this._activeCell.value = 5;
-                        this._activeCell.candidates = 0;
+                        this._setCellValue(5);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.five);
                     }
@@ -221,8 +214,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
             case 'Numpad6':
                 if (!this._activeCell.given) {
                     if (!this.shifting) {
-                        this._activeCell.value = 6;
-                        this._activeCell.candidates = 0;
+                        this._setCellValue(6);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.six);
                     }
@@ -232,8 +224,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
             case 'Numpad7':
                 if (!this._activeCell.given) {
                     if (!this.shifting) {
-                        this._activeCell.value = 7;
-                        this._activeCell.candidates = 0;
+                        this._setCellValue(7);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.seven);
                     }
@@ -243,8 +234,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
             case 'Numpad8':
                 if (!this._activeCell.given) {
                     if (!this.shifting) {
-                        this._activeCell.value = 8;
-                        this._activeCell.candidates = 0;
+                        this._setCellValue(8);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.eight);
                     }
@@ -254,8 +244,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
             case 'Numpad9':
                 if (!this._activeCell.given) {
                     if (!this.shifting) {
-                        this._activeCell.value = 9;
-                        this._activeCell.candidates = 0;
+                        this._setCellValue(9);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.nine);
                     }
@@ -270,10 +259,44 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public inputClick(value: number): void {
         if (!this._activeCell.given) {
-            this._activeCell.value = value;
-            this._activeCell.candidates = 0;
+            this._setCellValue(value);
         }
     }
+
+    private _setCellValue = (value): void => {
+        if (value === null) {
+            this._activeCell.valid = null;
+        }
+
+        const oldValue = this._activeCell.value;
+        this._activeCell.value = value;
+        this._activeCell.candidates = 0;
+
+        if (oldValue !== null) {
+            this._checkCellValueCount(oldValue);
+        }
+        if (value !== null) {
+            this._checkCellValueCount(value);
+        }
+    };
+
+    private _checkCellValueCount = (value: number): void => {
+        let valueCount = 0;
+        this.board.cells.forEach(row => {
+            row.forEach(cell => {
+                if (cell.value === value) {
+                    valueCount++;
+                }
+            });
+        });
+
+        const inputEl = (document.querySelectorAll('.sudoku-input')[value - 1] as HTMLElement);
+        if (valueCount >= 9) {
+            this._renderer.setAttribute(inputEl, 'disabled', 'true');
+        } else {
+            this._renderer.removeAttribute(inputEl, 'disabled');
+        }
+    };
 
     private _arrowFocusNextCell(rowIndex: number, colIndex: number): void {
         const nextRowIndex = rowIndex < 0 ? 0 : rowIndex > 8 ? 8 : rowIndex;
