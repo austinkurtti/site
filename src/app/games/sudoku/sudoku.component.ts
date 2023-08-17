@@ -82,6 +82,14 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
             });
 
+        this.board.solved$
+            .pipe(takeUntil(this._destroyed$))
+            .subscribe(solved => {
+                if (solved) {
+                    // TODO - something fun... confetti?
+                }
+            });
+
         this._buildSudoku();
     }
 
@@ -131,7 +139,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
         this._activeCell.active = true;
     }
 
-    // TODO: Find solution to needing to turn numlock off for shift + numpad combos OR display some kind of warning to turn numlock off
+    // TODO - Find solution to needing to turn numlock off for shift + numpad combos OR display some kind of warning to turn numlock off
     // https://stackoverflow.com/questions/55339015/shift-key-released-when-pressing-numpad
     public cellKeydown(rowIndex: number, colIndex: number, event: KeyboardEvent): void {
         if (event.defaultPrevented) {
@@ -263,11 +271,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    private _setCellValue = (value): void => {
-        if (value === null) {
-            this._activeCell.valid = null;
-        }
-
+    private _setCellValue = (value: number): void => {
         const oldValue = this._activeCell.value;
         this._activeCell.value = value;
         this._activeCell.candidates = 0;
@@ -275,8 +279,12 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
         if (oldValue !== null) {
             this._checkCellValueCount(oldValue);
         }
-        if (value !== null) {
+        if (value === null) {
+            this._activeCell.valid = null;
+            this.board.numEmptyCells++;
+        } else {
             this._checkCellValueCount(value);
+            this.board.numEmptyCells--;
         }
     };
 
