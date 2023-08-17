@@ -156,89 +156,109 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
                 break;
             case 'Backspace':
             case 'Delete':
-                this._activeCell.value = null;
-                this._activeCell.candidates = 0;
-                this._activeCell.valid = null;
+                if (!this._activeCell.given) {
+                    this._activeCell.value = null;
+                    this._activeCell.candidates = 0;
+                    this._activeCell.valid = null;
+                }
                 break;
             case 'Digit1':
             case 'Numpad1':
-                if (!this.shifting) {
-                    this._activeCell.value = 1;
-                    this._activeCell.candidates = 0;
-                } else if (!this._activeCell.value) {
-                    this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.one);
+                if (!this._activeCell.given) {
+                    if (!this.shifting) {
+                        this._activeCell.value = 1;
+                        this._activeCell.candidates = 0;
+                    } else if (!this._activeCell.value) {
+                        this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.one);
+                    }
                 }
                 break;
             case 'Digit2':
             case 'Numpad2':
-                if (!this.shifting) {
-                    this._activeCell.value = 2;
-                    this._activeCell.candidates = 0;
-                } else if (!this._activeCell.value) {
-                    this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.two);
+                if (!this._activeCell.given) {
+                    if (!this.shifting) {
+                        this._activeCell.value = 2;
+                        this._activeCell.candidates = 0;
+                    } else if (!this._activeCell.value) {
+                        this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.two);
+                    }
                 }
                 break;
             case 'Digit3':
             case 'Numpad3':
-                if (!this.shifting) {
-                    this._activeCell.value = 3;
-                    this._activeCell.candidates = 0;
-                } else if (!this._activeCell.value) {
-                    this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.three);
+                if (!this._activeCell.given) {
+                    if (!this.shifting) {
+                        this._activeCell.value = 3;
+                        this._activeCell.candidates = 0;
+                    } else if (!this._activeCell.value) {
+                        this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.three);
+                    }
                 }
                 break;
             case 'Digit4':
             case 'Numpad4':
-                if (!this.shifting) {
-                    this._activeCell.value = 4;
-                    this._activeCell.candidates = 0;
-                } else if (!this._activeCell.value) {
-                    this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.four);
+                if (!this._activeCell.given) {
+                    if (!this.shifting) {
+                        this._activeCell.value = 4;
+                        this._activeCell.candidates = 0;
+                    } else if (!this._activeCell.value) {
+                        this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.four);
+                    }
                 }
                 break;
             case 'Digit5':
             case 'Numpad5':
-                if (!this.shifting) {
-                    this._activeCell.value = 5;
-                    this._activeCell.candidates = 0;
-                } else if (!this._activeCell.value) {
-                    this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.five);
+                if (!this._activeCell.given) {
+                    if (!this.shifting) {
+                        this._activeCell.value = 5;
+                        this._activeCell.candidates = 0;
+                    } else if (!this._activeCell.value) {
+                        this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.five);
+                    }
                 }
                 break;
             case 'Digit6':
             case 'Numpad6':
-                if (!this.shifting) {
-                    this._activeCell.value = 6;
-                    this._activeCell.candidates = 0;
-                } else if (!this._activeCell.value) {
-                    this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.six);
+                if (!this._activeCell.given) {
+                    if (!this.shifting) {
+                        this._activeCell.value = 6;
+                        this._activeCell.candidates = 0;
+                    } else if (!this._activeCell.value) {
+                        this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.six);
+                    }
                 }
                 break;
             case 'Digit7':
             case 'Numpad7':
-                if (!this.shifting) {
-                    this._activeCell.value = 7;
-                    this._activeCell.candidates = 0;
-                } else if (!this._activeCell.value) {
-                    this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.seven);
+                if (!this._activeCell.given) {
+                    if (!this.shifting) {
+                        this._activeCell.value = 7;
+                        this._activeCell.candidates = 0;
+                    } else if (!this._activeCell.value) {
+                        this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.seven);
+                    }
                 }
                 break;
             case 'Digit8':
             case 'Numpad8':
-                if (!this.shifting) {
-                    this._activeCell.value = 8;
-                    this._activeCell.candidates = 0;
-                } else if (!this._activeCell.value) {
-                    this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.eight);
+                if (!this._activeCell.given) {
+                    if (!this.shifting) {
+                        this._activeCell.value = 8;
+                        this._activeCell.candidates = 0;
+                    } else if (!this._activeCell.value) {
+                        this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.eight);
+                    }
                 }
                 break;
             case 'Digit9':
             case 'Numpad9':
-                if (!this.shifting) {
-                    this._activeCell.value = 9;
-                    this._activeCell.candidates = 0;
-                } else if (!this._activeCell.value) {
-                    this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.nine);
+                if (!this._activeCell.given) {
+                    if (!this.shifting) {
+                        this._activeCell.value = 9;
+                        this._activeCell.candidates = 0;
+                    } else if (!this._activeCell.value) {
+                        this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.nine);
+                    }
                 }
                 break;
             default:
@@ -249,8 +269,10 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public inputClick(value: number): void {
-        this._activeCell.value = value;
-        this._activeCell.candidates = 0;
+        if (!this._activeCell.given) {
+            this._activeCell.value = value;
+            this._activeCell.candidates = 0;
+        }
     }
 
     private _arrowFocusNextCell(rowIndex: number, colIndex: number): void {
