@@ -100,6 +100,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
+        this.board.cleanup();
         this._clearTimer();
         window.removeEventListener('keydown', this._windowKeydown);
         window.removeEventListener('keyup', this._windowKeyup);

@@ -10,12 +10,14 @@
         height: 100%;
         position: absolute;
         top: 0;
+        width: 2px;
     }
 
     .timeline-year-text {
         color: rgba($color: $color-white, $alpha: 0.4);
         position: absolute;
         top: $base-size;
+        width: auto;
     }
 
     .timeline-event-container {

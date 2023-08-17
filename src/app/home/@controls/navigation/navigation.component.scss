@@ -17,6 +17,7 @@
 
     a {
         color: $theme-font-color;
+        text-decoration: none;
         transition: ease-in color .1s;
 
         &.active {
@@ -25,7 +26,6 @@
 
         &:hover {
             color: $color-app-accent-2;
-            text-decoration: none;
         }
     }
 }

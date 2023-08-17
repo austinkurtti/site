@@ -41,7 +41,7 @@ $sudoku-border-width: $base-size / 5;
                 transition: ease-in background-color .1s,
                             ease-in color .1s;
 
-                &:hover {
+                &:not(.active):not(:disabled):hover {
                     background-color: lighten($color-slate, 50%);
                 }
                 
@@ -68,6 +68,7 @@ $sudoku-border-width: $base-size / 5;
                 &.active {
                     background-color: $color-slate;
                     color: $color-white;
+                    pointer-events: none;
                 }
             }
         }
@@ -81,7 +82,7 @@ $sudoku-border-width: $base-size / 5;
                 transition: ease-in background-color .1s,
                             ease-in color .1s;
 
-                &:hover {
+                &:not(:disabled):hover {
                     background-color: lighten($color-slate, 50%);
                 }
 

@@ -7,6 +7,7 @@ export class SudokuBoard {
 
     public solved$ = new BehaviorSubject<boolean>(false);
 
+    private _worker: Worker;
     private _solution: Array<Array<SudokuCell>> = [];
     private _numEmptyCells: number;
 
@@ -21,19 +22,24 @@ export class SudokuBoard {
         }
     }
 
+    public cleanup(): void {
+        this._worker?.terminate();
+    }
+
     public build(difficulty: SudokuDifficulty): Promise<void> {
+        this.cleanup();
         this.solved$.next(false);
         return new Promise<void>(resolve => {
             if (typeof Worker !== 'undefined') {
-                const worker = new Worker(new URL('./sudoku.worker.ts', import.meta.url));
-                worker.onmessage = ({ data }) => {
+                this._worker = new Worker(new URL('./sudoku.worker.ts', import.meta.url));
+                this._worker.onmessage = ({ data }) => {
                     this._solution = data.solution;
                     this.cells = data.cells;
                     this._numEmptyCells = 0;
                     this.cells.forEach(row => row.forEach(cell => this._numEmptyCells += (cell.value === null ? 1 : 0)));
                     resolve();
                 };
-                worker.postMessage(difficulty);
+                this._worker.postMessage(difficulty);
             } else {
                 // TODO - web workers unavailable, do something
             }

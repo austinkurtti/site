@@ -1,13 +1,13 @@
 <!-- Header -->
-<header #header class="position-fixed w-100 row no-gutters align-items-center">
+<header #header class="position-fixed w-100 row gx-5 mx-0 align-items-center">
     <div id="header-menu" class="col-auto d-flex d-lg-none text-center">
         <i tabindex="0" class="fas fa-bars fa-2x" (click)="toggleMenu()"></i>
     </div>
     <div id="header-title" class="col col-lg-3">
         <span>{{ title }}</span>
     </div>
-    <div id="header-nav" class="col-lg-6 d-none d-lg-flex text-center">
-        <ak-navigation class="d-block w-100"></ak-navigation>
+    <div id="header-nav" class="col-lg-6 d-none d-lg-flex">
+        <ak-navigation class="d-flex w-100 align-items-center justify-content-center"></ak-navigation>
     </div>
     <div id="header-icons" class="col-lg-3 d-none d-lg-flex justify-content-end">
         <i tabindex="0" class="theme-toggle fas fa-2x" [ngClass]="currentThemeValue ? 'fa-sun' : 'fa-moon'" (click)="toggleTheme()"></i>
@@ -27,7 +27,7 @@
     <ak-skills></ak-skills>
 
     <!-- Footer -->
-    <footer class="row no-gutters justify-content-center align-items-center">
+    <footer class="row g-0 justify-content-center align-items-center">
         <div class="col-auto footer-text">
             <i class="far fa-copyright"></i>&nbsp;{{ title }}
         </div>

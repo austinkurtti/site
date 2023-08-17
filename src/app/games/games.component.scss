@@ -5,7 +5,8 @@ $header-height: $base-size * 6;
 :host {
     background-color: $color-ivory;
     color: $color-black;
-    display: block;
+    display: flex;
+    flex-direction: column;
     height: 100%;
 
     header {
@@ -42,8 +43,7 @@ $header-height: $base-size * 6;
     }
 
     main {
-        height: 100%;
-        padding: $header-height + ($base-size * 2) $base-size * 2 $base-size * 2 $base-size * 2;
+        flex: 1;
 
         .game {
             border: none;
@@ -51,6 +51,7 @@ $header-height: $base-size * 6;
             overflow: hidden;
             padding: 0;
             transition: ease-in box-shadow .1s;
+            width: 100%;
 
             &:not(:disabled):hover {
                 box-shadow: $hard-box-shadow;

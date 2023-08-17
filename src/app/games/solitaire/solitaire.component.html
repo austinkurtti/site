@@ -1,19 +1,19 @@
-<header class="row no-gutters align-items-center position-fixed w-100">
-    <div class="col text-right">
-        <label class="mr-3">Time</label>
+<header class="row g-0 align-items-center position-fixed w-100">
+    <div class="col text-end">
+        <label class="me-3">Time</label>
         <span>{{ time }}</span>
     </div>
     <div class="col text-center">
-        <label class="mr-3">Score</label>
+        <label class="me-3">Score</label>
         <span>{{ score }}</span>
     </div>
     <div class="col">
-        <label class="mr-3">Moves</label>
+        <label class="me-3">Moves</label>
         <span>{{ moves }}</span>
     </div>
 </header>
 
-<main class="row no-gutters position-static h-100">
+<main class="row g-0 position-static h-100">
     <div id="stock-col" class="col-auto h-100">
         <div id="stock" [ngClass]="{'empty': !stock.length}">
         </div>

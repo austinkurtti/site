@@ -29,6 +29,8 @@
                             "src/CNAME"
                         ],
                         "styles": [
+                            "node_modules/bootstrap/dist/css/bootstrap-grid.min.css",
+                            "node_modules/bootstrap/dist/css/bootstrap-utilities.min.css",
                             "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
                             "src/styles.scss"
                         ],

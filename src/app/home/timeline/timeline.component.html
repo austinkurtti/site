@@ -4,12 +4,12 @@
         [ngClass]="deferClass"
         [threshold]="deferThreshold"
         (deferLoad)="deferLoad()">
-        <div class="row no-gutters px-5 px-lg-0">
+        <div class="row g-0 px-5 px-lg-0">
             <div class="col offset-lg-2">
                 <ak-section-title [text]="title" [colorClass]="titleColor"></ak-section-title>
             </div>
         </div>
-        <div id="timeline-ribbon" class="row no-gutters px-5 px-lg-0">
+        <div id="timeline-ribbon" class="row g-0 px-5 px-lg-0">
             <ng-container *ngFor="let year of timelineYears">
                 <div class="timeline-year-line"
                     [ngStyle]="{'left': (timelineStart | timeline:year) + 'px'}">

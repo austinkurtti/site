@@ -1,5 +1,5 @@
-<div id="sudoku-header" class="row no-gutters align-items-center justify-content-center">
-    <div id="sudoku-timer" class="col text-right">
+<div id="sudoku-header" class="row g-0 align-items-center justify-content-center">
+    <div id="sudoku-timer" class="col text-end">
         <i tabindex="0"
             class="fas"
             [ngClass]="{
@@ -12,31 +12,34 @@
     </div>
     <div id="sudoku-difficulties" class="col-auto">
         <button
+            [disabled]="difficulty === SudokuDifficulty.easy || (building$ | async)"
             [ngClass]="{ 'active': difficulty === SudokuDifficulty.easy }"
             (click)="changeDifficulty(SudokuDifficulty.easy)">
             <span>Easy</span>
         </button>
         <button
+            [disabled]="difficulty === SudokuDifficulty.medium || (building$ | async)"
             [ngClass]="{ 'active': difficulty === SudokuDifficulty.medium }"
             (click)="changeDifficulty(SudokuDifficulty.medium)">
             <span>Medium</span>
         </button>
         <button
+            [disabled]="difficulty === SudokuDifficulty.hard || (building$ | async)"
             [ngClass]="{ 'active': difficulty === SudokuDifficulty.hard }"
             (click)="changeDifficulty(SudokuDifficulty.hard)">
             <span>Hard</span>
         </button>
     </div>
     <div id="sudoku-actions" class="col">
-        <button (click)="check()">Check</button>
-        <button (click)="board.reset()">Reset</button>
+        <button [disabled]="building$ | async" (click)="check()">Check</button>
+        <button [disabled]="building$ | async" (click)="board.reset()">Reset</button>
     </div>
 </div>
 
-<div #sudokuContent id="sudoku-content" class="row no-gutters">
+<div #sudokuContent id="sudoku-content" class="row g-0">
     <div #sudokuBoardContainer id="sudoku-board-container" class="col-8 align-items-end">
         <div #sudokuBoard id="sudoku-board">
-            <div *ngFor="let row of board.cells; let rowIndex = index;" class="row no-gutters">
+            <div *ngFor="let row of board.cells; let rowIndex = index;" class="row g-0">
                 <div *ngFor="let cell of row; let colIndex = index;"
                     #sudokuCell
                     tabindex="0"
@@ -48,7 +51,7 @@
                     <span class="normal position-absolute" [ngClass]="{ 'valid': cell.valid === true, 'invalid': cell.valid === false }">
                         {{ cell.value }}
                     </span>
-                    <div class="candidate-row row no-gutters align-items-center text-center w-100">
+                    <div class="candidate-row row g-0 align-items-center text-center w-100">
                         <div class="col-4">
                             <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.one" class="candidate candidate-1">1</span>
                         </div>
@@ -59,7 +62,7 @@
                             <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.three" class="candidate candidate-3">3</span>
                         </div>
                     </div>
-                    <div class="candidate-row row no-gutters align-items-center text-center w-100">
+                    <div class="candidate-row row g-0 align-items-center text-center w-100">
                         <div class="col-4">
                             <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.four" class="candidate candidate-4">4</span>
                         </div>
@@ -70,7 +73,7 @@
                             <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.six" class="candidate candidate-6">6</span>
                         </div>
                     </div>
-                    <div class="candidate-row row no-gutters align-items-center text-center w-100">
+                    <div class="candidate-row row g-0 align-items-center text-center w-100">
                         <div class="col-4">
                             <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.seven" class="candidate candidate-7">7</span>
                         </div>
@@ -86,7 +89,7 @@
         </div>
     </div>
 
-    <div #sudokuInputContainer id="sudoku-input-container" class="col-auto row no-gutters">
+    <div #sudokuInputContainer id="sudoku-input-container" class="col-auto row g-0">
         <div *ngFor="let value of possibleValues" class="col-4 p-2">
             <button #sudokuInput
                 class="sudoku-input"
