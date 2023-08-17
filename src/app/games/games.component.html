@@ -1,26 +1,33 @@
 <header class="position-fixed w-100 row no-gutters align-items-center">
-    <div id="header-menu" class="col-auto">
-        <i tabindex="0" class="fas fa-bars fa-2x" (click)="navOpen$.next(!navOpen$.value)"></i>
-    </div>
-    <div id="header-title" class="col">
+    <button
+        id="header-button"
+        class="col-auto d-flex align-items-center justify-content-center"
+        [tabindex]="showHome ? -1 : 0"
+        [ngClass]="{ 'show': !showHome }"
+        [routerLink]="'/games'">
+        <i class="fas fa-angle-left fa-2x"></i>
+    </button>
+    <div id="header-title"
+        class="col-auto"
+        [ngClass]="{ 'pl-4': showHome }">
         <span>Games</span>
     </div>
 </header>
 
-<nav #gameLinks class="position-fixed">
-    <a *ngFor="let game of games"
-        class="game-link align-items-center"
-        routerLinkActive="active"
-        [routerLink]="['/games', { outlets: { g: [game.route] } }]">
-        <i class="fas" [ngClass]="game.icon"></i><span>{{ game.name }}</span>
-    </a>
-</nav>
-
 <main #gameContent class="position-static">
-    <div *ngIf="showPlaceholder" id="placeholder" class="align-items-center justify-content-center">
-        <i class="fas fa-gamepad"></i>
-        <h1>Pick a game</h1>
+    <div *ngIf="showHome" id="home" class="row no-gutters">
+        <button *ngFor="let game of games"
+            class="game col-2"
+            [disabled]="game.disabled"
+            [ngClass]="game.route"
+            [routerLink]="['/games', { outlets: { g: [game.route] } }]">
+            <div class="game-icon">
+                <i [ngClass]="game.icon"></i>
+            </div>
+            <div class="game-name">{{ game.name }}</div>
+        </button>
     </div>
+
     <router-outlet
         name="g"
         (activate)="gameActivate()"

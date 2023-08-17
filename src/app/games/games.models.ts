@@ -2,10 +2,11 @@ export class GameLinkModel {
     name: string;
     icon: string;
     route: string;
+    disabled: boolean;
 
-    constructor(name: string, icon: string, route: string) {
-        this.name = name;
-        this.icon = icon;
-        this.route = route;
+    constructor(options?: Partial<GameLinkModel>) {
+        if (options) {
+            Object.assign(this, options);
+        }
     }
 }

@@ -1,5 +1,4 @@
 @import 'variables';
-@import 'keyframes';
 
 $header-height: $base-size * 6;
 
@@ -12,8 +11,6 @@ $header-height: $base-size * 6;
     header {
         background-color: $color-white;
         height: $header-height;
-        padding-left: $base-size * 2;
-        padding-right: $base-size * 2;
         z-index: $z-index-header;
 
         #header-title span {
@@ -21,69 +18,77 @@ $header-height: $base-size * 6;
             line-height: $base-size * 2;
         }
 
-        #header-menu {
-            animation: $opacity-name $opacity-duration $opacity-timing,
-                    $grow-name $grow-duration $grow-timing;
-            animation-fill-mode: forwards;
-            height: $base-size * 2;
-            padding-right: $base-size * 2;
+        #header-button {
+            background-color: $color-white;
+            border: none;
+            height: $header-height;
+            overflow: hidden;
+            padding: 0;
+            width: 0;
 
-            i {
-                cursor: pointer;
-                height: $base-size * 2;
-                transition: ease-in color .1s;
-                width: $base-size * 2;
-
-                &:hover {
-                    color: $color-app-accent-2;
-                }
+            &.show {
+                width: $header-height;
             }
-        }
-    }
-
-    nav {
-        background-color: $color-white;
-        box-shadow: $soft-box-shadow;
-        height: 100%;
-        min-width: 250px;
-        padding-top: $header-height;
-        transition: ease-in transform .1s;
-        width: 10%;
-        z-index: $z-index-bump;
-
-        .game-link {
-            color: $color-black;
-            display: block;
-            font-size: $default-font-size * 1.25;
-            padding: $base-size $base-size $base-size ($base-size * 2);
-            transition: ease-in color .1s;
 
             &:hover {
                 color: $color-app-accent-2;
-                text-decoration: none;
-            }
-
-            &.active {
-                background-color: $color-app-accent-2;
-                color: $color-white;
+                cursor: pointer;
             }
 
             i {
-                padding-right: $base-size;
+                transition: ease-in color .1s;
             }
         }
     }
 
     main {
         height: 100%;
-        padding-top: $header-height;
+        padding: $header-height + ($base-size * 2) $base-size * 2 $base-size * 2 $base-size * 2;
 
-        #placeholder {
-            color: $color-gray-100;
-            display: flex;
-            flex-direction: column;
-            font-size: $default-font-size * 10;
-            height: 100%;
+        .game {
+            border: none;
+            border-radius: $base-size / 2;
+            overflow: hidden;
+            padding: 0;
+            transition: ease-in box-shadow .1s;
+
+            &:not(:disabled):hover {
+                box-shadow: $hard-box-shadow;
+            }
+
+            .game-icon {
+                font-size: $default-font-size * 4;
+                padding: $base-size;
+            }
+
+            .game-name {
+                font-size: $default-font-size * 2;
+                padding: $base-size;
+            }
+
+            &.sudoku {
+                background-color: $color-sudoku-orange;
+
+                .game-name {
+                    background-color: lighten($color-sudoku-orange, 20%);
+                }
+            }
+
+            &.solitaire {
+                background-color: $color-solitaire-green;
+
+                .game-name {
+                    background-color: lighten($color-solitaire-green, 20%);
+                }
+            }
+
+            &.warships {
+                background-color: $color-warships;
+
+                .game-name {
+                    background-color: lighten($color-warships, 20%);
+                }
+            }
         }
     }
 }
