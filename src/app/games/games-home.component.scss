@@ -1,0 +1,50 @@
+@use 'sass:math';
+
+@import 'variables';
+
+.game {
+    border: none;
+    border-radius: math.div($base-size, 2);
+    overflow: hidden;
+    padding: 0;
+    transition: ease-in box-shadow .1s;
+    width: 100%;
+
+    &:not(:disabled):hover {
+        box-shadow: $hard-box-shadow;
+    }
+
+    .game-icon {
+        font-size: $default-font-size * 4;
+        padding: $base-size;
+    }
+
+    .game-name {
+        font-size: $default-font-size * 2;
+        padding: $base-size;
+    }
+
+    &.sudoku {
+        background-color: $color-sudoku-orange;
+
+        .game-name {
+            background-color: lighten($color-sudoku-orange, 20%);
+        }
+    }
+
+    &.solitaire {
+        background-color: $color-solitaire-green;
+
+        .game-name {
+            background-color: lighten($color-solitaire-green, 20%);
+        }
+    }
+
+    &.warships {
+        background-color: $color-warships;
+
+        .game-name {
+            background-color: lighten($color-warships, 20%);
+        }
+    }
+}

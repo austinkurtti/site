@@ -149,6 +149,11 @@ button {
         font-size: $default-font-size * 1.25;
         line-height: $default-font-size * 1.25;
     }
+
+    h4 {
+        font-size: $default-font-size * 1.1;
+        line-height: $default-font-size * 1.1;
+    }
 }
 
 @media (min-width: $breakpoint-tablet) {
@@ -166,6 +171,11 @@ button {
         font-size: $default-font-size * 1.35;
         line-height: $default-font-size * 1.35;
     }
+
+    h4 {
+        font-size: $default-font-size * 1.15;
+        line-height: $default-font-size * 1.15;
+    }
 }
 
 @media (min-width: $breakpoint-desktop) {
@@ -182,5 +192,10 @@ button {
     h3 {
         font-size: $default-font-size * 1.5;
         line-height: $default-font-size * 1.5;
+    }
+
+    h4 {
+        font-size: $default-font-size * 1.25;
+        line-height: $default-font-size * 1.25;
     }
 }

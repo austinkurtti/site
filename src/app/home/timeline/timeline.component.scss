@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @import 'variables';
 
 #timeline-ribbon {
@@ -29,10 +31,10 @@
 
         .timeline-event {
             background-color: $color-white;
-            border-radius: $base-size / 4;
+            border-radius: math.div($base-size, 4);
             color: $color-black;
             display: inline-block;
-            padding: $base-size / 2;
+            padding: math.div($base-size, 2);
             pointer-events: none;
             position: relative;
 
@@ -46,9 +48,14 @@
                 }
             }
 
+            h4 {
+                margin-bottom: math.div($base-size, 4);
+            }
+
             .timeline-event-description {
                 i {
-                    margin-bottom: $base-size / 4;
+                    display: block;
+                    margin-bottom: math.div($base-size, 4);
                 }
             }
         }

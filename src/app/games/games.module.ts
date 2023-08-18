@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { GameTileComponent } from './@controls/game-tile.component';
+import { GamesHomeComponent } from './games-home.component';
 import { GamesComponent } from './games.component';
 
 @NgModule({
     declarations: [
         GamesComponent,
-        GameTileComponent
+        GamesHomeComponent
     ],
     imports: [
         CommonModule,
@@ -17,8 +17,11 @@ import { GamesComponent } from './games.component';
                 component: GamesComponent,
                 children: [
                     {
+                        path: '',
+                        component: GamesHomeComponent,
+                    },
+                    {
                         path: 'sudoku',
-                        outlet: 'g',
                         loadChildren: () => import('./sudoku/sudoku.module').then(m => m.SudokuModule)
                     }
                 ]

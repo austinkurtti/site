@@ -1,47 +1,31 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { Subject } from 'rxjs';
-import { GameLinkModel } from './games.models';
+import { Component, Renderer2 } from '@angular/core';
+import { GamesHomeComponent } from './games-home.component';
 
 @Component({
     selector: 'ak-games',
     styleUrls: ['./games.component.scss'],
     templateUrl: './games.component.html'
 })
-export class GamesComponent implements OnDestroy {
-    @ViewChild('gameLinks') gameLinksEl: ElementRef;
+export class GamesComponent {
+    constructor(
+        private _renderer: Renderer2
+    ) {}
 
-    public showHome = true;
-    public games: GameLinkModel[] = [
-        new GameLinkModel({
-            name: 'Sudoku',
-            icon: 'fas fa-border-all',
-            route: 'sudoku'
-        }),
-        new GameLinkModel({
-            name: 'Solitaire',
-            icon: 'fas fa-heart',
-            route: 'solitaire',
-            disabled: true
-        }),
-        new GameLinkModel({
-            name: 'Warships',
-            icon: 'fas fa-anchor',
-            route: 'warships',
-            disabled: true
-        })
-    ];
-
-    private _destroyed$ = new Subject<void>();
-
-    public ngOnDestroy(): void {
-        this._destroyed$.next();
-    }
-
-    public gameActivate(): void {
-        this.showHome = false;
-    }
-
-    public gameDeactivate(): void {
-        this.showHome = true;
+    public routerOutletActivate(activatedComponent: any) {
+        const headerEl = document.querySelector('header');
+        const buttonEl = headerEl.children[0] as HTMLElement;
+        const titleEl = headerEl.children[1] as HTMLElement;
+        if (activatedComponent instanceof GamesHomeComponent) {
+            this._renderer.removeClass(buttonEl, 'show');
+            this._renderer.setAttribute(buttonEl, 'tabindex', '-1');
+            if (document.activeElement === buttonEl) {
+                buttonEl.blur();
+            }
+            this._renderer.addClass(titleEl, 'ps-5');
+        } else {
+            this._renderer.addClass(buttonEl, 'show');
+            this._renderer.setAttribute(buttonEl, 'tabindex', '0');
+            this._renderer.removeClass(titleEl, 'ps-5');
+        }
     }
 }

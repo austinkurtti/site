@@ -1,8 +1,10 @@
+@use 'sass:math';
+
 @import 'variables';
 @import 'keyframes';
 
 $header-height: $base-size * 6;
-$sudoku-border-width: $base-size / 5;
+$sudoku-border-width: math.div($base-size, 5);
 
 :host {
     display: flex;
@@ -31,12 +33,12 @@ $sudoku-border-width: $base-size / 5;
             padding-right: $base-size;
 
             button {
-                border-bottom-width: $base-size / 8;
+                border-bottom-width: math.div($base-size, 8);
                 border-color: $color-slate;
-                border-left-width: $base-size / 16;
-                border-right-width: $base-size / 16;
+                border-left-width: math.div($base-size, 16);
+                border-right-width: math.div($base-size, 16);
                 border-style: solid;
-                border-top-width: $base-size / 8;
+                border-top-width: math.div($base-size, 8);
                 color: $color-slate;
                 transition: ease-in background-color .1s,
                             ease-in color .1s;
@@ -46,10 +48,10 @@ $sudoku-border-width: $base-size / 5;
                 }
                 
                 &:nth-child(1) {
-                    border-bottom-left-radius: $base-size / 4 !important;
+                    border-bottom-left-radius: math.div($base-size, 4) !important;
                     border-bottom-right-radius: 0 !important;
-                    border-left-width: $base-size / 8 !important;
-                    border-top-left-radius: $base-size / 4 !important;
+                    border-left-width: math.div($base-size, 8) !important;
+                    border-top-left-radius: math.div($base-size, 4) !important;
                     border-top-right-radius: 0 !important;
                 }
 
@@ -59,10 +61,10 @@ $sudoku-border-width: $base-size / 5;
 
                 &:nth-child(3) {
                     border-bottom-left-radius: 0 !important;
-                    border-bottom-right-radius: $base-size / 4 !important;
-                    border-right-width: $base-size / 8 !important;
+                    border-bottom-right-radius: math.div($base-size, 4) !important;
+                    border-right-width: math.div($base-size, 8) !important;
                     border-top-left-radius: 0 !important;
-                    border-top-right-radius: $base-size / 4 !important;
+                    border-top-right-radius: math.div($base-size, 4) !important;
                 }
 
                 &.active {
@@ -76,7 +78,7 @@ $sudoku-border-width: $base-size / 5;
         #sudoku-actions {
             button {
                 border-color: $color-slate;
-                border-radius: $base-size / 4;
+                border-radius: math.div($base-size, 4);
                 border-style: solid;
                 color: $color-slate;
                 transition: ease-in background-color .1s,
@@ -120,7 +122,7 @@ $sudoku-border-width: $base-size / 5;
 
                 .sudoku-cell {
                     border-style: solid;
-                    border-width: $sudoku-border-width / 2;
+                    border-width: math.div($sudoku-border-width, 2);
                     display: flex;
                     flex-direction: column;
 
@@ -176,12 +178,12 @@ $sudoku-border-width: $base-size / 5;
         }
 
         #sudoku-input-container {
-            margin-left: $base-size / 2;
+            margin-left: math.div($base-size, 2);
 
             .sudoku-input {
                 background-color: $color-gray-200;
-                border: $sudoku-border-width / 2 solid;
-                border-radius: $base-size / 4;
+                border: math.div($sudoku-border-width, 2) solid;
+                border-radius: math.div($base-size, 4);
                 font-size: $default-font-size * 2;
                 font-weight: bold;
                 height: 100%;
