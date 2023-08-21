@@ -13,6 +13,12 @@
             "@extensions/*": [
                 "src/app/@extensions/*"
             ],
+            "@interfaces/*": [
+                "src/app/@interfaces/*"
+            ],
+            "@models/*": [
+                "src/app/@models/*"
+            ],
             "@pipes/*": [
                 "src/app/@pipes/*"
             ],

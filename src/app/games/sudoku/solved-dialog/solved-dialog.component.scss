@@ -1,0 +1,25 @@
+@import 'variables';
+
+:host {
+    background-color: $color-sudoku-orange;
+
+    h3 {
+        margin: 0;
+        padding: $base-size * 4 $base-size;
+    }
+
+    #puzzle-data {
+        // background: rgba($color: $color-sudoku-orange, $alpha: .5);
+        background-color: lighten($color: $color-sudoku-orange, $amount: 10%);
+        font-weight: bold;
+        padding: $base-size;
+    }
+
+    #next-options {
+        padding: $base-size * 4 $base-size;
+
+        button:hover {
+            background-color: lighten($color-slate, 60%);
+        }
+    }
+}

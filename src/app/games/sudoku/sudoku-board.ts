@@ -52,13 +52,16 @@ export class SudokuBoard {
         });
     }
 
-    public validate(): boolean {
+    public validate(showValidation = false): boolean {
         let allValid = true;
         this.cells.forEach((row, rIndex) => {
             row.forEach((cell, cIndex) => {
-                if (!cell.given) {
-                    cell.valid = cell.value === this._solution[rIndex][cIndex].value;
-                    allValid &&= cell.valid;
+                if (!cell.given && cell.value !== null) {
+                    const valid = cell.value === this._solution[rIndex][cIndex].value;
+                    if (showValidation) {
+                        cell.valid = valid;
+                    }
+                    allValid &&= valid;
                 }
             });
         });

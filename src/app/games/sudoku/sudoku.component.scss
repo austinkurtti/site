@@ -34,17 +34,12 @@ $sudoku-border-width: math.div($base-size, 5);
 
             button {
                 border-bottom-width: math.div($base-size, 8);
-                border-color: $color-slate;
                 border-left-width: math.div($base-size, 16);
                 border-right-width: math.div($base-size, 16);
-                border-style: solid;
                 border-top-width: math.div($base-size, 8);
-                color: $color-slate;
-                transition: ease-in background-color .1s,
-                            ease-in color .1s;
 
                 &:not(.active):not(:disabled):hover {
-                    background-color: lighten($color-slate, 50%);
+                    background-color: lighten($color-slate, 60%);
                 }
                 
                 &:nth-child(1) {
@@ -77,15 +72,8 @@ $sudoku-border-width: math.div($base-size, 5);
 
         #sudoku-actions {
             button {
-                border-color: $color-slate;
-                border-radius: math.div($base-size, 4);
-                border-style: solid;
-                color: $color-slate;
-                transition: ease-in background-color .1s,
-                            ease-in color .1s;
-
                 &:not(:disabled):hover {
-                    background-color: lighten($color-slate, 50%);
+                    background-color: lighten($color-slate, 60%);
                 }
 
                 &:not(:first-child) {
@@ -191,6 +179,7 @@ $sudoku-border-width: math.div($base-size, 5);
                 width: 100%;
 
                 &:disabled {
+                    opacity: .5;
                     pointer-events: none;
                 }
     

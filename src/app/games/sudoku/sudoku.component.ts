@@ -1,6 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { DialogSize } from '@models/dialog.model';
+import { DialogService } from '@services/dialog.service';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { SolvedDialogComponent } from './solved-dialog/solved-dialog.component';
 import { SudokuBoard } from './sudoku-board';
 import { SudokuCandidate, SudokuCell, SudokuDifficulty, SudokuState } from './sudoku.models';
 
@@ -47,7 +50,8 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     constructor(
-        private _renderer: Renderer2
+        private _renderer: Renderer2,
+        private _dialogService: DialogService
     ) {}
 
     public ngOnInit(): void {
@@ -87,6 +91,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
             .subscribe(solved => {
                 if (solved) {
                     // TODO - something fun... confetti?
+                    this.showSolvedDialog();
                 }
             });
 
@@ -100,11 +105,24 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
+        this._dialogService.close();
         this.board.cleanup();
         this._clearTimer();
         window.removeEventListener('keydown', this._windowKeydown);
         window.removeEventListener('keyup', this._windowKeyup);
         this._destroyed$.next();
+    }
+
+    public showSolvedDialog(): void {
+        const componentRef = this._dialogService.show(SolvedDialogComponent, DialogSize.small);
+        if (componentRef) {
+            componentRef.difficulty = this.difficulty;
+            componentRef.time = this.time$.value;
+        }
+    }
+
+    public closeSolvedDialog(): void {
+        this._dialogService.close();
     }
 
     public changeState(): void {
@@ -125,7 +143,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public check(): void {
-        this.board.validate();
+        this.board.validate(true);
     }
 
     public focusCell(rowIndex: number, colIndex: number): void {
@@ -273,6 +291,10 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private _setCellValue = (value: number): void => {
+        if (value === this._activeCell.value) {
+            return;
+        }
+
         const oldValue = this._activeCell.value;
         this._activeCell.value = value;
         this._activeCell.candidates = 0;
@@ -282,10 +304,14 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         if (value === null) {
             this._activeCell.valid = null;
-            this.board.numEmptyCells++;
+            if (oldValue !== null) {
+                this.board.numEmptyCells++;
+            }
         } else {
             this._checkCellValueCount(value);
-            this.board.numEmptyCells--;
+            if (oldValue === null) {
+                this.board.numEmptyCells--;
+            }
         }
     };
 
