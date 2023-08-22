@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
 import { DialogSize } from '@models/dialog.model';
 import { DialogService } from '@services/dialog.service';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -41,6 +41,9 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     public boardSize$ = new BehaviorSubject<number>(0);
     public time$ = new BehaviorSubject<string>('00:00:00');
 
+    private _renderer = inject(Renderer2);
+    private _dialogService = inject(DialogService);
+
     private _timerId;
     private _startTime: number;
     private _pauseTime: number;
@@ -55,11 +58,6 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
             ? this.board.cells[this._activeCellRow][this._activeCellCol]
             : null;
     }
-
-    constructor(
-        private _renderer: Renderer2,
-        private _dialogService: DialogService
-    ) {}
 
     public ngOnInit(): void {
         this.boardSize$

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, Input, OnDestroy, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, Input, OnDestroy, QueryList, Renderer2, ViewChildren, inject } from '@angular/core';
 import { aboutId, aboutText, introId, introText, skillsId, skillsText, timelineId, timelineText } from '@constants/strings';
 import { Subscription, timer } from 'rxjs';
 import { NavigationAnchorModel } from './navigation.model';
@@ -41,12 +41,10 @@ export class NavigationComponent implements AfterViewInit, OnDestroy {
         })
     ];
 
+    private _renderer = inject(Renderer2);
+
     private _debounce: Subscription = null;
     private _activeAnchor: ElementRef = null;
-
-    constructor(
-        private _renderer: Renderer2
-    ) {}
 
     @HostListener('window:scroll')
     windowScroll() {

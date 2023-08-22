@@ -1,11 +1,9 @@
-import { Directive, ElementRef, ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, ViewContainerRef, inject } from '@angular/core';
 
 @Directive({
     selector: '[akDialog]'
 })
 export class DialogDirective {
-    constructor(
-        public elementRef: ElementRef,
-        public viewContainerRef: ViewContainerRef
-    ) {}
+    public elementRef = inject(ElementRef);
+    public viewContainerRef = inject(ViewContainerRef);
 }

@@ -1,4 +1,4 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, Renderer2, inject } from '@angular/core';
 import { GamesHomeComponent } from './games-home.component';
 
 @Component({
@@ -7,9 +7,7 @@ import { GamesHomeComponent } from './games-home.component';
     templateUrl: './games.component.html'
 })
 export class GamesComponent {
-    constructor(
-        private _renderer: Renderer2
-    ) {}
+    private _renderer = inject(Renderer2);
 
     public routerOutletActivate(activatedComponent: any) {
         const headerEl = document.querySelector('header');

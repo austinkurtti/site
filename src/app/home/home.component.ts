@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Renderer2, ViewChild, inject } from '@angular/core';
 import { baseSizePx } from '@constants/numbers';
 import { LocalStorageService } from '@services/local-storage.service';
 
@@ -15,11 +15,9 @@ export class HomeComponent implements AfterViewInit {
     public menuOpen = false;
     public currentThemeValue: boolean;
 
-    private _themeKey = 'theme';
+    private _renderer = inject(Renderer2);
 
-    constructor(
-        private _renderer: Renderer2
-    ) {}
+    private _themeKey = 'theme';
 
     @HostListener('window:resize')
     windowResize() {

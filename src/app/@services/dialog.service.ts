@@ -1,4 +1,4 @@
-import { Injectable, Renderer2, RendererFactory2, Type } from '@angular/core';
+import { Injectable, RendererFactory2, Type, inject } from '@angular/core';
 import { DialogDirective } from '@directives/dialog.directive';
 import { IDialog } from '@interfaces/dialog.interface';
 import { DialogSize } from '@models/dialog.model';
@@ -7,17 +7,12 @@ import { DialogSize } from '@models/dialog.model';
 export class DialogService {
     public dialogRef: DialogDirective;
 
+    private _renderer = inject(RendererFactory2).createRenderer(null, null);
+
     private _open = false;
-    private _renderer: Renderer2;
 
     private get _dialogEl(): HTMLDialogElement {
         return this.dialogRef.elementRef.nativeElement.parentElement;
-    }
-
-    constructor(
-        private _rendererFactory: RendererFactory2
-    ) {
-        this._renderer = _rendererFactory.createRenderer(null, null);
     }
 
     public show<T extends IDialog>(componentType: Type<T>, size: DialogSize): T {
