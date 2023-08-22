@@ -7,6 +7,13 @@ import { SolvedDialogComponent } from './solved-dialog/solved-dialog.component';
 import { SudokuBoard } from './sudoku-board';
 import { SudokuCandidate, SudokuCell, SudokuDifficulty, SudokuState } from './sudoku.models';
 
+// TODO
+// difficulty/options selection screen
+// auto-pause when window loses focus
+// settings
+// better styling
+// smooth out difficulties (maybe with min/max range of blank cells per difficulty?)
+
 @Component({
     selector: 'ak-sudoku',
     styleUrls: ['./sudoku.component.scss'],
@@ -74,16 +81,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
         this.building$
             .pipe(takeUntil(this._destroyed$))
             .subscribe(building => {
-                if (!building) {
-                    this.board.state = SudokuState.running;
-                    this._startTime = Date.now();
-                    this._startTimer();
-                } else {
-                    this._pauseSum = 0;
-                    this.board.state = SudokuState.paused;
-                    this.time$.next('00:00:00');
-                    this._clearTimer();
-                }
+                (building ? this.resetTimer : this.startTimer)();
             });
 
         this.board.solved$
@@ -91,6 +89,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
             .subscribe(solved => {
                 if (solved) {
                     // TODO - something fun... confetti?
+                    this.pauseTimer(true);
                     this.showSolvedDialog();
                 }
             });
@@ -107,7 +106,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     public ngOnDestroy(): void {
         this._dialogService.close();
         this.board.cleanup();
-        this._clearTimer();
+        this._clearTimerInterval();
         window.removeEventListener('keydown', this._windowKeydown);
         window.removeEventListener('keyup', this._windowKeyup);
         this._destroyed$.next();
@@ -125,17 +124,30 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
         this._dialogService.close();
     }
 
-    public changeState(): void {
-        if (this.board.state === SudokuState.paused) {
-            this.board.state = SudokuState.running;
-            this._pauseSum += Date.now() - this._pauseTime;
-            this._startTimer();
-        } else {
-            this._pauseTime = Date.now();
-            this.board.state = SudokuState.paused;
-            this._clearTimer();
-        }
-    }
+    public resetTimer = (): void => {
+        this._pauseSum = 0;
+        this.board.state = SudokuState.paused;
+        this.time$.next('00:00:00');
+        this._clearTimerInterval();
+    };
+
+    public startTimer = (): void => {
+        this.board.state = SudokuState.running;
+        this._startTime = Date.now();
+        this._startTimerInterval();
+    };
+
+    public pauseTimer = (solved = false): void => {
+        this._pauseTime = Date.now();
+        this.board.state = solved ? SudokuState.solved : SudokuState.paused;
+        this._clearTimerInterval();
+    };
+
+    public resumeTimer = (): void => {
+        this.board.state = SudokuState.running;
+        this._pauseSum += Date.now() - this._pauseTime;
+        this._startTimerInterval();
+    };
 
     public changeDifficulty(difficulty: SudokuDifficulty): void {
         this.difficulty = difficulty;
@@ -380,7 +392,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
         this.boardSize$.next(size);
     }
 
-    private _startTimer(): void {
+    private _startTimerInterval(): void {
         this._timerId = setInterval(() => {
             const deltaSeconds = Math.floor((Date.now() - (this._startTime + this._pauseSum)) / 1000);
             const timeParts = [
@@ -392,7 +404,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
         }, 100);
     }
 
-    private _clearTimer(): void {
+    private _clearTimerInterval(): void {
         if (this._timerId) {
             clearInterval(this._timerId);
         }

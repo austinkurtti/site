@@ -2,10 +2,10 @@
 
 <div id="puzzle-data" class="row g-0">
     <div class="col-6 text-center">
-        <span>{{ difficulty === SudokuDifficulty.easy ? 'Easy' : difficulty === SudokuDifficulty.medium ? 'Medium' : 'Hard' }}</span>
+        <span>{{ difficulty | sudokuDifficulty }}</span>
     </div>
     <div class="col-6 text-center">
-        <time [dateTime]="timeValue">{{ time }}</time>
+        <time [dateTime]="timeValue">{{ timeDisplay }}</time>
     </div>
 </div>
 

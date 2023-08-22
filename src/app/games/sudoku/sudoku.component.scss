@@ -3,7 +3,6 @@
 @import 'variables';
 @import 'keyframes';
 
-$header-height: $base-size * 6;
 $sudoku-border-width: math.div($base-size, 5);
 
 :host {
@@ -12,63 +11,61 @@ $sudoku-border-width: math.div($base-size, 5);
     height: 100%;
 
     #sudoku-header {
-        height: $header-height;
+        padding: $base-size * 2;
 
-        #sudoku-timer {
+        #sudoku-state {
             i {
-                margin-right: $base-size;
-
-                &:hover {
+                &:not(.fa-flag-checkered):hover {
                     cursor: pointer;
                 }
             }
 
-            span {
+            #sudoku-time {
                 font-family: monospace;
             }
         }
 
-        #sudoku-difficulties {
-            padding-left: $base-size;
-            padding-right: $base-size;
+        // #sudoku-difficulties {
+        //     padding-left: $base-size;
+        //     padding-right: $base-size;
 
-            button {
-                border-bottom-width: math.div($base-size, 8);
-                border-left-width: math.div($base-size, 16);
-                border-right-width: math.div($base-size, 16);
-                border-top-width: math.div($base-size, 8);
+        //     button {
+        //         border-bottom-width: math.div($base-size, 8);
+        //         border-left-width: math.div($base-size, 16);
+        //         border-right-width: math.div($base-size, 16);
+        //         border-top-width: math.div($base-size, 8);
 
-                &:not(.active):not(:disabled):hover {
-                    background-color: lighten($color-slate, 60%);
-                }
+        //         &:not(.active):not(:disabled):hover {
+        //             background-color: lighten($color-slate, 60%);
+        //         }
                 
-                &:nth-child(1) {
-                    border-bottom-left-radius: math.div($base-size, 4) !important;
-                    border-bottom-right-radius: 0 !important;
-                    border-left-width: math.div($base-size, 8) !important;
-                    border-top-left-radius: math.div($base-size, 4) !important;
-                    border-top-right-radius: 0 !important;
-                }
+        //         &:nth-child(1) {
+        //             border-bottom-left-radius: math.div($base-size, 4) !important;
+        //             border-bottom-right-radius: 0 !important;
+        //             border-left-width: math.div($base-size, 8) !important;
+        //             border-top-left-radius: math.div($base-size, 4) !important;
+        //             border-top-right-radius: 0 !important;
+        //         }
 
-                &:nth-child(2) {
-                    border-radius: 0 !important;
-                }
+        //         &:nth-child(2) {
+        //             border-radius: 0 !important;
+        //         }
 
-                &:nth-child(3) {
-                    border-bottom-left-radius: 0 !important;
-                    border-bottom-right-radius: math.div($base-size, 4) !important;
-                    border-right-width: math.div($base-size, 8) !important;
-                    border-top-left-radius: 0 !important;
-                    border-top-right-radius: math.div($base-size, 4) !important;
-                }
+        //         &:nth-child(3) {
+        //             border-bottom-left-radius: 0 !important;
+        //             border-bottom-right-radius: math.div($base-size, 4) !important;
+        //             border-right-width: math.div($base-size, 8) !important;
+        //             border-top-left-radius: 0 !important;
+        //             border-top-right-radius: math.div($base-size, 4) !important;
+        //         }
 
-                &.active {
-                    background-color: $color-slate;
-                    color: $color-white;
-                    pointer-events: none;
-                }
-            }
-        }
+        //         &.active {
+        //             background-color: $color-slate;
+        //             color: $color-white;
+        //             pointer-events: none;
+        //         }
+        //     }
+        // }
 
         #sudoku-actions {
             button {

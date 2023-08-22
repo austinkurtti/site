@@ -1,20 +1,26 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { IDialog } from '@interfaces/dialog.interface';
+import { DifficultyPipeModule } from '@pipes/difficulty/difficulty.module';
 import { SudokuDifficulty } from '../sudoku.models';
 
 @Component({
     standalone: true,
+    imports: [
+        DifficultyPipeModule
+    ],
     selector: 'ak-solved-dialog',
     styleUrls: ['./solved-dialog.component.scss'],
     templateUrl: './solved-dialog.component.html'
 })
 export class SolvedDialogComponent implements IDialog, OnInit {
+    @Input() difficulty: SudokuDifficulty;
+    @Input() time: string;
+
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public SudokuDifficulty = SudokuDifficulty;
 
-    public difficulty: SudokuDifficulty;
-    public time: string;
     public timeValue = 'PT';
+    public timeDisplay = '';
 
     constructor(
         public elementRef: ElementRef
@@ -22,8 +28,17 @@ export class SolvedDialogComponent implements IDialog, OnInit {
 
     public ngOnInit(): void {
         const timeParts = this.time.replace(/0/g, '').split(':');
-        this.timeValue += timeParts[0] ? `${timeParts[0]}H` : '';
-        this.timeValue += timeParts[1] ? `${timeParts[1]}M` : '';
-        this.timeValue += timeParts[2] ? `${timeParts[2]}S` : '';
+        if (timeParts[0]) {
+            this.timeValue += `${timeParts[0]}H`;
+            this.timeDisplay += `${timeParts[0]} hr`;
+        }
+        if (timeParts[1]) {
+            this.timeValue += `${timeParts[1]}M`;
+            this.timeDisplay += ((this.timeDisplay ? ' ' : '') + `${timeParts[1]} min`);
+        }
+        if (timeParts[2]) {
+            this.timeValue += `${timeParts[2]}S`;
+            this.timeDisplay += ((this.timeDisplay ? ' ' : '') + `${timeParts[2]} sec`);
+        }
     }
 }
