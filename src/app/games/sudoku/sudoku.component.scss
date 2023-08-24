@@ -184,6 +184,11 @@ $sudoku-border-width: math.div($base-size, 5);
                     background-color: $color-gray-300;
                     cursor: pointer;
                 }
+
+                i {
+                    // Helps prevent tooltip wonkiness
+                    pointer-events: none;
+                }
             }
         }
     }

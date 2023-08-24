@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
 import { MenuPosition } from '@directives/menu/menu.directive';
+import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { DialogSize } from '@models/dialog.model';
 import { DialogService } from '@services/dialog.service';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -39,6 +40,8 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     public SudokuCandidate = SudokuCandidate;
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public MenuPosition = MenuPosition;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    public TooltipPosition = TooltipPosition;
 
     public building$ = new BehaviorSubject<boolean>(false);
     public boardSize$ = new BehaviorSubject<number>(0);

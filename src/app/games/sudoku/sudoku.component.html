@@ -112,7 +112,10 @@
         </div>
         <div class="col-12 p-2">
             <button #sudokuInput
+                akTooltip
                 class="sudoku-input"
+                [tooltipContent]="'Erase Cell'"
+                [tooltipPosition]="TooltipPosition.bottom"
                 (click)="inputClick(null)">
                 <i class="fas fa-eraser"></i>
             </button>

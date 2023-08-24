@@ -10,6 +10,9 @@ export class GamesComponent {
     private _renderer = inject(Renderer2);
 
     public routerOutletActivate(activatedComponent: any) {
+        // Only supporting light theme for now
+        document.documentElement.setAttribute('data-theme', 'light');
+
         const headerEl = document.querySelector('header');
         const buttonEl = headerEl.children[0] as HTMLElement;
         const titleEl = headerEl.children[1] as HTMLElement;
