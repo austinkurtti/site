@@ -33,8 +33,17 @@
         </button>
     </div> -->
     <div id="sudoku-actions" class="col-4 d-flex justify-content-end">
-        <button [disabled]="building$ | async" (click)="check()">Check</button>
-        <button [disabled]="building$ | async" (click)="board.reset()">Reset</button>
+        <button akMenu
+            class="icon-button"
+            [menuPosition]="MenuPosition.bottomRight">
+            <i class="fas fa-ellipsis-h fa-2x px-2"></i>
+            <ng-template #menuContent>
+                <div akMenuContent>
+                    <div akMenuItem (menuItemClick)="check()">Check</div>
+                    <div akMenuItem (menuItemClick)="reset()">Reset</div>
+                </div>
+            </ng-template>
+        </button>
         <button [disabled]="building$ | async" (click)="showSolvedDialog()">Dialog Open</button>
         <button [disabled]="building$ | async" (click)="closeSolvedDialog()">Dialog Close</button>
     </div>

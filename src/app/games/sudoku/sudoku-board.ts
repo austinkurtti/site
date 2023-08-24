@@ -35,8 +35,7 @@ export class SudokuBoard {
                 this._worker.onmessage = ({ data }) => {
                     this._solution = data.solution;
                     this.cells = data.cells;
-                    this._numEmptyCells = 0;
-                    this.cells.forEach(row => row.forEach(cell => this._numEmptyCells += (cell.value === null ? 1 : 0)));
+                    this._resetNumEmptyCells();
                     resolve();
                 };
                 this._worker.postMessage(difficulty);
@@ -48,8 +47,13 @@ export class SudokuBoard {
 
     public reset(): void {
         this.cells.forEach(row => {
-            row.filter(cell => !cell.given).forEach(cell => cell.value = null);
+            row.filter(cell => !cell.given).forEach(cell => {
+                cell.value = null;
+                cell.candidates = 0;
+                cell.valid = null;
+            });
         });
+        this._resetNumEmptyCells();
     }
 
     public validate(showValidation = false): boolean {
@@ -66,5 +70,10 @@ export class SudokuBoard {
             });
         });
         return allValid;
+    }
+
+    private _resetNumEmptyCells(): void {
+        this._numEmptyCells = 0;
+        this.cells.forEach(row => row.forEach(cell => this._numEmptyCells += (cell.value === null ? 1 : 0)));
     }
 }

@@ -18,10 +18,11 @@ import { GamesComponent } from './games.component';
                 children: [
                     {
                         path: '',
-                        component: GamesHomeComponent,
+                        component: GamesHomeComponent
                     },
                     {
                         path: 'sudoku',
+                        title: 'Sudoku',
                         loadChildren: () => import('./sudoku/sudoku.module').then(m => m.SudokuModule)
                     }
                 ]

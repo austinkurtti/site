@@ -22,13 +22,11 @@ $header-height: $base-size * 6;
 
         #header-button {
             background-color: $color-white;
-            border: none;
+            display: none;
             height: $header-height;
-            overflow: hidden;
-            padding: 0;
-            width: 0;
 
             &.show {
+                display: flex;
                 width: $header-height;
             }
 

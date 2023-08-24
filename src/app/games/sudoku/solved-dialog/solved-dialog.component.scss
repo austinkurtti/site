@@ -18,6 +18,10 @@
     #next-options {
         padding: $base-size * 4 $base-size;
 
+        button {
+            background-color: $color-white;
+        }
+
         button:hover {
             background-color: lighten($color-slate, 60%);
         }

@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DeferLoadDirectiveModule } from '@directives/defer-load/defer-load.module';
 import { LetDirectiveModule } from '@directives/let/let.module';
+import { MenuDirectiveModule } from '@directives/menu/menu.module';
 import { TooltipModule } from '@directives/tooltip/tooltip.module';
 import { TimelinePipeModule } from '@pipes/timeline/timeline.module';
 import { ContactIconsComponent } from './@controls/contact-icons/contact-icons.component';
-import { NavigationComponent } from './@controls/navigation/navigation.component';
 import { SectionTitleComponent } from './@controls/section-title/section-title.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home.component';
@@ -21,7 +21,6 @@ import { TimelineComponent } from './timeline/timeline.component';
         ContactIconsComponent,
         HomeComponent,
         IntroComponent,
-        NavigationComponent,
         SectionTitleComponent,
         SkillsComponent,
         SkillComponent,
@@ -31,6 +30,7 @@ import { TimelineComponent } from './timeline/timeline.component';
         CommonModule,
         DeferLoadDirectiveModule,
         LetDirectiveModule,
+        MenuDirectiveModule,
         TimelinePipeModule,
         TooltipModule,
         RouterModule.forChild([

@@ -124,6 +124,7 @@ p:not(:last-child) {
 }
 
 button {
+    background-color: transparent;
     border-color: $color-slate;
     border-radius: math.div($base-size, 4);
     border-style: solid;
@@ -133,6 +134,10 @@ button {
     padding: math.div($base-size, 2);
     transition: ease-in background-color .1s,
                 ease-in color .1s;
+    
+    &.icon-button {
+        border: none;
+    }
 
     &:not(:disabled) {
         cursor: pointer;

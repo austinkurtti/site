@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
+import { MenuPosition } from '@directives/menu/menu.directive';
 import { DialogSize } from '@models/dialog.model';
 import { DialogService } from '@services/dialog.service';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -36,6 +37,8 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     public SudokuState = SudokuState;
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public SudokuCandidate = SudokuCandidate;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    public MenuPosition = MenuPosition;
 
     public building$ = new BehaviorSubject<boolean>(false);
     public boardSize$ = new BehaviorSubject<number>(0);
@@ -156,6 +159,13 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
         this.board.validate(true);
     }
 
+    public reset(): void {
+        this.board.reset();
+        this.resetTimer();
+        this.startTimer();
+        this.possibleValues.forEach(v => this._checkCellValueCount(v));
+    }
+
     public focusCell(rowIndex: number, colIndex: number): void {
         if (this._activeCell) {
             this._activeCell.active = false;
@@ -175,6 +185,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
             return;
         }
 
+        const canSetValue = !this._activeCell.given && this.board.state !== SudokuState.solved;
         switch (event.code) {
             case 'ArrowUp':
                 this._arrowFocusNextCell(rowIndex - 1, colIndex);
@@ -193,13 +204,14 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
                 break;
             case 'Backspace':
             case 'Delete':
-                if (!this._activeCell.given) {
+                if (canSetValue) {
                     this._setCellValue(null);
+                    this._activeCell.candidates = 0;
                 }
                 break;
             case 'Digit1':
             case 'Numpad1':
-                if (!this._activeCell.given) {
+                if (canSetValue) {
                     if (!this.shifting) {
                         this._setCellValue(1);
                     } else if (!this._activeCell.value) {
@@ -209,7 +221,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
                 break;
             case 'Digit2':
             case 'Numpad2':
-                if (!this._activeCell.given) {
+                if (canSetValue) {
                     if (!this.shifting) {
                         this._setCellValue(2);
                     } else if (!this._activeCell.value) {
@@ -219,7 +231,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
                 break;
             case 'Digit3':
             case 'Numpad3':
-                if (!this._activeCell.given) {
+                if (canSetValue) {
                     if (!this.shifting) {
                         this._setCellValue(3);
                     } else if (!this._activeCell.value) {
@@ -229,7 +241,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
                 break;
             case 'Digit4':
             case 'Numpad4':
-                if (!this._activeCell.given) {
+                if (canSetValue) {
                     if (!this.shifting) {
                         this._setCellValue(4);
                     } else if (!this._activeCell.value) {
@@ -239,7 +251,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
                 break;
             case 'Digit5':
             case 'Numpad5':
-                if (!this._activeCell.given) {
+                if (canSetValue) {
                     if (!this.shifting) {
                         this._setCellValue(5);
                     } else if (!this._activeCell.value) {
@@ -249,7 +261,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
                 break;
             case 'Digit6':
             case 'Numpad6':
-                if (!this._activeCell.given) {
+                if (canSetValue) {
                     if (!this.shifting) {
                         this._setCellValue(6);
                     } else if (!this._activeCell.value) {
@@ -259,7 +271,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
                 break;
             case 'Digit7':
             case 'Numpad7':
-                if (!this._activeCell.given) {
+                if (canSetValue) {
                     if (!this.shifting) {
                         this._setCellValue(7);
                     } else if (!this._activeCell.value) {
@@ -269,7 +281,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
                 break;
             case 'Digit8':
             case 'Numpad8':
-                if (!this._activeCell.given) {
+                if (canSetValue) {
                     if (!this.shifting) {
                         this._setCellValue(8);
                     } else if (!this._activeCell.value) {
@@ -279,7 +291,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
                 break;
             case 'Digit9':
             case 'Numpad9':
-                if (!this._activeCell.given) {
+                if (canSetValue) {
                     if (!this.shifting) {
                         this._setCellValue(9);
                     } else if (!this._activeCell.value) {
@@ -307,9 +319,9 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
 
         const oldValue = this._activeCell.value;
         this._activeCell.value = value;
-        this._activeCell.candidates = 0;
 
         if (oldValue !== null) {
+            this._activeCell.valid = null;
             this._checkCellValueCount(oldValue);
         }
         if (value === null) {
@@ -320,6 +332,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
             this._checkCellValueCount(value);
             if (oldValue === null) {
+                this._activeCell.candidates = 0;
                 this.board.numEmptyCells--;
             }
         }
@@ -377,6 +390,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     private _buildSudoku(): void {
         this.building$.next(true);
         this.board.build(this.difficulty).then(() => {
+            this.possibleValues.forEach(v => this._checkCellValueCount(v));
             this.building$.next(false);
         });
     }
