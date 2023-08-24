@@ -11,10 +11,6 @@ export enum MenuPosition {
     bottomRight     = bottom | right
 }
 
-// TODO
-// auto-close menu on window resize
-// auto-close menu on outside click
-
 @Directive({
     selector: '[akMenu]',
     host: {
@@ -34,6 +30,7 @@ export class MenuDirective {
     private _isOpen = false;
 
     public hostClick(event: PointerEvent): void {
+        event.stopPropagation();
         (this._isOpen ? this.close : this.open)();
     }
 
