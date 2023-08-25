@@ -83,21 +83,3 @@ $bg-gradient-timing         : ease-in-out;
         background-position: -100% -100%;
     }
 }
-
-// -----------------------------------------
-// Sudoku keyframes
-// -----------------------------------------
-$color-pulse-name           : kfColorPulse;
-$color-pulse-duration       : 1s;
-$color-pulse-timing         : linear;
-@keyframes #{$color-pulse-name} {
-    0% {
-        background-color: $color-ivory;
-    }
-    50% {
-        background-color: $color-gray;
-    }
-    100% {
-        background-color: $color-ivory;
-    }
-}

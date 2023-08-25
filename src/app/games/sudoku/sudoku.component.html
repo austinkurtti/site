@@ -1,124 +1,149 @@
-<div id="sudoku-header" class="row g-0 align-items-center justify-content-lg-end">
-    <div id="sudoku-state" class="col-6 col-lg-4 text-lg-center">
-        <i tabindex="0"
-            class="fas"
-            [ngClass]="{
-                'fa-play': board.state === SudokuState.paused,
-                'fa-pause': board.state === SudokuState.running,
-                'fa-flag-checkered': board.state === SudokuState.solved
-            }"
-            (click)="board.state === SudokuState.paused ? resumeTimer() : (board.state === SudokuState.running ? pauseTimer() : null)">
-        </i>
-        <span id="sudoku-time" class="ms-3">{{ time$ | async }}</span>
-        <span id="sudoku-difficulty" class="ms-3">{{ difficulty | sudokuDifficulty }}</span>
+<ng-container *ngIf="(difficulty$ | async) === null else gameTemplate">
+    <div class="container-lg d-flex flex-column h-100 justify-content-center">
+        <div class="row g-0 text-center">
+            <h1 class="mb-5">Sudoku</h1>
+        </div>
+        <div class="row g-0 text-center">
+            <span>Select a difficulty:</span>
+        </div>
+        <div id="sudoku-difficulty-picker" class="row g-0 w-100">
+            <div class="col-4 p-3">
+                <button id="difficulty-easy"
+                    class="w-100 p-3"
+                    (click)="changeDifficulty(SudokuDifficulty.easy)">
+                    <i class="fas fa-smile fa-4x"></i>
+                    <h3 class="mt-3">Easy</h3>
+                </button>
+            </div>
+            <div class="col-4 p-3">
+                <button id="difficulty-medium"
+                    class="w-100 p-3"
+                    (click)="changeDifficulty(SudokuDifficulty.medium)">
+                    <i class="fas fa-meh fa-4x"></i>
+                    <h3 class="mt-3">Medium</h3>
+                </button>
+            </div>
+            <div class="col-4 p-3">
+                <button id="difficulty-hard"
+                    class="w-100 p-3"
+                    (click)="changeDifficulty(SudokuDifficulty.hard)">
+                    <i class="fas fa-surprise fa-4x"></i>
+                    <h3 class="mt-3">Hard</h3>
+                </button>
+            </div>
+        </div>
     </div>
-    <!-- <div id="sudoku-difficulties" class="col-auto">
-        <button
-            [disabled]="difficulty === SudokuDifficulty.easy || (building$ | async)"
-            [ngClass]="{ 'active': difficulty === SudokuDifficulty.easy }"
-            (click)="changeDifficulty(SudokuDifficulty.easy)">
-            <span>Easy</span>
-        </button>
-        <button
-            [disabled]="difficulty === SudokuDifficulty.medium || (building$ | async)"
-            [ngClass]="{ 'active': difficulty === SudokuDifficulty.medium }"
-            (click)="changeDifficulty(SudokuDifficulty.medium)">
-            <span>Medium</span>
-        </button>
-        <button
-            [disabled]="difficulty === SudokuDifficulty.hard || (building$ | async)"
-            [ngClass]="{ 'active': difficulty === SudokuDifficulty.hard }"
-            (click)="changeDifficulty(SudokuDifficulty.hard)">
-            <span>Hard</span>
-        </button>
-    </div> -->
-    <div id="sudoku-actions" class="col-6 col-lg-4 d-flex justify-content-end">
-        <button akMenu
-            class="icon-button"
-            [menuPosition]="MenuPosition.bottomRight">
-            <i class="fas fa-ellipsis-h fa-2x px-2"></i>
-            <ng-template #menuContent>
-                <div akMenuContent>
-                    <div akMenuItem (menuItemClick)="check()">Check</div>
-                    <div akMenuItem (menuItemClick)="reset()">Reset</div>
-                </div>
-            </ng-template>
-        </button>
-        <button [disabled]="building$ | async" (click)="showSolvedDialog()">Dialog Open</button>
-        <button [disabled]="building$ | async" (click)="closeSolvedDialog()">Dialog Close</button>
-    </div>
-</div>
+</ng-container>
 
-<div #sudokuContent id="sudoku-content" class="row g-0 flex-column flex-lg-row">
-    <div #sudokuBoardContainer id="sudoku-board-container" class="col-12 flex-grow-1 flex-lg-grow-0 align-items-center col-lg-8 align-items-lg-end">
-        <div #sudokuBoard id="sudoku-board">
-            <div *ngFor="let row of board.cells; let rowIndex = index;" class="row g-0">
-                <div *ngFor="let cell of row; let colIndex = index;"
-                    #sudokuCell
-                    tabindex="0"
-                    class="sudoku-cell col align-items-center justify-content-center"
-                    [id]="'cell-' + rowIndex + '-' + colIndex"
-                    [ngClass]="{ 'building': (building$ | async), 'given': cell.given, 'active': cell.active }"
-                    (click)="focusCell(rowIndex, colIndex)"
-                    (keydown)="cellKeydown(rowIndex, colIndex, $event)">
-                    <span class="normal position-absolute" [ngClass]="{ 'valid': cell.valid === true, 'invalid': cell.valid === false }">
-                        {{ cell.value }}
-                    </span>
-                    <div class="candidate-row row g-0 align-items-center text-center w-100">
-                        <div class="col-4">
-                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.one" class="candidate candidate-1">1</span>
-                        </div>
-                        <div class="col-4">
-                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.two" class="candidate candidate-2">2</span>
-                        </div>
-                        <div class="col-4">
-                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.three" class="candidate candidate-3">3</span>
-                        </div>
+<ng-template #gameTemplate>
+    <div id="building" class="d-flex align-items-center justify-content-center h-100 w-100 position-absolute" [ngClass]="{ 'd-none': (building$ | async) === false }">
+        Building...
+    </div>
+
+    <div id="sudoku-header" class="row g-0 align-items-center justify-content-lg-end">
+        <div id="sudoku-state" class="col-6 col-lg-4 text-lg-center">
+            <button tabindex="0"
+                class="icon-button"
+                [ngClass]="{ 'solved': board.state === SudokuState.solved }"
+                (click)="board.state === SudokuState.paused ? resumeTimer() : (board.state === SudokuState.running ? pauseTimer() : null)">
+                <i class="fas"
+                    [ngClass]="{
+                        'fa-play': board.state === SudokuState.paused,
+                        'fa-pause': board.state === SudokuState.running,
+                        'fa-flag-checkered': board.state === SudokuState.solved
+                    }">
+                </i>
+            </button>
+            <span id="sudoku-time" class="ms-3">{{ time$ | async }}</span>
+            <span id="sudoku-difficulty" class="ms-3">{{ (difficulty$ | async) | sudokuDifficulty }}</span>
+        </div>
+
+        <div id="sudoku-actions" class="col-6 col-lg-4 d-flex justify-content-end">
+            <button akMenu
+                class="icon-button"
+                [menuPosition]="MenuPosition.bottomRight">
+                <i class="fas fa-ellipsis-h fa-2x px-2"></i>
+                <ng-template #menuContent>
+                    <div akMenuContent>
+                        <div akMenuItem (menuItemClick)="check()">Check</div>
+                        <div akMenuItem (menuItemClick)="reset()">Reset</div>
                     </div>
-                    <div class="candidate-row row g-0 align-items-center text-center w-100">
-                        <div class="col-4">
-                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.four" class="candidate candidate-4">4</span>
+                </ng-template>
+            </button>
+        </div>
+    </div>
+
+    <div #sudokuContent id="sudoku-content" class="row g-0 flex-column flex-lg-row">
+        <div #sudokuBoardContainer id="sudoku-board-container" class="col-12 flex-grow-1 flex-lg-grow-0 align-items-center col-lg-8 align-items-lg-end">
+            <div #sudokuBoard id="sudoku-board">
+                <div *ngFor="let row of board.cells; let rowIndex = index;" class="row g-0">
+                    <div *ngFor="let cell of row; let colIndex = index;"
+                        #sudokuCell
+                        tabindex="0"
+                        class="sudoku-cell col align-items-center justify-content-center"
+                        [id]="'cell-' + rowIndex + '-' + colIndex"
+                        [ngClass]="{ 'given': cell.given, 'active': cell.active }"
+                        (click)="focusCell(rowIndex, colIndex)"
+                        (keydown)="cellKeydown(rowIndex, colIndex, $event)">
+                        <span class="normal position-absolute" [ngClass]="{ 'valid': cell.valid === true, 'invalid': cell.valid === false }">
+                            {{ cell.value }}
+                        </span>
+                        <div class="candidate-row row g-0 align-items-center text-center w-100">
+                            <div class="col-4">
+                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.one" class="candidate candidate-1">1</span>
+                            </div>
+                            <div class="col-4">
+                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.two" class="candidate candidate-2">2</span>
+                            </div>
+                            <div class="col-4">
+                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.three" class="candidate candidate-3">3</span>
+                            </div>
                         </div>
-                        <div class="col-4">
-                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.five" class="candidate candidate-5">5</span>
+                        <div class="candidate-row row g-0 align-items-center text-center w-100">
+                            <div class="col-4">
+                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.four" class="candidate candidate-4">4</span>
+                            </div>
+                            <div class="col-4">
+                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.five" class="candidate candidate-5">5</span>
+                            </div>
+                            <div class="col-4">
+                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.six" class="candidate candidate-6">6</span>
+                            </div>
                         </div>
-                        <div class="col-4">
-                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.six" class="candidate candidate-6">6</span>
-                        </div>
-                    </div>
-                    <div class="candidate-row row g-0 align-items-center text-center w-100">
-                        <div class="col-4">
-                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.seven" class="candidate candidate-7">7</span>
-                        </div>
-                        <div class="col-4">
-                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.eight" class="candidate candidate-8">8</span>
-                        </div>
-                        <div class="col-4">
-                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.nine" class="candidate candidate-9">9</span>
+                        <div class="candidate-row row g-0 align-items-center text-center w-100">
+                            <div class="col-4">
+                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.seven" class="candidate candidate-7">7</span>
+                            </div>
+                            <div class="col-4">
+                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.eight" class="candidate candidate-8">8</span>
+                            </div>
+                            <div class="col-4">
+                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.nine" class="candidate candidate-9">9</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div #sudokuInputContainer id="sudoku-input-container" class="col-12 col-lg-auto row g-0 p-2 p-lg-0 m-0 ms-lg-2">
-        <div *ngFor="let value of possibleValues" class="col-2 col-lg-4 p-2">
-            <button #sudokuInput
-                class="sudoku-input"
-                (click)="inputClick(value)">
-                {{ value }}
-            </button>
-        </div>
-        <div class="col-2 col-lg-12 p-2">
-            <button #sudokuInput
-                akTooltip
-                class="sudoku-input"
-                [tooltipContent]="'Erase Cell'"
-                [tooltipPosition]="TooltipPosition.bottom"
-                (click)="inputClick(null)">
-                <i class="fas fa-eraser"></i>
-            </button>
+        <div #sudokuInputContainer id="sudoku-input-container" class="col-12 col-lg-auto row g-0 p-2 p-lg-0 m-0 ms-lg-2">
+            <div *ngFor="let value of possibleValues" class="col-2 col-lg-4 p-2">
+                <button #sudokuInput
+                    class="sudoku-input"
+                    (click)="inputClick(value)">
+                    {{ value }}
+                </button>
+            </div>
+            <div class="col-2 col-lg-12 p-2">
+                <button #sudokuInput
+                    akTooltip
+                    class="sudoku-input"
+                    [tooltipContent]="'Erase Cell'"
+                    [tooltipPosition]="TooltipPosition.bottom"
+                    (click)="inputClick(null)">
+                    <i class="fas fa-eraser"></i>
+                </button>
+            </div>
         </div>
     </div>
-</div>
+</ng-template>

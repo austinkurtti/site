@@ -15,6 +15,8 @@ import { SudokuDifficulty } from '../sudoku.models';
 export class SolvedDialogComponent implements IDialog, OnInit {
     @Input() difficulty: SudokuDifficulty;
     @Input() time: string;
+    @Input() goHome: () => void;
+    @Input() playAgain: () => void;
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public SudokuDifficulty = SudokuDifficulty;

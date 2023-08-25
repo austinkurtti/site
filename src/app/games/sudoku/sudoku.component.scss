@@ -10,72 +10,61 @@ $sudoku-border-width: math.div($base-size, 5);
     flex-direction: column;
     height: 100%;
 
+    #sudoku-difficulty-picker {
+        #difficulty-easy {
+            border-color: $color-easy;
+            color: $color-easy;
+
+            &:hover {
+                background-color: $color-easy-light;
+            }
+        }
+
+        #difficulty-medium {
+            border-color: $color-medium;
+            color: $color-medium;
+
+            &:hover {
+                background-color: $color-medium-light;
+            }
+        }
+
+        #difficulty-hard {
+            border-color: $color-hard;
+            color: $color-hard;
+
+            &:hover {
+                background-color: $color-hard-light;
+            }
+        }
+    }
+
+    #building {
+        background-color: $color-ivory;
+        top: 0;
+        z-index: $z-index-bump;
+    }
+
     #sudoku-header {
         padding: $base-size * 2;
 
+        button {
+            &:not(:disabled):hover {
+                background-color: lighten($color-slate, 60%);
+            }
+
+            &:not(:first-child) {
+                margin-left: $base-size;
+            }
+        }
+
         #sudoku-state {
-            i {
-                &:not(.fa-flag-checkered):hover {
-                    cursor: pointer;
-                }
+            button.solved {
+                cursor: default;
             }
 
             #sudoku-time {
                 font-family: monospace;
-            }
-        }
-
-        // #sudoku-difficulties {
-        //     padding-left: $base-size;
-        //     padding-right: $base-size;
-
-        //     button {
-        //         border-bottom-width: math.div($base-size, 8);
-        //         border-left-width: math.div($base-size, 16);
-        //         border-right-width: math.div($base-size, 16);
-        //         border-top-width: math.div($base-size, 8);
-
-        //         &:not(.active):not(:disabled):hover {
-        //             background-color: lighten($color-slate, 60%);
-        //         }
-                
-        //         &:nth-child(1) {
-        //             border-bottom-left-radius: math.div($base-size, 4) !important;
-        //             border-bottom-right-radius: 0 !important;
-        //             border-left-width: math.div($base-size, 8) !important;
-        //             border-top-left-radius: math.div($base-size, 4) !important;
-        //             border-top-right-radius: 0 !important;
-        //         }
-
-        //         &:nth-child(2) {
-        //             border-radius: 0 !important;
-        //         }
-
-        //         &:nth-child(3) {
-        //             border-bottom-left-radius: 0 !important;
-        //             border-bottom-right-radius: math.div($base-size, 4) !important;
-        //             border-right-width: math.div($base-size, 8) !important;
-        //             border-top-left-radius: 0 !important;
-        //             border-top-right-radius: math.div($base-size, 4) !important;
-        //         }
-
-        //         &.active {
-        //             background-color: $color-slate;
-        //             color: $color-white;
-        //             pointer-events: none;
-        //         }
-        //     }
-        // }
-
-        #sudoku-actions {
-            button {
-                &:not(:disabled):hover {
-                    background-color: lighten($color-slate, 60%);
-                }
-
-                &:not(:first-child) {
-                    margin-left: $base-size;
-                }
             }
         }
     }
@@ -122,11 +111,6 @@ $sudoku-border-width: math.div($base-size, 5);
                     &:focus, &:focus-visible {
                         border-radius: 0px;
                         outline: none;
-                    }
-
-                    &.building {
-                        animation: $color-pulse-name $color-pulse-duration $color-pulse-timing;
-                        animation-iteration-count: infinite;
                     }
 
                     &.given {

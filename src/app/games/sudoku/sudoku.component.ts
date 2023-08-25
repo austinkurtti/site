@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuPosition } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { DialogSize } from '@models/dialog.model';
@@ -10,7 +11,6 @@ import { SudokuBoard } from './sudoku-board';
 import { SudokuCandidate, SudokuCell, SudokuDifficulty, SudokuState } from './sudoku.models';
 
 // TODO
-// difficulty/options selection screen
 // auto-pause when window loses focus
 // settings
 // better styling
@@ -21,7 +21,7 @@ import { SudokuCandidate, SudokuCell, SudokuDifficulty, SudokuState } from './su
     styleUrls: ['./sudoku.component.scss'],
     templateUrl: './sudoku.component.html'
 })
-export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SudokuComponent implements OnInit, OnDestroy {
     @ViewChild('sudokuBoardContainer') boardContainerEl: ElementRef;
     @ViewChild('sudokuBoard') boardEl: ElementRef;
     @ViewChild('sudokuInputContainer') inputContainerEl: ElementRef;
@@ -29,7 +29,6 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public possibleValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     public board = new SudokuBoard();
-    public difficulty = SudokuDifficulty.easy;
     public shifting = false;
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -43,12 +42,14 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public TooltipPosition = TooltipPosition;
 
+    public difficulty$ = new BehaviorSubject<SudokuDifficulty>(null);
     public building$ = new BehaviorSubject<boolean>(false);
     public boardSize$ = new BehaviorSubject<number>(0);
     public time$ = new BehaviorSubject<string>('00:00:00');
 
     private _renderer = inject(Renderer2);
     private _dialogService = inject(DialogService);
+    private _router = inject(Router);
 
     private _timerId;
     private _startTime: number;
@@ -77,6 +78,14 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public ngOnInit(): void {
+        this.difficulty$
+            .pipe(takeUntil(this._destroyed$))
+            .subscribe(difficulty => {
+                if (difficulty !== null) {
+                    this._buildSudoku();
+                }
+            });
+
         this.boardSize$
             .pipe(takeUntil(this._destroyed$))
             .subscribe(size => {
@@ -112,7 +121,15 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
         this.building$
             .pipe(takeUntil(this._destroyed$))
             .subscribe(building => {
-                (building ? this.resetTimer : this.startTimer)();
+                if (building) {
+                    this.resetTimer();
+                } else if (this.difficulty$.value !== null) {
+                    this._resizeBoard();
+                    this.possibleValues.forEach(v => this._checkCellValueCount(v));
+                    window.addEventListener('keydown', this._windowKeydown);
+                    window.addEventListener('keyup', this._windowKeyup);
+                    this.startTimer();
+                }
             });
 
         this.board.solved$
@@ -124,14 +141,6 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
                     this.showSolvedDialog();
                 }
             });
-
-        this._buildSudoku();
-    }
-
-    public ngAfterViewInit(): void {
-        this._resizeBoard();
-        window.addEventListener('keydown', this._windowKeydown);
-        window.addEventListener('keyup', this._windowKeyup);
     }
 
     public ngOnDestroy(): void {
@@ -147,13 +156,17 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     public showSolvedDialog(): void {
         const componentRef = this._dialogService.show(SolvedDialogComponent, DialogSize.small);
         if (componentRef) {
-            componentRef.difficulty = this.difficulty;
+            componentRef.difficulty = this.difficulty$.value;
             componentRef.time = this.time$.value;
+            componentRef.goHome = () => {
+                this._dialogService.close();
+                this._router.navigateByUrl('/games');
+            };
+            componentRef.playAgain = () => {
+                this._dialogService.close();
+                this.difficulty$.next(null);
+            };
         }
-    }
-
-    public closeSolvedDialog(): void {
-        this._dialogService.close();
     }
 
     public resetTimer = (): void => {
@@ -182,8 +195,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     };
 
     public changeDifficulty(difficulty: SudokuDifficulty): void {
-        this.difficulty = difficulty;
-        this._buildSudoku();
+        this.difficulty$.next(difficulty);
     }
 
     public check(): void {
@@ -420,8 +432,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
 
     private _buildSudoku(): void {
         this.building$.next(true);
-        this.board.build(this.difficulty).then(() => {
-            this.possibleValues.forEach(v => this._checkCellValueCount(v));
+        this.board.build(this.difficulty$.value).then(() => {
             this.building$.next(false);
         });
     }

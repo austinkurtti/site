@@ -23,6 +23,14 @@ $color-error                : #d65252;
 
 $color-app-gradient         : linear-gradient(45deg, $color-app-primary, $color-app-accent-1, $color-app-accent-2);
 
+// Games
+$color-easy                 : green;
+$color-easy-light           : lighten(green, 60%);
+$color-medium               : goldenrod;
+$color-medium-light         : lighten(goldenrod, 30%);
+$color-hard                 : red;
+$color-hard-light           : lighten(red, 40%);
+
 // Sudoku
 $color-sudoku-orange        : #d69852;
 
