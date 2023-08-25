@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
 import { MenuPosition } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { DialogSize } from '@models/dialog.model';
 import { DialogService } from '@services/dialog.service';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SolvedDialogComponent } from './solved-dialog/solved-dialog.component';
 import { SudokuBoard } from './sudoku-board';
@@ -56,6 +56,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     private _pauseSum: number;
     private _activeCellRow?: number = null;
     private _activeCellCol?: number = null;
+    private _debounce: Subscription = null;
 
     private _destroyed$ = new Subject<void>();
 
@@ -63,6 +64,16 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
         return this._activeCellRow !== null && this._activeCellCol !== null
             ? this.board.cells[this._activeCellRow][this._activeCellCol]
             : null;
+    }
+
+    @HostListener('window:resize')
+    public windowResize() {
+        if (!this._debounce) {
+            this._debounce = timer(100).subscribe(() => {
+                this._resizeBoard();
+                this._clearDebounce();
+            });
+        }
     }
 
     public ngOnInit(): void {
@@ -74,11 +85,27 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
                     this._renderer.setStyle(this.boardEl.nativeElement, 'height', `${size}px`);
                     this._renderer.setStyle(this.boardEl.nativeElement, 'width', `${size}px`);
 
-                    // Set input container size based on board size
-                    const inputContainerHeight = size / 2;
-                    const inputContainerWidth = inputContainerHeight * .75;
-                    this._renderer.setStyle(this.inputContainerEl.nativeElement, 'height', `${inputContainerHeight}px`);
-                    this._renderer.setStyle(this.inputContainerEl.nativeElement, 'width', `${inputContainerWidth}px`);
+                    // Set input size
+                    if (document.body.clientWidth < 768) { // "Tablet" breakpoint
+                        const inputContainerHeight = (size / 4) * 2;
+                        this._renderer.setStyle(this.inputContainerEl.nativeElement, 'height', `${inputContainerHeight}px`);
+                        this._renderer.setStyle(this.inputContainerEl.nativeElement, 'width', `100%`);
+                        this._renderer.addClass(this.inputContainerEl.nativeElement.children[0], 'offset-1');
+                        this._renderer.addClass(this.inputContainerEl.nativeElement.children[5], 'offset-1');
+                    } else if (document.body.clientWidth < 992) { // "Desktop" breakpoint
+                        const inputContainerHeight = (size / 8) * 2;
+                        this._renderer.setStyle(this.inputContainerEl.nativeElement, 'height', `${inputContainerHeight}px`);
+                        this._renderer.setStyle(this.inputContainerEl.nativeElement, 'width', `100%`);
+                        this._renderer.addClass(this.inputContainerEl.nativeElement.children[0], 'offset-1');
+                        this._renderer.addClass(this.inputContainerEl.nativeElement.children[5], 'offset-1');
+                    } else {
+                        const inputContainerHeight = size / 2;
+                        const inputContainerWidth = inputContainerHeight * .75;
+                        this._renderer.setStyle(this.inputContainerEl.nativeElement, 'height', `${inputContainerHeight}px`);
+                        this._renderer.setStyle(this.inputContainerEl.nativeElement, 'width', `${inputContainerWidth}px`);
+                        this._renderer.removeClass(this.inputContainerEl.nativeElement.children[0], 'offset-1');
+                        this._renderer.removeClass(this.inputContainerEl.nativeElement.children[5], 'offset-1');
+                    }
                 }
             });
 
@@ -111,6 +138,7 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
         this._dialogService.close();
         this.board.cleanup();
         this._clearTimerInterval();
+        this._clearDebounce();
         window.removeEventListener('keydown', this._windowKeydown);
         window.removeEventListener('keyup', this._windowKeyup);
         this._destroyed$.next();
@@ -399,6 +427,13 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private _resizeBoard(): void {
+        // Minimize the inputs so they don't interfere with board measurements
+        this._renderer.setStyle(this.inputContainerEl.nativeElement, 'height', '0px');
+        if (this.inputContainerEl.nativeElement.clientWidth !== document.body.clientWidth) {
+            this._renderer.setStyle(this.inputContainerEl.nativeElement, 'width', '0px');
+        }
+
+        // Measure container and determine how to size the board
         const contentHeight = this.boardContainerEl.nativeElement.clientHeight;
         const contentWidth = this.boardContainerEl.nativeElement.clientWidth;
         const size = contentWidth > contentHeight
@@ -434,6 +469,13 @@ export class SudokuComponent implements OnInit, AfterViewInit, OnDestroy {
     private _windowKeyup = (event: KeyboardEvent): void => {
         if (event.key === 'Shift') {
             this.shifting = false;
+        }
+    };
+
+    private _clearDebounce(): void {
+        if (this._debounce) {
+            this._debounce.unsubscribe();
+            this._debounce = null;
         }
     };
 }

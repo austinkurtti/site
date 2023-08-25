@@ -48,7 +48,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     private _activeAnchor: ElementRef = null;
 
     @HostListener('window:scroll')
-    updateActiveNav() {
+    public updateActiveNav() {
         if (!this._debounce && this.navAnchors.length) {
             // Restrict this to running at most every tenth of a second so its not cumbersome
             this._debounce = timer(100).subscribe(() => {
