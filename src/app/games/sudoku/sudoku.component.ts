@@ -14,6 +14,7 @@ import { SudokuCandidate, SudokuCell, SudokuDifficulty, SudokuState } from './su
 // auto-pause when window loses focus
 // settings
 // better styling
+// confirm resets
 
 @Component({
     selector: 'ak-sudoku',
@@ -201,8 +202,14 @@ export class SudokuComponent implements OnInit, OnDestroy {
         this.difficulty$.next(difficulty);
     }
 
-    public check(): void {
-        this.board.validate(true);
+    public checkAll(): void {
+        this.board.validateAll(true);
+    }
+
+    public checkCell(): void {
+        if (this._activeCellRow !== null && this._activeCellCol !== null) {
+            this.board.validateCell(this._activeCellRow, this._activeCellCol, true);
+        }
     }
 
     public reset(): void {
@@ -364,13 +371,12 @@ export class SudokuComponent implements OnInit, OnDestroy {
 
         const oldValue = this._activeCell.value;
         this._activeCell.value = value;
+        this._activeCell.valid = null;
 
         if (oldValue !== null) {
-            this._activeCell.valid = null;
             this._checkCellValueCount(oldValue);
         }
         if (value === null) {
-            this._activeCell.valid = null;
             if (oldValue !== null) {
                 this.board.numEmptyCells++;
             }

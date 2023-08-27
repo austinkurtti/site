@@ -65,7 +65,8 @@
                 <i class="fas fa-ellipsis-h fa-2x px-2"></i>
                 <ng-template #menuContent>
                     <div akMenuContent>
-                        <div akMenuItem (menuItemClick)="check()">Check</div>
+                        <div akMenuItem (menuItemClick)="checkAll()">Check All</div>
+                        <div akMenuItem (menuItemClick)="checkCell()">Check Cell</div>
                         <div akMenuItem (menuItemClick)="reset()">Reset</div>
                     </div>
                 </ng-template>

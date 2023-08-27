@@ -16,8 +16,7 @@ export class SudokuBoard {
     }
     public set numEmptyCells(value: number) {
         this._numEmptyCells = value;
-        // TODO - add option to not auto-validate
-        if (this._numEmptyCells === 0 && this.validate()) {
+        if (this._numEmptyCells === 0 && this.validateAll()) {
             this.solved$.next(true);
         }
     }
@@ -56,7 +55,7 @@ export class SudokuBoard {
         this._resetNumEmptyCells();
     }
 
-    public validate(showValidation = false): boolean {
+    public validateAll(showValidation = false): boolean {
         let allValid = true;
         this.cells.forEach((row, rIndex) => {
             row.forEach((cell, cIndex) => {
@@ -70,6 +69,15 @@ export class SudokuBoard {
             });
         });
         return allValid;
+    }
+
+    public validateCell(rIndex: number, cIndex: number, showValidation = false): boolean {
+        const cell = this.cells[rIndex][cIndex];
+        const valid = cell.value === this._solution[rIndex][cIndex].value;
+        if (showValidation) {
+            cell.valid = valid;
+        }
+        return valid;
     }
 
     private _resetNumEmptyCells(): void {
