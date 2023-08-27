@@ -44,7 +44,7 @@
         <div id="sudoku-state" class="col-6 col-lg-4 text-lg-center">
             <button tabindex="0"
                 class="icon-button"
-                [ngClass]="{ 'solved': board.state === SudokuState.solved }"
+                [disabled]="board.state === SudokuState.solved"
                 (click)="board.state === SudokuState.paused ? resumeTimer() : (board.state === SudokuState.running ? pauseTimer() : null)">
                 <i class="fas"
                     [ngClass]="{

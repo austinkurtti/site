@@ -59,10 +59,6 @@ $sudoku-border-width: math.div($base-size, 5);
         }
 
         #sudoku-state {
-            button.solved {
-                cursor: default;
-            }
-
             #sudoku-time {
                 font-family: monospace;
             }

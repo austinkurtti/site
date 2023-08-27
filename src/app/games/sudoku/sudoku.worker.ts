@@ -57,39 +57,65 @@ const fillBoard = (): boolean => {
 };
 
 const makePuzzle = (difficulty: SudokuDifficulty): SudokuCell[][] => {
-    let attempts = difficulty as number;
+    let emptyCells: number;
+    const allowedEmptyCells = getAllowedEmptyCells(difficulty);
+    const original = [...new Array(9)].map(() => [...new Array(9)].map(() => new SudokuCell()));
+    cells.forEach((row, rIndex) => {
+        row.forEach((cell, cIndex) => {
+            original[rIndex][cIndex].value = cell.value;
+        });
+    });
 
-    while (attempts > 0) {
-        // Pick a random cell to blank out
-        let row = Math.floor(Math.random() * 9);
-        let col = Math.floor(Math.random() * 9);
-        while (cells[row][col].value === null) {
-            row = Math.floor(Math.random() * 9);
-            col = Math.floor(Math.random() * 9);
-        }
-
-        // Remember the cell value in case in needs to be restored
-        const originalValue = cells[row][col].value;
-        cells[row][col].value = null;
-
-        // Copy the board so the solver can modify it to find solutions wihtout affecting the master
-        const copy = [...new Array(9)].map(() => [...new Array(9)].map(() => new SudokuCell()));
-        copy.forEach((copyRow, rowIndex) => {
-            copyRow.forEach((copyCell, cellIndex) => {
-                copyCell.value = cells[rowIndex][cellIndex].value;
+    do {
+        // Restore cells to original filled grid
+        let attempts = difficulty as number;
+        emptyCells = 0;
+        original.forEach((oRow, rIndex) => {
+            oRow.forEach((oCell, cIndex) => {
+                cells[rIndex][cIndex].value = oCell.value;
             });
         });
 
-        // Reset solution counter and find how many solutions now exist
-        possibleSolutions = 0;
-        solveBoard(copy);
+        // Attempt to create a valid puzzle
+        while (attempts > 0) {
+            // Pick a random cell to blank out
+            let row = Math.floor(Math.random() * 9);
+            let col = Math.floor(Math.random() * 9);
+            while (cells[row][col].value === null) {
+                row = Math.floor(Math.random() * 9);
+                col = Math.floor(Math.random() * 9);
+            }
 
-        if (possibleSolutions !== 1) {
-            // Cancel the change to the board because there is an invalid number of solutions
-            cells[row][col].value = originalValue;
-            attempts--;
+            // Remember the cell value in case it needs to be restored
+            const originalValue = cells[row][col].value;
+            cells[row][col].value = null;
+
+            // Copy the board so the solver can modify it to find solutions wihtout affecting the master
+            const copy = [...new Array(9)].map(() => [...new Array(9)].map(() => new SudokuCell()));
+            copy.forEach((copyRow, rowIndex) => {
+                copyRow.forEach((copyCell, cellIndex) => {
+                    copyCell.value = cells[rowIndex][cellIndex].value;
+                });
+            });
+
+            // Reset solution counter and find how many solutions now exist
+            possibleSolutions = 0;
+            solveBoard(copy);
+
+            if (possibleSolutions !== 1) {
+                // Cancel the change to the board because there is an invalid number of solutions
+                cells[row][col].value = originalValue;
+                attempts--;
+            }
         }
-    }
+
+        // Make sure the candidate puzzle falls within acceptable difficulty bounds
+        cells.forEach(row => {
+            row.forEach(cell => {
+                emptyCells += cell.value === null ? 1 : 0;
+            });
+        });
+    } while (emptyCells < allowedEmptyCells[0] || emptyCells > allowedEmptyCells[1]);
 
     cells.forEach(row => {
         row.forEach(cell => {
@@ -170,3 +196,10 @@ const squareValid = (candidateCells: Array<Array<SudokuCell>>, row: number, col:
     const squareValues = [...square[0], ...square[1], ...square[2]].map(squareCell => squareCell.value);
     return !squareValues.includes(value);
 };
+
+const getAllowedEmptyCells = (difficulty: SudokuDifficulty): Array<number> =>
+    difficulty === SudokuDifficulty.easy
+        ? [25, 35]
+        : difficulty === SudokuDifficulty.medium
+            ? [40, 50]
+            : [55, 65];
