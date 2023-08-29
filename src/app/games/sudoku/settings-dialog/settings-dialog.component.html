@@ -1,0 +1,29 @@
+<div class="container-fluid px-0">
+    <div class="row g-0 align-items-center p-3">
+        <div class="col">
+            <h3 class="text-center">Settings</h3>
+        </div>
+        <div class="col-auto">
+            <button id="dialog-close" class="icon-button" (click)="dialogService.close()">
+                <i class="fas fa-times fa-2x"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="row g-0 align-items-center setting">
+        <div class="col">
+            <label>Show clock</label>
+        </div>
+        <div class="col-auto">
+            <ak-toggle [(value)]="showClock" (valueChange)="toggleChange('sudoku_showClock', $event)"></ak-toggle>
+        </div>
+    </div>
+    <div class="row g-0 align-items-center setting">
+        <div class="col">
+            <label>Show conflicts</label>
+        </div>
+        <div class="col-auto">
+            <ak-toggle [(value)]="showConflicts" (valueChange)="toggleChange('sudoku_showConflicts', $event)"></ak-toggle>
+        </div>
+    </div>
+</div>

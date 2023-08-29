@@ -23,9 +23,21 @@ export enum SudokuCandidate {
 }
 
 export class SudokuCell {
+    // If true, this cell was already revealed at the beginning of the game
     public given: boolean;
+
+    // Denotes the currently active, focused cell
     public active: boolean;
+
+    // true = right number, hightlight it green; false = wrong number, highlight it red; null = validity not shown
     public valid?: boolean = null;
+
+    // Not necessarily right or wrong, just means there is another cell with the same value in this cell's row/column/square
+    public conflict: boolean;
+
+    // Number value of the cell; null = not set
     public value?: number = null;
+
+    // Flag-based value of any "penciled in" numbers
     public candidates = 0;
 }

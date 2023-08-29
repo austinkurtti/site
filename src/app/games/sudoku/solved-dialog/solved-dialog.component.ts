@@ -1,5 +1,5 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { IDialog } from '@interfaces/dialog.interface';
+import { Component, Input, OnInit } from '@angular/core';
+import { DialogBase } from '@directives/dialog/dialog-base';
 import { DifficultyPipeModule } from '@pipes/difficulty/difficulty.module';
 import { SudokuDifficulty } from '../sudoku.models';
 
@@ -12,7 +12,7 @@ import { SudokuDifficulty } from '../sudoku.models';
     styleUrls: ['./solved-dialog.component.scss'],
     templateUrl: './solved-dialog.component.html'
 })
-export class SolvedDialogComponent implements IDialog, OnInit {
+export class SolvedDialogComponent extends DialogBase implements OnInit {
     @Input() difficulty: SudokuDifficulty;
     @Input() time: string;
     @Input() goHome: () => void;
@@ -23,10 +23,6 @@ export class SolvedDialogComponent implements IDialog, OnInit {
 
     public timeValue = 'PT';
     public timeDisplay = '';
-
-    constructor(
-        public elementRef: ElementRef
-    ) {}
 
     public ngOnInit(): void {
         const timeParts = this.time.replace(/0/g, '').split(':');

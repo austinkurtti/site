@@ -42,27 +42,32 @@
 
     <div id="sudoku-header" class="row g-0 align-items-center justify-content-lg-end">
         <div id="sudoku-state" class="col-6 col-lg-4 text-lg-center">
-            <button tabindex="0"
-                class="icon-button"
-                [disabled]="board.state === SudokuState.solved"
-                (click)="board.state === SudokuState.paused ? resumeTimer() : (board.state === SudokuState.running ? pauseTimer() : null)">
-                <i class="fas"
-                    [ngClass]="{
-                        'fa-play': board.state === SudokuState.paused,
-                        'fa-pause': board.state === SudokuState.running,
-                        'fa-flag-checkered': board.state === SudokuState.solved
-                    }">
-                </i>
-            </button>
-            <span id="sudoku-time" class="ms-3">{{ time$ | async }}</span>
+            <ng-container *ngIf="showClock">
+                <button tabindex="0"
+                    class="icon-button"
+                    [disabled]="board.state === SudokuState.solved"
+                    (click)="board.state === SudokuState.paused ? resumeTimer() : (board.state === SudokuState.running ? pauseTimer() : null)">
+                    <i class="fas"
+                        [ngClass]="{
+                            'fa-play': board.state === SudokuState.paused,
+                            'fa-pause': board.state === SudokuState.running,
+                            'fa-flag-checkered': board.state === SudokuState.solved
+                        }">
+                    </i>
+                </button>
+                <span id="sudoku-time" class="ms-3">{{ time$ | async }}</span>
+            </ng-container>
             <span id="sudoku-difficulty" class="ms-3">{{ (difficulty$ | async) | sudokuDifficulty }}</span>
         </div>
 
         <div id="sudoku-actions" class="col-6 col-lg-4 d-flex justify-content-end">
+            <button class="icon-button" (click)="showSettingsDialog()">
+                <i class="fas fa-cog fa-2x"></i>
+            </button>
             <button akMenu
                 class="icon-button"
                 [menuPosition]="MenuPosition.bottomRight">
-                <i class="fas fa-ellipsis-h fa-2x px-2"></i>
+                <i class="fas fa-ellipsis-h fa-2x"></i>
                 <ng-template #menuContent>
                     <div akMenuContent>
                         <div akMenuItem (menuItemClick)="checkAll()">Check All</div>

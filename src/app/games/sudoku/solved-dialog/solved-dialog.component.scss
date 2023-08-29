@@ -9,7 +9,6 @@
     }
 
     #puzzle-data {
-        // background: rgba($color: $color-sudoku-orange, $alpha: .5);
         background-color: lighten($color: $color-sudoku-orange, $amount: 10%);
         font-weight: bold;
         padding: $base-size;

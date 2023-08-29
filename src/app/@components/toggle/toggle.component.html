@@ -1,0 +1,13 @@
+<div tabindex="0"
+    role="checkbox"
+    class="toggle-container"
+    [ngClass]="{ 'off': !value, 'on': value }"
+    (click)="toggle()"
+    (keydown.enter)="toggle()"
+>
+    <div class="toggle-background">
+        <i class="fas fa-check text-center"></i>
+        <i class="fas fa-times text-center"></i>
+    </div>
+    <div class="toggle-foreground"></div>
+</div>

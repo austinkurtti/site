@@ -1,6 +1,6 @@
 import { Injectable, RendererFactory2, Type, inject } from '@angular/core';
-import { DialogDirective } from '@directives/dialog.directive';
-import { IDialog } from '@interfaces/dialog.interface';
+import { DialogBase } from '@directives/dialog/dialog-base';
+import { DialogDirective } from '@directives/dialog/dialog.directive';
 import { DialogSize } from '@models/dialog.model';
 
 @Injectable()
@@ -10,27 +10,29 @@ export class DialogService {
     private _renderer = inject(RendererFactory2).createRenderer(null, null);
 
     private _open = false;
+    private _instance: any;
 
     private get _dialogEl(): HTMLDialogElement {
         return this.dialogRef.elementRef.nativeElement.parentElement;
     }
 
-    public show<T extends IDialog>(componentType: Type<T>, size: DialogSize): T {
+    public show<T extends DialogBase>(componentType: Type<T>, size: DialogSize): T {
+        // I refuse to allow more than one dialog open at once
         if (this._open) {
             return;
         }
 
         this._open = true;
         this._dialogEl.show();
-        const instance = this.dialogRef.viewContainerRef.createComponent<T>(componentType).instance;
+        this._instance = this.dialogRef.viewContainerRef.createComponent<T>(componentType).instance;
 
-        if (instance?.elementRef) {
+        if (this._instance) {
             this._renderer.addClass(this._dialogEl, this._getSizeClass(size));
-            this._renderer.addClass(instance.elementRef.nativeElement, 'dialog-content');
-            this._dialogEl.addEventListener('click', (e: MouseEvent) => this._closeOnOutsideClick(e, instance.elementRef.nativeElement));
+            this._renderer.addClass(this._instance.elementRef.nativeElement, 'dialog-content');
+            this._dialogEl.addEventListener('click', (e: MouseEvent) => this._closeOnOutsideClick(e, this._instance.elementRef.nativeElement));
         }
 
-        return instance;
+        return this._instance;
     }
 
     public close(): void {
@@ -38,6 +40,7 @@ export class DialogService {
             return;
         }
 
+        this._instance.closeCallback?.();
         this.dialogRef.viewContainerRef.clear();
         this._dialogEl.removeAllListeners('click');
         this._dialogEl.close();

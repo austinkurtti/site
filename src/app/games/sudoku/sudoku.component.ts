@@ -1,11 +1,14 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { breakPointDesktop, breakPointTablet } from '@constants/numbers';
 import { MenuPosition } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { DialogSize } from '@models/dialog.model';
 import { DialogService } from '@services/dialog.service';
+import { LocalStorageService } from '@services/local-storage.service';
 import { BehaviorSubject, Subject, Subscription, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { SettingsDialog } from './settings-dialog/settings-dialog.component';
 import { SolvedDialogComponent } from './solved-dialog/solved-dialog.component';
 import { SudokuBoard } from './sudoku-board';
 import { SudokuCandidate, SudokuCell, SudokuDifficulty, SudokuState } from './sudoku.models';
@@ -30,6 +33,8 @@ export class SudokuComponent implements OnInit, OnDestroy {
     public possibleValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     public board = new SudokuBoard();
     public shifting = false;
+    public showClock = true;
+    public showConflicts = false;
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public SudokuDifficulty = SudokuDifficulty;
@@ -82,6 +87,8 @@ export class SudokuComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
+        this._updateSettings();
+
         this.difficulty$
             .pipe(takeUntil(this._destroyed$))
             .subscribe(difficulty => {
@@ -99,13 +106,13 @@ export class SudokuComponent implements OnInit, OnDestroy {
                     this._renderer.setStyle(this.boardEl.nativeElement, 'width', `${size}px`);
 
                     // Set input size
-                    if (document.body.clientWidth < 768) { // "Tablet" breakpoint
+                    if (document.body.clientWidth < breakPointTablet) { // "Tablet" breakpoint
                         const inputContainerHeight = (size / 4) * 2;
                         this._renderer.setStyle(this.inputContainerEl.nativeElement, 'height', `${inputContainerHeight}px`);
                         this._renderer.setStyle(this.inputContainerEl.nativeElement, 'width', `100%`);
                         this._renderer.addClass(this.inputContainerEl.nativeElement.children[0], 'offset-1');
                         this._renderer.addClass(this.inputContainerEl.nativeElement.children[5], 'offset-1');
-                    } else if (document.body.clientWidth < 992) { // "Desktop" breakpoint
+                    } else if (document.body.clientWidth < breakPointDesktop) { // "Desktop" breakpoint
                         const inputContainerHeight = (size / 8) * 2;
                         this._renderer.setStyle(this.inputContainerEl.nativeElement, 'height', `${inputContainerHeight}px`);
                         this._renderer.setStyle(this.inputContainerEl.nativeElement, 'width', `100%`);
@@ -155,6 +162,17 @@ export class SudokuComponent implements OnInit, OnDestroy {
         window.removeEventListener('keydown', this._windowKeydown);
         window.removeEventListener('keyup', this._windowKeyup);
         this._destroyed$.next();
+    }
+
+    public showSettingsDialog(): void {
+        const componentRef = this._dialogService.show(SettingsDialog, DialogSize.small);
+        if (componentRef) {
+            componentRef.showClock = this.showClock;
+            componentRef.showConflicts = this.showConflicts;
+            componentRef.closeCallback = () => {
+                this._updateSettings();
+            };
+        }
     }
 
     public showSolvedDialog(): void {
@@ -407,6 +425,12 @@ export class SudokuComponent implements OnInit, OnDestroy {
         }
     };
 
+    private _checkConflicts = (): void => {
+        if (LocalStorageService.getItem('sudoku_showConflicts')) {
+            // TODO
+        }
+    };
+
     private _arrowFocusNextCell(rowIndex: number, colIndex: number): void {
         const nextRowIndex = rowIndex < 0 ? 0 : rowIndex > 8 ? 8 : rowIndex;
         const nextColIndex = colIndex < 0 ? 0 : colIndex > 8 ? 8 : colIndex;
@@ -459,6 +483,13 @@ export class SudokuComponent implements OnInit, OnDestroy {
             ? contentHeight * 0.8 // Landscape viewport - constrain by height
             : contentWidth * 0.8; // Portrait viewport - constrain by width
         this.boardSize$.next(size);
+    }
+
+    private _updateSettings(): void {
+        const showClock = LocalStorageService.getItem('sudoku_showClock');
+        this.showClock = showClock ?? true;
+        const showConflicts = LocalStorageService.getItem('sudoku_showConflicts');
+        this.showConflicts = showConflicts ?? false;
     }
 
     private _startTimerInterval(): void {

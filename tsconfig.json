@@ -4,6 +4,9 @@
         "baseUrl": "./",
         "downlevelIteration": true,
         "paths": {
+            "@components/*": [
+                "src/app/@components/*"
+            ],
             "@constants/*": [
                 "src/app/@constants/*"
             ],
@@ -12,9 +15,6 @@
             ],
             "@extensions/*": [
                 "src/app/@extensions/*"
-            ],
-            "@interfaces/*": [
-                "src/app/@interfaces/*"
             ],
             "@models/*": [
                 "src/app/@models/*"
