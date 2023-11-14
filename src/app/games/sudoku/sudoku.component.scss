@@ -114,18 +114,32 @@ $sudoku-border-width: math.div($base-size, 5);
                     }
 
                     &.active {
-                        background-color: $color-sudoku-orange;
+                        background-color: $color-sudoku-yellow;
+                    }
+
+                    &.conflicted::after {
+                        border-radius: $base-size;
+                        color: $color-error;
+                        content: '\f06a'; // exclamation-circle
+                        font-family: $font-awesome-font-family;
+                        font-size: $base-size;
+                        font-style: normal;
+                        font-variant: normal;
+                        font-weight: 900;
+                        margin-left: auto;
+                        padding: math.div($base-size, 4);
+                        text-rendering: auto;
                     }
 
                     .normal {
                         font-weight: bold;
 
                         &.valid {
-                            color: green;
+                            color: $color-success;
                         }
         
                         &.invalid {
-                            color: red;
+                            color: $color-error;
                         }
                     }
 

@@ -1,7 +1,7 @@
 @import 'variables';
 
 :host {
-    background-color: $color-sudoku-orange;
+    background-color: $color-white;
 
     h3 {
         margin: 0;
@@ -9,7 +9,7 @@
     }
 
     #puzzle-data {
-        background-color: lighten($color: $color-sudoku-orange, $amount: 10%);
+        background-color: $color-sudoku-yellow;
         font-weight: bold;
         padding: $base-size;
     }

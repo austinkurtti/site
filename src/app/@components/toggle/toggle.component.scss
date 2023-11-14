@@ -25,7 +25,7 @@
 
     &.on {
         .toggle-background {
-            background-color: green;
+            background-color: $color-success;
         }
 
         .toggle-foreground {
@@ -43,7 +43,7 @@
         width: $base-size * 4;
 
         .fa-check {
-            color: lighten(green, 60%);
+            color: lighten($color-success, 60%);
             height: $base-size;
             width: $base-size;
         }

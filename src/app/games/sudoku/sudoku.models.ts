@@ -32,8 +32,8 @@ export class SudokuCell {
     // true = right number, hightlight it green; false = wrong number, highlight it red; null = validity not shown
     public valid?: boolean = null;
 
-    // Not necessarily right or wrong, just means there is another cell with the same value in this cell's row/column/square
-    public conflict: boolean;
+    // Not necessarily right or wrong, just means there are one or more cells with the same value in this cell's row/column/square
+    public numConflicts = 0;
 
     // Number value of the cell; null = not set
     public value?: number = null;

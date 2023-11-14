@@ -88,7 +88,7 @@
                         tabindex="0"
                         class="sudoku-cell col align-items-center justify-content-center"
                         [id]="'cell-' + rowIndex + '-' + colIndex"
-                        [ngClass]="{ 'given': cell.given, 'active': cell.active }"
+                        [ngClass]="{ 'given': cell.given, 'active': cell.active, 'conflicted': this.showConflicts && cell.numConflicts > 0 }"
                         (click)="focusCell(rowIndex, colIndex)"
                         (keydown)="cellKeydown(rowIndex, colIndex, $event)">
                         <span class="normal position-absolute" [ngClass]="{ 'valid': cell.valid === true, 'invalid': cell.valid === false }">

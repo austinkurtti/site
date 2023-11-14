@@ -19,6 +19,7 @@ $color-app-primary          : #1c4670;
 $color-app-accent-1         : #278ab0;
 $color-app-accent-2         : #1dc690;
 
+$color-success              : #52d652;
 $color-error                : #d65252;
 
 $color-app-gradient         : linear-gradient(45deg, $color-app-primary, $color-app-accent-1, $color-app-accent-2);
@@ -32,7 +33,7 @@ $color-hard                 : red;
 $color-hard-light           : lighten(red, 40%);
 
 // Sudoku
-$color-sudoku-orange        : #d69852;
+$color-sudoku-yellow        : #d6d652;
 
 // Solitaire
 $color-solitaire-green      : #38b64a;
@@ -50,6 +51,7 @@ $base-z-index               : 0;
 
 $default-font-family        : 'Montserrat', sans-serif;
 $default-font-size          : $base-size;
+$font-awesome-font-family   : 'Font Awesome 5 Free';
 
 // -----------------------------------------
 // Theme

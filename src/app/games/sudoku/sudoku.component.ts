@@ -393,13 +393,16 @@ export class SudokuComponent implements OnInit, OnDestroy {
 
         if (oldValue !== null) {
             this._checkCellValueCount(oldValue);
+            this._checkConflicts(oldValue);
         }
         if (value === null) {
+            this._activeCell.numConflicts = 0;
             if (oldValue !== null) {
                 this.board.numEmptyCells++;
             }
         } else {
             this._checkCellValueCount(value);
+            this._checkConflicts(value);
             if (oldValue === null) {
                 this._activeCell.candidates = 0;
                 this.board.numEmptyCells--;
@@ -425,9 +428,60 @@ export class SudokuComponent implements OnInit, OnDestroy {
         }
     };
 
-    private _checkConflicts = (): void => {
-        if (LocalStorageService.getItem('sudoku_showConflicts')) {
-            // TODO
+    private _checkConflicts = (valueToCheck: number): void => {
+        const squareRowStart = Math.floor(this._activeCellRow / 3) * 3;
+        const squareRowEnd = squareRowStart + 3;
+        const squareColStart = Math.floor(this._activeCellCol / 3) * 3;
+        const squareColEnd = squareColStart + 3;
+        const square = this.board.cells.slice(squareRowStart, squareRowEnd).map(squareRow => squareRow.slice(squareColStart, squareColEnd));
+        const squareCells = [...square[0], ...square[1], ...square[2]];
+
+        if (valueToCheck === this._activeCell.value) {
+            this._activeCell.numConflicts = 0;
+
+            // Check for any conflicts in the row, column or square
+            const rowConflict = this.board.cells[this._activeCellRow].filter(cell => cell.value === valueToCheck).length > 1;
+            const colConflict = this.board.cells.filter(row => row[this._activeCellCol].value === valueToCheck).length > 1;
+            const squareConflict = squareCells.filter(cell => cell.value === valueToCheck).length > 1;
+
+            if (rowConflict) {
+                this.board.cells[this._activeCellRow].forEach(cell => {
+                    if (cell.value === valueToCheck) {
+                        cell.numConflicts++;
+                    }
+                });
+            }
+            if (colConflict) {
+                this.board.cells.forEach(row => {
+                    if (row[this._activeCellCol].value === valueToCheck) {
+                        row[this._activeCellCol].numConflicts++;
+                    }
+                });
+            }
+            if (squareConflict) {
+                squareCells.forEach(cell => {
+                    if (cell.value === valueToCheck) {
+                        cell.numConflicts++;
+                    }
+                });
+            }
+        } else {
+            // Remove conflicts for the row, column and square
+            this.board.cells[this._activeCellRow].forEach(cell => {
+                if (cell.value === valueToCheck) {
+                    cell.numConflicts--;
+                }
+            });
+            this.board.cells.forEach(row => {
+                if (row[this._activeCellCol].value === valueToCheck) {
+                    row[this._activeCellCol].numConflicts--;
+                }
+            });
+            squareCells.forEach(cell => {
+                if (cell.value === valueToCheck) {
+                    cell.numConflicts--;
+                }
+            });
         }
     };
 
