@@ -16,7 +16,7 @@ export class DialogService {
         return this.dialogRef.elementRef.nativeElement.parentElement;
     }
 
-    public show<T extends DialogBase>(componentType: Type<T>, size: DialogSize): T {
+    public show<T extends DialogBase>(componentType: Type<T>, size: DialogSize, allowCloseOnOutsideClick = true): T {
         // I refuse to allow more than one dialog open at once
         if (this._open) {
             return;
@@ -29,7 +29,9 @@ export class DialogService {
         if (this._instance) {
             this._renderer.addClass(this._dialogEl, this._getSizeClass(size));
             this._renderer.addClass(this._instance.elementRef.nativeElement, 'dialog-content');
-            this._dialogEl.addEventListener('click', (e: MouseEvent) => this._closeOnOutsideClick(e, this._instance.elementRef.nativeElement));
+            if (allowCloseOnOutsideClick) {
+                this._dialogEl.addEventListener('click', (e: MouseEvent) => this._closeOnOutsideClick(e, this._instance.elementRef.nativeElement));
+            }
         }
 
         return this._instance;

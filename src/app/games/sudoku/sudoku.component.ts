@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConfirmDialogComponent } from '@components/confirm/confirm.component';
 import { breakPointDesktop, breakPointTablet } from '@constants/numbers';
 import { MenuPosition } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
@@ -8,7 +9,7 @@ import { DialogService } from '@services/dialog.service';
 import { LocalStorageService } from '@services/local-storage.service';
 import { BehaviorSubject, Subject, Subscription, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { SettingsDialog } from './settings-dialog/settings-dialog.component';
+import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
 import { SolvedDialogComponent } from './solved-dialog/solved-dialog.component';
 import { SudokuBoard } from './sudoku-board';
 import { SudokuCandidate, SudokuCell, SudokuDifficulty, SudokuState } from './sudoku.models';
@@ -165,7 +166,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
     }
 
     public showSettingsDialog(): void {
-        const componentRef = this._dialogService.show(SettingsDialog, DialogSize.small);
+        const componentRef = this._dialogService.show(SettingsDialogComponent, DialogSize.small);
         if (componentRef) {
             componentRef.showClock = this.showClock;
             componentRef.showConflicts = this.showConflicts;
@@ -231,10 +232,23 @@ export class SudokuComponent implements OnInit, OnDestroy {
     }
 
     public reset(): void {
-        this.board.reset();
-        this.resetTimer();
-        this.startTimer();
-        this.possibleValues.forEach(v => this._checkCellValueCount(v));
+        const componentRef = this._dialogService.show(ConfirmDialogComponent, DialogSize.small, false);
+        if (componentRef) {
+            componentRef.title = 'Confirm Reset';
+            componentRef.message = 'All progress will be lost. Are you sure you want to reset?';
+            componentRef.confirmText = 'Reset';
+            componentRef.cancelText = 'Cancel';
+            componentRef.confirm = () => {
+                this._dialogService.close();
+                this.board.reset();
+                this.resetTimer();
+                this.startTimer();
+                this.possibleValues.forEach(v => this._checkCellValueCount(v));
+            };
+            componentRef.cancel = () => {
+                this._dialogService.close();
+            };
+        }
     }
 
     public focusCell(rowIndex: number, colIndex: number): void {

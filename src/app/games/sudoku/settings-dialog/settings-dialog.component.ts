@@ -12,7 +12,7 @@ import { LocalStorageService } from '@services/local-storage.service';
     styleUrls: ['./settings-dialog.component.scss'],
     templateUrl: './settings-dialog.component.html'
 })
-export class SettingsDialog extends DialogBase {
+export class SettingsDialogComponent extends DialogBase {
     @Input() showClock: boolean;
     @Input() showConflicts: boolean;
 
