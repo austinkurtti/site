@@ -19,10 +19,10 @@
 
         button {
             background-color: $color-white;
-        }
 
-        button:hover {
-            background-color: lighten($color-slate, 60%);
+            &:hover {
+                background-color: lighten($color-slate, 60%);
+            }
         }
     }
 }
