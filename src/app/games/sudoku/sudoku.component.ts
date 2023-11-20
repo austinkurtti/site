@@ -15,9 +15,9 @@ import { SudokuCandidate, SudokuCell, SudokuDifficulty, SudokuState } from './su
 
 // TODO
 // auto-pause when window loses focus
-// settings
 // better styling
 // confirm resets
+// save progress when navigating away
 
 @Component({
     selector: 'ak-sudoku',
