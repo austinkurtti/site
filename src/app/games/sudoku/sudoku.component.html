@@ -61,6 +61,9 @@
         </div>
 
         <div id="sudoku-actions" class="col-6 col-lg-4 d-flex justify-content-end">
+            <button class="icon-button" (click)="showHelpDialog()">
+                <i class="fas fa-question-circle fa-2x"></i>
+            </button>
             <button class="icon-button" (click)="showSettingsDialog()">
                 <i class="fas fa-cog fa-2x"></i>
             </button>
@@ -144,11 +147,19 @@
                 <button #sudokuInput
                     akTooltip
                     class="sudoku-input"
-                    [tooltipContent]="'Erase Cell'"
+                    [tooltipContent]="'Delete'"
                     [tooltipPosition]="TooltipPosition.bottom"
                     (click)="inputClick(null)">
-                    <i class="fas fa-eraser"></i>
+                    <i class="fas fa-backspace"></i>
                 </button>
+            </div>
+            <div id="sudoku-pencil-toggle" class="row g-0 align-items-center p-2">
+                <div class="col">
+                    <label>Pencil In</label>
+                </div>
+                <div class="col-auto">
+                    <ak-toggle [(value)]="pencilIn" (valueChange)="pencilIn = $event"></ak-toggle>
+                </div>
             </div>
         </div>
     </div>

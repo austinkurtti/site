@@ -9,6 +9,7 @@ import { DialogService } from '@services/dialog.service';
 import { LocalStorageService } from '@services/local-storage.service';
 import { BehaviorSubject, Subject, Subscription, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { HelpDialogComponent } from './help-dialog/help-dialog.component';
 import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
 import { SolvedDialogComponent } from './solved-dialog/solved-dialog.component';
 import { SudokuBoard } from './sudoku-board';
@@ -19,6 +20,8 @@ import { SudokuCandidate, SudokuCell, SudokuDifficulty, SudokuState } from './su
 // better styling
 // confirm resets
 // save progress when navigating away
+// mask grid when game is paused
+// sudden death mode
 
 @Component({
     selector: 'ak-sudoku',
@@ -34,6 +37,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
     public possibleValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     public board = new SudokuBoard();
     public shifting = false;
+    public pencilIn = false;
     public showClock = true;
     public showConflicts = false;
 
@@ -75,6 +79,10 @@ export class SudokuComponent implements OnInit, OnDestroy {
 
     private get _canSetCellValue(): boolean {
         return !this._activeCell.given && this.board.state === SudokuState.running;
+    }
+
+    private get _setCandidates(): boolean {
+        return this.shifting || this.pencilIn;
     }
 
     @HostListener('window:resize')
@@ -163,6 +171,10 @@ export class SudokuComponent implements OnInit, OnDestroy {
         window.removeEventListener('keydown', this._windowKeydown);
         window.removeEventListener('keyup', this._windowKeyup);
         this._destroyed$.next();
+    }
+
+    public showHelpDialog(): void {
+        this._dialogService.show(HelpDialogComponent, DialogSize.small);
     }
 
     public showSettingsDialog(): void {
@@ -286,6 +298,24 @@ export class SudokuComponent implements OnInit, OnDestroy {
             case 'Tab':
                 this._tabFocusNextCell(rowIndex, this.shifting ? colIndex - 1 : colIndex + 1);
                 break;
+            default:
+                this._setCellValueOrCandidate(event.code);
+                break;
+        }
+
+        event.preventDefault();
+    }
+
+    public inputClick(value: number): void {
+        if (this._canSetCellValue) {
+            this._setCellValueOrCandidate(this._getValueCode(value));
+        }
+    }
+
+    private _getValueCode = (value: number): string => value >= 1 && value <= 9 ? `Digit${value}` : 'Delete';
+
+    private _setCellValueOrCandidate = (valueCode: string): void => {
+        switch (valueCode) {
             case 'Backspace':
             case 'Delete':
                 if (this._canSetCellValue) {
@@ -296,7 +326,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             case 'Digit1':
             case 'Numpad1':
                 if (this._canSetCellValue) {
-                    if (!this.shifting) {
+                    if (!this._setCandidates) {
                         this._setCellValue(1);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.one);
@@ -306,7 +336,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             case 'Digit2':
             case 'Numpad2':
                 if (this._canSetCellValue) {
-                    if (!this.shifting) {
+                    if (!this._setCandidates) {
                         this._setCellValue(2);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.two);
@@ -316,7 +346,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             case 'Digit3':
             case 'Numpad3':
                 if (this._canSetCellValue) {
-                    if (!this.shifting) {
+                    if (!this._setCandidates) {
                         this._setCellValue(3);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.three);
@@ -326,7 +356,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             case 'Digit4':
             case 'Numpad4':
                 if (this._canSetCellValue) {
-                    if (!this.shifting) {
+                    if (!this._setCandidates) {
                         this._setCellValue(4);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.four);
@@ -336,7 +366,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             case 'Digit5':
             case 'Numpad5':
                 if (this._canSetCellValue) {
-                    if (!this.shifting) {
+                    if (!this._setCandidates) {
                         this._setCellValue(5);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.five);
@@ -346,7 +376,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             case 'Digit6':
             case 'Numpad6':
                 if (this._canSetCellValue) {
-                    if (!this.shifting) {
+                    if (!this._setCandidates) {
                         this._setCellValue(6);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.six);
@@ -356,7 +386,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             case 'Digit7':
             case 'Numpad7':
                 if (this._canSetCellValue) {
-                    if (!this.shifting) {
+                    if (!this._setCandidates) {
                         this._setCellValue(7);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.seven);
@@ -366,7 +396,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             case 'Digit8':
             case 'Numpad8':
                 if (this._canSetCellValue) {
-                    if (!this.shifting) {
+                    if (!this._setCandidates) {
                         this._setCellValue(8);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.eight);
@@ -376,7 +406,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             case 'Digit9':
             case 'Numpad9':
                 if (this._canSetCellValue) {
-                    if (!this.shifting) {
+                    if (!this._setCandidates) {
                         this._setCellValue(9);
                     } else if (!this._activeCell.value) {
                         this._activeCell.candidates = this._activeCell.candidates.toggleFlag(SudokuCandidate.nine);
@@ -386,15 +416,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             default:
                 return;
         }
-
-        event.preventDefault();
-    }
-
-    public inputClick(value: number): void {
-        if (this._canSetCellValue) {
-            this._setCellValue(value);
-        }
-    }
+    };
 
     private _setCellValue = (value: number): void => {
         if (value === this._activeCell.value) {

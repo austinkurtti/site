@@ -109,6 +109,10 @@ $sudoku-border-width: math.div($base-size, 5);
                         outline: none;
                     }
 
+                    &:hover:not(.given):not(.active) {
+                        background-color: $color-white;
+                    }
+
                     &.given {
                         background-color: $color-gray-200;
                     }
@@ -174,6 +178,10 @@ $sudoku-border-width: math.div($base-size, 5);
                     // Helps prevent tooltip wonkiness
                     pointer-events: none;
                 }
+            }
+
+            #sudoku-pencil-toggle {
+                height: $base-size * 2;
             }
         }
     }
