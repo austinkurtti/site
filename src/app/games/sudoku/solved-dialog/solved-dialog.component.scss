@@ -1,0 +1,28 @@
+@import 'variables';
+
+:host {
+    background-color: $color-white;
+
+    h3 {
+        margin: 0;
+        padding: $base-size * 4 $base-size;
+    }
+
+    #puzzle-data {
+        background-color: $color-sudoku-yellow;
+        font-weight: bold;
+        padding: $base-size;
+    }
+
+    #next-options {
+        padding: $base-size * 4 $base-size;
+
+        button {
+            background-color: $color-white;
+
+            &:hover {
+                background-color: lighten($color-slate, 60%);
+            }
+        }
+    }
+}

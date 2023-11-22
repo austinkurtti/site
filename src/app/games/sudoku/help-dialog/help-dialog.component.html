@@ -1,0 +1,35 @@
+<div class="container-fluid px-0">
+    <div class="row g-0 align-items-center justify-content-end p-3">
+        <div class="col">
+            <h3 class="text-center">Help & Tips</h3>
+        </div>
+        <div class="col-auto">
+            <button id="dialog-close" class="icon-button" (click)="dialogService.close()">
+                <i class="fas fa-times fa-2x"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="row g-0 align-items-center p-3">
+        <p>Fill in the grid so that each row, column and 3x3 square contain one instance of the digits 1-9. There is a single solution, where each digit appears in the grid exactly 9 times.</p>
+        <ul class="px-3 m-0">
+            <li><div>Enable the Pencil In toggle to help track candidate digits</div></li>
+            <li><div>Click <i class="fas fa-cog"></i> to change game settings</div></li>
+            <li><div>Click <i class="fas fa-ellipsis-h"></i> for more actions:</div>
+                <ul>
+                    <li><div>Check Cell -- reveal if the cell contains the correct digit</div></li>
+                    <li><div>Check All -- perform the Check Cell action for all cells</div></li>
+                    <li><div>Reset -- clear all cells and reset the game timer</div></li>
+                </ul>
+            </li>
+            <li><div>Full keyboard support is offered:</div>
+                <ul>
+                    <li><div>Arrow Keys -- move focus between cells</div></li>
+                    <li><div>Numpad (with Num Lock disabled) or Number Row -- enter digits in focused cell</div></li>
+                    <li><div>Shift -- pencil in</div></li>
+                    <li><div>Backspace or Delete -- clear focused cell</div></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

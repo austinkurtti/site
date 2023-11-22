@@ -1,0 +1,19 @@
+<h3 class="text-center">Well Done!</h3>
+
+<div id="puzzle-data" class="row g-0">
+    <div class="col-6 text-center">
+        <span>{{ difficulty | sudokuDifficulty }}</span>
+    </div>
+    <div class="col-6 text-center">
+        <time [dateTime]="timeValue">{{ timeDisplay }}</time>
+    </div>
+</div>
+
+<div id="next-options" class="row g-0 justify-content-evenly">
+    <div class="col-auto">
+        <button (click)="goHome()">Play different game</button>
+    </div>
+    <div class="col-auto">
+        <button (click)="playAgain()">Play another Sudoku</button>
+    </div>
+</div>

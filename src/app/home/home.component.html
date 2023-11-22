@@ -1,23 +1,48 @@
 <!-- Header -->
-<header #header class="position-fixed w-100 row no-gutters align-items-center">
-    <div id="header-menu" class="col-auto d-flex d-lg-none text-center">
-        <i tabindex="0" class="fas fa-bars fa-2x" (click)="toggleMenu()"></i>
-    </div>
-    <div id="header-title" class="col col-lg-3">
+<header #header class="position-fixed w-100 row g-0 align-items-center">
+    <button akMenu
+        id="menu-button"
+        class="col-auto icon-button d-flex d-lg-none align-items-center justify-content-center"
+        [menuPosition]="MenuPosition.bottomLeft">
+        <i class="fas fa-bars fa-2x"></i>
+        <ng-template #menuContent>
+            <div akMenuContent>
+                <a *ngFor="let anchor of navigationAnchors"
+                    #navAnchor
+                    akMenuItem
+                    [href]="'#' + anchor.id">
+                    {{ anchor.text }}
+                </a>
+            </div>
+        </ng-template>
+    </button>
+    <div id="header-title" class="col col-lg-3 ps-lg-5">
         <span>{{ title }}</span>
     </div>
-    <div id="header-nav" class="col-lg-6 d-none d-lg-flex text-center">
-        <ak-navigation class="d-block w-100"></ak-navigation>
+    <div id="header-nav" class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center">
+        <a *ngFor="let anchor of navigationAnchors"
+            #navAnchor
+            [href]="'#' + anchor.id">
+            {{ anchor.text }}
+        </a>
     </div>
-    <div id="header-icons" class="col-lg-3 d-none d-lg-flex justify-content-end">
-        <i tabindex="0" class="theme-toggle fas fa-2x" [ngClass]="currentThemeValue ? 'fa-sun' : 'fa-moon'" (click)="toggleTheme()"></i>
+    <div class="col-auto col-lg-3 d-flex justify-content-end">
+        <button akTooltip
+            class="icon-button"
+            routerLink="/games"
+            [tooltipContent]="'Games'"
+            [tooltipPosition]="TooltipPosition.bottom">
+            <i class="fas fa-2x fa-gamepad"></i>
+        </button>
+        <button akTooltip
+            class="icon-button"
+            [tooltipContent]="'Theme'"
+            [tooltipPosition]="TooltipPosition.bottom"
+            (click)="toggleTheme()">
+            <i class="theme-toggle fas fa-2x" [ngClass]="currentThemeValue ? 'fa-sun' : 'fa-moon'"></i>
+        </button>
     </div>
 </header>
-
-<div #headerMenuContent id="header-menu-content" class="position-fixed d-none p-3 text-center">
-    <i tabindex="0" class="theme-toggle fas mb-3" [ngClass]="currentThemeValue ? 'fa-sun' : 'fa-moon'" (click)="toggleTheme()"></i>
-    <ak-navigation class="d-block" [orientation]="'vertical'"></ak-navigation>
-</div>
 
 <main #main class="position-static">
     <!-- Content -->
@@ -27,7 +52,7 @@
     <ak-skills></ak-skills>
 
     <!-- Footer -->
-    <footer class="row no-gutters justify-content-center align-items-center">
+    <footer class="row g-0 justify-content-center align-items-center">
         <div class="col-auto footer-text">
             <i class="far fa-copyright"></i>&nbsp;{{ title }}
         </div>

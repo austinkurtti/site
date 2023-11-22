@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input, OnDestroy, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnDestroy, Renderer2, inject } from '@angular/core';
 import { baseSizePx } from '@constants/numbers';
 import { Subscription, timer } from 'rxjs';
 
@@ -17,17 +17,15 @@ export class TooltipDirective implements OnDestroy {
     @Input() tooltipDelay = 500;
     @Input() tooltipPosition: TooltipPosition = TooltipPosition.top;
 
+    private _hostElement = inject(ElementRef);
+    private _renderer = inject(Renderer2);
+
     private _tooltipEl: HTMLDivElement = null;
     private _unlisteners: Array<() => void> = [];
     private _debounceSubscription: Subscription;
     private get _tooltipContainerEl(): HTMLDivElement {
         return document.querySelector('#ak-tooltip-container');
     }
-
-    constructor(
-        private _hostElement: ElementRef,
-        private _renderer: Renderer2
-    ) {}
 
     @HostListener('mouseover')
     mouseover() {

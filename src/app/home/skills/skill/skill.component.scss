@@ -1,13 +1,15 @@
+@use 'sass:math';
+
 @import 'variables';
 
 .skill-notch {
     background-color: transparent;
-    border-radius: $base-size / 4;
+    border-radius: math.div($base-size, 4);
     height: $base-size;
     width: 100%;
 
     &:not(:last-child) {
-        margin-bottom: $base-size / 2;
+        margin-bottom: math.div($base-size, 2);
     }
 }
 

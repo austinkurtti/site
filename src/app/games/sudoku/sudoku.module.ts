@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ToggleComponent } from '@components/toggle/toggle.component';
+import { MenuDirectiveModule } from '@directives/menu/menu.module';
+import { TooltipModule } from '@directives/tooltip/tooltip.module';
+import { DifficultyPipeModule } from '@pipes/difficulty/difficulty.module';
+import { HasFlagPipeModule } from '@pipes/has-flag/has-flag.module';
 import { SudokuComponent } from './sudoku.component';
 
 @NgModule({
@@ -9,6 +14,11 @@ import { SudokuComponent } from './sudoku.component';
     ],
     imports: [
         CommonModule,
+        DifficultyPipeModule,
+        HasFlagPipeModule,
+        MenuDirectiveModule,
+        ToggleComponent,
+        TooltipModule,
         RouterModule.forChild([{
             path: '',
             component: SudokuComponent

@@ -1,24 +1,30 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { GameTileComponent } from './@controls/game-tile.component';
+import { TooltipModule } from '@directives/tooltip/tooltip.module';
+import { GamesHomeComponent } from './games-home.component';
 import { GamesComponent } from './games.component';
 
 @NgModule({
     declarations: [
         GamesComponent,
-        GameTileComponent
+        GamesHomeComponent
     ],
     imports: [
         CommonModule,
+        TooltipModule,
         RouterModule.forChild([
             {
                 path: '',
                 component: GamesComponent,
                 children: [
                     {
+                        path: '',
+                        component: GamesHomeComponent
+                    },
+                    {
                         path: 'sudoku',
-                        outlet: 'g',
+                        title: 'Sudoku',
                         loadChildren: () => import('./sudoku/sudoku.module').then(m => m.SudokuModule)
                     }
                 ]

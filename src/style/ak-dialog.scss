@@ -1,0 +1,44 @@
+@use 'sass:math';
+
+@import 'variables';
+
+dialog {
+    align-items: center;
+    background-color: rgba($color: $color-slate, $alpha: .5);
+    border: none;
+    height: 100%;
+    justify-content: center;
+    opacity: 0;
+    padding: 0;
+    transition: ease-in opacity .1s;
+    width: 100%;
+    z-index: $z-index-dialog;
+
+    &[open] {
+        display: flex;
+        flex-direction: column;
+        opacity: 1;
+    }
+
+    &.small .dialog-content {
+        width: 25%;
+    }
+
+    &.medium .dialog-content {
+        width: 50%;
+    }
+
+    &.large .dialog-content {
+        width: 75%;
+    }
+
+    &.fullscreen .dialog-content {
+        height: 100%;
+        width: 100%;
+    }
+
+    .dialog-content {
+        border-radius: math.div($base-size, 4);
+        box-shadow: $hard-box-shadow;
+    }
+}

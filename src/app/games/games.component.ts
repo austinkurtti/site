@@ -1,5 +1,6 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
-import { GameLinkModel } from './games.models';
+import { Component, Renderer2, inject } from '@angular/core';
+import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
+import { GamesHomeComponent } from './games-home.component';
 
 @Component({
     selector: 'ak-games',
@@ -7,26 +8,29 @@ import { GameLinkModel } from './games.models';
     templateUrl: './games.component.html'
 })
 export class GamesComponent {
-    @ViewChild('gameLinks') gameLinksEl: ElementRef;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    public TooltipPosition = TooltipPosition;
 
-    public navOpen = true;
-    public showPlaceholder = true;
-    public games: GameLinkModel[] = [
-        new GameLinkModel('Sudoku', 'fas fa-border-all', 'sudoku'),
-        // new GameLinkModel('Solitaire', 'fas fa-heart', 'solitaire'),
-        // new GameLinkModel('Warship', 'fas fa-ship', 'warship')
-    ];
+    private _renderer = inject(Renderer2);
 
-    constructor(
-        private _renderer: Renderer2
-    ) {}
+    public routerOutletActivate(activatedComponent: any) {
+        // Only supporting light theme for now
+        document.documentElement.setAttribute('data-theme', 'light');
 
-    public toggleNav(): void {
-        this.navOpen = !this.navOpen;
-        if (this.navOpen) {
-            this._renderer.removeStyle(this.gameLinksEl.nativeElement, 'transform');
+        const headerEl = document.querySelector('header');
+        const backButtonEl = headerEl.children[0] as HTMLElement;
+        const titleEl = headerEl.children[1] as HTMLElement;
+        const exitButtonEl = headerEl.children[2] as HTMLElement;
+        if (activatedComponent instanceof GamesHomeComponent) {
+            this._renderer.addClass(backButtonEl, 'd-none');
+            this._renderer.setAttribute(backButtonEl, 'tabindex', '-1');
+            this._renderer.addClass(titleEl, 'ps-5');
+            this._renderer.removeClass(exitButtonEl, 'd-none');
         } else {
-            this._renderer.setStyle(this.gameLinksEl.nativeElement, 'transform', 'translateX(-100%)');
+            this._renderer.removeClass(backButtonEl, 'd-none');
+            this._renderer.setAttribute(backButtonEl, 'tabindex', '0');
+            this._renderer.removeClass(titleEl, 'ps-5');
+            this._renderer.addClass(exitButtonEl, 'd-none');
         }
     }
 }

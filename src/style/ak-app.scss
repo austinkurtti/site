@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @import 'variables';
 @import 'keyframes';
 
@@ -21,7 +23,7 @@ html {
 
     &[data-theme="dark"] {
         --theme-primary-background: #{$color-black};
-        --theme-content-background: #{$color-dark-gray};
+        --theme-content-background: #{$color-slate};
         --theme-font-color: #{$color-white};
 
         --theme-hoverable-background: #{$color-white};
@@ -33,6 +35,8 @@ body {
     font-family: $default-font-family;
     font-size: $default-font-size;
     height: 100%;
+    line-height: 1;
+    margin: 0;
 }
 
 section {
@@ -91,6 +95,10 @@ label, p {
     margin: 0;
 }
 
+p {
+    line-height: 1.5;
+}
+
 p:not(:last-child) {
     margin-bottom: $base-size;
 }
@@ -115,6 +123,27 @@ p:not(:last-child) {
     }
 }
 
+button {
+    background-color: transparent;
+    border-color: $color-slate;
+    border-radius: math.div($base-size, 4);
+    border-style: solid;
+    border-width: math.div($base-size, 8);
+    color: $color-slate;
+    font-family: $default-font-family;
+    padding: math.div($base-size, 2);
+    transition: ease-in background-color .1s,
+                ease-in color .1s;
+    
+    &.icon-button {
+        border: none;
+    }
+
+    &:not(:disabled) {
+        cursor: pointer;
+    }
+}
+
 /***********************
 
     Media queries
@@ -135,6 +164,11 @@ p:not(:last-child) {
         font-size: $default-font-size * 1.25;
         line-height: $default-font-size * 1.25;
     }
+
+    h4 {
+        font-size: $default-font-size * 1.1;
+        line-height: $default-font-size * 1.1;
+    }
 }
 
 @media (min-width: $breakpoint-tablet) {
@@ -152,6 +186,11 @@ p:not(:last-child) {
         font-size: $default-font-size * 1.35;
         line-height: $default-font-size * 1.35;
     }
+
+    h4 {
+        font-size: $default-font-size * 1.15;
+        line-height: $default-font-size * 1.15;
+    }
 }
 
 @media (min-width: $breakpoint-desktop) {
@@ -168,5 +207,10 @@ p:not(:last-child) {
     h3 {
         font-size: $default-font-size * 1.5;
         line-height: $default-font-size * 1.5;
+    }
+
+    h4 {
+        font-size: $default-font-size * 1.25;
+        line-height: $default-font-size * 1.25;
     }
 }

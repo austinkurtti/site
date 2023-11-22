@@ -1,0 +1,18 @@
+<div class="container-fluid px-0 pb-5">
+    <div id="home" class="row gx-5 mx-4">
+        <div *ngFor="let game of games" class="col-6 col-lg-4 col-xl-3 pt-5">
+            <button class="game position-relative"
+                routerLink="/games/{{ game.route }}"
+                [disabled]="game.disabled"
+                [ngClass]="game.route">
+                <div class="game-icon">
+                    <i [ngClass]="game.icon"></i>
+                </div>
+                <div class="game-name">{{ game.name }}</div>
+                <div *ngIf="game.disabled" class="coming-soon d-flex  align-items-center justify-content-center h-100 w-100 position-absolute">
+                    <span>Coming soon</span>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>

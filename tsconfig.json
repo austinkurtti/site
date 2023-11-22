@@ -4,11 +4,26 @@
         "baseUrl": "./",
         "downlevelIteration": true,
         "paths": {
-            "@directives/*": [
-                "src/app/@directives/*"
+            "@components/*": [
+                "src/app/@components/*"
             ],
             "@constants/*": [
                 "src/app/@constants/*"
+            ],
+            "@directives/*": [
+                "src/app/@directives/*"
+            ],
+            "@extensions/*": [
+                "src/app/@extensions/*"
+            ],
+            "@models/*": [
+                "src/app/@models/*"
+            ],
+            "@pipes/*": [
+                "src/app/@pipes/*"
+            ],
+            "@services/*": [
+                "src/app/@services/*"
             ]
         },
         "outDir": "./dist/out-tsc",
@@ -19,13 +34,14 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "importHelpers": true,
-        "target": "es2015",
+        "target": "ES2022",
         "typeRoots": [
             "node_modules/@types"
         ],
         "lib": [
             "es2018",
             "dom"
-        ]
+        ],
+        "useDefineForClassFields": false
     }
 }

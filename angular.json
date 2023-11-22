@@ -17,7 +17,6 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "aot": true,
                         "baseHref": "/",
                         "outputPath": "docs",
                         "index": "src/index.html",
@@ -30,6 +29,8 @@
                             "src/CNAME"
                         ],
                         "styles": [
+                            "node_modules/bootstrap/dist/css/bootstrap-grid.min.css",
+                            "node_modules/bootstrap/dist/css/bootstrap-utilities.min.css",
                             "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
                             "src/styles.scss"
                         ],
@@ -38,7 +39,14 @@
                                 "src/style-paths"
                             ]
                         },
-                        "scripts": []
+                        "scripts": [],
+                        "vendorChunk": true,
+                        "extractLicenses": false,
+                        "buildOptimizer": false,
+                        "sourceMap": true,
+                        "optimization": false,
+                        "namedChunks": true,
+                        "webWorkerTsConfig": "tsconfig.worker.json"
                     },
                     "configurations": {
                         "production": {
@@ -52,7 +60,6 @@
                             "outputHashing": "all",
                             "sourceMap": false,
                             "namedChunks": false,
-                            "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
@@ -68,23 +75,24 @@
                                 }
                             ]
                         }
-                    }
+                    },
+                    "defaultConfiguration": ""
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "site:build"
+                        "buildTarget": "site:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "site:build:production"
+                            "buildTarget": "site:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "site:build"
+                        "buildTarget": "site:build"
                     }
                 },
                 "test": {
@@ -110,6 +118,9 @@
                         "lintFilePatterns": [
                             "src/**/*.ts",
                             "src/**/*.html"
+                        ],
+                        "tsConfig": [
+                            "tsconfig.worker.json"
                         ]
                     }
                 }
@@ -143,6 +154,5 @@
                 }
             }
         }
-    },
-    "defaultProject": "site"
+    }
 }

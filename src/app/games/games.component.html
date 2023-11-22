@@ -1,29 +1,23 @@
-<header class="position-fixed w-100 row no-gutters align-items-center">
-    <div id="header-menu" class="col-auto">
-        <i tabindex="0" class="fas fa-bars fa-2x" (click)="toggleNav()"></i>
-    </div>
+<header class="row g-0 align-items-center w-100">
+    <button akTooltip
+        class="col-auto icon-button"
+        [routerLink]="'/games'"
+        [tooltipContent]="'Back'"
+        [tooltipPosition]="TooltipPosition.bottom">
+        <i class="fas fa-angle-left fa-2x"></i>
+    </button>
     <div id="header-title" class="col">
         <span>Games</span>
     </div>
+    <button akTooltip
+        class="col-auto icon-button"
+        routerLink="/"
+        [tooltipContent]="'Exit'"
+        [tooltipPosition]="TooltipPosition.bottom">
+        <i class="fas fa-2x fa-sign-out-alt"></i>
+    </button>
 </header>
 
-<nav #gameLinks class="position-fixed">
-    <a *ngFor="let game of games"
-        class="game-link align-items-center"
-        routerLinkActive="active"
-        [routerLink]="['/games', { outlets: { g: [game.route] } }]">
-        <i class="fas" [ngClass]="game.icon"></i><span>{{ game.name }}</span>
-    </a>
-</nav>
-
-<main #gameContent class="position-static">
-    <div *ngIf="showPlaceholder" id="placeholder" class="align-items-center justify-content-center">
-        <i class="fas fa-gamepad"></i>
-        <h1>Pick a game</h1>
-    </div>
-    <router-outlet
-        name="g"
-        (activate)="showPlaceholder = false;"
-        (deactivate)="showPlaceholder = true;">
-    </router-outlet>
+<main #gameContent class="w-100">
+    <router-outlet (activate)="routerOutletActivate($event)"></router-outlet>
 </main>
