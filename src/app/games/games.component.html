@@ -1,13 +1,21 @@
 <header class="row g-0 align-items-center w-100">
-    <button
-        id="header-button"
-        class="icon-button col-auto align-items-center justify-content-center"
-        [routerLink]="'/games'">
+    <button akTooltip
+        class="col-auto icon-button"
+        [routerLink]="'/games'"
+        [tooltipContent]="'Back'"
+        [tooltipPosition]="TooltipPosition.bottom">
         <i class="fas fa-angle-left fa-2x"></i>
     </button>
-    <div id="header-title" class="col-auto">
+    <div id="header-title" class="col">
         <span>Games</span>
     </div>
+    <button akTooltip
+        class="col-auto icon-button"
+        routerLink="/"
+        [tooltipContent]="'Exit'"
+        [tooltipPosition]="TooltipPosition.bottom">
+        <i class="fas fa-2x fa-sign-out-alt"></i>
+    </button>
 </header>
 
 <main #gameContent class="w-100">

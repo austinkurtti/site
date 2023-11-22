@@ -18,9 +18,7 @@ import { SudokuCandidate, SudokuCell, SudokuDifficulty, SudokuState } from './su
 // TODO
 // auto-pause when window loses focus
 // better styling
-// confirm resets
 // save progress when navigating away
-// mask grid when game is paused
 // sudden death mode
 
 @Component({

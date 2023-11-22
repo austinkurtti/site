@@ -20,23 +20,14 @@ $header-height: $base-size * 6;
             line-height: $base-size * 2;
         }
 
-        #header-button {
-            background-color: $color-white;
-            display: none;
+        .icon-button {
+            color: $theme-font-color;
             height: $header-height;
-
-            &.show {
-                display: flex;
-                width: $header-height;
-            }
+            transition: ease-in color .1s;
+            width: $header-height;
 
             &:hover {
                 color: $color-app-accent-2;
-                cursor: pointer;
-            }
-
-            i {
-                transition: ease-in color .1s;
             }
         }
     }

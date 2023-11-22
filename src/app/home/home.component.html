@@ -27,9 +27,17 @@
         </a>
     </div>
     <div class="col-auto col-lg-3 d-flex justify-content-end">
-        <button tabindex="0"
-            id="theme-button"
+        <button akTooltip
             class="icon-button"
+            routerLink="/games"
+            [tooltipContent]="'Games'"
+            [tooltipPosition]="TooltipPosition.bottom">
+            <i class="fas fa-2x fa-gamepad"></i>
+        </button>
+        <button akTooltip
+            class="icon-button"
+            [tooltipContent]="'Theme'"
+            [tooltipPosition]="TooltipPosition.bottom"
             (click)="toggleTheme()">
             <i class="theme-toggle fas fa-2x" [ngClass]="currentThemeValue ? 'fa-sun' : 'fa-moon'"></i>
         </button>

@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
 import { aboutId, aboutText, introId, introText, skillsId, skillsText, timelineId, timelineText } from '@constants/strings';
 import { MenuPosition } from '@directives/menu/menu.directive';
+import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { LocalStorageService } from '@services/local-storage.service';
 import { Subscription, timer } from 'rxjs';
 import { NavigationAnchorModel } from './navigation.model';
@@ -10,7 +11,7 @@ import { NavigationAnchorModel } from './navigation.model';
     styleUrls: ['./home.component.scss'],
     templateUrl: './home.component.html'
 })
-export class HomeComponent implements AfterViewInit, OnDestroy {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('header') header: ElementRef;
     @ViewChild('headerMenuContent') headerMenuContent: ElementRef;
 
@@ -40,6 +41,8 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public MenuPosition = MenuPosition;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    public TooltipPosition = TooltipPosition;
 
     private _renderer = inject(Renderer2);
 
@@ -80,8 +83,11 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    public ngAfterViewInit(): void {
+    public ngOnInit(): void {
         this.currentThemeValue = !!LocalStorageService.getItem(this._themeKey);
+    }
+
+    public ngAfterViewInit(): void {
         this._setTheme();
         this.updateActiveNav();
     }
