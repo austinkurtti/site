@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChildren('navAnchor') navAnchors: QueryList<ElementRef>;
 
-    public title = 'Austin Kurtti';
+    public title = 'AUSTIN KURTTI';
     public currentThemeValue: boolean;
 
     public navigationAnchors = [
@@ -53,8 +53,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     @HostListener('window:scroll')
     public updateActiveNav() {
         if (!this._debounce && this.navAnchors.length) {
-            // Restrict this to running at most every tenth of a second so its not cumbersome
-            this._debounce = timer(100).subscribe(() => {
+            // Give scrolling a half second to settle to prevent weird link animations
+            this._debounce = timer(500).subscribe(() => {
                 const scrollTop = document.documentElement.scrollTop;
                 const screenHeight = document.documentElement.clientHeight;
 

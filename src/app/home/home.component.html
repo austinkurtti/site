@@ -11,7 +11,7 @@
                     #navAnchor
                     akMenuItem
                     [href]="'#' + anchor.id">
-                    {{ anchor.text }}
+                    <span>{{ anchor.text }}</span>
                 </a>
             </div>
         </ng-template>
@@ -23,7 +23,7 @@
         <a *ngFor="let anchor of navigationAnchors"
             #navAnchor
             [href]="'#' + anchor.id">
-            {{ anchor.text }}
+            <span>{{ anchor.text }}</span>
         </a>
     </div>
     <div class="col-auto col-lg-3 d-flex justify-content-end">

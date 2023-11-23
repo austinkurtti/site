@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @import 'variables';
 @import 'keyframes';
 
@@ -9,52 +11,40 @@ $header-height: $base-size * 6;
     display: block;
 
     header {
+        animation: $opacity-name $opacity-duration $opacity-timing;
         background-color: $theme-primary-background;
         box-shadow: $soft-box-shadow;
         height: $header-height;
         z-index: $z-index-header;
 
-        #header-title {
-            animation: $opacity-name $opacity-duration $opacity-timing,
-                    $grow-name $grow-duration $grow-timing;
-            animation-fill-mode: forwards;
-
-            span {
-                background: $color-app-gradient;
-                background-clip: text;
-                color: transparent;
-                font-family: 'Permanent Marker', $default-font-family;
-                font-size: $default-font-size * 2;
-                line-height: $base-size * 2;
-            }
+        #header-title span {
+            background-color: $theme-font-color;
+            color: $theme-primary-background;
+            font-size: $default-font-size * 2;
+            font-weight: bold;
+            line-height: $base-size * 2;
+            padding: 0 math.div($base-size, 2);
         }
 
         #header-nav {
-            animation: $opacity-name $opacity-duration $opacity-timing,
-                    $grow-name $grow-duration $grow-timing;
-            animation-fill-mode: forwards;
-
             a:not(:last-child) {
                 margin-right: $base-size;
             }
         }
 
-        [role=menu] {
+        [role=menu] [role=menuitem]:hover {
             background-color: $theme-primary-background;
-
-            [role=menuitem]:hover {
-                background-color: $theme-content-background;
-            }
         }
 
         .icon-button {
+            animation-fill-mode: forwards;
             color: $theme-font-color;
             height: $header-height;
             transition: ease-in color .1s;
             width: $header-height;
 
             &:hover {
-                color: $color-app-accent-2;
+                color: $color-blue;
             }
         }
 
@@ -63,14 +53,34 @@ $header-height: $base-size * 6;
             font-size: $default-font-size * 1.25;
             text-decoration: none;
             text-transform: uppercase;
-            transition: ease-in color .1s;
-    
-            &.active {
-                color: $color-app-accent-2;
+
+            span {
+                position: relative;
+
+                &::after {
+                    background-color: $theme-font-color;
+                    bottom: -(math.div($base-size, 4));
+                    content: '';
+                    height: math.div($base-size, 8);
+                    left: 0;
+                    position: absolute;
+                    transition: ease-in transform .2s;
+                    transform-origin: bottom right;
+                    width: 100%;
+                }
+            }
+
+            &:not(.active) > span::after {
+                transform: scaleX(0);
             }
     
-            &:hover {
-                color: $color-app-accent-2;
+            &.active > span::after {
+                background-color: $color-blue;
+            }
+    
+            &:hover > span::after {
+                transform: scaleX(1);
+                transform-origin: bottom left;
             }
         }
     }
