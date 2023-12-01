@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
-import { aboutId, aboutText, introId, introText, skillsId, skillsText, timelineId, timelineText } from '@constants/strings';
+import { aboutId, aboutText, careerId, careerText, introId, introText, skillsId, skillsText } from '@constants/strings';
 import { MenuPosition } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { LocalStorageService } from '@services/local-storage.service';
@@ -30,8 +30,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             text: aboutText
         }),
         new NavigationAnchorModel({
-            id: timelineId,
-            text: timelineText
+            id: careerId,
+            text: careerText
         }),
         new NavigationAnchorModel({
             id: skillsId,

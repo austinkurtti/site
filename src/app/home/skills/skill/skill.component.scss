@@ -15,31 +15,31 @@
 
 .skill-5 {
     .skill-notch:nth-child(1) {
-        background-color: $color-app-accent-2;
+        background-color: $color-green;
     }
 }
 
 .skill-4, .skill-5 {
     .skill-notch:nth-child(2) {
-        background-color: $color-app-accent-1;
+        background-color: rgba($color-green, 80%);
     }
 }
 
 .skill-3, .skill-4, .skill-5 {
     .skill-notch:nth-child(3) {
-        background-color: $color-app-accent-1;
+        background-color: rgba($color-green, 60%);
     }
 }
 
 .skill-2, .skill-3, .skill-4, .skill-5 {
     .skill-notch:nth-child(4) {
-        background-color: $color-app-primary;
+        background-color: rgba($color-green, 40%);
     }
 }
 
 .skill-1, .skill-2, .skill-3, .skill-4, .skill-5 {
     .skill-notch:nth-child(5) {
-        background-color: $color-app-primary;
+        background-color: rgba($color-green, 20%);
     }
 }
 

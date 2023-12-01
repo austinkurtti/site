@@ -90,13 +90,14 @@ h3:not(:last-child) {
     margin-bottom: $base-size;
 }
 
-label, p {
+label {
     font-weight: bold;
     margin: 0;
 }
 
 p {
     line-height: 1.5;
+    margin: 0;
 }
 
 p:not(:last-child) {
@@ -110,7 +111,7 @@ p:not(:last-child) {
 
 :focus-visible, button:focus {
     border-radius: $base-size / 4;
-    outline-color: $color-app-accent-2;
+    outline-color: $color-green;
     outline-style: solid;
     outline-width: $base-size / 4;
 

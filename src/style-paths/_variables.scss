@@ -19,7 +19,8 @@ $color-gray-800             : #555;
 $color-slate                : #434343;
 $color-black                : #333;
 $color-red                  : #d16969;
-$color-orange               : #d7ba7d;
+$color-orange               : #ce9178;
+$color-gold                 : #d7ba7d;
 $color-yellow               : #dcdcaa;
 $color-lime                 : #b5cea8;
 $color-green                : #4ec9b0;
@@ -27,14 +28,8 @@ $color-sky                  : #68cdf0;
 $color-blue                 : #569cd6;
 $color-purple               : #c586c0;
 
-$color-app-primary          : #1c4670;
-$color-app-accent-1         : #278ab0;
-$color-app-accent-2         : #1dc690;
-
 $color-success              : $color-green;
 $color-error                : $color-red;
-
-$color-app-gradient         : linear-gradient(45deg, $color-app-primary, $color-app-accent-1, $color-app-accent-2);
 
 // Games
 $color-easy                 : green;

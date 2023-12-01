@@ -4,18 +4,20 @@
         [ngClass]="deferClass"
         [threshold]="deferThreshold"
         (deferLoad)="deferLoad()">
-        <div class="row g-0 px-5 px-lg-0">
-            <div class="col offset-lg-2">
-                <ak-section-title [text]="title" [colorClass]="titleColor"></ak-section-title>
+        <div class="row g-0 px-4 px-lg-0">
+            <div class="col-12 offset-lg-2 col-lg-8">
+                <ak-section-title [text]="title"></ak-section-title>
             </div>
         </div>
-        <div class="row g-0 mb-5 px-5 px-lg-0">
-            <div class="col-12 offset-lg-2 col-lg-4">
-                <p>Building web apps professionally in my job with NAVEX, as well as personally with various hobby projects, has helped me developed a strong proficiency with TypeScript and Angular. It is what I find myself working with most and is my biggest strength in web development. But expanding my knowledge with other tools is never far off my mind.</p>
-                <p>Take a look below to see where my skills and experience with various tools stand.</p>
+        <div class="row g-0 mb-5 px-4 px-lg-0">
+            <div class="col-12 offset-lg-2 col-lg-8">
+                <div class="curly-brace">&lcub;</div>
+                <p class="ps-5">Building web apps professionally in my job with NAVEX, as well as personally with various hobby projects, has helped me developed a strong proficiency with TypeScript and Angular. It is what I find myself working with most and is my biggest strength in web development. But expanding my knowledge with other tools is never far off my mind.</p>
+                <p class="mb-0 ps-5">Take a look below to see where my skills and experience with various tools stand.</p>
+                <div class="curly-brace">&rcub;</div>
             </div>
         </div>
-        <div class="row g-0 px-5 px-lg-0">
+        <div class="row g-0">
             <div class="col-12 offset-lg-2 col-lg-8">
                 <div class="row g-0 mb-5">
                     <ak-skill class="col-2" [name]="'HTML5'" [icon]="'fab fa-html5'" [level]="5"></ak-skill>
