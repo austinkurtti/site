@@ -1,12 +1,6 @@
+@use 'sass:math';
+
 @import 'variables';
-
-.fa-folder-open {
-    color: $color-gold;
-}
-
-.folder-item {
-    border-left: 1px solid $color-gray;
-}
 
 #career-ide {
     background-color: $theme-primary-background;
@@ -15,9 +9,39 @@
 
     #career-ide-explorer {
         border-right: 1px solid $color-gray;
-    }
 
-    // #career-ide-editor {
+        .career-item {
+            cursor: pointer;
+            padding: math.div($base-size, 2) math.div($base-size, 2) math.div($base-size, 2) $base-size * 2;
+
+            &:not(.expanded) {
+                .fa-caret-down {
+                    transform: rotate(-90deg);
+                }
+            }
+
+            &:hover {
+                background-color: $theme-content-background;
+            }
+
+            .fa-folder, .fa-folder-open {
+                color: $color-gold;
+                height: $base-size;
+                width: $base-size;
+            }
+        }
         
-    // }
+        .folder-item {
+            padding-left: $base-size * 3.5;
+        
+            &.active {
+                background-color: $theme-content-background;
+            }
+
+            & > div {
+                border-left: 1px solid $color-gray;
+                padding-left: $base-size * 1.5;
+            }
+        }
+    }
 }
