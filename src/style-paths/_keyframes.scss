@@ -71,3 +71,20 @@ $bounce-timing              : ease-in-out;
         transform: translateY(-50%);
     }
 }
+
+// -----------------------------------------
+// Dialog keyframes
+// -----------------------------------------
+$dialog-appear              : kfDialogAppear;
+$dialog-appear-duration     : .2s;
+$dialog-appear-timing       : ease-in;
+@keyframes #{$dialog-appear} {
+    0% {
+        opacity: 0;
+        transform: translateY($base-size * -2);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

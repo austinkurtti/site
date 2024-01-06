@@ -23,7 +23,6 @@ $header-height: $base-size * 6;
         .icon-button {
             color: $theme-font-color;
             height: $header-height;
-            transition: ease-in color .1s;
             width: $header-height;
 
             &:hover {

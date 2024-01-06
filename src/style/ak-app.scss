@@ -133,8 +133,6 @@ button {
     color: $color-slate;
     font-family: $default-font-family;
     padding: math.div($base-size, 2);
-    transition: ease-in background-color .1s,
-                ease-in color .1s;
     
     &.icon-button {
         border: none;

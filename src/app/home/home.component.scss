@@ -40,7 +40,6 @@ $header-height: $base-size * 6;
             animation-fill-mode: forwards;
             color: $theme-font-color;
             height: $header-height;
-            transition: ease-in color .1s;
             width: $header-height;
 
             &:hover {

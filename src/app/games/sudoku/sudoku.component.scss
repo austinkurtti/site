@@ -161,7 +161,6 @@ $sudoku-border-width: math.div($base-size, 5);
                 border-radius: math.div($base-size, 4);
                 font-weight: bold;
                 height: 100%;
-                transition: ease-in background-color .1s;
                 width: 100%;
 
                 &:disabled {
