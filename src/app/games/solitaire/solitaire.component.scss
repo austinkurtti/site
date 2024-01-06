@@ -11,11 +11,11 @@ $card-width         : $card-height * .714;
     header {
         background-color: $color-slate;
         color: $color-white;
-        height: $base-size * 6;
+        height: $header-height;
     }
 
     main {
-        padding-top: $base-size * 6;
+        padding-top: $header-height;
 
         #stock, .foundation, .solitaire-card {
             border-radius: $base-size / 2;

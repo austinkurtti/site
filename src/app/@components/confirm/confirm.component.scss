@@ -2,18 +2,4 @@
 
 :host {
     background-color: $color-white;
-
-    #dialog-close:hover {
-        background-color: lighten($color-slate, 60%);
-    }
-
-    #confirm-actions {
-        button {
-            background-color: $color-white;
-
-            &:hover {
-                background-color: lighten($color-slate, 60%);
-            }
-        }
-    }
 }

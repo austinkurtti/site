@@ -126,20 +126,35 @@ p:not(:last-child) {
 
 button {
     background-color: transparent;
-    border-color: $color-slate;
+    border-color: $theme-font-color;
     border-radius: math.div($base-size, 4);
     border-style: solid;
     border-width: math.div($base-size, 8);
-    color: $color-slate;
+    color: $theme-font-color;
     font-family: $default-font-family;
     padding: math.div($base-size, 2);
+
+    &:not(:disabled) {
+        cursor: pointer;
+
+        &:hover {
+            background-color: lighten($color-slate, 60%);
+        }
+    }
     
     &.icon-button {
         border: none;
     }
 
-    &:not(:disabled) {
-        cursor: pointer;
+    &.header-icon-button {
+        border: none;
+        height: $header-height;
+        width: $header-height;
+
+        &:not(:disabled):hover {
+            background-color: transparent;
+            color: $color-blue;
+        }
     }
 }
 

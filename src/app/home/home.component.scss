@@ -3,8 +3,6 @@
 @import 'variables';
 @import 'keyframes';
 
-$header-height: $base-size * 6;
-
 :host {
     background-color: $theme-content-background;
     color: $theme-font-color;
@@ -34,17 +32,6 @@ $header-height: $base-size * 6;
 
         [role=menu] [role=menuitem]:hover {
             background-color: $theme-primary-background;
-        }
-
-        .icon-button {
-            animation-fill-mode: forwards;
-            color: $theme-font-color;
-            height: $header-height;
-            width: $header-height;
-
-            &:hover {
-                color: $color-blue;
-            }
         }
 
         a {
@@ -90,7 +77,7 @@ $header-height: $base-size * 6;
 
     footer {
         background-color: $theme-primary-background;
-        height: $base-size * 6;
+        height: $header-height;
 
         .footer-text {
             margin-right: $base-size * 2;

@@ -1,7 +1,5 @@
 @import 'variables';
 
-$header-height: $base-size * 6;
-
 :host {
     background-color: $color-ivory;
     color: $color-black;
@@ -18,16 +16,6 @@ $header-height: $base-size * 6;
         #header-title span {
             font-size: $default-font-size * 2;
             line-height: $base-size * 2;
-        }
-
-        .icon-button {
-            color: $theme-font-color;
-            height: $header-height;
-            width: $header-height;
-
-            &:hover {
-                color: $color-blue;
-            }
         }
     }
 

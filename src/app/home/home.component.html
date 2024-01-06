@@ -2,7 +2,7 @@
 <header #header class="position-fixed w-100 row g-0 align-items-center">
     <button akMenu
         id="menu-button"
-        class="col-auto icon-button d-flex d-lg-none align-items-center justify-content-center"
+        class="col-auto header-icon-button d-flex d-lg-none align-items-center justify-content-center"
         [menuPosition]="MenuPosition.bottomLeft">
         <i class="fas fa-bars fa-2x"></i>
         <ng-template #menuContent>
@@ -28,14 +28,14 @@
     </div>
     <div class="col-auto col-lg-3 d-flex justify-content-end">
         <button akTooltip
-            class="icon-button"
+            class="header-icon-button"
             routerLink="/games"
             [tooltipContent]="'Games'"
             [tooltipPosition]="TooltipPosition.bottom">
             <i class="fas fa-2x fa-gamepad"></i>
         </button>
         <button akTooltip
-            class="icon-button"
+            class="header-icon-button"
             [tooltipContent]="'Theme'"
             [tooltipPosition]="TooltipPosition.bottom"
             (click)="toggleTheme()">

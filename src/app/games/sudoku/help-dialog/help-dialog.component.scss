@@ -5,10 +5,6 @@
 :host {
     background-color: $color-white;
 
-    #dialog-close:hover {
-        background-color: lighten($color-slate, 60%);
-    }
-
     li > div {
         margin-bottom: math.div($base-size, 2);
     }
