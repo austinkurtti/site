@@ -9,42 +9,25 @@
                 <ak-section-title [text]="title"></ak-section-title>
             </div>
         </div>
-        <div id="career-ide" class="row g-0">
-            <div id="career-ide-explorer" class="col-auto pb-2 d-flex flex-column justify-content-center">
-                <div class="p-2">
-                    <span>EXPLORER</span>
-                </div>
-                <div *ngFor="let item of careerItems"
-                    class="d-flex flex-column">
-                    <div class="d-flex align-items-center career-item"
-                        [ngClass]="item.expanded ? 'expanded' : ''"
-                        (click)="item.expanded = !item.expanded">
-                        <i class="fas fa-caret-down"></i>
-                        <i class="fas ms-2" [ngClass]="item.expanded ? 'fa-folder-open' : 'fa-folder'"></i>
-                        <span class="ms-2">{{ item.name }}</span>
+        <div id="career-item-container">
+            <div *ngFor="let item of careerItems" class="career-item" [ngClass]="{'expanded': item.expanded}">
+                <div tabindex="0"
+                    class="row g-0 align-items-center career-item-header"
+                    (click)="toggleCareerItemExpanded(item.id)"
+                    (keydown.enter)="toggleCareerItemExpanded(item.id)">
+                    <div class="col-auto px-2 py-4 p-lg-5">
+                        <i class="fas fa-2x fa-angle-right"></i>
                     </div>
-                    <ng-container *ngIf="item.expanded">
-                        <div *ngFor="let child of item.children"
-                            class="d-flex align-items-center career-item folder-item"
-                            [ngClass]="{ 'active': child.id === activeCareerItem.id }"
-                            (click)="activeCareerItem = child">
-                            <div>
-                                <i class="fas" [ngClass]="child.icon"></i>
-                                <span class="ms-2">{{ child.name }}</span>
-                            </div>
-                        </div>
-                    </ng-container>
-                </div>
-            </div>
-            <div id="career-ide-editor" class="col p-2">
-                <div class="row g-0 mb-2">
-                    <div class="col">
-                        <i class="fas me-2" [ngClass]="activeCareerItem.icon"></i>
-                        <span>{{ activeCareerItem.name }}</span>
+                    <div class="col px-2 py-4 p-lg-5 career-item-name">
+                        <span class="d-inline-block">{{ item.name }}</span>
+                    </div>
+                    <div class="col-auto px-2 py-4 p-lg-5 career-item-timeframe">
+                        <span class="d-inline-block">{{ item.timeframe }}</span>
                     </div>
                 </div>
-                <div class="row g-0 py-2">
-                    <div class="col">{{ activeCareerItem.description }}</div>
+                <div *ngIf="item.expanded" class="row g-0 px-2 py-4 p-lg-5 career-item-content">
+                    <p><i>{{ item.company }}</i></p>
+                    <p>{{ item.content }}</p>
                 </div>
             </div>
         </div>

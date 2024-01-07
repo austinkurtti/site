@@ -37,7 +37,7 @@ dialog {
     }
 
     .dialog-content {
-        animation: $dialog-appear $dialog-appear-timing $dialog-appear-duration;
+        animation: $dialog-appear-name $dialog-appear-timing $dialog-appear-duration;
         border-radius: math.div($base-size, 4);
         box-shadow: $hard-box-shadow;
     }

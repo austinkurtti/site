@@ -75,10 +75,10 @@ $bounce-timing              : ease-in-out;
 // -----------------------------------------
 // Dialog keyframes
 // -----------------------------------------
-$dialog-appear              : kfDialogAppear;
+$dialog-appear-name         : kfDialogAppear;
 $dialog-appear-duration     : .2s;
 $dialog-appear-timing       : ease-in;
-@keyframes #{$dialog-appear} {
+@keyframes #{$dialog-appear-name} {
     0% {
         opacity: 0;
         transform: translateY($base-size * -2);
@@ -86,5 +86,22 @@ $dialog-appear-timing       : ease-in;
     100% {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+// -----------------------------------------
+// Career keyframes
+// -----------------------------------------
+$bg-pos-scroll-name         : kfCareerItemBgHover;
+$bg-pos-scroll-duration     : 2s;
+$bg-pos-scroll-timing       : linear;
+@keyframes #{$bg-pos-scroll-name} {
+    0% {
+        background-position-x: 0;
+        background-position-y: $base-size;
+    }
+    100% {
+        background-position-x: $base-size * 1.5;
+        background-position-y: $base-size * 4;
     }
 }

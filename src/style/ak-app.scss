@@ -162,12 +162,8 @@ a[href] {
     font-weight: bold;
     text-decoration: none;
 
-    &:link {
+    &:link, &:visited {
         color: $color-blue;
-    }
-
-    &:visited {
-        color: $color-purple;
     }
 
     &:hover {
