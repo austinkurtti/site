@@ -158,6 +158,23 @@ button {
     }
 }
 
+a[href] {
+    font-weight: bold;
+    text-decoration: none;
+
+    &:link {
+        color: $color-blue;
+    }
+
+    &:visited {
+        color: $color-purple;
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 /***********************
 
     Media queries
