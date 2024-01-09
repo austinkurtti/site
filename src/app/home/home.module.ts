@@ -8,11 +8,12 @@ import { TooltipModule } from '@directives/tooltip/tooltip.module';
 import { ContactIconsComponent } from './@controls/contact-icons/contact-icons.component';
 import { SectionTitleComponent } from './@controls/section-title/section-title.component';
 import { AboutComponent } from './about/about.component';
+import { CareerItemComponent } from './career/career-item/career-item.component';
+import { CareerComponent } from './career/career.component';
 import { HomeComponent } from './home.component';
 import { IntroComponent } from './intro/intro.component';
 import { SkillComponent } from './skills/skill/skill.component';
 import { SkillsComponent } from './skills/skills.component';
-import { CareerComponent } from './timeline/career.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { CareerComponent } from './timeline/career.component';
         SectionTitleComponent,
         SkillsComponent,
         SkillComponent,
-        CareerComponent
+        CareerComponent,
+        CareerItemComponent
     ],
     imports: [
         CommonModule,

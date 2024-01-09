@@ -1,0 +1,109 @@
+@use 'sass:math';
+
+@import 'variables';
+@import 'keyframes';
+
+:host {
+    border-top: 1px solid $theme-font-color;
+    display: block;
+
+    &:nth-of-type(1) .career-item-header {
+        --pattern-color: #{$theme-content-background};
+
+        background: radial-gradient(circle, transparent 25%, $theme-primary-background 26%),
+                    linear-gradient(45deg, transparent 46%, var(--pattern-color) 47%, var(--pattern-color) 52%, transparent 53%),
+                    linear-gradient(135deg, transparent 46%, var(--pattern-color) 47%, var(--pattern-color) 52%, transparent 53%);
+        background-position-y: $base-size;
+        background-size: $base-size * 1.5 $base-size * 1.5;
+
+        &:hover, &:focus-visible {
+            --pattern-color: #{$color-lime};
+
+            animation: $bg-pos-scroll-name $bg-pos-scroll-duration $bg-pos-scroll-timing;
+            animation-iteration-count: infinite;
+        }
+    }
+
+    &:nth-of-type(2) .career-item-header {
+        --pattern-color: #{$theme-content-background};
+
+        background: radial-gradient(circle, var(--pattern-color) 10%, transparent 11%),
+                    radial-gradient(circle at bottom left, var(--pattern-color) 5%, transparent 6%),
+                    radial-gradient(circle at bottom right, var(--pattern-color) 5%, transparent 6%),
+                    radial-gradient(circle at top left, var(--pattern-color) 5%, transparent 6%),
+                    radial-gradient(circle at top right, var(--pattern-color) 5%, transparent 6%);
+        background-position-y: $base-size;
+        background-size: $base-size * 1.5 $base-size * 1.5;
+
+        &:hover, &:focus-visible {
+            --pattern-color: #{$color-lime};
+
+            animation: $bg-pos-scroll-name $bg-pos-scroll-duration $bg-pos-scroll-timing;
+            animation-iteration-count: infinite;
+        }
+    }
+
+    &:nth-of-type(3) .career-item-header {
+        --pattern-color: #{$theme-content-background};
+
+        background: linear-gradient(45deg, var(--pattern-color) 10%, transparent 10%),
+                    linear-gradient(135deg, transparent 90%, var(--pattern-color) 90%);
+        background-position-y: $base-size;
+        background-size: $base-size * 1.5 $base-size * 1.5;
+
+        &:hover, &:focus-visible {
+            --pattern-color: #{$color-lime};
+
+            animation: $bg-pos-scroll-name $bg-pos-scroll-duration $bg-pos-scroll-timing;
+            animation-iteration-count: infinite;
+        }
+    }
+
+    &:nth-child(4) .career-item-header {
+        --pattern-color: #{$theme-content-background};
+
+        background: radial-gradient(circle at top, transparent 9%, var(--pattern-color) 10%, var(--pattern-color) 15%, transparent 16%),
+                    radial-gradient(circle at bottom, transparent 9%, var(--pattern-color) 10%, var(--pattern-color) 15%, transparent 16%),
+                    radial-gradient(circle at right, transparent 9%, var(--pattern-color) 10%, var(--pattern-color) 15%, transparent 16%),
+                    radial-gradient(circle at left, transparent 9%, var(--pattern-color) 10%, var(--pattern-color) 15%, transparent 16%);
+        background-position-y: $base-size;
+        background-size: $base-size * 1.5 $base-size * 1.5;
+
+        &:hover, &:focus-visible {
+            --pattern-color: #{$color-lime};
+
+            animation: $bg-pos-scroll-name $bg-pos-scroll-duration $bg-pos-scroll-timing;
+            animation-iteration-count: infinite;
+        }
+    }
+
+    &:last-child {
+        border-bottom: 1px solid $theme-font-color;
+    }
+
+    &.expanded {
+        .career-item-header i {
+            transform: rotate(90deg);
+        }
+    }
+
+    .career-item-header {
+        cursor: pointer;
+
+        i {
+            transition: ease-in transform .2s;
+        }
+
+        .career-item-name, .career-item-timeframe {
+            span {
+                background-color: $theme-primary-background;
+                border: 1px solid $theme-font-color;
+                padding: math.div($base-size, 4);
+            }
+        }
+    }
+
+    .career-item-content {
+        border-top: 1px solid $theme-font-color;
+    }
+}

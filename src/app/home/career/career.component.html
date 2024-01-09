@@ -1,0 +1,50 @@
+<section [id]="navigationId">
+    <div akDeferLoad
+        class="content"
+        [ngClass]="deferClass"
+        [threshold]="deferThreshold"
+        (deferLoad)="deferLoad()">
+        <div class="row g-0 px-5 px-lg-0">
+            <div class="col offset-lg-2">
+                <ak-section-title [text]="title"></ak-section-title>
+            </div>
+        </div>
+        <div id="career-item-container">
+            <ak-career-item
+                [name]="'Staff Software Engineer'"
+                [timeframe]="'2023 - present'"
+                [company]="'NAVEX'"
+                (toggleExpanded)="toggleItemExpanded($event)">
+                <p>My current role.</p>
+            </ak-career-item>
+            <ak-career-item
+                [name]="'Senior Software Engineer'"
+                [timeframe]="'2022 - 2023'"
+                [company]="'NAVEX'"
+                (toggleExpanded)="toggleItemExpanded($event)">
+                <p>TODO</p>
+            </ak-career-item>
+            <ak-career-item
+                [name]="'Software Engineer'"
+                [timeframe]="'2017 - 2022'"
+                [company]="'Lockpath / NAVEX'"
+                (toggleExpanded)="toggleItemExpanded($event)">
+                <p>After my graduation from KU, I started working as a software engineer for a GRC company named Lockpath in Overland Park, KS. Initially I was assigned to the back-end team, but after six months I was recruited to the front-end to assist with a critical upgrade project. It was during this time that I realized I loved working on front-end projects. Angular and Typescript became my bread and butter, but as the years went on I was positioned as a full-stack engineer to support the ASPX-to-Angular conversion projects that were my focus.</p>
+                <p>In 2019, Lockpath was bought by a company based in Portland called NAVEX Global. Lockpath's flagship web application, Keylight, was renamed to Lockpath and became an official NAVEX offering. Three years later, a rebrand resulted in the "Global" suffix being dropped from the company name and Lockpath was renamed to NAVEX IRM.</p>
+            </ak-career-item>
+            <ak-career-item
+                [name]="'Web Developer'"
+                [timeframe]="'2014 - 2017'"
+                [company]="'AllofE Solutions'"
+                (toggleExpanded)="toggleItemExpanded($event)">
+                <p>During my sophomore year of college I accepted a position as a part-time web developer for AllofE Solutions. The flexibility of the job allowed me to continue classes while gaining real development experience in a professional environment.</p>
+                <ul>
+                    <span>Notable projects include:</span>
+                    <li class="ms-4">Contribution to foundation work of eMedley, a new health science education platform</li>
+                    <li class="ms-4">Maintainence of legacy websites for the trucking industry</li>
+                    <li class="ms-4">Design and implementation of upgrades to company intranet tools</li>
+                </ul>
+            </ak-career-item>
+        </div>
+    </div>
+</section>

@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 
 @Component({
     selector: 'ak-skill',
     styleUrls: ['./skill.component.scss'],
-    templateUrl: './skill.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    templateUrl: './skill.component.html'
 })
 export class SkillComponent {
     @Input() name: string;

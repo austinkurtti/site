@@ -4,8 +4,4 @@
 
 :host {
     background-color: $color-white;
-
-    li > div {
-        margin-bottom: math.div($base-size, 2);
-    }
 }
