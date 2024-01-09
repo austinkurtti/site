@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'ak-career-item',
@@ -17,6 +17,10 @@ export class CareerItemComponent {
 
     constructor() {
         this._id = crypto.randomUUID().toString();
+    }
+
+    @HostBinding('class.expanded') get expandedClass() {
+        return this.expanded;
     }
 
     public get id(): string {
