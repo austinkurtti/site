@@ -13,6 +13,13 @@
     </div>
 </div>
 <div *ngIf="expanded" class="row g-0 px-2 py-4 p-lg-5 career-item-content">
-    <p><i>{{ company }}</i></p>
-    <ng-content></ng-content>
+    <div class="row g-0 mb-3 align-items-center justify-content-between">
+        <div class="col-auto">
+            <p><i>{{ company }}</i></p>
+        </div>
+        <div class="col-auto">
+            <ng-template [ngTemplateOutlet]="badgeTemplate"></ng-template>
+        </div>
+    </div>
+    <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template>
 </div>

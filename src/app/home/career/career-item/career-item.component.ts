@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { Component, ContentChild, EventEmitter, HostBinding, Input, Output, TemplateRef } from '@angular/core';
 
 @Component({
     selector: 'ak-career-item',
@@ -12,6 +12,9 @@ export class CareerItemComponent {
     @Input() expanded: boolean;
 
     @Output() toggleExpanded = new EventEmitter<string>();
+
+    @ContentChild('badgeTemplate') badgeTemplate: TemplateRef<any>;
+    @ContentChild('contentTemplate') contentTemplate: TemplateRef<any>;
 
     private _id: string;
 

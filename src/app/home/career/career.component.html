@@ -15,41 +15,76 @@
                 [timeframe]="'2023 - present'"
                 [company]="'NAVEX'"
                 (toggleExpanded)="toggleItemExpanded($event)">
-                <p>My current role at NAVEX. As one of the more experienced front-end engineers on the team, I have a steady hand in architectural decisions and work with engineering leaders to identify priority tasks. I strive to stay current with new programming ideas, identify tools and methods to improve team processes, and keep our Angular project clean and modern.</p>
-                <ul>
-                    <span>Recent projects of interest include:</span>
-                    <li class="ms-4">Building a new theme engine to support the modernization of IRM's skin applicator</li>
-                    <li class="ms-4">Designing data-agnostic components to enable integration of PolicyTech (another NAVEX product) into IRM</li>
-                    <li class="ms-4">Writing a console app to import translation data and give IRM multilingual capabilities</li>
-                </ul>
+                <ng-template #badgeTemplate>
+                    <span class="ak-badge color-green">TypeScript</span>
+                    <span class="ak-badge color-green">Angular</span>
+                    <span class="ak-badge color-purple">C#</span>
+                    <span class="ak-badge color-purple">.NET</span>
+                    <span class="ak-badge color-sky">T-SQL</span>
+                </ng-template>
+                <ng-template #contentTemplate>
+                    <p>My current role at NAVEX. As one of the more experienced front-end engineers on the team, I have a steady hand in architectural decisions and work with engineering leaders to identify priority tasks. I strive to stay current with new programming ideas, identify tools and methods to improve team processes, and keep our Angular project clean and modern.</p>
+                    <ul>
+                        <span>Recent projects of interest include:</span>
+                        <li class="ms-4">Building a new theme engine to support the modernization of IRM's skin applicator</li>
+                        <li class="ms-4">Designing data-agnostic components to enable integration of PolicyTech (another NAVEX product) into IRM</li>
+                        <li class="ms-4">Writing a console app to import translation data and give IRM multilingual capabilities</li>
+                    </ul>
+                </ng-template>
             </ak-career-item>
             <ak-career-item
                 [name]="'Senior Software Engineer'"
                 [timeframe]="'2022 - 2023'"
                 [company]="'NAVEX'"
                 (toggleExpanded)="toggleItemExpanded($event)">
-                <p>In 2022, I was promoted to senior engineer and designated as a codeowner of IRM's Angular project. This brought more responsibilities in the form of regularly reviewing pull requests and providing feedback on design documents. As other team changes continued to be made, I was asked to help write new onboarding documentation for incoming engineers.</p>
+                <ng-template #badgeTemplate>
+                    <span class="ak-badge color-green">TypeScript</span>
+                    <span class="ak-badge color-green">Angular</span>
+                    <span class="ak-badge color-purple">C#</span>
+                    <span class="ak-badge color-purple">.NET</span>
+                    <span class="ak-badge color-sky">T-SQL</span>
+                </ng-template>
+                <ng-template #contentTemplate>
+                    <p>In 2022, I was promoted to senior engineer and designated as a codeowner of IRM's Angular project. This brought more responsibilities in the form of regularly reviewing pull requests and providing feedback on design documents. As other team changes continued to be made, I was asked to help write new onboarding documentation for incoming engineers.</p>
+                </ng-template>
             </ak-career-item>
             <ak-career-item
                 [name]="'Software Engineer'"
                 [timeframe]="'2017 - 2022'"
                 [company]="'Lockpath / NAVEX'"
                 (toggleExpanded)="toggleItemExpanded($event)">
-                <p>After my graduation from KU, I started working as a software engineer for a GRC company named Lockpath in Overland Park, KS. Initially I was assigned to the back-end team, but after six months I was recruited to the front-end to assist with a critical upgrade project. It was during this time that I realized I loved working on front-end projects. Angular and Typescript became my bread and butter, but as the years went on I was positioned as a full-stack engineer to best facilitate the ASPX-to-Angular conversion projects that were my focus.</p>
-                <p>In 2019, Lockpath was bought by a company based in Portland, OR called NAVEX Global. Lockpath's flagship web application, Keylight, was renamed to Lockpath and became an official NAVEX offering. Three years later, a rebrand resulted in the "Global" suffix being dropped from the company name and Lockpath was renamed to NAVEX IRM.</p>
+                <ng-template #badgeTemplate>
+                    <span class="ak-badge color-green">TypeScript</span>
+                    <span class="ak-badge color-green">Angular</span>
+                    <span class="ak-badge color-purple">C#</span>
+                    <span class="ak-badge color-purple">.NET</span>
+                    <span class="ak-badge color-sky">T-SQL</span>
+                </ng-template>
+                <ng-template #contentTemplate>
+                    <p>After my graduation from KU, I started working as a software engineer for a GRC company named Lockpath in Overland Park, KS. Initially I was assigned to the back-end team, but after six months I was recruited to the front-end to assist with a critical upgrade project. It was during this time that I realized I loved working on front-end projects. Angular and Typescript became my bread and butter, but as the years went on I was positioned as a full-stack engineer to best facilitate the ASPX-to-Angular conversion projects that were my focus.</p>
+                    <p>In 2019, Lockpath was bought by a company based in Portland, OR called NAVEX Global. Lockpath's flagship web application, Keylight, was renamed to Lockpath and became an official NAVEX offering. Three years later, a rebrand resulted in the "Global" suffix being dropped from the company name and Lockpath was renamed to NAVEX IRM.</p>
+                </ng-template>
             </ak-career-item>
             <ak-career-item
                 [name]="'Web Developer'"
                 [timeframe]="'2014 - 2017'"
                 [company]="'AllofE Solutions'"
                 (toggleExpanded)="toggleItemExpanded($event)">
-                <p>During my sophomore year of college I accepted a position as a part-time web developer for AllofE Solutions. The flexibility of the job allowed me to continue classes while gaining real development experience in a professional environment.</p>
-                <ul>
-                    <span>Notable projects include:</span>
-                    <li class="ms-4">Contribution to foundation work of eMedley, a new health science education platform</li>
-                    <li class="ms-4">Maintainence of legacy websites for the trucking industry</li>
-                    <li class="ms-4">Design and implementation of upgrades to company intranet tools</li>
-                </ul>
+                <ng-template #badgeTemplate>
+                    <span class="ak-badge color-green">JavaScript</span>
+                    <span class="ak-badge color-green">Ext JS</span>
+                    <span class="ak-badge color-purple">PHP</span>
+                    <span class="ak-badge color-sky">MySQL</span>
+                </ng-template>
+                <ng-template #contentTemplate>
+                    <p>During my sophomore year of college I accepted a position as a part-time web developer for AllofE Solutions. The flexibility of the job allowed me to continue classes while gaining real development experience in a professional environment.</p>
+                    <ul>
+                        <span>Notable projects include:</span>
+                        <li class="ms-4">Contribution to foundation work of eMedley, a new health science education platform</li>
+                        <li class="ms-4">Maintainence of legacy websites for the trucking industry</li>
+                        <li class="ms-4">Design and implementation of upgrades to company intranet tools</li>
+                    </ul>
+                </ng-template>
             </ak-career-item>
         </div>
     </div>
