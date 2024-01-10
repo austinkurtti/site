@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
+import { SkillType } from '../skills.models';
 
 @Component({
     selector: 'ak-skill',
@@ -9,7 +10,11 @@ import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 export class SkillComponent {
     @Input() name: string;
     @Input() icon: string;
-    @Input() level: 1 | 2 | 3 | 4 | 5;
+    @Input() type: SkillType;
 
     public tooltipPosition = TooltipPosition;
+
+    @HostBinding('attr.skill-type') get typeClass() {
+        return SkillType[this.type];
+    }
 }

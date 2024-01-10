@@ -1,7 +1,19 @@
 @import 'variables';
 
 .curly-brace {
-    color: $color-orange;
-    font-size: $default-font-size * 2;
+    color: $color-gold;
+    font-size: $default-font-size * 3;
     font-weight: bold;
+}
+
+#skill-filters {
+    background-color: $theme-primary-background;
+    border: 1px solid $theme-font-color;
+    padding: $base-size;
+}
+
+#skill-grid {
+    border-color: $theme-font-color;
+    border-style: solid;
+    border-width: 0 1px 1px 1px;
 }
