@@ -5,3 +5,13 @@
     font-size: $default-font-size * 3;
     font-weight: bold;
 }
+
+#quick-facts {
+    border: 1px solid $theme-font-color;
+
+    i {
+        color: $color-green;
+        text-align: center;
+        width: $base-size * 3;
+    }
+}
