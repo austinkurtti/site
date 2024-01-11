@@ -19,22 +19,39 @@
         </div>
         <div class="row g-0 justify-content-center">
             <div id="skill-filters" class="col-12 col-lg-8">
-                <!-- TODO - make these work like filters -->
-                <span class="ak-badge color-green">Front</span>
-                <span class="ak-badge color-red">Back</span>
-                <span class="ak-badge color-sky">Data</span>
-                <span class="ak-badge color-orange">Tool</span>
+                <button class="color-green"
+                    [ngClass]="{'off': !skillFilters.hasFlag(SkillType.front)}"
+                    (click)="toggleFilter(SkillType.front)">
+                    <span>Front</span>
+                </button>
+                <button class="color-red"
+                    [ngClass]="{'off': !skillFilters.hasFlag(SkillType.back)}"
+                    (click)="toggleFilter(SkillType.back)">
+                    <span>Back</span>
+                </button>
+                <button class="color-sky"
+                    [ngClass]="{'off': !skillFilters.hasFlag(SkillType.data)}"
+                    (click)="toggleFilter(SkillType.data)">
+                    <span>Data</span>
+                </button>
+                <button class="color-orange"
+                    [ngClass]="{'off': !skillFilters.hasFlag(SkillType.tool)}"
+                    (click)="toggleFilter(SkillType.tool)">
+                    <span>Tool</span>
+                </button>
             </div>
         </div>
         <div class="row g-0 justify-content-center">
             <div id="skill-grid" class="col-12 col-lg-8">
                 <div class="row g-0">
-                    <ak-skill *ngFor="let skill of skills"
-                        class="col-4 col-lg-3 col-xl-2 py-3 py-md-4 py-xl-5"
-                        [name]="skill.name"
-                        [icon]="skill.icon"
-                        [type]="skill.type"
-                    ></ak-skill>
+                    <ng-container *ngFor="let skill of skills">
+                        <ak-skill class="col-4 col-lg-3 col-xl-2 py-3 py-md-4 py-xl-5"
+                            [ngClass]="{'off': !skillFilters.hasFlag(skill.type)}"
+                            [name]="skill.name"
+                            [icon]="skill.icon"
+                            [type]="skill.type"
+                        ></ak-skill>
+                    </ng-container>
                 </div>
             </div>
         </div>

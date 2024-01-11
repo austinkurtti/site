@@ -1,8 +1,8 @@
 export enum SkillType {
-    front = 1,
-    back = 2,
-    data = 3,
-    tool = 4
+    front = 1 << 1,
+    back  = 1 << 2,
+    data  = 1 << 3,
+    tool  = 1 << 4
 }
 
 export class SkillModel {

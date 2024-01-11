@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @import 'variables';
 
 .curly-brace {
@@ -10,10 +12,37 @@
     background-color: $theme-primary-background;
     border: 1px solid $theme-font-color;
     padding: $base-size;
+
+    button {
+        $translate-distance: math.div($base-size, 8);
+
+        border-color: currentColor;
+        box-shadow: $translate-distance $translate-distance currentColor;
+        transform: translate(-$translate-distance, -$translate-distance);
+
+        &:not(:last-child) {
+            margin-right: $base-size;
+        }
+
+        &:hover {
+            background-color: transparent;
+            box-shadow: none;
+            transform: translate(0, 0);
+        }
+
+        &.off {
+            background-color: $theme-content-background;
+            color: $theme-font-color;
+        }
+    }
 }
 
 #skill-grid {
     border-color: $theme-font-color;
     border-style: solid;
     border-width: 0 1px 1px 1px;
+
+    ak-skill.off {
+        visibility: hidden;
+    }
 }
