@@ -1,6 +1,6 @@
 {
     "name": "site",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
@@ -8,7 +8,9 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "site-prod": "ng build --configuration production && copy .\\docs\\index.html .\\docs\\404.html"
+        "manual-prod-build": "ng build --configuration production && copy .\\docs\\index.html .\\docs\\404.html",
+        "test:prod": "ng test --browsers=ChromeHeadless --code-coverage --no-progress --no-watch",
+        "build:prod": "ng build --configuration production && cp .\\docs\\index.html .\\docs\\404.html"
     },
     "private": true,
     "dependencies": {
