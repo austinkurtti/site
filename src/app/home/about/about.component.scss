@@ -7,11 +7,16 @@
 }
 
 #quick-facts {
+    background-color: $theme-primary-background;
     border: 1px solid $theme-font-color;
 
     i {
         color: $color-green;
         text-align: center;
         width: $base-size * 3;
+    }
+
+    span {
+        font-weight: bold;
     }
 }

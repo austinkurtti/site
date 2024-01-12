@@ -2,7 +2,7 @@
 <header #header class="position-fixed w-100 row g-0 align-items-center">
     <button akMenu
         id="menu-button"
-        class="col-auto header-icon-button d-flex d-lg-none align-items-center justify-content-center"
+        class="col-auto header-icon-button d-flex d-xl-none align-items-center justify-content-center"
         [menuPosition]="MenuPosition.bottomLeft">
         <i class="fas fa-bars fa-2x"></i>
         <ng-template #menuContent>
@@ -16,17 +16,17 @@
             </div>
         </ng-template>
     </button>
-    <div id="header-title" class="col col-lg-3 ps-lg-5">
+    <div id="header-title" class="col col-xl-3 ps-xl-5">
         <span>{{ title }}</span>
     </div>
-    <div id="header-nav" class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center">
+    <div id="header-nav" class="col-xl-6 d-none d-xl-flex align-items-center justify-content-center">
         <a *ngFor="let anchor of navigationAnchors"
             #navAnchor
             [href]="'#' + anchor.id">
             <span>{{ anchor.text }}</span>
         </a>
     </div>
-    <div class="col-auto col-lg-3 d-flex justify-content-end">
+    <div class="col-auto col-xl-3 d-flex justify-content-end">
         <button akTooltip
             class="header-icon-button"
             routerLink="/games"

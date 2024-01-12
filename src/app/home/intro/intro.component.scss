@@ -47,8 +47,19 @@ section {
                 animation-fill-mode: forwards;
                 border-radius: $base-size;
                 box-shadow: $hard-box-shadow;
-                height: 50vh;
                 opacity: 0;
+
+                @media (min-width: 0px) {
+                    height: 30vh;
+                }
+        
+                @media (min-width: $breakpoint-tablet) {
+                    height: 40vh;
+                }
+        
+                @media (min-width: $breakpoint-desktop) {
+                    height: 50vh;
+                }
             }
         }
 
