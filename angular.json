@@ -105,6 +105,11 @@
                         "styles": [
                             "src/styles.scss"
                         ],
+                        "stylePreprocessorOptions": {
+                            "includePaths": [
+                                "src/style-paths"
+                            ]
+                        },
                         "scripts": [],
                         "assets": [
                             "src/favicon.ico",
