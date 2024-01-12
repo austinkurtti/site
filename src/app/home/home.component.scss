@@ -24,7 +24,7 @@
             padding: 0 math.div($base-size, 2);
 
             @media (min-width: 0px) {
-                font-size: $default-font-size * 1.25;
+                font-size: $default-font-size * 1.5;
             }
     
             @media (min-width: $breakpoint-tablet) {

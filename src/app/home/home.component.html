@@ -1,32 +1,6 @@
 <!-- Header -->
 <header #header class="position-fixed w-100 row g-0 align-items-center">
-    <button akMenu
-        id="menu-button"
-        class="col-auto header-icon-button d-flex d-xl-none align-items-center justify-content-center"
-        [menuPosition]="MenuPosition.bottomLeft">
-        <i class="fas fa-bars fa-2x"></i>
-        <ng-template #menuContent>
-            <div akMenuContent>
-                <a *ngFor="let anchor of navigationAnchors"
-                    #navAnchor
-                    akMenuItem
-                    [href]="'#' + anchor.id">
-                    <span>{{ anchor.text }}</span>
-                </a>
-            </div>
-        </ng-template>
-    </button>
-    <div id="header-title" class="col col-xl-3 ps-xl-5">
-        <span>{{ title }}</span>
-    </div>
-    <div id="header-nav" class="col-xl-6 d-none d-xl-flex align-items-center justify-content-center">
-        <a *ngFor="let anchor of navigationAnchors"
-            #navAnchor
-            [href]="'#' + anchor.id">
-            <span>{{ anchor.text }}</span>
-        </a>
-    </div>
-    <div class="col-auto col-xl-3 d-flex justify-content-end">
+    <ng-template #headerButtons>
         <button akTooltip
             class="header-icon-button"
             routerLink="/games"
@@ -41,6 +15,39 @@
             (click)="toggleTheme()">
             <i class="theme-toggle fas fa-2x" [ngClass]="currentThemeValue ? 'fa-sun' : 'fa-moon'"></i>
         </button>
+    </ng-template>
+
+    <button akMenu
+        id="menu-button"
+        class="col-auto header-icon-button d-flex d-xl-none align-items-center justify-content-center"
+        [menuPosition]="MenuPosition.bottomLeft">
+        <i class="fas fa-bars fa-2x"></i>
+        <ng-template #menuContent>
+            <div akMenuContent>
+                <a *ngFor="let anchor of navigationAnchors"
+                    #navAnchor
+                    akMenuItem
+                    [href]="'#' + anchor.id">
+                    <span>{{ anchor.text }}</span>
+                </a>
+                <div class="d-flex justify-content-evenly">
+                    <ng-template [ngTemplateOutlet]="headerButtons"></ng-template>
+                </div>
+            </div>
+        </ng-template>
+    </button>
+    <div id="header-title" class="col col-xl-3 ps-xl-5">
+        <span>{{ title }}</span>
+    </div>
+    <div id="header-nav" class="col-xl-6 d-none d-xl-flex align-items-center justify-content-center">
+        <a *ngFor="let anchor of navigationAnchors"
+            #navAnchor
+            [href]="'#' + anchor.id">
+            <span>{{ anchor.text }}</span>
+        </a>
+    </div>
+    <div class="col-auto col-xl-3 d-none d-xl-flex justify-content-end">
+        <ng-template [ngTemplateOutlet]="headerButtons"></ng-template>
     </div>
 </header>
 
