@@ -23,7 +23,7 @@ jobs:
             run: npm run test:prod
 
           - name: Tar docs
-            run: tar -cvf artifact.tar docs
+            run: tar --exclude='CNAME' -cvf artifact.tar docs
 
           - name: Build Artifact
             uses: actions/upload-artifact@v4
