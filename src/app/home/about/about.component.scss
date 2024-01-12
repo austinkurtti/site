@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @import 'variables';
 
 .curly-brace {
@@ -16,7 +18,16 @@
         width: $base-size * 3;
     }
 
-    span {
+    [class$=-fact] {
+        display: block;
+    }
+
+    .primary-fact {
         font-weight: bold;
+        margin-bottom: math.div($base-size, 4);
+    }
+
+    .secondary-fact {
+        font-style: italic;
     }
 }
