@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { aboutId, aboutText, colorAppAccent1 } from '@constants/strings';
+import { aboutId, aboutText } from '@constants/strings';
 import { SectionDirective } from '../@controls/section/section.directive';
 
 @Component({
@@ -9,7 +9,5 @@ import { SectionDirective } from '../@controls/section/section.directive';
 })
 export class AboutComponent extends SectionDirective {
     public navigationId = aboutId;
-
     public title = aboutText;
-    public titleColor = colorAppAccent1;
 }

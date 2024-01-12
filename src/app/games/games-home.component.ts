@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { GameLinkModel } from './games.models';
 
 @Component({
-    selector: 'games-home',
+    selector: 'ak-games-home',
     styleUrls: ['./games-home.component.scss'],
     templateUrl: './games-home.component.html'
 })

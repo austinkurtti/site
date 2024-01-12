@@ -4,49 +4,45 @@
         [ngClass]="deferClass"
         [threshold]="deferThreshold"
         (deferLoad)="deferLoad()">
-        <div class="row g-0 px-5 px-lg-0">
-            <div class="col offset-lg-2">
-                <ak-section-title [text]="title" [colorClass]="titleColor"></ak-section-title>
+        <div class="row g-0 px-4 px-xl-0">
+            <div class="col-12 offset-xl-2 col-xl-8">
+                <ak-section-title [text]="title"></ak-section-title>
             </div>
         </div>
-        <div class="row g-0 justify-content-center px-5 px-lg-0">
-            <div class="col-12 col-lg-4 mb-5 mb-lg-0">
-                <div class="row g-0">
-                    <div class="col-12">
-                        <p>Over the last several years, I've had the opportunity to work with a variety of web technologies and talented people. While I mostly identify as a front-ender, I continue to find myself utilizing my skills on both ends of the tech stack.</p>
-                        <p>I strive to stay up-to-date on the latest programming principles and am continually looking for ways to improve my web development game.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-4">
-                <div class="row g-0 justify-content-center align-items-center mb-5">
-                    <div class="col-4 d-flex justify-content-end">
-                        <div class="about-icon-container text-center">
-                            <i class="color-app-accent-2 fas fa-suitcase fa-3x"></i>
-                        </div>
-                    </div>
-                    <div class="col-8">
-                        <label class="ms-3">Staff Software Engineer</label>
-                    </div>
-                </div>
-                <div class="row g-0 align-items-center mb-5">
-                    <div class="col-4 d-flex justify-content-end">
-                        <div class="about-icon-container text-center">
-                            <i class="color-app-accent-2 fas fa-building fa-3x"></i>
-                        </div>
-                    </div>
-                    <div class="col-8">
-                        <label class="ms-3">NAVEX (remote)</label>
-                    </div>
-                </div>
+        <div class="row g-0 px-4 px-xl-0">
+            <div class="col-12 offset-xl-2 col-xl-8">
                 <div class="row g-0 align-items-center">
-                    <div class="col-4 d-flex justify-content-end">
-                        <div class="about-icon-container text-center">
-                            <i class="color-app-accent-2 fas fa-map-marker-alt fa-3x"></i>
-                        </div>
+                    <div class="col-12 col-xl pe-4">
+                        <div class="curly-brace">&lcub;</div>
+                        <p class="ps-5">Welcome to the site! This is where I attempt to keep an up-to-date representation of my experience as a software engineer. It's also where you might catch me experimenting with the latest ideas bouncing around in my head.</p>
+                        <p class="ps-5">When I'm not mashing away at a keyboard you can find me binging a TV series, catching the games of my favorite sports teams, looking for good food, tackling the next home improvement project, or planning my next trip.</p>
+                        <p class="mb-0 ps-5">Check out the <a routerLink="/games">games library</a> I'm building! It's a constant work in progress, but I continue to work on it as I find time.</p>
+                        <div class="curly-brace">&rcub;</div>
                     </div>
-                    <div class="col-8">
-                        <label class="ms-3">Minneapolis, Minnesota</label>
+                    <div class="col-12 col-xl-auto ps-0 ps-xl-4">
+                        <div id="quick-facts" class="d-flex flex-column p-5 mt-5 mt-xl-0 justify-content-center">
+                            <div class="d-flex mb-5 align-items-center">
+                                <i class="fas fa-2x fa-university"></i>
+                                <div class="ms-3">
+                                    <span class="primary-fact">University of Kansas</span>
+                                    <span class="secondary-fact">Computer Science</span>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-5 align-items-center">
+                                <i class="fas fa-2x fa-code"></i>
+                                <div class="ms-3">
+                                    <span class="primary-fact">Staff Software Engineer</span>
+                                    <span class="secondary-fact">NAVEX</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-2x fa-map-marked-alt"></i>
+                                <div class="ms-3">
+                                    <span class="primary-fact">Minneapolis, MN</span>
+                                    <span class="secondary-fact"><s>Goose</s> Gray duck</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

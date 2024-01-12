@@ -1,5 +1,33 @@
+@use 'sass:math';
+
 @import 'variables';
 
-.about-icon-container {
-    width: $base-size * 4;
+.curly-brace {
+    color: $color-gold;
+    font-size: $default-font-size * 3;
+    font-weight: bold;
+}
+
+#quick-facts {
+    background-color: $theme-primary-background;
+    border: 1px solid $theme-font-color;
+
+    i {
+        color: $color-green;
+        text-align: center;
+        width: $base-size * 3;
+    }
+
+    [class$=-fact] {
+        display: block;
+    }
+
+    .primary-fact {
+        font-weight: bold;
+        margin-bottom: math.div($base-size, 4);
+    }
+
+    .secondary-fact {
+        font-style: italic;
+    }
 }

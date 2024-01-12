@@ -49,10 +49,6 @@ $sudoku-border-width: math.div($base-size, 5);
         padding: $base-size * 2;
 
         button {
-            &:not(:disabled):hover {
-                background-color: lighten($color-slate, 60%);
-            }
-
             &:not(:first-child) {
                 margin-left: $base-size;
             }
@@ -161,7 +157,6 @@ $sudoku-border-width: math.div($base-size, 5);
                 border-radius: math.div($base-size, 4);
                 font-weight: bold;
                 height: 100%;
-                transition: ease-in background-color .1s;
                 width: 100%;
 
                 &:disabled {

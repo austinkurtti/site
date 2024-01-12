@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
-import { aboutId, aboutText, introId, introText, skillsId, skillsText, timelineId, timelineText } from '@constants/strings';
+import { aboutId, aboutText, careerId, careerText, introId, introText, skillsId, skillsText } from '@constants/strings';
 import { MenuPosition } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { LocalStorageService } from '@services/local-storage.service';
@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChildren('navAnchor') navAnchors: QueryList<ElementRef>;
 
-    public title = 'Austin Kurtti';
+    public title = 'AUSTIN KURTTI';
     public currentThemeValue: boolean;
 
     public navigationAnchors = [
@@ -30,8 +30,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             text: aboutText
         }),
         new NavigationAnchorModel({
-            id: timelineId,
-            text: timelineText
+            id: careerId,
+            text: careerText
         }),
         new NavigationAnchorModel({
             id: skillsId,
@@ -53,8 +53,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     @HostListener('window:scroll')
     public updateActiveNav() {
         if (!this._debounce && this.navAnchors.length) {
-            // Restrict this to running at most every tenth of a second so its not cumbersome
-            this._debounce = timer(100).subscribe(() => {
+            // Give scrolling a half second to settle to prevent weird link animations
+            this._debounce = timer(500).subscribe(() => {
                 const scrollTop = document.documentElement.scrollTop;
                 const screenHeight = document.documentElement.clientHeight;
 

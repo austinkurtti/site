@@ -1,0 +1,25 @@
+<div tabindex="0"
+    class="row g-0 align-items-center career-item-header"
+    (click)="toggleExpanded.emit(id)"
+    (keydown.enter)="toggleExpanded.emit(id)">
+    <div class="col-auto px-2 py-4 p-xl-5">
+        <i class="fas fa-2x fa-angle-right"></i>
+    </div>
+    <div class="col px-2 py-4 p-xl-5 career-item-name">
+        <span class="d-inline-block">{{ name }}</span>
+    </div>
+    <div class="col-auto px-2 py-4 p-xl-5 career-item-timeframe">
+        <span class="d-inline-block">{{ timeframe }}</span>
+    </div>
+</div>
+<div *ngIf="expanded" class="row g-0 px-2 py-4 p-xl-5 career-item-content">
+    <div class="row g-0 mb-3 align-items-center justify-content-between">
+        <div class="col-auto">
+            <p><i>{{ company }}</i></p>
+        </div>
+        <div class="col-auto">
+            <ng-template [ngTemplateOutlet]="badgeTemplate"></ng-template>
+        </div>
+    </div>
+    <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template>
+</div>

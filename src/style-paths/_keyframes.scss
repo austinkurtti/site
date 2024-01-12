@@ -72,14 +72,36 @@ $bounce-timing              : ease-in-out;
     }
 }
 
-$bg-gradient-name           : kfGradientChange;
-$bg-gradient-duration       : 2s;
-$bg-gradient-timing         : ease-in-out;
-@keyframes #{$bg-gradient-name} {
+// -----------------------------------------
+// Dialog keyframes
+// -----------------------------------------
+$dialog-appear-name         : kfDialogAppear;
+$dialog-appear-duration     : .2s;
+$dialog-appear-timing       : ease-in;
+@keyframes #{$dialog-appear-name} {
     0% {
-        background-position: 0% 0%;
+        opacity: 0;
+        transform: translateY($base-size * -2);
     }
     100% {
-        background-position: -100% -100%;
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// -----------------------------------------
+// Career keyframes
+// -----------------------------------------
+$bg-pos-scroll-name         : kfCareerItemBgHover;
+$bg-pos-scroll-duration     : 2s;
+$bg-pos-scroll-timing       : linear;
+@keyframes #{$bg-pos-scroll-name} {
+    0% {
+        background-position-x: 0;
+        background-position-y: $base-size;
+    }
+    100% {
+        background-position-x: $base-size * 1.5;
+        background-position-y: $base-size * 4;
     }
 }

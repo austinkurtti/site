@@ -1,17 +1,6 @@
 @import 'variables';
 
-.section-title-container {
-    height: $base-size * 3;
-
-    :first-child {
-        left: -.1rem;
-        top: -.1rem;
-        z-index: $z-index-bump;
-    }
-
-    :last-child {
-        left: .1rem;
-        top: .1rem;
-        user-select: none;
-    }
+h2 {
+    color: $color-purple;
+    text-transform: lowercase;
 }

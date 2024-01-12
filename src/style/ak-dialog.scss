@@ -10,7 +10,6 @@ dialog {
     justify-content: center;
     opacity: 0;
     padding: 0;
-    transition: ease-in opacity .1s;
     width: 100%;
     z-index: $z-index-dialog;
 
@@ -38,6 +37,7 @@ dialog {
     }
 
     .dialog-content {
+        animation: $dialog-appear-name $dialog-appear-timing $dialog-appear-duration;
         border-radius: math.div($base-size, 4);
         box-shadow: $hard-box-shadow;
     }

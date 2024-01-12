@@ -2,10 +2,11 @@
 @import 'keyframes';
 
 section {
-    animation: $bg-gradient-name $bg-gradient-duration $bg-gradient-timing;
-    animation-fill-mode: forwards;
-    background: $color-app-gradient;
-    background-size: 200% 200%;
+    background: repeating-linear-gradient(0deg, $theme-primary-background 0, $theme-primary-background 20%, transparent 0, transparent 50%),
+                repeating-linear-gradient(45deg, $theme-content-background 0, $theme-content-background 10%, transparent 0, transparent 50%);
+    background-size: $base-size * 2 $base-size * 2;
+    background-color: $theme-primary-background;
+    border-bottom: 1px solid $theme-font-color;
     min-height: 100vh;
 
     .content {
@@ -19,7 +20,7 @@ section {
                     animation: $opacity-name $opacity-duration $opacity-timing;
                     animation-delay: .75s;
                     animation-fill-mode: forwards;
-                    color: $color-black;
+                    color: $theme-font-color;
                     opacity: 0;
                 }
 
@@ -27,7 +28,7 @@ section {
                     animation: $opacity-name $opacity-duration $opacity-timing;
                     animation-delay: 1.5s;
                     animation-fill-mode: forwards;
-                    color: $color-black;
+                    color: $theme-font-color;
                     opacity: 0;
                 }
 
@@ -35,7 +36,7 @@ section {
                     animation: $opacity-name $opacity-duration $opacity-timing;
                     animation-delay: 1.75s;
                     animation-fill-mode: forwards;
-                    color: $color-white;
+                    color: $color-green;
                     opacity: 0;
                 }
             }
@@ -46,8 +47,19 @@ section {
                 animation-fill-mode: forwards;
                 border-radius: $base-size;
                 box-shadow: $hard-box-shadow;
-                height: 50vh;
                 opacity: 0;
+
+                @media (min-width: 0px) {
+                    height: 30vh;
+                }
+        
+                @media (min-width: $breakpoint-tablet) {
+                    height: 40vh;
+                }
+        
+                @media (min-width: $breakpoint-desktop) {
+                    height: 50vh;
+                }
             }
         }
 
@@ -56,7 +68,7 @@ section {
             animation-delay: 2.25s;
             animation-fill-mode: forwards;
             bottom: 0%;
-            color: $color-white;
+            color: $theme-font-color;
             left: 50%;
             opacity: 0;
             transform: translateX(-50%);

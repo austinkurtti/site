@@ -1,65 +1,40 @@
-@use 'sass:math';
-
 @import 'variables';
 
-.skill-notch {
-    background-color: transparent;
-    border-radius: math.div($base-size, 4);
-    height: $base-size;
-    width: 100%;
-
-    &:not(:last-child) {
-        margin-bottom: math.div($base-size, 2);
-    }
-}
-
-.skill-5 {
-    .skill-notch:nth-child(1) {
-        background-color: $color-app-accent-2;
-    }
-}
-
-.skill-4, .skill-5 {
-    .skill-notch:nth-child(2) {
-        background-color: $color-app-accent-1;
-    }
-}
-
-.skill-3, .skill-4, .skill-5 {
-    .skill-notch:nth-child(3) {
-        background-color: $color-app-accent-1;
-    }
-}
-
-.skill-2, .skill-3, .skill-4, .skill-5 {
-    .skill-notch:nth-child(4) {
-        background-color: $color-app-primary;
-    }
-}
-
-.skill-1, .skill-2, .skill-3, .skill-4, .skill-5 {
-    .skill-notch:nth-child(5) {
-        background-color: $color-app-primary;
-    }
-}
-
-.skill-icon {
-    display: inline-block;
-    transition: ease-in transform .1s;
-
-    &:hover {
-        transform: scale(120%);
+:host {
+    &[skill-type=front] {
+        color: $color-green;
     }
 
-    @media (min-width: 0px) {
-        font-size: $default-font-size * 2.5;
+    &[skill-type=back] {
+        color: $color-red;
     }
 
-    @media (min-width: $breakpoint-tablet) {
-        font-size: $default-font-size * 3.25;
+    &[skill-type=data] {
+        color: $color-sky;
     }
 
-    @media (min-width: $breakpoint-desktop) {
-        font-size: $default-font-size * 4;
+    &[skill-type=tool] {
+        color: $color-orange;
+    }
+
+    .skill-icon {
+        display: inline-block;
+        transition: ease-in transform .1s;
+
+        &:hover {
+            transform: scale(110%);
+        }
+
+        @media (min-width: 0px) {
+            font-size: $default-font-size * 3;
+        }
+
+        @media (min-width: $breakpoint-tablet) {
+            font-size: $default-font-size * 4.5;
+        }
+
+        @media (min-width: $breakpoint-desktop) {
+            font-size: $default-font-size * 6;
+        }
     }
 }

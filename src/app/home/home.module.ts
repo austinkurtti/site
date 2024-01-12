@@ -5,15 +5,15 @@ import { DeferLoadDirectiveModule } from '@directives/defer-load/defer-load.modu
 import { LetDirectiveModule } from '@directives/let/let.module';
 import { MenuDirectiveModule } from '@directives/menu/menu.module';
 import { TooltipModule } from '@directives/tooltip/tooltip.module';
-import { TimelinePipeModule } from '@pipes/timeline/timeline.module';
 import { ContactIconsComponent } from './@controls/contact-icons/contact-icons.component';
 import { SectionTitleComponent } from './@controls/section-title/section-title.component';
 import { AboutComponent } from './about/about.component';
+import { CareerItemComponent } from './career/career-item/career-item.component';
+import { CareerComponent } from './career/career.component';
 import { HomeComponent } from './home.component';
 import { IntroComponent } from './intro/intro.component';
 import { SkillComponent } from './skills/skill/skill.component';
 import { SkillsComponent } from './skills/skills.component';
-import { TimelineComponent } from './timeline/timeline.component';
 
 @NgModule({
     declarations: [
@@ -24,14 +24,14 @@ import { TimelineComponent } from './timeline/timeline.component';
         SectionTitleComponent,
         SkillsComponent,
         SkillComponent,
-        TimelineComponent
+        CareerComponent,
+        CareerItemComponent
     ],
     imports: [
         CommonModule,
         DeferLoadDirectiveModule,
         LetDirectiveModule,
         MenuDirectiveModule,
-        TimelinePipeModule,
         TooltipModule,
         RouterModule.forChild([
             {
