@@ -1,21 +1,19 @@
-import { Directive, EventEmitter, Output, inject } from '@angular/core';
+import { Directive, EventEmitter, HostBinding, HostListener, Output, inject } from '@angular/core';
 import { MenuDirective } from './menu.directive';
 
 @Directive({
-    selector: '[akMenuItem]',
-    host: {
-        'tabindex': '0',
-        'role': 'menuitem',
-        '(click)': 'itemClick($event)'
-    }
+    selector: '[akMenuItem]'
 })
 export class MenuItemDirective {
     @Output() menuItemClick = new EventEmitter<string>();
 
+    @HostBinding('attr.tabindex') tabindex = 0;
+    @HostBinding('attr.role') role = 'menuitem';
+
     public menu = inject(MenuDirective);
 
-    public itemClick(event: PointerEvent): void {
+    @HostListener('click', ['$event']) itemClick(event: PointerEvent): void {
         this.menuItemClick.emit();
         this.menu.close();
-    };
+    }
 }
