@@ -38,8 +38,16 @@
             }
         }
 
-        [role=menu] [role=menuitem]:hover {
-            background-color: $theme-primary-background;
+        [role=menu] {
+            width: 75%;
+
+            [role=menuitem]:hover {
+                background-color: $theme-primary-background;
+            }
+
+            #menu-buttons {
+                border-top: 1px solid $theme-font-color;
+            }
         }
 
         a {
