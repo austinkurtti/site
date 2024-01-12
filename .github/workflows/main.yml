@@ -40,12 +40,6 @@ jobs:
                 name: github-pages
                 path: docs
 
-          #- name: Build Artifact
-          #  uses: actions/upload-artifact@v3
-          #  with:
-          #      name: github-pages
-          #      path: ${{ runner.temp }}/artifact.tar
-
     deploy:
         needs: build
 
