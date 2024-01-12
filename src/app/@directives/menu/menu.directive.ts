@@ -1,4 +1,4 @@
-import { ContentChild, Directive, ElementRef, Input, Renderer2, TemplateRef, ViewContainerRef, inject } from '@angular/core';
+import { ContentChild, Directive, ElementRef, HostBinding, HostListener, Input, Renderer2, TemplateRef, ViewContainerRef, inject } from '@angular/core';
 
 export enum MenuPosition {
     top             = 1 << 0,
@@ -12,16 +12,14 @@ export enum MenuPosition {
 }
 
 @Directive({
-    selector: '[akMenu]',
-    host: {
-        'tabindex': '0',
-        'class': 'menu-host',
-        '(click)': 'hostClick($event)'
-    }
+    selector: '[akMenu]'
 })
 export class MenuDirective {
     @Input() menuPosition: MenuPosition = MenuPosition.bottomLeft;
     @ContentChild('menuContent') menuContent: TemplateRef<any>;
+
+    @HostBinding('attr.tabindex') tabindex = 0;
+    @HostBinding('class') classes = 'menu-host';
 
     private _elementRef = inject(ElementRef);
     private _viewContainerRef = inject(ViewContainerRef);
@@ -29,7 +27,7 @@ export class MenuDirective {
 
     private _isOpen = false;
 
-    public hostClick(event: PointerEvent): void {
+    @HostListener('click', ['$event']) hostClick(event: PointerEvent): void {
         event.stopPropagation();
         (this._isOpen ? this.close : this.open)();
     }
