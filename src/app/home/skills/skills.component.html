@@ -53,6 +53,9 @@
                         ></ak-skill>
                     </ng-container>
                 </div>
+                <div *ngIf="skillFilters === 0" id="empty-message" class="d-flex h-100 w-100 align-items-center justify-content-center">
+                    <span class="ms-3">Huh, kinda empty here...</span>
+                </div>
             </div>
         </div>
     </div>

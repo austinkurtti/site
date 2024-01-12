@@ -41,8 +41,15 @@
     border-color: $theme-font-color;
     border-style: solid;
     border-width: 0 1px 1px 1px;
+    position: relative;
 
     ak-skill.off {
         visibility: hidden;
+    }
+
+    #empty-message {
+        left: 0;
+        position: absolute;
+        top: 0;
     }
 }
