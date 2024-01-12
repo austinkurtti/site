@@ -22,13 +22,14 @@ jobs:
           - name: Run unit tests
             run: npm run test:prod
 
+          - name: Tar docs
+            run: tar -cvf artifact.tar docs
+
           - name: Build Artifact
             uses: actions/upload-artifact@v4
             with:
                 name: github-pages
-                path: |
-                    docs
-                    !docs/CNAME
+                path: artifact.tar
 
     deploy:
         needs: build
