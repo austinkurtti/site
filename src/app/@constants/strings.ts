@@ -1,6 +1,3 @@
-// CSS classes
-export const deferLoad = 'defer-load';
-
 // Navigation ids
 export const introId = 'intro';
 export const aboutId = 'about';

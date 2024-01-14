@@ -1,24 +1,17 @@
-import { Directive, ChangeDetectorRef } from '@angular/core';
-import { deferLoad } from '@constants/strings';
+import { Directive, Renderer2, ViewChild, inject } from '@angular/core';
+import { DeferLoadDirective } from '@directives/defer-load/defer-load.directive';
 
 @Directive()
 export abstract class SectionDirective {
+    @ViewChild(DeferLoadDirective) deferredContent: DeferLoadDirective;
+
     public deferThreshold = .25;
-    public deferClass = 'invisible';
+
+    private _renderer = inject(Renderer2);
 
     public abstract navigationId: string;
 
-    constructor(
-        protected _changeDetectorRef: ChangeDetectorRef
-    ) {}
-
-    public detectChangesSafely(): void {
-        if (!this._changeDetectorRef['destroyed']) {
-            this._changeDetectorRef.detectChanges();
-        }
-    }
-
     public deferLoad(): void {
-        this.deferClass = deferLoad;
+        this._renderer.addClass(this.deferredContent.elementRef.nativeElement, 'loaded');
     }
 }
