@@ -110,18 +110,9 @@ p:not(:last-child) {
 }
 
 :focus-visible, button:focus {
-    border-radius: $base-size / 4;
-    outline-color: $color-green;
-    outline-style: solid;
-    outline-width: $base-size / 4;
-
-    &.light-focus {
-        outline-color: $color-white;
-    }
-
-    &.dark-focus {
-        outline-color: $color-black;
-    }
+    outline-color: $theme-font-color;
+    outline-style: dashed;
+    outline-width: math.div($base-size, 4);
 }
 
 button {
