@@ -18,13 +18,19 @@
 
         border-color: currentColor;
         box-shadow: $translate-distance $translate-distance currentColor;
-        transform: translate(-$translate-distance, -$translate-distance);
+        transform: translate($translate-distance * -1, $translate-distance * -1);
 
         &:not(:last-child) {
             margin-right: $base-size;
         }
 
-        &:hover {
+        &:hover, &:focus-visible {
+            background-color: transparent;
+            box-shadow: $translate-distance * .5 $translate-distance * .5 currentColor;
+            transform: translate($translate-distance * -.5, $translate-distance * -.5);
+        }
+
+        &:active {
             background-color: transparent;
             box-shadow: none;
             transform: translate(0, 0);
