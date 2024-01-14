@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @import 'variables';
 
 $card-height        : $base-size * 12;
@@ -18,7 +20,7 @@ $card-width         : $card-height * .714;
         padding-top: $header-height;
 
         #stock, .foundation, .solitaire-card {
-            border-radius: $base-size / 2;
+            border-radius: math.div($base-size, 2);
             height: $card-height;
             width: $card-width;
         }
@@ -27,7 +29,7 @@ $card-width         : $card-height * .714;
             background-color: $color-white;
             border-color: $color-white;
             border-style: solid;
-            border-width: $base-size / 2;
+            border-width: math.div($base-size, 2);
 
             &.facedown {
                 background-color: $color-solitaire-blue;
@@ -42,7 +44,7 @@ $card-width         : $card-height * .714;
                 background-color: $color-solitaire-blue;
                 border-color: $color-white;
                 border-style: solid;
-                border-width: $base-size / 2;
+                border-width: math.div($base-size, 2);
 
                 &.empty {
                     background-color: $color-solitaire-green;

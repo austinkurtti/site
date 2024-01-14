@@ -40,24 +40,19 @@ body {
 }
 
 section {
-    transform: translateX(0%);
-
     .content {
         padding: $base-size * 10 0;
-        transform: translateX(10%);
 
-        &:not(.invisible) {
-            transform: translateX(0%);
-        }
-
-        &.defer-load {
-            animation-name: $opacity-name;
-            animation-duration: $opacity-duration;
-            animation-timing-function: linear;
-            animation-fill-mode: forwards;
-            transition-duration: $opacity-duration;
-            transition-property: transform;
-            transition-timing-function: linear;
+        &.deferred {
+            opacity: 0;
+            transform: translateX(10%);
+            transition: linear opacity .5s,
+                        linear transform .5s;
+            
+            &.loaded {
+                opacity: 1;
+                transform: translateX(0%);
+            }
         }
     }
 }
@@ -110,18 +105,9 @@ p:not(:last-child) {
 }
 
 :focus-visible, button:focus {
-    border-radius: $base-size / 4;
-    outline-color: $color-green;
-    outline-style: solid;
-    outline-width: $base-size / 4;
-
-    &.light-focus {
-        outline-color: $color-white;
-    }
-
-    &.dark-focus {
-        outline-color: $color-black;
-    }
+    outline-color: $theme-font-color;
+    outline-style: dashed;
+    outline-width: math.div($base-size, 4);
 }
 
 button {

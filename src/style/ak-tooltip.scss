@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @import 'variables';
 
 #ak-tooltip-container {
@@ -9,7 +11,7 @@
 
     .ak-tooltip {
         background-color: $theme-hoverable-background;
-        border-radius: $base-size / 4;
+        border-radius: math.div($base-size, 4);
         color: $theme-hoverable-font-color;
         min-width: $base-size;
         padding: $base-size;
