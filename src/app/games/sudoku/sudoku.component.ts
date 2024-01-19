@@ -93,6 +93,17 @@ export class SudokuComponent implements OnInit, OnDestroy {
         }
     }
 
+    @HostListener('window:keydown.space', ['$event'])
+    public windowSpace(event: KeyboardEvent) {
+        if (this.board.state === SudokuState.paused) {
+            this.resumeTimer();
+        } else if (this.board.state === SudokuState.running) {
+            this.pauseTimer();
+        }
+
+        event.preventDefault();
+    }
+
     public ngOnInit(): void {
         this._updateSettings();
 
