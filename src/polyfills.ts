@@ -63,4 +63,5 @@ import 'zone.js'; // Included with Angular CLI.
  */
 import '@extensions/array';
 import '@extensions/number';
+import '@extensions/string';
 
