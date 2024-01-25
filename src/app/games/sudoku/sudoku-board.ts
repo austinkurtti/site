@@ -16,9 +16,7 @@ export class SudokuBoard {
     }
     public set numEmptyCells(value: number) {
         this._numEmptyCells = value;
-        if (this._numEmptyCells === 0 && this.validateAll()) {
-            this.solved$.next(true);
-        }
+        this.checkSolved();
     }
 
     public cleanup(): void {
@@ -53,6 +51,12 @@ export class SudokuBoard {
             });
         });
         this._resetNumEmptyCells();
+    }
+
+    public checkSolved(): void {
+        if (this._numEmptyCells === 0 && this.validateAll()) {
+            this.solved$.next(true);
+        }
     }
 
     public validateAll(showValidation = false): boolean {

@@ -451,6 +451,8 @@ export class SudokuComponent implements OnInit, OnDestroy {
             if (oldValue === null) {
                 this._activeCell.candidates = 0;
                 this.board.numEmptyCells--;
+            } else {
+                this.board.checkSolved();
             }
         }
     };
