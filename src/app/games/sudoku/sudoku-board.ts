@@ -1,5 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
-import { SudokuCell, SudokuDifficulty, SudokuState } from './sudoku.models';
+import { getSquare } from './sudoku.functions';
+import { SudokuCell, SudokuDifficulty, SudokuState, sudokuValueCandidateMap } from './sudoku.models';
 
 export class SudokuBoard {
     public state = SudokuState.paused;
@@ -82,6 +83,13 @@ export class SudokuBoard {
             cell.valid = valid;
         }
         return valid;
+    }
+
+    public clearCandidates(rIndex: number, cIndex: number, value: number) {
+        const candidate = sudokuValueCandidateMap.get(value);
+        this.cells[rIndex].forEach(cell => cell.candidates = cell.candidates & ~candidate);
+        this.cells.forEach(row => row[cIndex].candidates = row[cIndex].candidates & ~candidate);
+        getSquare(this.cells, rIndex, cIndex).forEach(cell => cell.candidates = cell.candidates & ~candidate);
     }
 
     private _resetNumEmptyCells(): void {

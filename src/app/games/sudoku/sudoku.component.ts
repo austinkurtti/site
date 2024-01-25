@@ -38,6 +38,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
     public pencilIn = false;
     public showClock = true;
     public showConflicts = false;
+    public autoPencilErase = false;
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public SudokuDifficulty = SudokuDifficulty;
@@ -191,6 +192,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
         if (componentRef) {
             componentRef.showClock = this.showClock;
             componentRef.showConflicts = this.showConflicts;
+            componentRef.autoPencilErase = this.autoPencilErase;
             componentRef.closeCallback = () => {
                 this._updateSettings();
             };
@@ -454,6 +456,10 @@ export class SudokuComponent implements OnInit, OnDestroy {
             } else {
                 this.board.checkSolved();
             }
+
+            if (this.autoPencilErase) {
+                this.board.clearCandidates(this._activeCellRow, this._activeCellCol, value);
+            }
         }
     };
 
@@ -591,6 +597,8 @@ export class SudokuComponent implements OnInit, OnDestroy {
         this.showClock = showClock ?? true;
         const showConflicts = LocalStorageService.getItem('sudoku_showConflicts');
         this.showConflicts = showConflicts ?? false;
+        const autoPencilErase = LocalStorageService.getItem('sudoku_autoPencilErase');
+        this.autoPencilErase = autoPencilErase ?? false;
     }
 
     private _startTimerInterval(): void {

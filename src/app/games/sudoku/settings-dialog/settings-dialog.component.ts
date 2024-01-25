@@ -15,6 +15,7 @@ import { LocalStorageService } from '@services/local-storage.service';
 export class SettingsDialogComponent extends DialogBase {
     @Input() showClock: boolean;
     @Input() showConflicts: boolean;
+    @Input() autoPencilErase: boolean;
 
     public toggleChange(setting: string, value: boolean): void {
         LocalStorageService.setItem(setting, value);

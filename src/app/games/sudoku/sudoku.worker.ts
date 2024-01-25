@@ -1,5 +1,6 @@
 /// <reference lib="webworker" />
 
+import { getSquare } from './sudoku.functions';
 import { SudokuCell, SudokuDifficulty } from './sudoku.models';
 
 const possibleValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -188,12 +189,7 @@ const colValid = (candidateCells: Array<Array<SudokuCell>>, col: number, value?:
 };
 
 const squareValid = (candidateCells: Array<Array<SudokuCell>>, row: number, col: number, value?: number): boolean => {
-    const squareRowStart = Math.floor(row / 3) * 3;
-    const squareRowEnd = squareRowStart + 3;
-    const squareColStart = Math.floor(col / 3) * 3;
-    const squareColEnd = squareColStart + 3;
-    const square = candidateCells.slice(squareRowStart, squareRowEnd).map(squareRow => squareRow.slice(squareColStart, squareColEnd));
-    const squareValues = [...square[0], ...square[1], ...square[2]].map(squareCell => squareCell.value);
+    const squareValues = getSquare(candidateCells, row, col).map(squareCell => squareCell.value);
     return !squareValues.includes(value);
 };
 
