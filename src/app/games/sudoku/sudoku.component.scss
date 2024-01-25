@@ -3,6 +3,7 @@
 @import 'variables';
 @import 'keyframes';
 
+$sudoku-header-height: $base-size * 6;
 $sudoku-border-width: math.div($base-size, 5);
 
 :host {
@@ -46,7 +47,8 @@ $sudoku-border-width: math.div($base-size, 5);
     }
 
     #sudoku-header {
-        padding: $base-size * 2;
+        height: $sudoku-header-height;
+        padding: 0 $base-size * 2;
 
         button {
             &:not(:first-child) {
@@ -63,19 +65,28 @@ $sudoku-border-width: math.div($base-size, 5);
 
     #sudoku-content {
         flex: 1;
+        max-height: calc(100% - $sudoku-header-height);
 
         #sudoku-board-container {
             display: flex;
             flex-direction: column;
+            max-height: 100%;
+            max-width: 100%;
+            padding: $base-size;
 
             #sudoku-board {
+                aspect-ratio: 1/1;
                 border-style: solid;
                 border-width: $sudoku-border-width;
                 display: flex;
+                flex: 1;
                 flex-direction: column;
+                max-height: 100%;
+                max-width: 100%;
 
                 > .row {
                     flex: 1;
+                    max-height: calc(100% / 9);
 
                     &:nth-child(1), &:nth-child(4), &:nth-child(7) {
                         border-top: $sudoku-border-width solid;
@@ -151,6 +162,9 @@ $sudoku-border-width: math.div($base-size, 5);
         }
 
         #sudoku-input-container {
+            max-height: 50%;
+            padding: $base-size;
+
             .sudoku-input {
                 background-color: $color-gray-200;
                 border: math.div($sudoku-border-width, 2) solid;
@@ -175,8 +189,27 @@ $sudoku-border-width: math.div($base-size, 5);
                 }
             }
 
+            @media (min-width: 0px) {
+                .sudoku-input-col {
+                    flex: 0 0 auto;
+                    width: 20%;
+                }
+            }
+
+            @media (min-width: 992px) {
+                .sudoku-input-col-4 {
+                    flex: 0 0 auto;
+                    width: 33.33333333%;
+                }
+
+                .sudoku-input-col-12 {
+                    flex: 0 0 auto;
+                    width: 100%;
+                }
+            }
+
             #sudoku-pencil-toggle {
-                height: $base-size * 2;
+                height: $base-size * 3;
             }
         }
     }
