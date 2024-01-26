@@ -22,6 +22,18 @@ export enum SudokuCandidate {
     nine    = 1 << 8
 }
 
+export const sudokuValueCandidateMap = new Map<number, SudokuCandidate>([
+    [1, SudokuCandidate.one],
+    [2, SudokuCandidate.two],
+    [3, SudokuCandidate.three],
+    [4, SudokuCandidate.four],
+    [5, SudokuCandidate.five],
+    [6, SudokuCandidate.six],
+    [7, SudokuCandidate.seven],
+    [8, SudokuCandidate.eight],
+    [9, SudokuCandidate.nine]
+]);
+
 export class SudokuCell {
     // If true, this cell was already revealed at the beginning of the game
     public given: boolean;

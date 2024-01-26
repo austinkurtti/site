@@ -26,4 +26,12 @@
             <ak-toggle [(value)]="showConflicts" (valueChange)="toggleChange('sudoku_showConflicts', $event)"></ak-toggle>
         </div>
     </div>
+    <div class="row g-0 align-items-center setting">
+        <div class="col">
+            <label>Auto pencil erase</label>
+        </div>
+        <div class="col-auto">
+            <ak-toggle [(value)]="autoPencilErase" (valueChange)="toggleChange('sudoku_autoPencilErase', $event)"></ak-toggle>
+        </div>
+    </div>
 </div>

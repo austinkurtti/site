@@ -1,25 +1,18 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from '@components/confirm/confirm.component';
-import { breakPointDesktop, breakPointTablet } from '@constants/numbers';
 import { MenuPosition } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { DialogSize } from '@models/dialog.model';
 import { DialogService } from '@services/dialog.service';
 import { LocalStorageService } from '@services/local-storage.service';
-import { BehaviorSubject, Subject, Subscription, timer } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { HelpDialogComponent } from './help-dialog/help-dialog.component';
 import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
 import { SolvedDialogComponent } from './solved-dialog/solved-dialog.component';
 import { SudokuBoard } from './sudoku-board';
 import { SudokuCandidate, SudokuCell, SudokuDifficulty, SudokuState } from './sudoku.models';
-
-// TODO
-// auto-pause when window loses focus
-// better styling
-// save progress when navigating away
-// sudden death mode
 
 @Component({
     selector: 'ak-sudoku',
@@ -38,6 +31,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
     public pencilIn = false;
     public showClock = true;
     public showConflicts = false;
+    public autoPencilErase = false;
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public SudokuDifficulty = SudokuDifficulty;
@@ -52,7 +46,6 @@ export class SudokuComponent implements OnInit, OnDestroy {
 
     public difficulty$ = new BehaviorSubject<SudokuDifficulty>(null);
     public building$ = new BehaviorSubject<boolean>(false);
-    public boardSize$ = new BehaviorSubject<number>(0);
     public time$ = new BehaviorSubject<string>('00:00:00');
 
     private _renderer = inject(Renderer2);
@@ -65,7 +58,6 @@ export class SudokuComponent implements OnInit, OnDestroy {
     private _pauseSum: number;
     private _activeCellRow?: number = null;
     private _activeCellCol?: number = null;
-    private _debounce: Subscription = null;
 
     private _destroyed$ = new Subject<void>();
 
@@ -83,14 +75,15 @@ export class SudokuComponent implements OnInit, OnDestroy {
         return this.shifting || this.pencilIn;
     }
 
-    @HostListener('window:resize')
-    public windowResize() {
-        if (!this._debounce) {
-            this._debounce = timer(100).subscribe(() => {
-                this._resizeBoard();
-                this._clearDebounce();
-            });
+    @HostListener('window:keydown.space', ['$event'])
+    public windowSpace(event: KeyboardEvent) {
+        if (this.board.state === SudokuState.paused) {
+            this.resumeTimer();
+        } else if (this.board.state === SudokuState.running) {
+            this.pauseTimer();
         }
+
+        event.preventDefault();
     }
 
     public ngOnInit(): void {
@@ -104,45 +97,12 @@ export class SudokuComponent implements OnInit, OnDestroy {
                 }
             });
 
-        this.boardSize$
-            .pipe(takeUntil(this._destroyed$))
-            .subscribe(size => {
-                if (size && this.boardEl && this.inputContainerEl) {
-                    // Set board size
-                    this._renderer.setStyle(this.boardEl.nativeElement, 'height', `${size}px`);
-                    this._renderer.setStyle(this.boardEl.nativeElement, 'width', `${size}px`);
-
-                    // Set input size
-                    if (document.body.clientWidth < breakPointTablet) { // "Tablet" breakpoint
-                        const inputContainerHeight = (size / 4) * 2;
-                        this._renderer.setStyle(this.inputContainerEl.nativeElement, 'height', `${inputContainerHeight}px`);
-                        this._renderer.setStyle(this.inputContainerEl.nativeElement, 'width', `100%`);
-                        this._renderer.addClass(this.inputContainerEl.nativeElement.children[0], 'offset-1');
-                        this._renderer.addClass(this.inputContainerEl.nativeElement.children[5], 'offset-1');
-                    } else if (document.body.clientWidth < breakPointDesktop) { // "Desktop" breakpoint
-                        const inputContainerHeight = (size / 8) * 2;
-                        this._renderer.setStyle(this.inputContainerEl.nativeElement, 'height', `${inputContainerHeight}px`);
-                        this._renderer.setStyle(this.inputContainerEl.nativeElement, 'width', `100%`);
-                        this._renderer.addClass(this.inputContainerEl.nativeElement.children[0], 'offset-1');
-                        this._renderer.addClass(this.inputContainerEl.nativeElement.children[5], 'offset-1');
-                    } else {
-                        const inputContainerHeight = size / 2;
-                        const inputContainerWidth = inputContainerHeight * .75;
-                        this._renderer.setStyle(this.inputContainerEl.nativeElement, 'height', `${inputContainerHeight}px`);
-                        this._renderer.setStyle(this.inputContainerEl.nativeElement, 'width', `${inputContainerWidth}px`);
-                        this._renderer.removeClass(this.inputContainerEl.nativeElement.children[0], 'offset-1');
-                        this._renderer.removeClass(this.inputContainerEl.nativeElement.children[5], 'offset-1');
-                    }
-                }
-            });
-
         this.building$
             .pipe(takeUntil(this._destroyed$))
             .subscribe(building => {
                 if (building) {
                     this.resetTimer();
                 } else if (this.difficulty$.value !== null) {
-                    this._resizeBoard();
                     this.possibleValues.forEach(v => this._checkCellValueCount(v));
                     window.addEventListener('keydown', this._windowKeydown);
                     window.addEventListener('keyup', this._windowKeyup);
@@ -165,7 +125,6 @@ export class SudokuComponent implements OnInit, OnDestroy {
         this._dialogService.close();
         this.board.cleanup();
         this._clearTimerInterval();
-        this._clearDebounce();
         window.removeEventListener('keydown', this._windowKeydown);
         window.removeEventListener('keyup', this._windowKeyup);
         this._destroyed$.next();
@@ -180,6 +139,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
         if (componentRef) {
             componentRef.showClock = this.showClock;
             componentRef.showConflicts = this.showConflicts;
+            componentRef.autoPencilErase = this.autoPencilErase;
             componentRef.closeCallback = () => {
                 this._updateSettings();
             };
@@ -440,6 +400,12 @@ export class SudokuComponent implements OnInit, OnDestroy {
             if (oldValue === null) {
                 this._activeCell.candidates = 0;
                 this.board.numEmptyCells--;
+            } else {
+                this.board.checkSolved();
+            }
+
+            if (this.autoPencilErase) {
+                this.board.clearCandidates(this._activeCellRow, this._activeCellCol, value);
             }
         }
     };
@@ -557,27 +523,13 @@ export class SudokuComponent implements OnInit, OnDestroy {
         });
     }
 
-    private _resizeBoard(): void {
-        // Minimize the inputs so they don't interfere with board measurements
-        this._renderer.setStyle(this.inputContainerEl.nativeElement, 'height', '0px');
-        if (this.inputContainerEl.nativeElement.clientWidth !== document.body.clientWidth) {
-            this._renderer.setStyle(this.inputContainerEl.nativeElement, 'width', '0px');
-        }
-
-        // Measure container and determine how to size the board
-        const contentHeight = this.boardContainerEl.nativeElement.clientHeight;
-        const contentWidth = this.boardContainerEl.nativeElement.clientWidth;
-        const size = contentWidth > contentHeight
-            ? contentHeight * 0.8 // Landscape viewport - constrain by height
-            : contentWidth * 0.8; // Portrait viewport - constrain by width
-        this.boardSize$.next(size);
-    }
-
     private _updateSettings(): void {
         const showClock = LocalStorageService.getItem('sudoku_showClock');
         this.showClock = showClock ?? true;
         const showConflicts = LocalStorageService.getItem('sudoku_showConflicts');
         this.showConflicts = showConflicts ?? false;
+        const autoPencilErase = LocalStorageService.getItem('sudoku_autoPencilErase');
+        this.autoPencilErase = autoPencilErase ?? false;
     }
 
     private _startTimerInterval(): void {
@@ -607,13 +559,6 @@ export class SudokuComponent implements OnInit, OnDestroy {
     private _windowKeyup = (event: KeyboardEvent): void => {
         if (event.key === 'Shift') {
             this.shifting = false;
-        }
-    };
-
-    private _clearDebounce(): void {
-        if (this._debounce) {
-            this._debounce.unsubscribe();
-            this._debounce = null;
         }
     };
 }
