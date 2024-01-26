@@ -40,7 +40,7 @@
         <i class="fas fa-2x fa-circle-notch fa-spin"></i><span class="ms-2">Building puzzle...</span>
     </div>
 
-    <div id="sudoku-header" class="row g-0 align-items-center justify-content-lg-end">
+    <div id="sudoku-header" class="row g-0 px-3 px-lg-4 align-items-center justify-content-lg-end">
         <div id="sudoku-state" class="col col-md-6 col-lg-4 text-lg-center">
             <ng-container *ngIf="showClock">
                 <button tabindex="0"
@@ -110,35 +110,35 @@
                                 {{ cell.value }}
                             </span>
                             <div class="candidate-row row g-0 align-items-center text-center w-100">
-                                <div class="col-4">
+                                <div class="col-4 d-flex h-100 align-items-center justify-content-center">
                                     <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.one" class="candidate candidate-1">1</span>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-4 d-flex h-100 align-items-center justify-content-center">
                                     <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.two" class="candidate candidate-2">2</span>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-4 d-flex h-100 align-items-center justify-content-center">
                                     <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.three" class="candidate candidate-3">3</span>
                                 </div>
                             </div>
                             <div class="candidate-row row g-0 align-items-center text-center w-100">
-                                <div class="col-4">
+                                <div class="col-4 d-flex h-100 align-items-center justify-content-center">
                                     <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.four" class="candidate candidate-4">4</span>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-4 d-flex h-100 align-items-center justify-content-center">
                                     <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.five" class="candidate candidate-5">5</span>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-4 d-flex h-100 align-items-center justify-content-center">
                                     <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.six" class="candidate candidate-6">6</span>
                                 </div>
                             </div>
                             <div class="candidate-row row g-0 align-items-center text-center w-100">
-                                <div class="col-4">
+                                <div class="col-4 d-flex h-100 align-items-center justify-content-center">
                                     <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.seven" class="candidate candidate-7">7</span>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-4 d-flex h-100 align-items-center justify-content-center">
                                     <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.eight" class="candidate candidate-8">8</span>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-4 d-flex h-100 align-items-center justify-content-center">
                                     <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.nine" class="candidate candidate-9">9</span>
                                 </div>
                             </div>

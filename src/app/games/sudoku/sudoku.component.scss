@@ -218,47 +218,56 @@ $sudoku-border-width: math.div($base-size, 5);
 @media (min-width: 0px) {
     .sudoku-cell {
         .normal {
-            font-size: $default-font-size * 2;
+            font-size: 8vmin;
+            line-height: 8vmin;
         }
 
         .candidate {
-            font-size: $default-font-size;
+            font-size: 2.5vmin;
+            line-height: 2.5vmin;
         }
     }
 
     .sudoku-input {
-        font-size: $default-font-size * 1.33;
+        font-size: 6vmin;
+        line-height: 6vmin;
     }
 }
 
 @media (min-width: $breakpoint-tablet) {
     .sudoku-cell {
         .normal {
-            font-size: $default-font-size * 3;
+            font-size: 7vmin;
+            line-height: 7vmin;
         }
 
         .candidate {
-            font-size: $default-font-size * 1.25;
+            font-size: 2vmin;
+            line-height: 2vmin;
         }
     }
 
     .sudoku-input {
-        font-size: $default-font-size * 1.66;
+        font-size: 5vmin;
+        line-height: 5vmin;
     }
 }
 
 @media (min-width: $breakpoint-desktop) {
     .sudoku-cell {
         .normal {
-            font-size: $default-font-size * 4;
+            font-size: 6vmin;
+            line-height: 6vmin;
         }
 
         .candidate {
-            font-size: $default-font-size * 1.5;
+            font-size: 2vmin;
+            line-height: 2vmin;
         }
     }
 
     .sudoku-input {
-        font-size: $default-font-size * 2;
+        font-size: 4vmin;
+        line-height: 4vmin;
     }
 }
