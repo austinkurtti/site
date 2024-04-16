@@ -34,8 +34,10 @@ export class MenuDirective {
 
     public open = (): void => {
         const menu = this._viewContainerRef.createEmbeddedView(this.menuContent);
-        const menuEl = menu.rootNodes[0];
+        // Give menu components a complete cycle to settle their views and bindings before calculating positioning
+        menu.detectChanges();
 
+        const menuEl = menu.rootNodes[0];
         const hostRect = this._elementRef.nativeElement.getBoundingClientRect();
         if (this.menuPosition.hasFlag(MenuPosition.top)) {
             this._renderer.setStyle(menuEl, 'bottom', `${window.innerHeight - hostRect.top}px`);
