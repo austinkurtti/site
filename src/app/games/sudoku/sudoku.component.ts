@@ -202,7 +202,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
     }
 
     public reset(): void {
-        const componentRef = this._dialogService.show(ConfirmDialogComponent, DialogSize.small, false);
+        const componentRef = this._dialogService.show(ConfirmDialogComponent, DialogSize.minimal, false);
         if (componentRef) {
             componentRef.title = 'Confirm Reset';
             componentRef.message = 'All progress will be lost. Are you sure you want to reset?';

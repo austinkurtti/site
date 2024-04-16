@@ -24,10 +24,15 @@ dialog {
         width: 100%;
     }
 
+    &.minimal .dialog-content {
+        width: auto;
+    }
+
     .dialog-content {
         animation: $dialog-appear-name $dialog-appear-timing $dialog-appear-duration;
         border-radius: math.div($base-size, 4);
         box-shadow: $hard-box-shadow;
+        margin: 0 math.div($base-size, 2);
     }
 
     @media (min-width: 0px) {
