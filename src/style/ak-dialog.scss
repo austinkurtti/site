@@ -19,18 +19,6 @@ dialog {
         opacity: 1;
     }
 
-    &.small .dialog-content {
-        width: 25%;
-    }
-
-    &.medium .dialog-content {
-        width: 50%;
-    }
-
-    &.large .dialog-content {
-        width: 75%;
-    }
-
     &.fullscreen .dialog-content {
         height: 100%;
         width: 100%;
@@ -40,5 +28,47 @@ dialog {
         animation: $dialog-appear-name $dialog-appear-timing $dialog-appear-duration;
         border-radius: math.div($base-size, 4);
         box-shadow: $hard-box-shadow;
+    }
+
+    @media (min-width: 0px) {
+        &.small .dialog-content {
+            width: 80%;
+        }
+
+        &.medium .dialog-content {
+            width: 85%;
+        }
+    
+        &.large .dialog-content {
+            width: 90%;
+        }
+    }
+
+    @media (min-width: $breakpoint-tablet) {
+        &.small .dialog-content {
+            width: 60%;
+        }
+
+        &.medium .dialog-content {
+            width: 75%;
+        }
+    
+        &.large .dialog-content {
+            width: 85%;
+        }
+    }
+
+    @media (min-width: $breakpoint-desktop) {
+        &.small .dialog-content {
+            width: 40%;
+        }
+
+        &.medium .dialog-content {
+            width: 65%;
+        }
+    
+        &.large .dialog-content {
+            width: 80%;
+        }
     }
 }
