@@ -56,29 +56,36 @@ export class TooltipDirective implements OnDestroy {
             // Render the tooltip by appending it now, that way it's rendered size can be used to better position it
             this._renderer.appendChild(this._tooltipContainerEl, this._tooltipEl);
 
-            // TODO - add logic for repositioning if going off-screen
             // Position tooltip relative to the host element
             const hostRect = this._hostElement.nativeElement.getBoundingClientRect();
             switch (this.tooltipPosition) {
                 case TooltipPosition.top:
-                    this._renderer.addClass(this._tooltipEl, 'top');
-                    this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y - baseSizePx - this._tooltipEl.clientHeight}px`);
-                    this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x + (hostRect.width / 2) - (this._tooltipEl.clientWidth / 2)}px`);
+                    if ((hostRect.y - baseSizePx - this._tooltipEl.clientHeight) < 0) {
+                        this._positionBottom();
+                    } else {
+                        this._positionTop();
+                    }
                     break;
                 case TooltipPosition.right:
-                    this._renderer.addClass(this._tooltipEl, 'right');
-                    this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y + (hostRect.height / 2) - (this._tooltipEl.clientHeight / 2)}px`);
-                    this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x + hostRect.width + baseSizePx}px`);
+                    if ((hostRect.x + hostRect.width + baseSizePx + this._tooltipEl.clientWidth) > document.body.clientWidth) {
+                        this._positionLeft();
+                    } else {
+                        this._positionRight();
+                    }
                     break;
                 case TooltipPosition.bottom:
-                    this._renderer.addClass(this._tooltipEl, 'bottom');
-                    this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y + hostRect.height + baseSizePx}px`);
-                    this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x + (hostRect.width / 2) - (this._tooltipEl.clientWidth / 2)}px`);
+                    if ((hostRect.y + hostRect.height + baseSizePx + this._tooltipEl.clientHeight) > document.body.clientHeight) {
+                        this._positionTop();
+                    } else {
+                        this._positionBottom();
+                    }
                     break;
                 case TooltipPosition.left:
-                    this._renderer.addClass(this._tooltipEl, 'left');
-                    this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y + (hostRect.height / 2) - (this._tooltipEl.clientHeight / 2)}px`);
-                    this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x - this._tooltipEl.clientWidth - baseSizePx}px`);
+                    if ((hostRect.x - baseSizePx - this._tooltipEl.clientWidth) < 0) {
+                        this._positionRight();
+                    } else {
+                        this._positionLeft();
+                    }
                     break;
             }
 
@@ -114,5 +121,33 @@ export class TooltipDirective implements OnDestroy {
         this._unlisteners.forEach(unlistener => unlistener());
         document.removeEventListener('scroll', this._hideTooltip);
         window.removeEventListener('resize', this._hideTooltip);
+    }
+
+    private _positionTop(): void {
+        const hostRect = this._hostElement.nativeElement.getBoundingClientRect();
+        this._renderer.addClass(this._tooltipEl, 'top');
+        this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y - baseSizePx - this._tooltipEl.clientHeight}px`);
+        this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x + (hostRect.width / 2) - (this._tooltipEl.clientWidth / 2)}px`);
+    }
+
+    private _positionRight(): void {
+        const hostRect = this._hostElement.nativeElement.getBoundingClientRect();
+        this._renderer.addClass(this._tooltipEl, 'right');
+        this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y + (hostRect.height / 2) - (this._tooltipEl.clientHeight / 2)}px`);
+        this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x + hostRect.width + baseSizePx}px`);
+    }
+
+    private _positionBottom(): void {
+        const hostRect = this._hostElement.nativeElement.getBoundingClientRect();
+        this._renderer.addClass(this._tooltipEl, 'bottom');
+        this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y + hostRect.height + baseSizePx}px`);
+        this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x + (hostRect.width / 2) - (this._tooltipEl.clientWidth / 2)}px`);
+    }
+
+    private _positionLeft(): void {
+        const hostRect = this._hostElement.nativeElement.getBoundingClientRect();
+        this._renderer.addClass(this._tooltipEl, 'left');
+        this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y + (hostRect.height / 2) - (this._tooltipEl.clientHeight / 2)}px`);
+        this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x - this._tooltipEl.clientWidth - baseSizePx}px`);
     }
 }
