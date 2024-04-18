@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DialogBase } from '@directives/dialog/dialog-base';
-import { DifficultyPipeModule } from '@pipes/difficulty/difficulty.module';
+import { DifficultyPipe } from '@pipes/difficulty.pipe';
 import { SudokuDifficulty } from '../sudoku.models';
 
 @Component({
     standalone: true,
     imports: [
-        DifficultyPipeModule
+        DifficultyPipe
     ],
     selector: 'ak-solved-dialog',
     styleUrls: ['./solved-dialog.component.scss'],

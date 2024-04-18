@@ -10,6 +10,7 @@ export enum TooltipPosition {
 }
 
 @Directive({
+    standalone: true,
     selector: '[akTooltip]'
 })
 export class TooltipDirective implements OnDestroy {

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TooltipModule } from '@directives/tooltip/tooltip.module';
+import { TooltipDirective } from '@directives/tooltip/tooltip.directive';
 import { GamesHomeComponent } from './games-home.component';
 import { GamesComponent } from './games.component';
 
@@ -12,7 +12,7 @@ import { GamesComponent } from './games.component';
     ],
     imports: [
         CommonModule,
-        TooltipModule,
+        TooltipDirective,
         RouterModule.forChild([
             {
                 path: '',
