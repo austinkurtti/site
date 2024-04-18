@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { SudokuDifficulty } from '../../games/sudoku/sudoku.models';
+import { SudokuDifficulty } from '../games/sudoku/sudoku.models';
 
 @Pipe({
+    standalone: true,
     name: 'sudokuDifficulty'
 })
 export class DifficultyPipe implements PipeTransform {

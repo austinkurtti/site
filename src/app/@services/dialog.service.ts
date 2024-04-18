@@ -10,6 +10,7 @@ export class DialogService {
     private _renderer = inject(RendererFactory2).createRenderer(null, null);
 
     private _open = false;
+    private _openSize: DialogSize;
     private _instance: any;
 
     private get _dialogEl(): HTMLDialogElement {
@@ -23,6 +24,7 @@ export class DialogService {
         }
 
         this._open = true;
+        this._openSize = size;
         this._dialogEl.show();
         this._instance = this.dialogRef.viewContainerRef.createComponent<T>(componentType).instance;
 
@@ -45,6 +47,7 @@ export class DialogService {
         this._instance.closeCallback?.();
         this.dialogRef.viewContainerRef.clear();
         this._dialogEl.removeAllListeners('click');
+        this._renderer.removeClass(this._dialogEl, this._getSizeClass(this._openSize));
         this._dialogEl.close();
         this._open = false;
     }

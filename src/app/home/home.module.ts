@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { DeferLoadDirectiveModule } from '@directives/defer-load/defer-load.module';
 import { LetDirectiveModule } from '@directives/let/let.module';
 import { MenuDirectiveModule } from '@directives/menu/menu.module';
-import { TooltipModule } from '@directives/tooltip/tooltip.module';
+import { TooltipDirective } from '@directives/tooltip/tooltip.directive';
 import { ContactIconsComponent } from './@controls/contact-icons/contact-icons.component';
 import { SectionTitleComponent } from './@controls/section-title/section-title.component';
 import { AboutComponent } from './about/about.component';
@@ -32,7 +32,7 @@ import { SkillsComponent } from './skills/skills.component';
         DeferLoadDirectiveModule,
         LetDirectiveModule,
         MenuDirectiveModule,
-        TooltipModule,
+        TooltipDirective,
         RouterModule.forChild([
             {
                 path: '',
