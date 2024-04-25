@@ -81,6 +81,8 @@
                     <div akMenuContent>
                         <div akMenuItem (menuItemClick)="checkCell()">Check Cell</div>
                         <div akMenuItem (menuItemClick)="checkAll()">Check All</div>
+                        <div akMenuItem (menuItemClick)="revealCell()">Reveal Cell</div>
+                        <div akMenuItem (menuItemClick)="revealAll()">Reveal All</div>
                         <div akMenuItem (menuItemClick)="reset()">Reset</div>
                         <div class="d-block d-md-none" akMenuItem (menuItemClick)="showSettingsDialog()">Settings</div>
                         <div class="d-block d-md-none" akMenuItem (menuItemClick)="showHelpDialog()">Help &amp; Tips</div>
@@ -106,7 +108,7 @@
                             [ngClass]="{ 'given': cell.given, 'active': cell.active, 'conflicted': this.showConflicts && cell.numConflicts > 0 }"
                             (click)="focusCell(rowIndex, colIndex)"
                             (keydown)="cellKeydown(rowIndex, colIndex, $event)">
-                            <span class="normal position-absolute" [ngClass]="{ 'valid': cell.valid === true, 'invalid': cell.valid === false }">
+                            <span class="normal position-absolute" [ngClass]="{ 'revealed': cell.revealed === true, 'valid': cell.valid === true, 'invalid': cell.valid === false }">
                                 {{ cell.value }}
                             </span>
                             <div class="candidate-row row g-0 align-items-center text-center w-100">

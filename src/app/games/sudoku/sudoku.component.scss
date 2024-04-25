@@ -142,6 +142,10 @@ $sudoku-border-width: math.div($base-size, 5);
                     .normal {
                         font-weight: bold;
 
+                        &.revealed {
+                            color: $color-blue;
+                        }
+
                         &.valid {
                             color: $color-success;
                         }

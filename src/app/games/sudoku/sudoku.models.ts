@@ -41,6 +41,9 @@ export class SudokuCell {
     // Denotes the currently active, focused cell
     public active: boolean;
 
+    // If true, this cell was revealed during the game by the player, highlight it blue
+    public revealed: boolean;
+
     // true = right number, hightlight it green; false = wrong number, highlight it red; null = validity not shown
     public valid?: boolean = null;
 

@@ -68,7 +68,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
     }
 
     private get _canSetCellValue(): boolean {
-        return !this._activeCell.given && this.board.state === SudokuState.running;
+        return !this._activeCell.given && !this._activeCell.revealed && this.board.state === SudokuState.running;
     }
 
     private get _setCandidates(): boolean {
@@ -191,13 +191,40 @@ export class SudokuComponent implements OnInit, OnDestroy {
         this.difficulty$.next(difficulty);
     }
 
+    public checkCell(): void {
+        if (this._activeCellRow !== null && this._activeCellCol !== null && this._canSetCellValue) {
+            this.board.validateCell(this._activeCellRow, this._activeCellCol, true);
+        }
+    }
+
     public checkAll(): void {
         this.board.validateAll(true);
     }
 
-    public checkCell(): void {
-        if (this._activeCellRow !== null && this._activeCellCol !== null) {
-            this.board.validateCell(this._activeCellRow, this._activeCellCol, true);
+    public revealCell(): void {
+        if (this._activeCellRow !== null && this._activeCellCol !== null && this._canSetCellValue) {
+            this.board.revealCell(this._activeCellRow, this._activeCellCol);
+            this.possibleValues.forEach(v => this._checkCellValueCount(v));
+            this.board.checkSolved();
+        }
+    }
+
+    public revealAll(): void {
+        const componentRef = this._dialogService.show(ConfirmDialogComponent, DialogSize.minimal, false);
+        if (componentRef) {
+            componentRef.title = 'Confirm Reveal';
+            componentRef.message = 'This action will end the game. Are you sure you want to reveal everything?';
+            componentRef.confirmText = 'Reveal';
+            componentRef.cancelText = 'Cancel';
+            componentRef.confirm = () => {
+                this._dialogService.close();
+                this.board.revealAll();
+                this.pauseTimer(true);
+                this.possibleValues.forEach(v => this._checkCellValueCount(v));
+            };
+            componentRef.cancel = () => {
+                this._dialogService.close();
+            };
         }
     }
 
