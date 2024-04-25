@@ -20,6 +20,7 @@ import { SudokuCandidate, SudokuCell, SudokuDifficulty, SudokuState } from './su
     templateUrl: './sudoku.component.html'
 })
 export class SudokuComponent implements OnInit, OnDestroy {
+    // #region Public variables
     @ViewChild('sudokuBoardContainer') boardContainerEl: ElementRef;
     @ViewChild('sudokuBoard') boardEl: ElementRef;
     @ViewChild('sudokuInputContainer') inputContainerEl: ElementRef;
@@ -29,10 +30,14 @@ export class SudokuComponent implements OnInit, OnDestroy {
     public board = new SudokuBoard();
     public shifting = false;
     public pencilIn = false;
+
+    // Settings
     public showClock = true;
     public showConflicts = false;
     public autoPencilErase = false;
+    public autoDisableInputs = true;
 
+    // Re-defs
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public SudokuDifficulty = SudokuDifficulty;
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -47,7 +52,10 @@ export class SudokuComponent implements OnInit, OnDestroy {
     public difficulty$ = new BehaviorSubject<SudokuDifficulty>(null);
     public building$ = new BehaviorSubject<boolean>(false);
     public time$ = new BehaviorSubject<string>('00:00:00');
+    // #endregion
 
+    // #region Private variables
+    // Injectables
     private _renderer = inject(Renderer2);
     private _dialogService = inject(DialogService);
     private _router = inject(Router);
@@ -74,6 +82,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
     private get _setCandidates(): boolean {
         return this.shifting || this.pencilIn;
     }
+    // #endregion
 
     @HostListener('window:keydown.space', ['$event'])
     public windowSpace(event: KeyboardEvent) {
@@ -86,6 +95,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
+    // #region Angular lifecycle
     public ngOnInit(): void {
         this._updateSettings();
 
@@ -129,7 +139,9 @@ export class SudokuComponent implements OnInit, OnDestroy {
         window.removeEventListener('keyup', this._windowKeyup);
         this._destroyed$.next();
     }
+    // #endregion
 
+    // #region Public methods
     public showHelpDialog(): void {
         this._dialogService.show(HelpDialogComponent, DialogSize.small);
     }
@@ -140,6 +152,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             componentRef.showClock = this.showClock;
             componentRef.showConflicts = this.showConflicts;
             componentRef.autoPencilErase = this.autoPencilErase;
+            componentRef.autoDisableInputs = this.autoDisableInputs;
             componentRef.closeCallback = () => {
                 this._updateSettings();
             };
@@ -296,7 +309,9 @@ export class SudokuComponent implements OnInit, OnDestroy {
             this._setCellValueOrCandidate(this._getValueCode(value));
         }
     }
+    // #endregion
 
+    // #region Private methods
     private _getValueCode = (value: number): string => value >= 1 && value <= 9 ? `Digit${value}` : 'Delete';
 
     private _setCellValueOrCandidate = (valueCode: string): void => {
@@ -448,10 +463,12 @@ export class SudokuComponent implements OnInit, OnDestroy {
         });
 
         const inputEl = (document.querySelectorAll('.sudoku-input')[value - 1] as HTMLElement);
-        if (valueCount >= 9) {
-            this._renderer.setAttribute(inputEl, 'disabled', 'true');
-        } else {
-            this._renderer.removeAttribute(inputEl, 'disabled');
+        if (inputEl) {
+            if (valueCount >= 9 && this.autoDisableInputs) {
+                this._renderer.setAttribute(inputEl, 'disabled', 'true');
+            } else {
+                this._renderer.removeAttribute(inputEl, 'disabled');
+            }
         }
     };
 
@@ -553,10 +570,19 @@ export class SudokuComponent implements OnInit, OnDestroy {
     private _updateSettings(): void {
         const showClock = LocalStorageService.getItem('sudoku_showClock');
         this.showClock = showClock ?? true;
+
         const showConflicts = LocalStorageService.getItem('sudoku_showConflicts');
         this.showConflicts = showConflicts ?? false;
+
         const autoPencilErase = LocalStorageService.getItem('sudoku_autoPencilErase');
         this.autoPencilErase = autoPencilErase ?? false;
+
+        const autoDisableInputs = LocalStorageService.getItem('sudoku_autoDisableInputs');
+        const autoDisableInputsOld = this.autoDisableInputs;
+        this.autoDisableInputs = autoDisableInputs ?? true;
+        if (autoDisableInputs !== autoDisableInputsOld) {
+            this.possibleValues.forEach(v => this._checkCellValueCount(v));
+        }
     }
 
     private _startTimerInterval(): void {
@@ -588,4 +614,5 @@ export class SudokuComponent implements OnInit, OnDestroy {
             this.shifting = false;
         }
     };
+    // #endregion
 }

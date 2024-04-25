@@ -16,6 +16,7 @@ export class SettingsDialogComponent extends DialogBase {
     @Input() showClock: boolean;
     @Input() showConflicts: boolean;
     @Input() autoPencilErase: boolean;
+    @Input() autoDisableInputs: boolean;
 
     public toggleChange(setting: string, value: boolean): void {
         LocalStorageService.setItem(setting, value);
