@@ -91,7 +91,7 @@
     </div>
 
     <div #sudokuContent id="sudoku-content" class="row g-0 flex-column flex-lg-row">
-        <div #sudokuBoardContainer id="sudoku-board-container" class="col col-lg-9 col-xl-8 align-items-center align-items-lg-end">
+        <div #sudokuBoardContainer id="sudoku-board-container" class="col col-lg-9 col-xl-8 align-items-center align-items-lg-end p-2 p-lg-3">
             <div #sudokuBoard id="sudoku-board">
                 <div *ngIf="board.state === SudokuState.paused else sudokuCells;" id="sudoku-pause-overlay" class="d-flex h-100 w-100 align-items-center justify-content-center">
                     <span>Game paused</span>
@@ -148,7 +148,7 @@
             </div>
         </div>
 
-        <div #sudokuInputContainer id="sudoku-input-container" class="col-auto col-lg-3 col-xl-2 row g-0">
+        <div #sudokuInputContainer id="sudoku-input-container" class="col-auto col-lg-3 col-xl-2 row g-0 p-2 p-lg-3">
             <div *ngFor="let value of possibleValues" class="sudoku-input-col sudoku-input-col-4 p-2">
                 <button #sudokuInput
                     class="sudoku-input"

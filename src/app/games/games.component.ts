@@ -24,12 +24,14 @@ export class GamesComponent {
         if (activatedComponent instanceof GamesHomeComponent) {
             this._renderer.addClass(backButtonEl, 'd-none');
             this._renderer.setAttribute(backButtonEl, 'tabindex', '-1');
-            this._renderer.addClass(titleEl, 'ps-5');
+            this._renderer.addClass(titleEl, 'ps-3');
+            this._renderer.addClass(titleEl, 'ps-lg-5');
             this._renderer.removeClass(exitButtonEl, 'd-none');
         } else {
             this._renderer.removeClass(backButtonEl, 'd-none');
             this._renderer.setAttribute(backButtonEl, 'tabindex', '0');
-            this._renderer.removeClass(titleEl, 'ps-5');
+            this._renderer.removeClass(titleEl, 'ps-3');
+            this._renderer.removeClass(titleEl, 'ps-lg-5');
             this._renderer.addClass(exitButtonEl, 'd-none');
         }
     }

@@ -12,24 +12,13 @@
         animation: $opacity-name $opacity-duration $opacity-timing;
         background-color: $theme-primary-background;
         box-shadow: $soft-box-shadow;
-        height: $header-height;
         z-index: $z-index-header;
 
         #header-title span {
             background-color: $theme-font-color;
             color: $theme-primary-background;
-            font-size: $default-font-size * 2;
             font-weight: bold;
-            line-height: $base-size * 2;
             padding: 0 math.div($base-size, 2);
-
-            @media (min-width: 0px) {
-                font-size: $default-font-size * 1.5;
-            }
-    
-            @media (min-width: $breakpoint-tablet) {
-                font-size: $default-font-size * 2;
-            }
         }
 
         #header-nav {
@@ -90,11 +79,11 @@
 
     main {
         overflow-x: hidden;
+        padding-top: 0px;
     }
 
     footer {
         background-color: $theme-primary-background;
-        height: $header-height;
 
         .footer-text {
             margin-right: $base-size * 2;

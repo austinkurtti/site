@@ -47,7 +47,6 @@ $sudoku-border-width: math.div($base-size, 5);
     }
 
     #sudoku-header {
-        height: $sudoku-header-height;
         padding: 0 $base-size * 2;
 
         button {
@@ -65,14 +64,12 @@ $sudoku-border-width: math.div($base-size, 5);
 
     #sudoku-content {
         flex: 1;
-        max-height: calc(100% - $sudoku-header-height);
 
         #sudoku-board-container {
             display: flex;
             flex-direction: column;
             max-height: 100%;
             max-width: 100%;
-            padding: $base-size;
 
             #sudoku-board {
                 aspect-ratio: 1/1;
@@ -163,7 +160,6 @@ $sudoku-border-width: math.div($base-size, 5);
 
         #sudoku-input-container {
             max-height: 50%;
-            padding: $base-size;
 
             .sudoku-input {
                 background-color: $color-gray-200;
@@ -216,6 +212,14 @@ $sudoku-border-width: math.div($base-size, 5);
 }
 
 @media (min-width: 0px) {
+    #sudoku-header {
+        height: $sudoku-header-height * .5;
+    }
+
+    #sudoku-content {
+        max-height: calc(100% - $sudoku-header-height * .5);
+    }
+
     .sudoku-cell {
         .normal {
             font-size: 8vmin;
@@ -235,6 +239,14 @@ $sudoku-border-width: math.div($base-size, 5);
 }
 
 @media (min-width: $breakpoint-tablet) {
+    #sudoku-header {
+        height: $sudoku-header-height * .75;
+    }
+
+    #sudoku-content {
+        max-height: calc(100% - $sudoku-header-height * .75);
+    }
+
     .sudoku-cell {
         .normal {
             font-size: 7vmin;
@@ -254,6 +266,14 @@ $sudoku-border-width: math.div($base-size, 5);
 }
 
 @media (min-width: $breakpoint-desktop) {
+    #sudoku-header {
+        height: $sudoku-header-height;
+    }
+
+    #sudoku-content {
+        max-height: calc(100% - $sudoku-header-height);
+    }
+
     .sudoku-cell {
         .normal {
             font-size: 6vmin;
