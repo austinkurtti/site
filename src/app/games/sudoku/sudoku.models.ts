@@ -1,7 +1,7 @@
 export enum SudokuDifficulty {
     easy = 1,
-    medium = 10,
-    hard = 30
+    medium = 5,
+    hard = 20
 }
 
 export enum SudokuState {
