@@ -6,7 +6,7 @@ import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { DialogSize } from '@models/dialog.model';
 import { DialogService } from '@services/dialog.service';
 import { LocalStorageService } from '@services/local-storage.service';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { HelpDialogComponent } from './help-dialog/help-dialog.component';
 import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
@@ -64,6 +64,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
     private _startTime: number;
     private _pauseTime: number;
     private _pauseSum: number;
+    private _autoPauseDebounce: Subscription;
     private _activeCellRow?: number = null;
     private _activeCellCol?: number = null;
 
@@ -116,6 +117,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
                     this.possibleValues.forEach(v => this._checkCellValueCount(v));
                     window.addEventListener('keydown', this._windowKeydown);
                     window.addEventListener('keyup', this._windowKeyup);
+                    document.addEventListener('visibilitychange', this._documentVisibilitychange);
                     this.startTimer();
                 }
             });
@@ -135,8 +137,10 @@ export class SudokuComponent implements OnInit, OnDestroy {
         this._dialogService.close();
         this.board.cleanup();
         this._clearTimerInterval();
+        this._clearAutoPauseDebounce();
         window.removeEventListener('keydown', this._windowKeydown);
         window.removeEventListener('keyup', this._windowKeyup);
+        document.removeEventListener('visibilitychange', this._documentVisibilitychange);
         this._destroyed$.next();
     }
     // #endregion
@@ -603,6 +607,11 @@ export class SudokuComponent implements OnInit, OnDestroy {
         }
     }
 
+    private _clearAutoPauseDebounce(): void {
+        this._autoPauseDebounce?.unsubscribe();
+        this._autoPauseDebounce = null;
+    }
+
     private _windowKeydown = (event: KeyboardEvent): void => {
         if (event.key === 'Shift') {
             this.shifting = true;
@@ -612,6 +621,21 @@ export class SudokuComponent implements OnInit, OnDestroy {
     private _windowKeyup = (event: KeyboardEvent): void => {
         if (event.key === 'Shift') {
             this.shifting = false;
+        }
+    };
+
+    private _documentVisibilitychange = (event: Event): void => {
+        if (document.visibilityState === 'hidden' && this.board.state !== SudokuState.paused) {
+            if (this._autoPauseDebounce) {
+                return;
+            }
+
+            this._autoPauseDebounce = timer(60000).subscribe(() => {
+                this.pauseTimer();
+                this._clearAutoPauseDebounce();
+            });
+        } else if (document.visibilityState === 'visible' && this._autoPauseDebounce) {
+            this._clearAutoPauseDebounce();
         }
     };
     // #endregion
