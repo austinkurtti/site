@@ -96,6 +96,34 @@ export class SudokuComponent implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
+    @HostListener('window:keydown.arrowup', ['$event'])
+    public windowArrowUp(event: KeyboardEvent) {
+        if (this._activeCell && this.board.state === SudokuState.running) {
+            this._arrowFocusNextCell(this._activeCellRow - 1, this._activeCellCol);
+        }
+    }
+
+    @HostListener('window:keydown.arrowdown', ['$event'])
+    public windowArrowDown(event: KeyboardEvent) {
+        if (this._activeCell && this.board.state === SudokuState.running) {
+            this._arrowFocusNextCell(this._activeCellRow + 1, this._activeCellCol);
+        }
+    }
+
+    @HostListener('window:keydown.arrowleft', ['$event'])
+    public windowArrowLeft(event: KeyboardEvent) {
+        if (this._activeCell && this.board.state === SudokuState.running) {
+            this._arrowFocusNextCell(this._activeCellRow, this._activeCellCol - 1);
+        }
+    }
+
+    @HostListener('window:keydown.arrowright', ['$event'])
+    public windowArrowRight(event: KeyboardEvent) {
+        if (this._activeCell && this.board.state === SudokuState.running) {
+            this._arrowFocusNextCell(this._activeCellRow, this._activeCellCol + 1);
+        }
+    }
+
     // #region Angular lifecycle
     public ngOnInit(): void {
         this._updateSettings();
@@ -114,6 +142,8 @@ export class SudokuComponent implements OnInit, OnDestroy {
                 if (building) {
                     this.resetTimer();
                 } else if (this.difficulty$.value !== null) {
+                    this._activeCellRow = this._activeCellCol = 0;
+                    this._activeCell.active = true;
                     this.possibleValues.forEach(v => this._checkCellValueCount(v));
                     window.addEventListener('keydown', this._windowKeydown);
                     window.addEventListener('keyup', this._windowKeyup);
@@ -285,18 +315,6 @@ export class SudokuComponent implements OnInit, OnDestroy {
         }
 
         switch (event.code) {
-            case 'ArrowUp':
-                this._arrowFocusNextCell(rowIndex - 1, colIndex);
-                break;
-            case 'ArrowDown':
-                this._arrowFocusNextCell(rowIndex + 1, colIndex);
-                break;
-            case 'ArrowLeft':
-                this._arrowFocusNextCell(rowIndex, colIndex - 1);
-                break;
-            case 'ArrowRight':
-                this._arrowFocusNextCell(rowIndex, colIndex + 1);
-                break;
             case 'Tab':
                 this._tabFocusNextCell(rowIndex, this.shifting ? colIndex - 1 : colIndex + 1);
                 break;
