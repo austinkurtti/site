@@ -9,7 +9,8 @@
     }
 
     #puzzle-data {
-        background-color: $color-sudoku-yellow;
+        background-color: $color-sudoku-light;
+        color: $color-sudoku-dark;
         font-weight: bold;
         padding: $base-size;
     }

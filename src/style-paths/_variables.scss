@@ -38,7 +38,9 @@ $color-hard                 : red;
 $color-hard-light           : lighten(red, 40%);
 
 // Sudoku
-$color-sudoku-yellow        : #d6d652;
+$color-sudoku               : #9344d1;
+$color-sudoku-light         : lighten($color-sudoku, 25%);
+$color-sudoku-dark          : darken($color-sudoku, 15%);
 
 // Solitaire
 $color-solitaire-green      : #38b64a;

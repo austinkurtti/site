@@ -11,6 +11,19 @@
         background-color: $color-white;
         box-shadow: $soft-box-shadow;
         z-index: $z-index-header;
+
+        &[data-game="sudoku"] {
+            background-color: $color-sudoku-light;
+            color: $color-sudoku-dark;
+
+            button {
+                color: $color-sudoku-dark;
+
+                &:hover {
+                    color: $color-white;
+                }
+            }
+        }
     }
 
     main {

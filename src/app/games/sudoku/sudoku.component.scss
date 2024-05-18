@@ -122,7 +122,7 @@ $sudoku-border-width: math.div($base-size, 5);
                     }
 
                     &.active {
-                        background-color: $color-sudoku-yellow;
+                        background-color: #d6d652;
                     }
 
                     &.conflicted::after {
