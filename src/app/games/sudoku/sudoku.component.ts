@@ -176,6 +176,10 @@ export class SudokuComponent implements OnInit, OnDestroy {
     // #endregion
 
     // #region Public methods
+    public back(): void {
+        this.difficulty$.next(null);
+    }
+
     public showHelpDialog(): void {
         this._dialogService.show(HelpDialogComponent, DialogSize.small);
     }
@@ -204,7 +208,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             };
             componentRef.playAgain = () => {
                 this._dialogService.close();
-                this.difficulty$.next(null);
+                this.back();
             };
         }
     }

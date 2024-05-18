@@ -1,12 +1,5 @@
 <header class="row g-0 position-fixed align-items-center w-100">
-    <button akTooltip
-        class="col-auto header-icon-button"
-        [routerLink]="'/games'"
-        [tooltipContent]="'Back'"
-        [tooltipPosition]="TooltipPosition.bottom">
-        <i class="fas fa-angle-left fa-2x"></i>
-    </button>
-    <div id="header-title" class="col">
+    <div id="header-title" class="col ps-3 ps-lg-5">
         <span><!-- Value set by routerOutletActivate --></span>
     </div>
     <button akTooltip
@@ -15,6 +8,13 @@
         [tooltipContent]="'Exit'"
         [tooltipPosition]="TooltipPosition.bottom">
         <i class="fas fa-2x fa-sign-out-alt"></i>
+    </button>
+    <button akTooltip
+        class="col-auto header-icon-button"
+        routerLink="/games"
+        [tooltipContent]="'Close'"
+        [tooltipPosition]="TooltipPosition.bottom">
+        <i class="fas fa-2x fa-times"></i>
     </button>
 </header>
 

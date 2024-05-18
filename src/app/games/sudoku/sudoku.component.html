@@ -40,8 +40,17 @@
         <i class="fas fa-2x fa-circle-notch fa-spin"></i><span class="ms-2">Building puzzle...</span>
     </div>
 
-    <div id="sudoku-header" class="row g-0 px-3 px-lg-4 align-items-center justify-content-lg-end">
-        <div id="sudoku-state" class="col col-md-6 col-lg-4 text-lg-center">
+    <div id="sudoku-header" class="row g-0 px-3 px-lg-4 align-items-center">
+        <div id="sudoku-nav" class="col-auto col-lg-4">
+            <button akTooltip
+                class="icon-button"
+                [tooltipContent]="'Back'"
+                (click)="back()">
+                <i class="fas fa-2x fa-angle-left"></i>
+            </button>
+        </div>
+
+        <div id="sudoku-state" class="col col-lg-4 text-center">
             <ng-container *ngIf="showClock">
                 <button tabindex="0"
                     class="icon-button"
@@ -60,7 +69,7 @@
             <span id="sudoku-difficulty" class="ms-3">{{ (difficulty$ | async) | sudokuDifficulty }}</span>
         </div>
 
-        <div id="sudoku-actions" class="col-auto col-md-6 col-lg-4 d-flex justify-content-end">
+        <div id="sudoku-actions" class="col-auto col-lg-4 d-flex justify-content-end">
             <button akTooltip
                 class="icon-button d-none d-md-block"
                 [tooltipContent]="'Help & Tips'"
