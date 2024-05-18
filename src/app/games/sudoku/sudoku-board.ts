@@ -49,6 +49,7 @@ export class SudokuBoard {
                 cell.value = null;
                 cell.candidates = 0;
                 cell.valid = null;
+                cell.revealed = false;
             });
         });
         this._resetNumEmptyCells();
@@ -60,11 +61,20 @@ export class SudokuBoard {
         }
     }
 
+    public validateCell(rIndex: number, cIndex: number, showValidation = false): boolean {
+        const cell = this.cells[rIndex][cIndex];
+        const valid = cell.value === this._solution[rIndex][cIndex].value;
+        if (showValidation) {
+            cell.valid = valid;
+        }
+        return valid;
+    }
+
     public validateAll(showValidation = false): boolean {
         let allValid = true;
         this.cells.forEach((row, rIndex) => {
             row.forEach((cell, cIndex) => {
-                if (!cell.given && cell.value !== null) {
+                if (!cell.given && !cell.revealed && cell.value !== null) {
                     const valid = cell.value === this._solution[rIndex][cIndex].value;
                     if (showValidation) {
                         cell.valid = valid;
@@ -76,13 +86,29 @@ export class SudokuBoard {
         return allValid;
     }
 
-    public validateCell(rIndex: number, cIndex: number, showValidation = false): boolean {
+    public revealCell(rIndex: number, cIndex: number): void {
         const cell = this.cells[rIndex][cIndex];
-        const valid = cell.value === this._solution[rIndex][cIndex].value;
-        if (showValidation) {
-            cell.valid = valid;
+        if (cell.value === null) {
+            this._numEmptyCells--;
         }
-        return valid;
+        cell.value = this._solution[rIndex][cIndex].value;
+        cell.candidates = 0;
+        cell.valid = null;
+        cell.revealed = true;
+    }
+
+    public revealAll(): void {
+        this.cells.forEach((row, rIndex) => {
+            row.forEach((cell, cIndex) => {
+                if (!cell.given) {
+                    cell.value = this._solution[rIndex][cIndex].value;
+                    cell.candidates = 0;
+                    cell.valid = null;
+                    cell.revealed = true;
+                }
+            });
+        });
+        this._numEmptyCells = 0;
     }
 
     public clearCandidates(rIndex: number, cIndex: number, value: number) {

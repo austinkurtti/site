@@ -13,12 +13,9 @@ $card-width         : $card-height * .714;
     header {
         background-color: $color-slate;
         color: $color-white;
-        height: $header-height;
     }
 
     main {
-        padding-top: $header-height;
-
         #stock, .foundation, .solitaire-card {
             border-radius: math.div($base-size, 2);
             height: $card-height;

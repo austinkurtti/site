@@ -35,10 +35,11 @@
     }
 
     &.sudoku {
-        background-color: $color-sudoku-yellow;
+        background-color: $color-sudoku;
 
         .game-name {
-            background-color: lighten($color-sudoku-yellow, 10%);
+            background-color: $color-sudoku-light;
+            color: $color-sudoku-dark;
         }
     }
 

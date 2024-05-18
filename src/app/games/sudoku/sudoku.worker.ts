@@ -33,7 +33,7 @@ const fillBoard = (): boolean => {
         col = i % 9;
         if (cells[row][col].value === null) {
             // Shuffle the possible values to keep randomizing the solution generation
-            const shuffledValues = shuffleValues();
+            const shuffledValues = shuffleValues(possibleValues);
             for (const value of shuffledValues) {
                 // Make sure the row, column and square are all valid
                 if (rowValid(cells, row, value)) {
@@ -68,8 +68,12 @@ const makePuzzle = (difficulty: SudokuDifficulty): SudokuCell[][] => {
     });
 
     do {
-        // Restore cells to original filled grid
+        // Set max attempts at blanking cells
         let attempts = difficulty as number;
+        // Randomly shuffled list with each cell appearing exactly once (ensures no repeated random cell selection)
+        const shuffledBlankCellAttempts = shuffleValues([...new Array(81)].map((value, index) => index));
+
+        // Restore cells to original filled grid
         emptyCells = 0;
         original.forEach((oRow, rIndex) => {
             oRow.forEach((oCell, cIndex) => {
@@ -78,14 +82,11 @@ const makePuzzle = (difficulty: SudokuDifficulty): SudokuCell[][] => {
         });
 
         // Attempt to create a valid puzzle
-        while (attempts > 0) {
-            // Pick a random cell to blank out
-            let row = Math.floor(Math.random() * 9);
-            let col = Math.floor(Math.random() * 9);
-            while (cells[row][col].value === null) {
-                row = Math.floor(Math.random() * 9);
-                col = Math.floor(Math.random() * 9);
-            }
+        while (attempts > 0 && shuffledBlankCellAttempts.length > 0) {
+            // Get next random cell to blank out
+            const nextCell = shuffledBlankCellAttempts.shift();
+            const row = Math.floor(nextCell / 9);
+            const col = nextCell % 9;
 
             // Remember the cell value in case it needs to be restored
             const originalValue = cells[row][col].value;
@@ -127,7 +128,12 @@ const makePuzzle = (difficulty: SudokuDifficulty): SudokuCell[][] => {
     return cells;
 };
 
-const solveBoard = (candidateCells: Array<Array<SudokuCell>>): boolean => {
+const solveBoard = (candidateCells: Array<Array<SudokuCell>>): void => {
+    // Don't keep looking for more solutions if there are already more than allowed
+    if (possibleSolutions > 1) {
+        return;
+    }
+
     // Find the next blank cell
     let row: number;
     let col: number;
@@ -145,8 +151,8 @@ const solveBoard = (candidateCells: Array<Array<SudokuCell>>): boolean => {
                                 // This is a possible solution, but there could be more
                                 possibleSolutions++;
                                 break;
-                            } else if (solveBoard(candidateCells)) {
-                                return true;
+                            } else {
+                                solveBoard(candidateCells);
                             }
                         }
                     }
@@ -158,8 +164,8 @@ const solveBoard = (candidateCells: Array<Array<SudokuCell>>): boolean => {
     candidateCells[row][col].value = null;
 };
 
-const shuffleValues = (): number[] => {
-    const shuffledVals = [...possibleValues];
+const shuffleValues = (values: number[]): number[] => {
+    const shuffledVals = [...values];
     for (let i = shuffledVals.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffledVals[i], shuffledVals[j]] = [shuffledVals[j], shuffledVals[i]];
@@ -195,7 +201,7 @@ const squareValid = (candidateCells: Array<Array<SudokuCell>>, row: number, col:
 
 const getAllowedEmptyCells = (difficulty: SudokuDifficulty): Array<number> =>
     difficulty === SudokuDifficulty.easy
-        ? [25, 35]
+        ? [25, 30]
         : difficulty === SudokuDifficulty.medium
-            ? [40, 50]
-            : [55, 65];
+            ? [40, 45]
+            : [55, 60];

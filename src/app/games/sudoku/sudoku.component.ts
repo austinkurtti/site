@@ -6,7 +6,7 @@ import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { DialogSize } from '@models/dialog.model';
 import { DialogService } from '@services/dialog.service';
 import { LocalStorageService } from '@services/local-storage.service';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { HelpDialogComponent } from './help-dialog/help-dialog.component';
 import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
@@ -20,6 +20,7 @@ import { SudokuCandidate, SudokuCell, SudokuDifficulty, SudokuState } from './su
     templateUrl: './sudoku.component.html'
 })
 export class SudokuComponent implements OnInit, OnDestroy {
+    // #region Public variables
     @ViewChild('sudokuBoardContainer') boardContainerEl: ElementRef;
     @ViewChild('sudokuBoard') boardEl: ElementRef;
     @ViewChild('sudokuInputContainer') inputContainerEl: ElementRef;
@@ -29,10 +30,14 @@ export class SudokuComponent implements OnInit, OnDestroy {
     public board = new SudokuBoard();
     public shifting = false;
     public pencilIn = false;
+
+    // Settings
     public showClock = true;
     public showConflicts = false;
     public autoPencilErase = false;
+    public autoDisableInputs = true;
 
+    // Re-defs
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public SudokuDifficulty = SudokuDifficulty;
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -47,7 +52,10 @@ export class SudokuComponent implements OnInit, OnDestroy {
     public difficulty$ = new BehaviorSubject<SudokuDifficulty>(null);
     public building$ = new BehaviorSubject<boolean>(false);
     public time$ = new BehaviorSubject<string>('00:00:00');
+    // #endregion
 
+    // #region Private variables
+    // Injectables
     private _renderer = inject(Renderer2);
     private _dialogService = inject(DialogService);
     private _router = inject(Router);
@@ -56,6 +64,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
     private _startTime: number;
     private _pauseTime: number;
     private _pauseSum: number;
+    private _autoPauseDebounce: Subscription;
     private _activeCellRow?: number = null;
     private _activeCellCol?: number = null;
 
@@ -68,12 +77,13 @@ export class SudokuComponent implements OnInit, OnDestroy {
     }
 
     private get _canSetCellValue(): boolean {
-        return !this._activeCell.given && this.board.state === SudokuState.running;
+        return !this._activeCell.given && !this._activeCell.revealed && this.board.state === SudokuState.running;
     }
 
     private get _setCandidates(): boolean {
         return this.shifting || this.pencilIn;
     }
+    // #endregion
 
     @HostListener('window:keydown.space', ['$event'])
     public windowSpace(event: KeyboardEvent) {
@@ -86,6 +96,35 @@ export class SudokuComponent implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
+    @HostListener('window:keydown.arrowup', ['$event'])
+    public windowArrowUp(event: KeyboardEvent) {
+        if (this._activeCell && this.board.state === SudokuState.running) {
+            this._arrowFocusNextCell(this._activeCellRow - 1, this._activeCellCol);
+        }
+    }
+
+    @HostListener('window:keydown.arrowdown', ['$event'])
+    public windowArrowDown(event: KeyboardEvent) {
+        if (this._activeCell && this.board.state === SudokuState.running) {
+            this._arrowFocusNextCell(this._activeCellRow + 1, this._activeCellCol);
+        }
+    }
+
+    @HostListener('window:keydown.arrowleft', ['$event'])
+    public windowArrowLeft(event: KeyboardEvent) {
+        if (this._activeCell && this.board.state === SudokuState.running) {
+            this._arrowFocusNextCell(this._activeCellRow, this._activeCellCol - 1);
+        }
+    }
+
+    @HostListener('window:keydown.arrowright', ['$event'])
+    public windowArrowRight(event: KeyboardEvent) {
+        if (this._activeCell && this.board.state === SudokuState.running) {
+            this._arrowFocusNextCell(this._activeCellRow, this._activeCellCol + 1);
+        }
+    }
+
+    // #region Angular lifecycle
     public ngOnInit(): void {
         this._updateSettings();
 
@@ -103,9 +142,12 @@ export class SudokuComponent implements OnInit, OnDestroy {
                 if (building) {
                     this.resetTimer();
                 } else if (this.difficulty$.value !== null) {
+                    this._activeCellRow = this._activeCellCol = 0;
+                    this._activeCell.active = true;
                     this.possibleValues.forEach(v => this._checkCellValueCount(v));
                     window.addEventListener('keydown', this._windowKeydown);
                     window.addEventListener('keyup', this._windowKeyup);
+                    document.addEventListener('visibilitychange', this._documentVisibilitychange);
                     this.startTimer();
                 }
             });
@@ -125,9 +167,17 @@ export class SudokuComponent implements OnInit, OnDestroy {
         this._dialogService.close();
         this.board.cleanup();
         this._clearTimerInterval();
+        this._clearAutoPauseDebounce();
         window.removeEventListener('keydown', this._windowKeydown);
         window.removeEventListener('keyup', this._windowKeyup);
+        document.removeEventListener('visibilitychange', this._documentVisibilitychange);
         this._destroyed$.next();
+    }
+    // #endregion
+
+    // #region Public methods
+    public back(): void {
+        this.difficulty$.next(null);
     }
 
     public showHelpDialog(): void {
@@ -140,6 +190,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             componentRef.showClock = this.showClock;
             componentRef.showConflicts = this.showConflicts;
             componentRef.autoPencilErase = this.autoPencilErase;
+            componentRef.autoDisableInputs = this.autoDisableInputs;
             componentRef.closeCallback = () => {
                 this._updateSettings();
             };
@@ -157,7 +208,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             };
             componentRef.playAgain = () => {
                 this._dialogService.close();
-                this.difficulty$.next(null);
+                this.back();
             };
         }
     }
@@ -191,13 +242,40 @@ export class SudokuComponent implements OnInit, OnDestroy {
         this.difficulty$.next(difficulty);
     }
 
+    public checkCell(): void {
+        if (this._activeCellRow !== null && this._activeCellCol !== null && this._canSetCellValue) {
+            this.board.validateCell(this._activeCellRow, this._activeCellCol, true);
+        }
+    }
+
     public checkAll(): void {
         this.board.validateAll(true);
     }
 
-    public checkCell(): void {
-        if (this._activeCellRow !== null && this._activeCellCol !== null) {
-            this.board.validateCell(this._activeCellRow, this._activeCellCol, true);
+    public revealCell(): void {
+        if (this._activeCellRow !== null && this._activeCellCol !== null && this._canSetCellValue) {
+            this.board.revealCell(this._activeCellRow, this._activeCellCol);
+            this.possibleValues.forEach(v => this._checkCellValueCount(v));
+            this.board.checkSolved();
+        }
+    }
+
+    public revealAll(): void {
+        const componentRef = this._dialogService.show(ConfirmDialogComponent, DialogSize.minimal, false);
+        if (componentRef) {
+            componentRef.title = 'Confirm Reveal';
+            componentRef.message = 'This action will end the game. Are you sure you want to reveal everything?';
+            componentRef.confirmText = 'Reveal';
+            componentRef.cancelText = 'Cancel';
+            componentRef.confirm = () => {
+                this._dialogService.close();
+                this.board.revealAll();
+                this.pauseTimer(true);
+                this.possibleValues.forEach(v => this._checkCellValueCount(v));
+            };
+            componentRef.cancel = () => {
+                this._dialogService.close();
+            };
         }
     }
 
@@ -241,18 +319,6 @@ export class SudokuComponent implements OnInit, OnDestroy {
         }
 
         switch (event.code) {
-            case 'ArrowUp':
-                this._arrowFocusNextCell(rowIndex - 1, colIndex);
-                break;
-            case 'ArrowDown':
-                this._arrowFocusNextCell(rowIndex + 1, colIndex);
-                break;
-            case 'ArrowLeft':
-                this._arrowFocusNextCell(rowIndex, colIndex - 1);
-                break;
-            case 'ArrowRight':
-                this._arrowFocusNextCell(rowIndex, colIndex + 1);
-                break;
             case 'Tab':
                 this._tabFocusNextCell(rowIndex, this.shifting ? colIndex - 1 : colIndex + 1);
                 break;
@@ -269,7 +335,9 @@ export class SudokuComponent implements OnInit, OnDestroy {
             this._setCellValueOrCandidate(this._getValueCode(value));
         }
     }
+    // #endregion
 
+    // #region Private methods
     private _getValueCode = (value: number): string => value >= 1 && value <= 9 ? `Digit${value}` : 'Delete';
 
     private _setCellValueOrCandidate = (valueCode: string): void => {
@@ -421,10 +489,12 @@ export class SudokuComponent implements OnInit, OnDestroy {
         });
 
         const inputEl = (document.querySelectorAll('.sudoku-input')[value - 1] as HTMLElement);
-        if (valueCount >= 9) {
-            this._renderer.setAttribute(inputEl, 'disabled', 'true');
-        } else {
-            this._renderer.removeAttribute(inputEl, 'disabled');
+        if (inputEl) {
+            if (valueCount >= 9 && this.autoDisableInputs) {
+                this._renderer.setAttribute(inputEl, 'disabled', 'true');
+            } else {
+                this._renderer.removeAttribute(inputEl, 'disabled');
+            }
         }
     };
 
@@ -526,10 +596,19 @@ export class SudokuComponent implements OnInit, OnDestroy {
     private _updateSettings(): void {
         const showClock = LocalStorageService.getItem('sudoku_showClock');
         this.showClock = showClock ?? true;
+
         const showConflicts = LocalStorageService.getItem('sudoku_showConflicts');
         this.showConflicts = showConflicts ?? false;
+
         const autoPencilErase = LocalStorageService.getItem('sudoku_autoPencilErase');
         this.autoPencilErase = autoPencilErase ?? false;
+
+        const autoDisableInputs = LocalStorageService.getItem('sudoku_autoDisableInputs');
+        const autoDisableInputsOld = this.autoDisableInputs;
+        this.autoDisableInputs = autoDisableInputs ?? true;
+        if (autoDisableInputs !== autoDisableInputsOld) {
+            this.possibleValues.forEach(v => this._checkCellValueCount(v));
+        }
     }
 
     private _startTimerInterval(): void {
@@ -550,6 +629,11 @@ export class SudokuComponent implements OnInit, OnDestroy {
         }
     }
 
+    private _clearAutoPauseDebounce(): void {
+        this._autoPauseDebounce?.unsubscribe();
+        this._autoPauseDebounce = null;
+    }
+
     private _windowKeydown = (event: KeyboardEvent): void => {
         if (event.key === 'Shift') {
             this.shifting = true;
@@ -561,4 +645,20 @@ export class SudokuComponent implements OnInit, OnDestroy {
             this.shifting = false;
         }
     };
+
+    private _documentVisibilitychange = (event: Event): void => {
+        if (document.visibilityState === 'hidden' && this.board.state !== SudokuState.paused) {
+            if (this._autoPauseDebounce) {
+                return;
+            }
+
+            this._autoPauseDebounce = timer(60000).subscribe(() => {
+                this.pauseTimer();
+                this._clearAutoPauseDebounce();
+            });
+        } else if (document.visibilityState === 'visible' && this._autoPauseDebounce) {
+            this._clearAutoPauseDebounce();
+        }
+    };
+    // #endregion
 }

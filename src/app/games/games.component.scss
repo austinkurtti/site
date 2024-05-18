@@ -10,17 +10,23 @@
     header {
         background-color: $color-white;
         box-shadow: $soft-box-shadow;
-        height: $header-height;
         z-index: $z-index-header;
 
-        #header-title span {
-            font-size: $default-font-size * 2;
-            line-height: $base-size * 2;
+        &[data-game="sudoku"] {
+            background-color: $color-sudoku-light;
+            color: $color-sudoku-dark;
+
+            button {
+                color: $color-sudoku-dark;
+
+                &:hover {
+                    color: $color-white;
+                }
+            }
         }
     }
 
     main {
         flex: 1;
-        max-height: calc(100% - $header-height);
     }
 }

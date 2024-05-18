@@ -40,8 +40,17 @@
         <i class="fas fa-2x fa-circle-notch fa-spin"></i><span class="ms-2">Building puzzle...</span>
     </div>
 
-    <div id="sudoku-header" class="row g-0 px-3 px-lg-4 align-items-center justify-content-lg-end">
-        <div id="sudoku-state" class="col col-md-6 col-lg-4 text-lg-center">
+    <div id="sudoku-header" class="row g-0 px-3 px-lg-4 align-items-center">
+        <div id="sudoku-nav" class="col-auto col-lg-4">
+            <button akTooltip
+                class="icon-button"
+                [tooltipContent]="'Back'"
+                (click)="back()">
+                <i class="fas fa-2x fa-angle-left"></i>
+            </button>
+        </div>
+
+        <div id="sudoku-state" class="col col-lg-4 text-center">
             <ng-container *ngIf="showClock">
                 <button tabindex="0"
                     class="icon-button"
@@ -60,7 +69,7 @@
             <span id="sudoku-difficulty" class="ms-3">{{ (difficulty$ | async) | sudokuDifficulty }}</span>
         </div>
 
-        <div id="sudoku-actions" class="col-auto col-md-6 col-lg-4 d-flex justify-content-end">
+        <div id="sudoku-actions" class="col-auto col-lg-4 d-flex justify-content-end">
             <button akTooltip
                 class="icon-button d-none d-md-block"
                 [tooltipContent]="'Help & Tips'"
@@ -81,6 +90,8 @@
                     <div akMenuContent>
                         <div akMenuItem (menuItemClick)="checkCell()">Check Cell</div>
                         <div akMenuItem (menuItemClick)="checkAll()">Check All</div>
+                        <div akMenuItem (menuItemClick)="revealCell()">Reveal Cell</div>
+                        <div akMenuItem (menuItemClick)="revealAll()">Reveal All</div>
                         <div akMenuItem (menuItemClick)="reset()">Reset</div>
                         <div class="d-block d-md-none" akMenuItem (menuItemClick)="showSettingsDialog()">Settings</div>
                         <div class="d-block d-md-none" akMenuItem (menuItemClick)="showHelpDialog()">Help &amp; Tips</div>
@@ -91,7 +102,7 @@
     </div>
 
     <div #sudokuContent id="sudoku-content" class="row g-0 flex-column flex-lg-row">
-        <div #sudokuBoardContainer id="sudoku-board-container" class="col col-lg-9 col-xl-8 align-items-center align-items-lg-end">
+        <div #sudokuBoardContainer id="sudoku-board-container" class="col col-lg-9 col-xl-8 align-items-center align-items-lg-end p-2 p-lg-3">
             <div #sudokuBoard id="sudoku-board">
                 <div *ngIf="board.state === SudokuState.paused else sudokuCells;" id="sudoku-pause-overlay" class="d-flex h-100 w-100 align-items-center justify-content-center">
                     <span>Game paused</span>
@@ -106,7 +117,7 @@
                             [ngClass]="{ 'given': cell.given, 'active': cell.active, 'conflicted': this.showConflicts && cell.numConflicts > 0 }"
                             (click)="focusCell(rowIndex, colIndex)"
                             (keydown)="cellKeydown(rowIndex, colIndex, $event)">
-                            <span class="normal position-absolute" [ngClass]="{ 'valid': cell.valid === true, 'invalid': cell.valid === false }">
+                            <span class="normal position-absolute" [ngClass]="{ 'revealed': cell.revealed === true, 'valid': cell.valid === true, 'invalid': cell.valid === false }">
                                 {{ cell.value }}
                             </span>
                             <div class="candidate-row row g-0 align-items-center text-center w-100">
@@ -148,7 +159,7 @@
             </div>
         </div>
 
-        <div #sudokuInputContainer id="sudoku-input-container" class="col-auto col-lg-3 col-xl-2 row g-0">
+        <div #sudokuInputContainer id="sudoku-input-container" class="col-auto col-lg-3 col-xl-2 row g-0 p-2 p-lg-3">
             <div *ngFor="let value of possibleValues" class="sudoku-input-col sudoku-input-col-4 p-2">
                 <button #sudokuInput
                     class="sudoku-input"
