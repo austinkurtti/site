@@ -97,6 +97,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
     }
 
     @HostListener('window:keydown.arrowup', ['$event'])
+    @HostListener('window:keydown.shift.arrowup', ['$event'])
     public windowArrowUp(event: KeyboardEvent) {
         if (this._activeCell && this.board.state === SudokuState.running) {
             this._arrowFocusNextCell(this._activeCellRow - 1, this._activeCellCol);
@@ -104,6 +105,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
     }
 
     @HostListener('window:keydown.arrowdown', ['$event'])
+    @HostListener('window:keydown.shift.arrowdown', ['$event'])
     public windowArrowDown(event: KeyboardEvent) {
         if (this._activeCell && this.board.state === SudokuState.running) {
             this._arrowFocusNextCell(this._activeCellRow + 1, this._activeCellCol);
@@ -111,6 +113,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
     }
 
     @HostListener('window:keydown.arrowleft', ['$event'])
+    @HostListener('window:keydown.shift.arrowleft', ['$event'])
     public windowArrowLeft(event: KeyboardEvent) {
         if (this._activeCell && this.board.state === SudokuState.running) {
             this._arrowFocusNextCell(this._activeCellRow, this._activeCellCol - 1);
@@ -118,6 +121,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
     }
 
     @HostListener('window:keydown.arrowright', ['$event'])
+    @HostListener('window:keydown.shift.arrowright', ['$event'])
     public windowArrowRight(event: KeyboardEvent) {
         if (this._activeCell && this.board.state === SudokuState.running) {
             this._arrowFocusNextCell(this._activeCellRow, this._activeCellCol + 1);
