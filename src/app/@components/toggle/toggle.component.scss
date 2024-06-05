@@ -2,66 +2,69 @@
 
 @import 'variables';
 
-.toggle-container {
-    cursor: pointer;
-    position: relative;
+:host {
+    &.disabled {
+        opacity: 0.5;
 
-    input {
-        height: 0;
-        opacity: 0;
-        pointer-events: none;
-        width: 0;
+        .toggle-container {
+            cursor: default;
+        }
     }
 
-    &.off {
+    .toggle-container {
+        cursor: pointer;
+        position: relative;
+
+        &.off {
+            .toggle-background {
+                background-color: $color-gray-300;
+            }
+
+            .toggle-foreground {
+                left: 6%;
+            }
+        }
+
+        &.on {
+            .toggle-background {
+                background-color: $color-success;
+            }
+
+            .toggle-foreground {
+                left: 64%;
+            }
+        }
+
         .toggle-background {
-            background-color: $color-gray-300;
+            align-items: center;
+            border-radius: $base-size;
+            display: flex;
+            justify-content: space-between;
+            padding: math.div($base-size, 2);
+            transition: ease-in background-color .1s;
+            width: $base-size * 4;
+
+            .fa-check {
+                color: lighten($color-success, 60%);
+                height: $base-size;
+                width: $base-size;
+            }
+
+            .fa-times {
+                color: $color-slate;
+                height: $base-size;
+                width: $base-size;
+            }
         }
 
         .toggle-foreground {
-            left: 6%;
+            background-color: $color-white;
+            border-radius: $base-size;
+            height: $base-size * 1.5;
+            position: absolute;
+            top: 13%;
+            transition: ease-in left .1s;
+            width: $base-size * 1.5;
         }
-    }
-
-    &.on {
-        .toggle-background {
-            background-color: $color-success;
-        }
-
-        .toggle-foreground {
-            left: 64%;
-        }
-    }
-
-    .toggle-background {
-        align-items: center;
-        border-radius: $base-size;
-        display: flex;
-        justify-content: space-between;
-        padding: math.div($base-size, 2);
-        transition: ease-in background-color .1s;
-        width: $base-size * 4;
-
-        .fa-check {
-            color: lighten($color-success, 60%);
-            height: $base-size;
-            width: $base-size;
-        }
-
-        .fa-times {
-            color: $color-slate;
-            height: $base-size;
-            width: $base-size;
-        }
-    }
-
-    .toggle-foreground {
-        background-color: $color-white;
-        border-radius: $base-size;
-        height: $base-size * 1.5;
-        position: absolute;
-        top: 13%;
-        transition: ease-in left .1s;
-        width: $base-size * 1.5;
     }
 }

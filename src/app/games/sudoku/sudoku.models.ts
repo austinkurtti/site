@@ -7,7 +7,8 @@ export enum SudokuDifficulty {
 export enum SudokuState {
     paused = 1,
     running = 2,
-    solved = 3
+    solved = 3,
+    failed = 4
 }
 
 export enum SudokuCandidate {

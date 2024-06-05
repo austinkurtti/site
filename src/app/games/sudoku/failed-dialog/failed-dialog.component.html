@@ -1,13 +1,7 @@
-<h3 class="text-center">{{ hardcore ? 'Flawless!' : 'Well Done!' }}</h3>
+<h3 class="text-center">Whoops...</h3>
 
-<div id="puzzle-data" class="row g-0">
-    <div class="col-6 text-center">
-        <span>{{ difficulty | sudokuDifficulty }}</span>
-        <i class="fas fa-skull ms-3"></i>
-    </div>
-    <div class="col-6 text-center">
-        <time [dateTime]="time">{{ timeDisplay }}</time>
-    </div>
+<div id="message" class="row g-0 text-center">
+    <span>That <b class="color-red">{{ incorrectValue }}</b> was supposed to be a <b class="color-green">{{ correctValue }}</b>. Better luck next time!</span>
 </div>
 
 <div id="next-options" class="row g-0 justify-content-evenly">

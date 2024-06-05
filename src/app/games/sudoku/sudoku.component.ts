@@ -8,6 +8,7 @@ import { DialogService } from '@services/dialog.service';
 import { LocalStorageService } from '@services/local-storage.service';
 import { BehaviorSubject, Subject, Subscription, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { FailedDialogComponent } from './failed-dialog/failed-dialog.component';
 import { HelpDialogComponent } from './help-dialog/help-dialog.component';
 import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
 import { SolvedDialogComponent } from './solved-dialog/solved-dialog.component';
@@ -30,6 +31,9 @@ export class SudokuComponent implements OnInit, OnDestroy {
     public board = new SudokuBoard();
     public shifting = false;
     public pencilIn = false;
+
+    // Game options
+    public hardcore = false;
 
     // Settings
     public showClock = true;
@@ -161,7 +165,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             .subscribe(solved => {
                 if (solved) {
                     // TODO - something fun... confetti?
-                    this.pauseTimer(true);
+                    this.pauseTimer(SudokuState.solved);
                     this.showSolvedDialog();
                 }
             });
@@ -191,6 +195,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
     public showSettingsDialog(): void {
         const componentRef = this._dialogService.show(SettingsDialogComponent, DialogSize.small);
         if (componentRef) {
+            componentRef.hardcore = this.hardcore;
             componentRef.showClock = this.showClock;
             componentRef.showConflicts = this.showConflicts;
             componentRef.autoPencilErase = this.autoPencilErase;
@@ -205,6 +210,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
         const componentRef = this._dialogService.show(SolvedDialogComponent, DialogSize.small);
         if (componentRef) {
             componentRef.difficulty = this.difficulty$.value;
+            componentRef.hardcore = this.hardcore;
             componentRef.time = this.time$.value;
             componentRef.goHome = () => {
                 this._dialogService.close();
@@ -230,9 +236,9 @@ export class SudokuComponent implements OnInit, OnDestroy {
         this._startTimerInterval();
     };
 
-    public pauseTimer = (solved = false): void => {
+    public pauseTimer = (boardStateOverride?: SudokuState): void => {
         this._pauseTime = Date.now();
-        this.board.state = solved ? SudokuState.solved : SudokuState.paused;
+        this.board.state = boardStateOverride ?? SudokuState.paused;
         this._clearTimerInterval();
     };
 
@@ -274,7 +280,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
             componentRef.confirm = () => {
                 this._dialogService.close();
                 this.board.revealAll();
-                this.pauseTimer(true);
+                this.pauseTimer(SudokuState.solved);
                 this.possibleValues.forEach(v => this._checkCellValueCount(v));
             };
             componentRef.cancel = () => {
@@ -480,9 +486,35 @@ export class SudokuComponent implements OnInit, OnDestroy {
                 this.board.clearCandidates(this._activeCellRow, this._activeCellCol, value);
             }
         }
+
+        if (this.hardcore && this._activeCell.value) {
+            const cellSolution = this.board.getCellSolution(this._activeCellRow, this._activeCellCol);
+            if (this._activeCell.value !== cellSolution) {
+                this._activeCell.valid = false;
+                this.pauseTimer(SudokuState.failed);
+
+                const componentRef = this._dialogService.show(FailedDialogComponent, DialogSize.small);
+                if (componentRef) {
+                    componentRef.correctValue = cellSolution;
+                    componentRef.incorrectValue = this._activeCell.value;
+                    componentRef.goHome = () => {
+                        this._dialogService.close();
+                        this._router.navigateByUrl('/games');
+                    };
+                    componentRef.playAgain = () => {
+                        this._dialogService.close();
+                        this.back();
+                    };
+                }
+            }
+        }
     };
 
     private _checkCellValueCount = (value: number): void => {
+        if (this.hardcore) {
+            return;
+        }
+
         let valueCount = 0;
         this.board.cells.forEach(row => {
             row.forEach(cell => {
@@ -503,6 +535,10 @@ export class SudokuComponent implements OnInit, OnDestroy {
     };
 
     private _checkConflicts = (valueToCheck: number): void => {
+        if (this.hardcore) {
+            return;
+        }
+
         const squareRowStart = Math.floor(this._activeCellRow / 3) * 3;
         const squareRowEnd = squareRowStart + 3;
         const squareColStart = Math.floor(this._activeCellCol / 3) * 3;

@@ -14,6 +14,7 @@ import { SudokuDifficulty } from '../sudoku.models';
 })
 export class SolvedDialogComponent extends DialogBase implements OnInit {
     @Input() difficulty: SudokuDifficulty;
+    @Input() hardcore: boolean;
     @Input() time: string;
     @Input() goHome: () => void;
     @Input() playAgain: () => void;

@@ -10,6 +10,11 @@
         </div>
     </div>
 
+    <div *ngIf="hardcore" class="px-3">
+        <i class="fas fa-skull color-red"></i>
+        <span class="ms-3">Assistive settings are disabled in hardcore mode!</span>
+    </div>
+
     <div class="row g-0 align-items-center setting">
         <div class="col">
             <label>Show clock</label>
@@ -23,7 +28,7 @@
             <label>Show conflicts</label>
         </div>
         <div class="col-auto">
-            <ak-toggle [(value)]="showConflicts" (valueChange)="toggleChange('sudoku_showConflicts', $event)"></ak-toggle>
+            <ak-toggle [disabled]="hardcore" [(value)]="showConflicts" (valueChange)="toggleChange('sudoku_showConflicts', $event)"></ak-toggle>
         </div>
     </div>
     <div class="row g-0 align-items-center setting">
@@ -39,7 +44,7 @@
             <label>Auto disable inputs</label>
         </div>
         <div class="col-auto">
-            <ak-toggle [(value)]="autoDisableInputs" (valueChange)="toggleChange('sudoku_autoDisableInputs', $event)"></ak-toggle>
+            <ak-toggle [disabled]="hardcore" [(value)]="autoDisableInputs" (valueChange)="toggleChange('sudoku_autoDisableInputs', $event)"></ak-toggle>
         </div>
     </div>
 </div>

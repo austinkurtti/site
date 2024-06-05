@@ -61,6 +61,10 @@ export class SudokuBoard {
         }
     }
 
+    public getCellSolution(rIndex: number, cIndex: number): number {
+        return this._solution[rIndex][cIndex].value;
+    }
+
     public validateCell(rIndex: number, cIndex: number, showValidation = false): boolean {
         const cell = this.cells[rIndex][cIndex];
         const valid = cell.value === this._solution[rIndex][cIndex].value;
