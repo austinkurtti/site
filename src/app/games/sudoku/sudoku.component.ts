@@ -1,11 +1,13 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmDialogComponent } from '@components/confirm/confirm.component';
 import { MenuPosition } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { DialogSize } from '@models/dialog.model';
+import { Notification } from '@models/notification.model';
 import { DialogService } from '@services/dialog.service';
 import { LocalStorageService } from '@services/local-storage.service';
+import { NotificationService } from '@services/notification.service';
 import { BehaviorSubject, Subject, Subscription, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FailedDialogComponent } from './failed-dialog/failed-dialog.component';
@@ -34,6 +36,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
 
     // Game options
     public hardcore = false;
+    public seed: string;
 
     // Settings
     public showClock = true;
@@ -62,7 +65,9 @@ export class SudokuComponent implements OnInit, OnDestroy {
     // Injectables
     private _renderer = inject(Renderer2);
     private _dialogService = inject(DialogService);
+    private _notificationService = inject(NotificationService);
     private _router = inject(Router);
+    private _activatedRoute = inject(ActivatedRoute);
 
     private _timerId;
     private _startTime: number;
@@ -136,6 +141,9 @@ export class SudokuComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this._updateSettings();
 
+        // Only pull seed value once
+        this.seed = this._activatedRoute.snapshot.queryParams['seed'];
+
         this.difficulty$
             .pipe(takeUntil(this._destroyed$))
             .subscribe(difficulty => {
@@ -186,6 +194,10 @@ export class SudokuComponent implements OnInit, OnDestroy {
     // #region Public methods
     public back(): void {
         this.difficulty$.next(null);
+    }
+
+    public randomizeSeed(): void {
+        this.seed = Math.random().toString().slice(2);
     }
 
     public showHelpDialog(): void {
@@ -306,6 +318,25 @@ export class SudokuComponent implements OnInit, OnDestroy {
             componentRef.cancel = () => {
                 this._dialogService.close();
             };
+        }
+    }
+
+    public share(): void {
+        // Copy link with this puzzle's seed to player's clipboard
+        if (window.isSecureContext) {
+            this._copyLinkToClipboard()
+                .then(() => {
+                    const notification = new Notification({
+                        message: 'Link copied to clipboard'
+                    });
+                    this._notificationService.success(notification);
+                })
+                .catch(() => {
+                    const notification = new Notification({
+                        message: 'Link could not be copied'
+                    });
+                    this._notificationService.error(notification);
+                });
         }
     }
 
@@ -628,7 +659,10 @@ export class SudokuComponent implements OnInit, OnDestroy {
 
     private _buildSudoku(): void {
         this.building$.next(true);
-        this.board.build(this.difficulty$.value).then(() => {
+        if (!this.seed) {
+            this.randomizeSeed();
+        }
+        this.board.build(this.difficulty$.value, this.seed).then(() => {
             this.building$.next(false);
         });
     }
@@ -649,6 +683,11 @@ export class SudokuComponent implements OnInit, OnDestroy {
         if (autoDisableInputs !== autoDisableInputsOld) {
             this.possibleValues.forEach(v => this._checkCellValueCount(v));
         }
+    }
+
+    private _copyLinkToClipboard(): Promise<void> {
+        const link = `${document.location.origin}/games/sudoku?seed=${this.seed}`;
+        return navigator.clipboard.writeText(link);
     }
 
     private _startTimerInterval(): void {

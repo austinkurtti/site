@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { TextComponent } from '@components/text/text.component';
 import { ToggleComponent } from '@components/toggle/toggle.component';
 import { MenuDirectiveModule } from '@directives/menu/menu.module';
 import { TooltipDirective } from '@directives/tooltip/tooltip.directive';
@@ -17,6 +18,7 @@ import { SudokuComponent } from './sudoku.component';
         DifficultyPipe,
         HasFlagPipe,
         MenuDirectiveModule,
+        TextComponent,
         ToggleComponent,
         TooltipDirective,
         RouterModule.forChild([{

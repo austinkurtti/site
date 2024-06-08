@@ -24,11 +24,11 @@ export class SudokuBoard {
         this._worker?.terminate();
     }
 
-    public build(difficulty: SudokuDifficulty): Promise<void> {
+    public build(difficulty: SudokuDifficulty, seed: string = null): Promise<void> {
         this.cleanup();
         this.solved$.next(false);
         return new Promise<void>(resolve => {
-            if (typeof Worker !== 'undefined') {
+            if (window.isSecureContext && typeof Worker !== 'undefined') {
                 this._worker = new Worker(new URL('./sudoku.worker.ts', import.meta.url));
                 this._worker.onmessage = ({ data }) => {
                     this._solution = data.solution;
@@ -36,7 +36,7 @@ export class SudokuBoard {
                     this._resetNumEmptyCells();
                     resolve();
                 };
-                this._worker.postMessage(difficulty);
+                this._worker.postMessage({ difficulty, seed });
             } else {
                 // TODO - web workers unavailable, do something
             }

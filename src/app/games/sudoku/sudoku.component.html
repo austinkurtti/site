@@ -35,12 +35,26 @@
         <div class="row g-0 text-center">
             <span>Game options:</span>
         </div>
-        <div class="row align-items-center mt-2 mt-md-3">
-            <div class="col-6 d-flex justify-content-end">
-                <label akTooltip [tooltipContent]="'All assistive settings/tools will be disabled and any incorrect entry immediately ends the game.<br><br>Can you complete a puzzle without any mistakes?'">Hardcore mode</label>
+        <div class="row g-0 align-items-center px-2 px-md-0 mt-2 mt-md-3">
+            <div class="col col-md-6 d-flex justify-content-md-end">
+                <label akTooltip class="me-0 me-md-3" [tooltipContent]="'All assistive settings/tools will be disabled and any incorrect entry immediately ends the game.<br><br>Can you complete a puzzle without any mistakes?'">Hardcore mode</label>
             </div>
             <div class="col-auto">
                 <ak-toggle [(value)]="hardcore"></ak-toggle>
+            </div>
+        </div>
+        <div class="row g-0 align-items-center px-2 px-md-0 mt-2 mt-md-3">
+            <div class="col col-md-6 d-flex justify-content-md-end">
+                <label class="me-0 me-md-3">Seed</label>
+            </div>
+            <div class="col-auto">
+                <ak-text class="d-inline-block" [maxLength]="16" [(value)]="seed"></ak-text>
+                <button akTooltip
+                    class="icon-button ms-2"
+                    [tooltipContent]="'Randomize'"
+                    (click)="randomizeSeed()">
+                    <i class="fas fa-random"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -109,8 +123,13 @@
                         <div *ngIf="!hardcore" akMenuItem (menuItemClick)="revealCell()">Reveal Cell</div>
                         <div *ngIf="!hardcore" akMenuItem (menuItemClick)="revealAll()">Reveal All</div>
                         <div akMenuItem (menuItemClick)="reset()">Reset</div>
+                        <div akMenuItem (menuItemClick)="share()">Share</div>
                         <div class="d-block d-md-none" akMenuItem (menuItemClick)="showSettingsDialog()">Settings</div>
                         <div class="d-block d-md-none" akMenuItem (menuItemClick)="showHelpDialog()">Help &amp; Tips</div>
+                        <div id="game-data" class="p-3">
+                            <label class="me-2">Seed:</label>
+                            <span>{{ seed }}</span>
+                        </div>
                     </div>
                 </ng-template>
             </button>
