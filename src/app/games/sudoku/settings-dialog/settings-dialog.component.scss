@@ -1,19 +1,21 @@
+@use 'sass:math';
+
 @import 'variables';
 
 :host {
     background-color: $color-white;
 
     .setting-group {
-        padding: $base-size;
+        background-color: $color-ivory;
+        border-radius: math.div($base-size, 4);
+        margin: math.div($base-size, 2);
+        padding: math.div($base-size, 2);
 
         h5 {
             font-weight: normal;
         }
 
         .setting {
-            padding-left: $base-size;
-            padding-right: $base-size;
-
             &:not(:last-child) {
                 margin-bottom: $base-size;
             }

@@ -9,6 +9,14 @@ export enum TooltipPosition {
     left
 }
 
+/**
+ * TODO - Accessibility
+ *
+ * aria-describedby for host element that triggers tooltip (tooltip element id)
+ * role="tooltip" for tooltip element
+ *
+ * make host element tabbable
+ */
 @Directive({
     standalone: true,
     selector: '[akTooltip]'
