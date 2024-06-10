@@ -3,7 +3,9 @@ import { DialogBase } from '@directives/dialog/dialog-base';
 import { DialogDirective } from '@directives/dialog/dialog.directive';
 import { DialogSize } from '@models/dialog.model';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class DialogService {
     public dialogRef: DialogDirective;
 

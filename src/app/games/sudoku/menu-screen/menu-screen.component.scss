@@ -1,0 +1,48 @@
+@use 'sass:math';
+
+@import 'variables';
+
+:host {
+    display: block;
+    height: 100%;
+
+    #difficulty-easy {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    #difficulty-medium {
+        border-left-width: 0;
+        border-radius: 0;
+        border-right-width: 0;
+    }
+
+    #difficulty-hard {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    [id^=difficulty-] {
+        padding: $base-size;
+        text-align: center;
+        width: 100%;
+
+        &.selected {
+            background-color: $color-sudoku-light;
+            color: $color-sudoku-dark;
+            font-weight: bold;
+        }
+    }
+
+    #confirm-button:hover {
+        background-color: $color-green;
+        border-color: $color-green;
+        color: $color-white;
+    }
+
+    #cancel-button:hover {
+        background-color: $color-red;
+        border-color: $color-red;
+        color: $color-white;
+    }
+}

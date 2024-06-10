@@ -1,9 +1,9 @@
 import { BehaviorSubject } from 'rxjs';
 import { getSquare } from './sudoku.functions';
-import { SudokuCell, SudokuDifficulty, SudokuState, sudokuValueCandidateMap } from './sudoku.models';
+import { SudokuCell, SudokuDifficulty, SudokuGameState, sudokuValueCandidateMap } from './sudoku.models';
 
 export class SudokuBoard {
-    public state = SudokuState.paused;
+    public state = SudokuGameState.paused;
     public cells: Array<Array<SudokuCell>> = [];
 
     public solved$ = new BehaviorSubject<boolean>(false);

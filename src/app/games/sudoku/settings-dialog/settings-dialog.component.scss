@@ -3,13 +3,26 @@
 :host {
     background-color: $color-white;
 
-    .setting {
-        padding-left: $base-size;
-        padding-right: $base-size;
-        padding-top: $base-size;
+    .setting-group {
+        padding: $base-size;
 
-        &:last-child {
-            padding-bottom: $base-size;
+        h5 {
+            font-weight: normal;
+        }
+
+        .setting {
+            padding-left: $base-size;
+            padding-right: $base-size;
+
+            &:not(:last-child) {
+                margin-bottom: $base-size;
+            }
+
+            .setting-description {
+                font-size: $default-font-size * .8;
+                font-style: italic;
+                line-height: $base-size;
+            }
         }
     }
 }

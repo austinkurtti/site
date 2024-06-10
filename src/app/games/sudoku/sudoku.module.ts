@@ -7,11 +7,15 @@ import { MenuDirectiveModule } from '@directives/menu/menu.module';
 import { TooltipDirective } from '@directives/tooltip/tooltip.directive';
 import { DifficultyPipe } from '@pipes/difficulty.pipe';
 import { HasFlagPipe } from '@pipes/has-flag.pipe';
+import { SudokuGameScreenComponent } from './game-screen/game-screen.component';
+import { SudokuMenuScreenComponent } from './menu-screen/menu-screen.component';
 import { SudokuComponent } from './sudoku.component';
 
 @NgModule({
     declarations: [
-        SudokuComponent
+        SudokuComponent,
+        SudokuGameScreenComponent,
+        SudokuMenuScreenComponent
     ],
     imports: [
         CommonModule,

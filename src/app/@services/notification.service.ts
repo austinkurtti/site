@@ -3,7 +3,9 @@ import { Notification } from '@models/notification.model';
 import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class NotificationService {
     private _renderer = inject(RendererFactory2).createRenderer(null, null);
 

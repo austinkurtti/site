@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ToggleComponent } from '@components/toggle/toggle.component';
 import { DialogBase } from '@directives/dialog/dialog-base';
 import { LocalStorageService } from '@services/local-storage.service';
+import { SudokuManager } from '../sudoku-manager';
 
 @Component({
     standalone: true,
@@ -15,13 +16,9 @@ import { LocalStorageService } from '@services/local-storage.service';
     templateUrl: './settings-dialog.component.html'
 })
 export class SettingsDialogComponent extends DialogBase {
-    @Input() hardcore: boolean;
-    @Input() showClock: boolean;
-    @Input() showConflicts: boolean;
-    @Input() autoPencilErase: boolean;
-    @Input() autoDisableInputs: boolean;
+    public gameManager = inject(SudokuManager);
 
     public toggleChange(setting: string, value: boolean): void {
-        LocalStorageService.setItem(setting, value);
+        LocalStorageService.setItem(`${this.gameManager.localStoragePrefix}_${setting}`, value);
     }
 }

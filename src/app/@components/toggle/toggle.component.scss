@@ -3,8 +3,10 @@
 @import 'variables';
 
 :host {
+    display: flex;
+
     &.disabled {
-        opacity: 0.5;
+        opacity: .5;
 
         .toggle-container {
             cursor: default;
@@ -21,7 +23,7 @@
             }
 
             .toggle-foreground {
-                left: 6%;
+                left: math.div($base-size, 4);
             }
         }
 
@@ -31,7 +33,7 @@
             }
 
             .toggle-foreground {
-                left: 64%;
+                left: $base-size * 3.25;
             }
         }
 
@@ -62,7 +64,7 @@
             border-radius: $base-size;
             height: $base-size * 1.5;
             position: absolute;
-            top: 13%;
+            top: math.div($base-size, 4);
             transition: ease-in left .1s;
             width: $base-size * 1.5;
         }
