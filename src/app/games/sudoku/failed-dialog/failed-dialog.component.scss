@@ -1,0 +1,19 @@
+@import 'variables';
+
+:host {
+    background-color: $color-white;
+
+    h3 {
+        margin: 0;
+        padding: $base-size * 4 $base-size;
+    }
+
+    #message {
+        background-color: $color-gray-100;
+        padding: $base-size;
+    }
+
+    #next-options {
+        padding: $base-size * 4 $base-size;
+    }
+}

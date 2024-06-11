@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 
 @Component({
     standalone: true,
@@ -12,11 +12,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ToggleComponent {
     @Input() value: boolean;
+    @Input() @HostBinding('class.disabled') disabled: boolean;
 
     @Output() valueChange = new EventEmitter<boolean>();
 
     public toggle(): void {
-        this.value = !this.value;
-        this.valueChange.emit(this.value);
+        if (!this.disabled) {
+            this.value = !this.value;
+            this.valueChange.emit(this.value);
+        }
     }
 }

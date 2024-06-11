@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DialogService } from '@services/dialog.service';
+import { NotificationService } from '@services/notification.service';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -16,7 +17,8 @@ describe('AppComponent', () => {
                 AppComponent
             ],
             providers: [
-                { provide: DialogService, useValue: {} }
+                { provide: DialogService, useValue: {} },
+                { provide: NotificationService, useValue: {} }
             ]
         }).compileComponents();
     }));

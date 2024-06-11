@@ -1,0 +1,9 @@
+<input type="text"
+    tabindex="0"
+    autocomplete="off"
+    [minLength]="minLength"
+    [maxLength]="maxLength"
+    [placeholder]="placeholder"
+    [ngModel]="value"
+    (ngModelChange)="valueChange.emit($event)"
+/>

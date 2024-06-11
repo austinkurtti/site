@@ -10,36 +10,76 @@
         </div>
     </div>
 
-    <div class="row g-0 align-items-center setting">
-        <div class="col">
-            <label>Show clock</label>
-        </div>
-        <div class="col-auto">
-            <ak-toggle [(value)]="showClock" (valueChange)="toggleChange('sudoku_showClock', $event)"></ak-toggle>
-        </div>
-    </div>
-    <div class="row g-0 align-items-center setting">
-        <div class="col">
-            <label>Show conflicts</label>
-        </div>
-        <div class="col-auto">
-            <ak-toggle [(value)]="showConflicts" (valueChange)="toggleChange('sudoku_showConflicts', $event)"></ak-toggle>
+    <div class="setting-group">
+        <h5>General</h5>
+        <div class="row g-0 setting">
+            <div class="col">
+                <label class="d-block mt-2">Show timer</label>
+            </div>
+            <div class="col-auto ms-3">
+                <ak-toggle [(value)]="gameManager.gameSettings.showTimer" (valueChange)="toggleChange('showTimer', $event)"></ak-toggle>
+            </div>
         </div>
     </div>
-    <div class="row g-0 align-items-center setting">
-        <div class="col">
-            <label>Auto pencil erase</label>
+    
+    <div class="setting-group">
+        <h5>
+            <span>Assistive</span>
+            <ng-container *ngIf="gameManager.gameInstance?.hardcore">
+                <i class="fas fa-skull color-red ms-4 me-2"></i>
+                <span class="text-transform-none">Disabled in hardcore mode!</span>
+            </ng-container>
+        </h5>
+        <div class="row g-0 setting">
+            <div class="col">
+                <label class="d-block mt-2">Show conflicts</label>
+            </div>
+            <div class="col-auto ms-3">
+                <ak-toggle [disabled]="gameManager.gameInstance?.hardcore" [(value)]="gameManager.gameSettings.showConflicts" (valueChange)="toggleChange('showConflicts', $event)"></ak-toggle>
+            </div>
         </div>
-        <div class="col-auto">
-            <ak-toggle [(value)]="autoPencilErase" (valueChange)="toggleChange('sudoku_autoPencilErase', $event)"></ak-toggle>
+        <div class="row g-0 setting">
+            <div class="col">
+                <label class="d-inline-block d-md-block mt-2">Erase pencil</label>
+                <i akTooltip
+                    class="fas fa-question-circle d-md-none ms-2"
+                    [tooltipContent]="erasePencilDescription">
+                </i>
+                <p class="setting-description d-none d-md-block">{{ erasePencilDescription }}</p>
+            </div>
+            <div class="col-auto ms-3">
+                <ak-toggle [disabled]="gameManager.gameInstance?.hardcore" [(value)]="gameManager.gameSettings.erasePencil" (valueChange)="toggleChange('erasePencil', $event)"></ak-toggle>
+            </div>
+        </div>
+        <div class="row g-0 setting">
+            <div class="col">
+                <label class="d-inline-block d-md-block mt-2">Disable inputs</label>
+                <i akTooltip
+                    class="fas fa-question-circle d-md-none ms-2"
+                    [tooltipContent]="disableInputsDescription">
+                </i>
+                <p class="setting-description d-none d-md-block">{{ disableInputsDescription }}</p>
+            </div>
+            <div class="col-auto ms-3">
+                <ak-toggle [disabled]="gameManager.gameInstance?.hardcore" [(value)]="gameManager.gameSettings.disableInputs" (valueChange)="toggleChange('disableInputs', $event)"></ak-toggle>
+            </div>
         </div>
     </div>
-    <div class="row g-0 align-items-center setting">
-        <div class="col">
-            <label>Auto disable inputs</label>
-        </div>
-        <div class="col-auto">
-            <ak-toggle [(value)]="autoDisableInputs" (valueChange)="toggleChange('sudoku_autoDisableInputs', $event)"></ak-toggle>
+
+    <div class="setting-group">
+        <h5>Game Saves</h5>
+        <div class="row g-0 setting">
+            <div class="col">
+                <label class="d-inline-block d-md-block mt-2">Exit Save</label>
+                <i akTooltip
+                    class="fas fa-question-circle d-md-none ms-2"
+                    [tooltipContent]="exitSaveDescription">
+                </i>
+                <p class="setting-description d-none d-md-block">{{ exitSaveDescription }}</p>
+            </div>
+            <div class="col-auto ms-3">
+                <ak-toggle [(value)]="gameManager.gameSettings.exitSave" (valueChange)="toggleChange('exitSave', $event)"></ak-toggle>
+            </div>
         </div>
     </div>
 </div>

@@ -1,13 +1,21 @@
+import { BehaviorSubject } from 'rxjs';
+
+export enum SudokuScreenState {
+    menu = 1,
+    game = 2
+}
+
+export enum SudokuGameState {
+    paused = 1,
+    running = 2,
+    solved = 3,
+    failed = 4
+}
+
 export enum SudokuDifficulty {
     easy = 1,
     medium = 5,
     hard = 20
-}
-
-export enum SudokuState {
-    paused = 1,
-    running = 2,
-    solved = 3
 }
 
 export enum SudokuCandidate {
@@ -33,6 +41,37 @@ export const sudokuValueCandidateMap = new Map<number, SudokuCandidate>([
     [8, SudokuCandidate.eight],
     [9, SudokuCandidate.nine]
 ]);
+
+export class SudokuGameSettings {
+    // General
+    public showTimer = true;
+    public erasePencil = false;
+
+    // Assistive
+    public showConflicts = false;
+    public disableInputs = false;
+
+    // Game Saves
+    public exitSave = true;
+}
+
+export class SudokuGameInstance {
+    public cells: Array<Array<SudokuCell>> = [];
+    public difficulty: SudokuDifficulty;
+    public hardcore = false;
+    public seed: string;
+    public time$ = new BehaviorSubject<string>('00:00:00');
+
+    constructor(partial?: Partial<SudokuGameInstance>) {
+        if (partial) {
+            Object.assign(this, partial);
+        }
+        if (typeof partial.time$ === 'string') {
+            this.time$ = new BehaviorSubject<string>('');
+            this.time$.next(partial.time$);
+        }
+    }
+}
 
 export class SudokuCell {
     // If true, this cell was already revealed at the beginning of the game

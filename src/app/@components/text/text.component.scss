@@ -1,0 +1,26 @@
+@use 'sass:math';
+
+@import 'variables';
+
+:host {
+    display: block;
+
+    input {
+        border-color: $color-black;
+        border-radius: math.div($base-size, 4);
+        border-style: solid;
+        border-width: math.div($base-size, 8);
+        font-family: $default-font-family;
+        padding: math.div($base-size, 4);
+
+        &:focus {
+            outline-color: $color-black;
+            outline-style: solid;
+            outline-width: math.div($base-size, 12);
+        }
+
+        &::placeholder {
+            font-style: italic;
+        }
+    }
+}

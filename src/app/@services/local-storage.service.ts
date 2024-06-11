@@ -4,6 +4,16 @@ export class LocalStorageService {
     }
 
     public static setItem(key: string, value: any): void {
-        localStorage.setItem(key, JSON.stringify(value));
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+        } catch (error) {
+            if (error.name === 'QuotaExceededError') {
+                // TODO
+            }
+        }
+    }
+
+    public static removeItem(key: string): void {
+        localStorage.removeItem(key);
     }
 }

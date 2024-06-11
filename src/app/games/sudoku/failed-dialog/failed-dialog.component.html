@@ -1,0 +1,14 @@
+<h3 class="text-center">Whoops...</h3>
+
+<div id="message" class="row g-0 text-center">
+    <span>That <b class="color-red">{{ incorrectValue }}</b> was supposed to be a <b class="color-green">{{ correctValue }}</b>. Better luck next time!</span>
+</div>
+
+<div id="next-options" class="row g-0 justify-content-evenly">
+    <div class="col-12 col-lg-auto d-flex justify-content-center mb-3 mb-lg-0">
+        <button (click)="goHome()">Play different game</button>
+    </div>
+    <div class="col-12 col-lg-auto d-flex justify-content-center">
+        <button (click)="playAgain()">Play another Sudoku</button>
+    </div>
+</div>

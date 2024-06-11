@@ -1,13 +1,18 @@
 /// <reference lib="webworker" />
 
+import { PRNGService } from '@services/prng.service';
 import { getSquare } from './sudoku.functions';
 import { SudokuCell, SudokuDifficulty } from './sudoku.models';
 
 const possibleValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 let possibleSolutions = 0;
 let cells: SudokuCell[][] = [];
+let prng: () => number;
 
 addEventListener('message', ({ data }) => {
+    // Init PRNG
+    prng = PRNGService.random(data.seed);
+
     // First build a new valid solution
     cells = [...new Array(9)].map(() => [...new Array(9)].map(() => new SudokuCell()));
     fillBoard();
@@ -19,7 +24,7 @@ addEventListener('message', ({ data }) => {
     });
 
     // Remove values according to given difficulty
-    makePuzzle(data);
+    makePuzzle(data.difficulty);
 
     postMessage({ solution, cells });
 });
@@ -167,7 +172,7 @@ const solveBoard = (candidateCells: Array<Array<SudokuCell>>): void => {
 const shuffleValues = (values: number[]): number[] => {
     const shuffledVals = [...values];
     for (let i = shuffledVals.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        const j = Math.floor(prng() * (i + 1));
         [shuffledVals[i], shuffledVals[j]] = [shuffledVals[j], shuffledVals[i]];
     }
     return shuffledVals;

@@ -1,9 +1,9 @@
 import { BehaviorSubject } from 'rxjs';
 import { getSquare } from './sudoku.functions';
-import { SudokuCell, SudokuDifficulty, SudokuState, sudokuValueCandidateMap } from './sudoku.models';
+import { SudokuCell, SudokuDifficulty, SudokuGameState, sudokuValueCandidateMap } from './sudoku.models';
 
 export class SudokuBoard {
-    public state = SudokuState.paused;
+    public state = SudokuGameState.paused;
     public cells: Array<Array<SudokuCell>> = [];
 
     public solved$ = new BehaviorSubject<boolean>(false);
@@ -24,11 +24,11 @@ export class SudokuBoard {
         this._worker?.terminate();
     }
 
-    public build(difficulty: SudokuDifficulty): Promise<void> {
+    public build(difficulty: SudokuDifficulty, seed: string = null): Promise<void> {
         this.cleanup();
         this.solved$.next(false);
         return new Promise<void>(resolve => {
-            if (typeof Worker !== 'undefined') {
+            if (window.isSecureContext && typeof Worker !== 'undefined') {
                 this._worker = new Worker(new URL('./sudoku.worker.ts', import.meta.url));
                 this._worker.onmessage = ({ data }) => {
                     this._solution = data.solution;
@@ -36,7 +36,7 @@ export class SudokuBoard {
                     this._resetNumEmptyCells();
                     resolve();
                 };
-                this._worker.postMessage(difficulty);
+                this._worker.postMessage({ difficulty, seed });
             } else {
                 // TODO - web workers unavailable, do something
             }
@@ -59,6 +59,10 @@ export class SudokuBoard {
         if (this._numEmptyCells === 0 && this.validateAll()) {
             this.solved$.next(true);
         }
+    }
+
+    public getCellSolution(rIndex: number, cIndex: number): number {
+        return this._solution[rIndex][cIndex].value;
     }
 
     public validateCell(rIndex: number, cIndex: number, showValidation = false): boolean {

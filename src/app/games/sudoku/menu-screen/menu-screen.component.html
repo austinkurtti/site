@@ -1,0 +1,101 @@
+<div class="container g-0 h-100 d-flex flex-column justify-content-center">
+    <ng-container [ngSwitch]="menuState">
+        <ng-container *ngSwitchCase="MenuState.main">
+            <div class="row g-0 px-2 px-md-0 mb-5">
+                <h1 class="text-center">Sudoku</h1>
+            </div>
+            <div class="row g-0 px-2 px-md-0">
+                <button class="fs-2 text-start px-3" (click)="menuState = MenuState.new">New</button>
+            </div>
+            <div class="row g-0 px-2 px-md-0 mt-2 mt-md-3">
+                <div class="col">
+                    <button class="d-flex align-items-center justify-content-between fs-2 px-3 w-100" [disabled]="!gameManager.savedGame" (click)="resume()">
+                        <span>Resume</span>
+                        <div *ngIf="gameManager.savedGame" class="d-flex align-items-center">
+                            <span class="d-none d-md-inline fs-6">{{ gameManager.savedGame.time$ | async }}</span>
+                            <span class="fs-6 ms-3">{{ gameManager.savedGame.difficulty | sudokuDifficulty }}</span>
+                            <i *ngIf="gameManager.savedGame.hardcore" class="fas fa-skull color-red fs-6 ms-3"></i>
+                        </div>
+                    </button>
+                </div>
+                <div *ngIf="gameManager.savedGame" class="col-auto ms-2 ms-md-3">
+                    <button akTooltip
+                        class="cancel-button px-3"
+                        [tooltipContent]="'Delete Save'"
+                        (click)="gameManager.deleteSave()">
+                        <i class="fas fa-times fs-1"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row g-0 px-2 px-md-0 mt-2 mt-md-3">
+                <button class="fs-2 text-start px-3" (click)="showSettingsDialog()">Settings</button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="MenuState.new">
+            <div class="row g-0 px-2 px-md-0 mb-5">
+                <h2>New Game</h2>
+            </div>
+            <div class="row g-0 align-items-center px-2 px-md-0">
+                <div class="col-12 col-md-3 mb-2 mb-md-0">
+                    <label>Difficulty</label>
+                </div>
+                <div class="col-4 col-md-3">
+                    <button id="difficulty-easy"
+                        [ngClass]="difficulty === Difficulty.easy ? 'selected' : ''"
+                        (click)="difficulty = Difficulty.easy">
+                        <span>Easy</span>
+                    </button>
+                </div>
+                <div class="col-4 col-md-3">
+                    <button id="difficulty-medium"
+                        [ngClass]="difficulty === Difficulty.medium ? 'selected' : ''"
+                        (click)="difficulty = Difficulty.medium">
+                        <span>Medium</span>
+                    </button>
+                </div>
+                <div class="col-4 col-md-3">
+                    <button id="difficulty-hard"
+                        [ngClass]="difficulty === Difficulty.hard ? 'selected' : ''"
+                        (click)="difficulty = Difficulty.hard">
+                        <span>Hard</span>
+                    </button>
+                </div>
+            </div>
+            <div class="row g-0 align-items-center px-2 px-md-0 mt-2 mt-md-3">
+                <div class="col-12 col-md-3 mb-2 mb-md-0">
+                    <label>Hardcore</label>
+                    <i akTooltip
+                        class="fas fa-question-circle ms-2"
+                        [tooltipContent]="'Assistive settings will be disabled and any incorrect entry immediately ends the game!<br><br>Can you complete Sudoku without any mistakes?'">
+                    </i>
+                </div>
+                <div class="col-12 col-md-9">
+                    <ak-toggle [(value)]="hardcore"></ak-toggle>
+                </div>
+            </div>
+            <div class="row g-0 align-items-center px-2 px-md-0 mt-2 mt-md-3">
+                <div class="col-12 col-md-3 mb-2 mb-md-0">
+                    <label>Seed</label>
+                </div>
+                <div class="col-12 col-md-9">
+                    <ak-text class="d-inline-block" [placeholder]="'optional'" [maxLength]="16" [(value)]="seed"></ak-text>
+                    <button akTooltip
+                        class="icon-button ms-2"
+                        [tooltipContent]="'Randomize'"
+                        (click)="randomizeSeed()">
+                        <i class="fas fa-random"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row g-0 px-2 px-md-0 mt-5">
+                <div class="col me-2">
+                    <button class="confirm-button w-100" (click)="startNew()">Start</button>
+                </div>
+                <div class="col ms-2">
+                    <button class="cancel-button w-100" (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>

@@ -1,11 +1,12 @@
-<h3 class="text-center">Well Done!</h3>
+<h3 class="text-center">{{ gameManager.gameInstance.hardcore ? 'Flawless!' : 'Well Done!' }}</h3>
 
 <div id="puzzle-data" class="row g-0">
     <div class="col-6 text-center">
-        <span>{{ difficulty | sudokuDifficulty }}</span>
+        <span>{{ gameManager.gameInstance.difficulty | sudokuDifficulty }}</span>
+        <i *ngIf="gameManager.gameInstance.hardcore" class="fas fa-skull color-red ms-3"></i>
     </div>
     <div class="col-6 text-center">
-        <time [dateTime]="time">{{ timeDisplay }}</time>
+        <time [dateTime]="(gameManager.gameInstance.time$ | async)">{{ timeDisplay }}</time>
     </div>
 </div>
 
