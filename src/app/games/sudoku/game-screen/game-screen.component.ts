@@ -168,7 +168,6 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this._destroyed$))
             .subscribe(solved => {
                 if (solved) {
-                    // TODO - something fun... confetti?
                     this.pauseTimer(SudokuGameState.solved);
                     if (this.gameManager.savedGame) {
                         this.gameManager.deleteSave();

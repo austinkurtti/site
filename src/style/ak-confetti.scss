@@ -1,0 +1,8 @@
+@import 'variables';
+
+.confetti {
+    pointer-events: none;
+    position: absolute;
+    transition: linear left .1s, linear top .1s, linear transform .1s;
+    z-index: $z-index-confetti;
+}
