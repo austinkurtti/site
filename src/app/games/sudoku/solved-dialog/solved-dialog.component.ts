@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnInit, inject } from '@angular/core';
-import { DialogBase } from '@directives/dialog/dialog-base';
+import { DialogBaseDirective } from '@directives/dialog/dialog-base';
 import { DifficultyPipe } from '@pipes/difficulty.pipe';
 import { ConfettiService } from '@services/confetti.service';
 import { interval } from 'rxjs';
@@ -17,7 +17,7 @@ import { SudokuManager } from '../sudoku-manager';
     styleUrls: ['./solved-dialog.component.scss'],
     templateUrl: './solved-dialog.component.html'
 })
-export class SolvedDialogComponent extends DialogBase implements OnInit, AfterViewInit {
+export class SolvedDialogComponent extends DialogBaseDirective implements OnInit, AfterViewInit {
     public gameManager = inject(SudokuManager);
 
     public goHome: () => void;

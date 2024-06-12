@@ -1,6 +1,6 @@
-<div tabindex="0"
-    role="checkbox"
+<div role="checkbox"
     class="toggle-container"
+    [tabindex]="disabled ? -1 : 0"
     [ngClass]="{ 'off': !value, 'on': value }"
     (click)="toggle()"
     (keydown.enter)="toggle()"
