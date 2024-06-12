@@ -30,7 +30,7 @@ export class DialogService {
         return this._dialogEl.querySelectorAll(tabbableSelectors.join(', '));
     }
 
-    public show<T extends DialogBaseDirective>(componentType: Type<T>, size: DialogSize, allowCloseOnOutsideClick = true): T {
+    public show<T extends DialogBaseDirective>(componentType: Type<T>, size: DialogSize, allowSoftClose = true): T {
         // I refuse to allow more than one dialog open at once
         if (this._open) {
             return;
@@ -49,9 +49,10 @@ export class DialogService {
             // Impose a tab lock on the dialog
             this._unlisteners.push(this._renderer.listen(this._dialogEl, 'keydown', this._checkTabLock));
 
-            // Conditionally allow dialog to be closed on an outside click
-            if (allowCloseOnOutsideClick) {
+            // Conditionally allow dialog to be closed on an outside click or escape key
+            if (allowSoftClose) {
                 this._unlisteners.push(this._renderer.listen(this._dialogEl, 'click', this._checkOutsideClick));
+                this._unlisteners.push(this._renderer.listen(this._dialogEl, 'keydown', this._checkEscape));
             }
         }
 
@@ -93,6 +94,12 @@ export class DialogService {
     private _checkOutsideClick = (e: MouseEvent): void => {
         const dialogBounds = this._instance.elementRef.nativeElement.getBoundingClientRect();
         if (e.clientX < dialogBounds.left || e.clientX > dialogBounds.right || e.clientY < dialogBounds.top || e.clientY > dialogBounds.bottom) {
+            this.close();
+        }
+    };
+
+    private _checkEscape = (e: KeyboardEvent): void => {
+        if (e.code === 'Escape') {
             this.close();
         }
     };
