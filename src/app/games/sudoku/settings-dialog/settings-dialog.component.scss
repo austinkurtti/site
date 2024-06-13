@@ -15,15 +15,9 @@
             font-weight: normal;
         }
 
-        .setting {
+        ak-toggle {
             &:not(:last-child) {
                 margin-bottom: $base-size;
-            }
-
-            .setting-description {
-                font-size: $default-font-size * .8;
-                font-style: italic;
-                line-height: $base-size;
             }
         }
     }

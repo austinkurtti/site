@@ -62,18 +62,14 @@
                     </button>
                 </div>
             </div>
-            <div class="row g-0 align-items-center px-2 px-md-0 mt-2 mt-md-3">
-                <div class="col-12 col-md-3 mb-2 mb-md-0">
-                    <label>Hardcore</label>
-                    <i akTooltip
-                        class="fas fa-question-circle ms-2"
-                        [tooltipContent]="'Assistive settings will be disabled and any incorrect entry immediately ends the game!<br><br>Can you complete Sudoku without any mistakes?'">
-                    </i>
-                </div>
-                <div class="col-12 col-md-9">
-                    <ak-toggle [(value)]="hardcore"></ak-toggle>
-                </div>
-            </div>
+            <ak-toggle
+                class="px-2 px-md-0 mt-2 mt-md-3"
+                [label]="'Hardcore'"
+                [labelCols]="3"
+                [labelDescription]="'Assistive settings will be disabled and any incorrect entry immediately ends the game!<br><br>Can you complete Sudoku without any mistakes?'"
+                [wrap]="true"
+                [(value)]="hardcore"
+            ></ak-toggle>
             <div class="row g-0 align-items-center px-2 px-md-0 mt-2 mt-md-3">
                 <div class="col-12 col-md-3 mb-2 mb-md-0">
                     <label>Seed</label>

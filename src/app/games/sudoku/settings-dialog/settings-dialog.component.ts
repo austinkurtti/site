@@ -20,10 +20,6 @@ import { SudokuManager } from '../sudoku-manager';
 export class SettingsDialogComponent extends DialogBaseDirective {
     public gameManager = inject(SudokuManager);
 
-    public erasePencilDescription = 'After entering a number, any conflicting penciled in values in the same row, column and 3x3 square will be erased';
-    public disableInputsDescription = 'Number inputs will be disabled when the count for their values reaches nine';
-    public exitSaveDescription = 'Sudoku progress will be automatically saved when exiting the game';
-
     public toggleChange(setting: string, value: boolean): void {
         LocalStorageService.setItem(`${this.gameManager.localStoragePrefix}_${setting}`, value);
     }

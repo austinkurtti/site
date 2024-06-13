@@ -1,13 +1,35 @@
-<div role="checkbox"
-    class="toggle-container"
-    [tabindex]="disabled ? -1 : 0"
-    [ngClass]="{ 'off': !value, 'on': value }"
-    (click)="toggle()"
-    (keydown.enter)="toggle()"
->
-    <div class="toggle-background">
-        <i class="fas fa-check text-center"></i>
-        <i class="fas fa-times text-center"></i>
+<div class="row g-0">
+    <div [ngClass]="wrap
+            ? 'col-12 ' + (labelCols
+                ? 'col-md-' + labelCols
+                : 'col-md') + ' mb-2 mb-md-0'
+            : labelCols
+                ? 'col-' + labelCols
+                : 'col'"
+    >
+        <label class="d-inline-block" [ngClass]="wrap ? 'mt-0 mt-md-2' : 'mt-2'" [for]="id" (click)="toggle()">{{ label }}</label>
+        <i *ngIf="labelDescription"
+            akTooltip
+            class="fas fa-question-circle ms-2"
+            [ngClass]="expandLabelDescription ? 'd-md-none' : ''"
+            [tooltipContent]="labelDescription"
+        ></i>
+        <p *ngIf="expandLabelDescription" class="d-none d-md-block">{{ labelDescription }}</p>
     </div>
-    <div class="toggle-foreground"></div>
+    <div class="col-auto">
+        <div role="checkbox"
+            class="toggle-container"
+            [id]="id"
+            [tabindex]="disabled ? -1 : 0"
+            [ngClass]="{ 'off': !value, 'on': value }"
+            (click)="toggle()"
+            (keydown.enter)="toggle()"
+        >
+            <div class="toggle-background">
+                <i class="fas fa-check text-center"></i>
+                <i class="fas fa-times text-center"></i>
+            </div>
+            <div class="toggle-foreground"></div>
+        </div>
+    </div>
 </div>
