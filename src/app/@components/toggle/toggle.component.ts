@@ -14,7 +14,7 @@ import { TooltipDirective } from '@directives/tooltip/tooltip.directive';
 })
 export class ToggleComponent implements OnInit {
     @Input() label: string;
-    @Input() labelCols: number;
+    @Input() labelCols: string;
     @Input() labelDescription: string;
     @Input() expandLabelDescription: boolean;
     @Input() value: boolean;

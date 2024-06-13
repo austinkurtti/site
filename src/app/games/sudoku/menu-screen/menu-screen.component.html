@@ -7,7 +7,7 @@
             <div class="row g-0 px-2 px-md-0">
                 <button class="fs-2 text-start px-3" (click)="menuState = MenuState.new">New</button>
             </div>
-            <div class="row g-0 px-2 px-md-0 mt-2 mt-md-3">
+            <div class="row g-0 px-2 px-md-0 mt-3">
                 <div class="col">
                     <button class="d-flex align-items-center justify-content-between fs-2 px-3 w-100" [disabled]="!gameManager.savedGame" (click)="resume()">
                         <span>Resume</span>
@@ -27,7 +27,7 @@
                     </button>
                 </div>
             </div>
-            <div class="row g-0 px-2 px-md-0 mt-2 mt-md-3">
+            <div class="row g-0 px-2 px-md-0 mt-3">
                 <button class="fs-2 text-start px-3" (click)="showSettingsDialog()">Settings</button>
             </div>
         </ng-container>
@@ -37,24 +37,24 @@
                 <h2>New Game</h2>
             </div>
             <div class="row g-0 align-items-center px-2 px-md-0">
-                <div class="col-12 col-md-3 mb-2 mb-md-0">
+                <div class="col-12 mb-2">
                     <label>Difficulty</label>
                 </div>
-                <div class="col-4 col-md-3">
+                <div class="col-4">
                     <button id="difficulty-easy"
                         [ngClass]="difficulty === Difficulty.easy ? 'selected' : ''"
                         (click)="difficulty = Difficulty.easy">
                         <span>Easy</span>
                     </button>
                 </div>
-                <div class="col-4 col-md-3">
+                <div class="col-4">
                     <button id="difficulty-medium"
                         [ngClass]="difficulty === Difficulty.medium ? 'selected' : ''"
                         (click)="difficulty = Difficulty.medium">
                         <span>Medium</span>
                     </button>
                 </div>
-                <div class="col-4 col-md-3">
+                <div class="col-4">
                     <button id="difficulty-hard"
                         [ngClass]="difficulty === Difficulty.hard ? 'selected' : ''"
                         (click)="difficulty = Difficulty.hard">
@@ -63,25 +63,20 @@
                 </div>
             </div>
             <ak-toggle
-                class="px-2 px-md-0 mt-2 mt-md-3"
+                class="px-2 px-md-0 mt-1"
                 [label]="'Hardcore'"
-                [labelCols]="3"
+                [labelCols]="'12'"
                 [labelDescription]="'Assistive settings will be disabled and any incorrect entry immediately ends the game!<br><br>Can you complete Sudoku without any mistakes?'"
-                [wrap]="true"
                 [(value)]="hardcore"
             ></ak-toggle>
-            <div class="row g-0 px-2 px-md-0 mt-2 mt-md-3">
-                <div class="col-12 col-md-9 offset-md-3">
-                    <ak-text
-                        [buttonClass]="'fas fa-random'"
-                        [buttonTooltip]="'Randomize'"
-                        [label]="'Seed'"
-                        [maxLength]="16"
-                        [(value)]="seed"
-                        (buttonClick)="randomizeSeed()"
-                    ></ak-text>
-                </div>
-            </div>
+            <ak-text class="px-2 px-md-0 mt-3"
+                [buttonClass]="'fas fa-random'"
+                [buttonTooltip]="'Randomize'"
+                [label]="'Seed'"
+                [maxLength]="16"
+                [(value)]="seed"
+                (buttonClick)="randomizeSeed()"
+            ></ak-text>
             <div class="row g-0 px-2 px-md-0 mt-5">
                 <div class="col me-2">
                     <button class="confirm-button w-100" (click)="startNew()">Start</button>
