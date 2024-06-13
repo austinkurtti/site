@@ -100,6 +100,7 @@ button {
     border-width: math.div($base-size, 8);
     color: $theme-font-color;
     font-family: $default-font-family;
+    font-size: $default-font-size;
     padding: math.div($base-size, 2);
 
     &:disabled {

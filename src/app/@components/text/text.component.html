@@ -1,9 +1,21 @@
-<input type="text"
-    tabindex="0"
-    autocomplete="off"
-    [minLength]="minLength"
-    [maxLength]="maxLength"
-    [placeholder]="placeholder"
-    [ngModel]="value"
-    (ngModelChange)="valueChange.emit($event)"
-/>
+<div class="position-relative">
+    <label [ngClass]="focusing || value ? 'float' : ''">{{ label }}</label>
+    <input #textInput
+        type="text"
+        tabindex="0"
+        autocomplete="off"
+        [minLength]="minLength"
+        [maxLength]="maxLength"
+        [ngModel]="value"
+        (ngModelChange)="valueChange.emit($event)"
+    />
+    <button *ngIf="buttonClass"
+        akTooltip
+        class="icon-button"
+        [tooltipContent]="buttonTooltip"
+        [tooltipEnabled]="buttonTooltip ? true : false"
+        (click)="buttonClick.emit()"
+    >
+        <i [ngClass]="buttonClass"></i>
+    </button>
+</div>

@@ -70,18 +70,16 @@
                 [wrap]="true"
                 [(value)]="hardcore"
             ></ak-toggle>
-            <div class="row g-0 align-items-center px-2 px-md-0 mt-2 mt-md-3">
-                <div class="col-12 col-md-3 mb-2 mb-md-0">
-                    <label>Seed</label>
-                </div>
-                <div class="col-12 col-md-9">
-                    <ak-text class="d-inline-block" [placeholder]="'optional'" [maxLength]="16" [(value)]="seed"></ak-text>
-                    <button akTooltip
-                        class="icon-button ms-2"
-                        [tooltipContent]="'Randomize'"
-                        (click)="randomizeSeed()">
-                        <i class="fas fa-random"></i>
-                    </button>
+            <div class="row g-0 px-2 px-md-0 mt-2 mt-md-3">
+                <div class="col-12 col-md-9 offset-md-3">
+                    <ak-text
+                        [buttonClass]="'fas fa-random'"
+                        [buttonTooltip]="'Randomize'"
+                        [label]="'Seed'"
+                        [maxLength]="16"
+                        [(value)]="seed"
+                        (buttonClick)="randomizeSeed()"
+                    ></ak-text>
                 </div>
             </div>
             <div class="row g-0 px-2 px-md-0 mt-5">
