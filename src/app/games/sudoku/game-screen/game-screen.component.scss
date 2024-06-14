@@ -62,6 +62,7 @@ $sudoku-border-width: math.div($base-size, 5);
                 flex-direction: column;
                 max-height: 100%;
                 max-width: 100%;
+                position: relative;
 
                 > .row {
                     flex: 1;
@@ -139,6 +140,22 @@ $sudoku-border-width: math.div($base-size, 5);
 
                     .candidate-row {
                         flex: 1 1;
+                    }
+                }
+
+                #sudoku-pause-overlay {
+                    backdrop-filter: blur(math.div($base-size, 2));
+                    background-color: rgba($color: $color-gray-500, $alpha: .5);
+                    position: absolute;
+
+                    > div {
+                        background-color: $color-sudoku-light;
+                        border-color: $color-black;
+                        border-radius: math.div($base-size, 4);
+                        border-style: solid;
+                        border-width: math.div($base-size, 8);
+                        color: $color-sudoku-dark;
+                        font-weight: bold;
                     }
                 }
             }

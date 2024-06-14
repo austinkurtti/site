@@ -76,58 +76,59 @@
 <div #sudokuContent id="sudoku-content" class="row g-0 flex-column flex-lg-row">
     <div #sudokuBoardContainer id="sudoku-board-container" class="col col-lg-9 col-xl-8 align-items-center align-items-lg-end p-2 p-lg-3">
         <div #sudokuBoard id="sudoku-board">
-            <div *ngIf="board.state === GameState.paused else sudokuCells;" id="sudoku-pause-overlay" class="d-flex h-100 w-100 align-items-center justify-content-center">
-                <span>Game paused</span>
-            </div>
-            <ng-template #sudokuCells>
-                <div *ngFor="let row of board.cells; let rowIndex = index;" class="row g-0">
-                    <div *ngFor="let cell of row; let colIndex = index;"
-                        #sudokuCell
-                        tabindex="0"
-                        class="sudoku-cell col align-items-center justify-content-center"
-                        [id]="'cell-' + rowIndex + '-' + colIndex"
-                        [ngClass]="{ 'given': cell.given, 'active': cell.active, 'conflicted': this.gameManager.gameSettings.showConflicts && cell.numConflicts > 0 }"
-                        (click)="focusCell(rowIndex, colIndex)"
-                        (keydown)="cellKeydown(rowIndex, colIndex, $event)">
-                        <span class="normal position-absolute" [ngClass]="{ 'revealed': cell.revealed === true, 'valid': cell.valid === true, 'invalid': cell.valid === false }">
-                            {{ cell.value }}
-                        </span>
-                        <div class="candidate-row row g-0 align-items-center text-center w-100">
-                            <div class="col-4 d-flex h-100 align-items-center justify-content-center">
-                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.one" class="candidate candidate-1">1</span>
-                            </div>
-                            <div class="col-4 d-flex h-100 align-items-center justify-content-center">
-                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.two" class="candidate candidate-2">2</span>
-                            </div>
-                            <div class="col-4 d-flex h-100 align-items-center justify-content-center">
-                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.three" class="candidate candidate-3">3</span>
-                            </div>
+            <div *ngFor="let row of board.cells; let rowIndex = index;" class="row g-0">
+                <div *ngFor="let cell of row; let colIndex = index;"
+                    #sudokuCell
+                    tabindex="0"
+                    class="sudoku-cell col align-items-center justify-content-center"
+                    [id]="'cell-' + rowIndex + '-' + colIndex"
+                    [ngClass]="{ 'given': cell.given, 'active': cell.active, 'conflicted': this.gameManager.gameSettings.showConflicts && cell.numConflicts > 0 }"
+                    (click)="focusCell(rowIndex, colIndex)"
+                    (keydown)="cellKeydown(rowIndex, colIndex, $event)">
+                    <span class="normal position-absolute" [ngClass]="{ 'revealed': cell.revealed === true, 'valid': cell.valid === true, 'invalid': cell.valid === false }">
+                        {{ cell.value }}
+                    </span>
+                    <div class="candidate-row row g-0 align-items-center text-center w-100">
+                        <div class="col-4 d-flex h-100 align-items-center justify-content-center">
+                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.one" class="candidate candidate-1">1</span>
                         </div>
-                        <div class="candidate-row row g-0 align-items-center text-center w-100">
-                            <div class="col-4 d-flex h-100 align-items-center justify-content-center">
-                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.four" class="candidate candidate-4">4</span>
-                            </div>
-                            <div class="col-4 d-flex h-100 align-items-center justify-content-center">
-                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.five" class="candidate candidate-5">5</span>
-                            </div>
-                            <div class="col-4 d-flex h-100 align-items-center justify-content-center">
-                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.six" class="candidate candidate-6">6</span>
-                            </div>
+                        <div class="col-4 d-flex h-100 align-items-center justify-content-center">
+                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.two" class="candidate candidate-2">2</span>
                         </div>
-                        <div class="candidate-row row g-0 align-items-center text-center w-100">
-                            <div class="col-4 d-flex h-100 align-items-center justify-content-center">
-                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.seven" class="candidate candidate-7">7</span>
-                            </div>
-                            <div class="col-4 d-flex h-100 align-items-center justify-content-center">
-                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.eight" class="candidate candidate-8">8</span>
-                            </div>
-                            <div class="col-4 d-flex h-100 align-items-center justify-content-center">
-                                <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.nine" class="candidate candidate-9">9</span>
-                            </div>
+                        <div class="col-4 d-flex h-100 align-items-center justify-content-center">
+                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.three" class="candidate candidate-3">3</span>
+                        </div>
+                    </div>
+                    <div class="candidate-row row g-0 align-items-center text-center w-100">
+                        <div class="col-4 d-flex h-100 align-items-center justify-content-center">
+                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.four" class="candidate candidate-4">4</span>
+                        </div>
+                        <div class="col-4 d-flex h-100 align-items-center justify-content-center">
+                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.five" class="candidate candidate-5">5</span>
+                        </div>
+                        <div class="col-4 d-flex h-100 align-items-center justify-content-center">
+                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.six" class="candidate candidate-6">6</span>
+                        </div>
+                    </div>
+                    <div class="candidate-row row g-0 align-items-center text-center w-100">
+                        <div class="col-4 d-flex h-100 align-items-center justify-content-center">
+                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.seven" class="candidate candidate-7">7</span>
+                        </div>
+                        <div class="col-4 d-flex h-100 align-items-center justify-content-center">
+                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.eight" class="candidate candidate-8">8</span>
+                        </div>
+                        <div class="col-4 d-flex h-100 align-items-center justify-content-center">
+                            <span *ngIf="cell.candidates | hasFlag: SudokuCandidate.nine" class="candidate candidate-9">9</span>
                         </div>
                     </div>
                 </div>
-            </ng-template>
+            </div>
+
+            <div *ngIf="board.state === GameState.paused" id="sudoku-pause-overlay" class="d-flex h-100 w-100 align-items-center justify-content-center">
+                <div class="p-3">
+                    <span>Game paused</span>
+                </div>
+            </div>
         </div>
     </div>
 
