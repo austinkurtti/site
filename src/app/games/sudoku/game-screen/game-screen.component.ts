@@ -53,6 +53,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     private _startTime: number;
     private _pauseTime: number;
     private _pauseSum: number;
+    private _manualPauseActive: boolean;
     private _autoPauseDebounce: Subscription;
     private _activeCellRow?: number = null;
     private _activeCellCol?: number = null;
@@ -78,9 +79,9 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     @HostListener('window:keydown.space', ['$event'])
     public windowSpace(event: KeyboardEvent) {
         if (this.board.state === SudokuGameState.paused) {
-            this.resumeTimer();
+            this.resumeTimer(true);
         } else if (this.board.state === SudokuGameState.running) {
-            this.pauseTimer();
+            this.pauseTimer(true);
         }
 
         event.preventDefault();
@@ -168,7 +169,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this._destroyed$))
             .subscribe(solved => {
                 if (solved) {
-                    this.pauseTimer(SudokuGameState.solved);
+                    this.pauseTimer(false, SudokuGameState.solved);
                     if (this.gameManager.savedGame) {
                         this.gameManager.deleteSave();
                     }
@@ -205,7 +206,13 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     }
 
     public showHelpDialog(): void {
-        this._dialogService.show(HelpDialogComponent, DialogSize.small);
+        const componentRef = this._dialogService.show(HelpDialogComponent, DialogSize.small);
+        if (componentRef) {
+            this.pauseTimer(false);
+            componentRef.closeCallback = () => {
+                this.resumeTimer(false);
+            };
+        }
     }
 
     public showSettingsDialog(): void {
@@ -213,7 +220,9 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
 
         const componentRef = this._dialogService.show(SettingsDialogComponent, DialogSize.small);
         if (componentRef) {
+            this.pauseTimer(false);
             componentRef.closeCallback = () => {
+                this.resumeTimer(false);
                 if (oldDisableInputs !== this.gameManager.gameSettings.disableInputs) {
                     this._checkAllCellValueCounts();
                 }
@@ -255,13 +264,23 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
         this._startTimerInterval();
     };
 
-    public pauseTimer = (boardStateOverride?: SudokuGameState): void => {
+    public pauseTimer = (manual: boolean, boardStateOverride?: SudokuGameState): void => {
+        if (this.board.state === SudokuGameState.paused) {
+            return;
+        }
+
+        this._manualPauseActive = manual;
         this._pauseTime = Date.now();
         this.board.state = boardStateOverride ?? SudokuGameState.paused;
         this._clearTimerInterval();
     };
 
-    public resumeTimer = (): void => {
+    public resumeTimer = (manual: boolean): void => {
+        if (this.board.state === SudokuGameState.running || (this._manualPauseActive && !manual)) {
+            return;
+        }
+
+        this._manualPauseActive = false;
         this.board.state = SudokuGameState.running;
         this._pauseSum += Date.now() - this._pauseTime;
         this._startTimerInterval();
@@ -295,7 +314,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             componentRef.confirm = () => {
                 this._dialogService.close();
                 this.board.revealAll();
-                this.pauseTimer(SudokuGameState.solved);
+                this.pauseTimer(false, SudokuGameState.solved);
                 this._checkAllCellValueCounts();
             };
             componentRef.cancel = () => {
@@ -525,7 +544,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             const cellSolution = this.board.getCellSolution(this._activeCellRow, this._activeCellCol);
             if (this._activeCell.value !== cellSolution) {
                 this._activeCell.valid = false;
-                this.pauseTimer(SudokuGameState.failed);
+                this.pauseTimer(false, SudokuGameState.failed);
                 if (this.gameManager.savedGame) {
                     this.gameManager.deleteSave();
                 }
@@ -716,7 +735,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             }
 
             this._autoPauseDebounce = timer(60000).subscribe(() => {
-                this.pauseTimer();
+                this.pauseTimer(false);
                 this._clearAutoPauseDebounce();
             });
         } else if (document.visibilityState === 'visible' && this._autoPauseDebounce) {

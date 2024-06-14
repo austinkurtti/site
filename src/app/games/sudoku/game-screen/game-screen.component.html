@@ -17,7 +17,7 @@
             <button tabindex="0"
                 class="icon-button"
                 [disabled]="board.state === GameState.solved"
-                (click)="board.state === GameState.paused ? resumeTimer() : (board.state === GameState.running ? pauseTimer() : null)">
+                (click)="board.state === GameState.paused ? resumeTimer(true) : (board.state === GameState.running ? pauseTimer(true) : null)">
                 <i class="fas"
                     [ngClass]="{
                         'fa-play': board.state === GameState.paused,
