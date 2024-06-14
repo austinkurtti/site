@@ -1,7 +1,7 @@
 <div class="container-fluid px-0">
     <div class="dialog-header row g-0 align-items-center justify-content-end">
         <div class="col">
-            <h3 class="text-center">Help & Tips</h3>
+            <h3 class="text-center">Help</h3>
         </div>
         <div class="col-auto">
             <button class="icon-button" (click)="dialogService.close()">
@@ -11,25 +11,29 @@
     </div>
 
     <div class="dialog-body row g-0 align-items-center">
-        <p>Fill in the grid so that each row, column and 3x3 square contain one instance of the digits 1-9. There is a single solution, where each digit appears in the grid exactly nine times.</p>
-        <ul class="px-3 m-0">
-            <li><div>Enable the Pencil In toggle to help track candidate digits</div></li>
-            <li><div>Click <i class="fas fa-cog"></i> to change game settings</div></li>
-            <li><div>Click <i class="fas fa-ellipsis-h"></i> for more actions:</div>
+        <h5 class="mb-2">Objective</h5>
+        <p>Fill in the grid so that each row, column and 3x3 square contain one instance of the numbers 1-9. There is a single solution, where each number appears in the grid exactly nine times.</p>
+        <h5 class="mb-2">Tips</h5>
+        <ul class="ps-4 m-0">
+            <li>Enable the <b>Pencil in</b> toggle to track candidate numbers</li>
+            <li>Click <i class="fas fa-cog"></i> to change game settings</li>
+            <li>Click <i class="fas fa-ellipsis-h"></i> for more actions:
                 <ul>
-                    <li><div>Check Cell -- check if the cell contains the correct digit</div></li>
-                    <li><div>Check All -- perform the Check Cell action for all cells</div></li>
-                    <li><div>Reveal Cell -- reveal the solution for one cell</div></li>
-                    <li><div>Reveal All -- reveal the entire solution (ends game)</div></li>
-                    <li><div>Reset -- clear all cells and reset the game timer</div></li>
+                    <li><b>Check cell</b> checks if the active cell has the correct number</li>
+                    <li><b>Check all</b> checks if all cells have the correct numbers</li>
+                    <li><b>Reveal cell</b> reveals the correct number for the active cell</li>
+                    <li><b>Reveal all</b> reveals the entire solution (and ends the game)</li>
+                    <li><b>Reset</b> clears all cells and restarts the game timer</li>
+                    <li><b>Share</b> creates a link to a copy of this Sudoku so you can share with friends!</li>
                 </ul>
             </li>
-            <li><div>Full keyboard support is offered:</div>
+            <li><div>Keyboard support:</div>
                 <ul>
-                    <li><div>Arrow Keys -- move focus between cells</div></li>
-                    <li><div>Numpad (with Num Lock disabled) or Number Row -- enter digits in focused cell</div></li>
-                    <li><div>Shift -- pencil in</div></li>
-                    <li><div>Backspace or Delete -- clear focused cell</div></li>
+                    <li><kbd>&larr;</kbd><kbd class="ms-1">&uarr;</kbd><kbd class="ms-1">&darr;</kbd><kbd class="ms-1">&rarr;</kbd> to change the active cell</li>
+                    <li><kbd>0</kbd>-<kbd>9</kbd> enter numbers</li>
+                    <li><kbd>Shift</kbd> + <kbd>0</kbd>-<kbd>9</kbd> enter penciled in numbers</li>
+                    <li><kbd>Backspace</kbd> or <kbd>Delete</kbd> clear the active cell</li>
+                    <li><kbd>Space</kbd> pause/resume game</li>
                 </ul>
             </li>
         </ul>

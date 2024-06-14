@@ -162,6 +162,24 @@ ul {
     line-height: 1.5;
 }
 
+kbd {
+    background-color: $color-ivory;
+    border-color: $color-gray-300;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow:
+        0 1px 1px rgba($color: $color-black, $alpha: 2),
+        0 2px 0 0 rgba($color: $color-white, $alpha: 7) inset;
+    color: $color-black;
+    display: inline-block;
+    font-size: $default-font-size * .8;
+    font-weight: bold;
+    line-height: 1;
+    padding: math.div($base-size, 8) math.div($base-size, 4);
+    white-space: nowrap;
+}
+
 /***********************
 
     Media queries
