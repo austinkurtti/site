@@ -3,7 +3,7 @@
 @import 'variables';
 
 :host {
-    display: flex;
+    display: block;
 
     &.disabled {
         opacity: .5;
@@ -11,6 +11,16 @@
         .toggle-container {
             cursor: default;
         }
+    }
+
+    label {
+        cursor: pointer;
+    }
+
+    p {
+        font-size: $default-font-size * .8;
+        font-style: italic;
+        line-height: $default-font-size;
     }
 
     .toggle-container {

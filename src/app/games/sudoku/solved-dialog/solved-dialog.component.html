@@ -1,6 +1,6 @@
-<h3 class="text-center">{{ gameManager.gameInstance.hardcore ? 'Flawless!' : 'Well Done!' }}</h3>
+<h3 class="dialog-header text-center">{{ gameManager.gameInstance.hardcore ? 'Flawless!' : 'Well Done!' }}</h3>
 
-<div id="puzzle-data" class="row g-0">
+<div class="dialog-body row g-0">
     <div class="col-6 text-center">
         <span>{{ gameManager.gameInstance.difficulty | sudokuDifficulty }}</span>
         <i *ngIf="gameManager.gameInstance.hardcore" class="fas fa-skull color-red ms-3"></i>
@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<div id="next-options" class="row g-0 justify-content-evenly">
+<div class="dialog-actions row g-0 justify-content-evenly">
     <div class="col-12 col-lg-auto d-flex justify-content-center mb-3 mb-lg-0">
         <button (click)="goHome()">Play different game</button>
     </div>

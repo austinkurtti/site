@@ -24,6 +24,7 @@ export enum TooltipPosition {
 export class TooltipDirective implements OnDestroy {
     @Input() tooltipContent: string;
     @Input() tooltipDelay = 500;
+    @Input() tooltipEnabled = true;
     @Input() tooltipPosition: TooltipPosition = TooltipPosition.top;
 
     private _hostElement = inject(ElementRef);
@@ -52,7 +53,7 @@ export class TooltipDirective implements OnDestroy {
 
     private _showTooltip(): void {
         // Prevent duplicate tooltips
-        if (this._debounceSubscription) {
+        if (this._debounceSubscription || !this.tooltipEnabled) {
             return;
         }
 

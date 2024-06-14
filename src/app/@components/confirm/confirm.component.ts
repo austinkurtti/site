@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DialogBase } from '@directives/dialog/dialog-base';
+import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
 
 @Component({
     standalone: true,
@@ -7,7 +7,7 @@ import { DialogBase } from '@directives/dialog/dialog-base';
     styleUrls: ['./confirm.component.scss'],
     templateUrl: './confirm.component.html'
 })
-export class ConfirmDialogComponent extends DialogBase {
+export class ConfirmDialogComponent extends DialogBaseDirective {
     @Input() title: string;
     @Input() message: string;
     @Input() confirmText: string;

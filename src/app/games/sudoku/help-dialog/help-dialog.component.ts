@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DialogBase } from '@directives/dialog/dialog-base';
+import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
 
 @Component({
     standalone: true,
@@ -7,4 +7,4 @@ import { DialogBase } from '@directives/dialog/dialog-base';
     styleUrls: ['./help-dialog.component.scss'],
     templateUrl: './help-dialog.component.html'
 })
-export class HelpDialogComponent extends DialogBase {}
+export class HelpDialogComponent extends DialogBaseDirective {}

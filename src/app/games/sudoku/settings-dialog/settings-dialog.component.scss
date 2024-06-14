@@ -2,29 +2,22 @@
 
 @import 'variables';
 
-:host {
-    background-color: $color-white;
+.setting-group {
+    background-color: $color-ivory;
+    border-radius: math.div($base-size, 4);
+    padding: math.div($base-size, 2);
 
-    .setting-group {
-        background-color: $color-ivory;
-        border-radius: math.div($base-size, 4);
-        margin: math.div($base-size, 2);
-        padding: math.div($base-size, 2);
+    &:not(:first-child) {
+        margin-top: $base-size;
+    }
 
-        h5 {
-            font-weight: normal;
-        }
+    h5 {
+        font-weight: normal;
+    }
 
-        .setting {
-            &:not(:last-child) {
-                margin-bottom: $base-size;
-            }
-
-            .setting-description {
-                font-size: $default-font-size * .8;
-                font-style: italic;
-                line-height: $base-size;
-            }
+    ak-toggle {
+        &:not(:last-child) {
+            margin-bottom: $base-size;
         }
     }
 }
