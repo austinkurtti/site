@@ -1,21 +1,18 @@
 @import 'variables';
 
 :host {
-    background-color: $color-white;
-
-    h3 {
+    .dialog-header {
         margin: 0;
         padding: $base-size * 4 $base-size;
     }
 
-    #puzzle-data {
+    .dialog-body {
         background-color: $color-sudoku-light;
         color: $color-sudoku-dark;
         font-weight: bold;
-        padding: $base-size;
     }
 
-    #next-options {
+    .dialog-actions {
         padding: $base-size * 4 $base-size;
     }
 }

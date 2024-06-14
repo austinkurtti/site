@@ -30,9 +30,24 @@ dialog {
 
     .dialog-content {
         animation: $dialog-appear-name $dialog-appear-timing $dialog-appear-duration;
+        background-color: $color-white;
         border-radius: math.div($base-size, 4);
         box-shadow: $hard-box-shadow;
         margin: 0 math.div($base-size, 2);
+
+        .dialog-header {
+            padding: $base-size;
+        }
+
+        .dialog-body {
+            max-height: 50vh;
+            overflow: auto;
+            padding: $base-size;
+        }
+
+        .dialog-actions {
+            padding: $base-size;
+        }
     }
 
     @media (min-width: 0px) {

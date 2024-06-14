@@ -1,5 +1,5 @@
 import { Injectable, RendererFactory2, Type, inject } from '@angular/core';
-import { DialogBaseDirective } from '@directives/dialog/dialog-base';
+import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
 import { DialogDirective } from '@directives/dialog/dialog.directive';
 import { DialogSize } from '@models/dialog.model';
 

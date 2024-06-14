@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DialogBaseDirective } from '@directives/dialog/dialog-base';
+import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
 
 @Component({
     standalone: true,

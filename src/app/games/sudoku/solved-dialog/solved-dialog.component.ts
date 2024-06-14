@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnInit, inject } from '@angular/core';
-import { DialogBaseDirective } from '@directives/dialog/dialog-base';
+import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
 import { DifficultyPipe } from '@pipes/difficulty.pipe';
 import { ConfettiService } from '@services/confetti.service';
 import { interval } from 'rxjs';

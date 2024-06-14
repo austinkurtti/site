@@ -1,5 +1,5 @@
 <div class="container-fluid px-0">
-    <div class="row g-0 align-items-center p-3">
+    <div class="dialog-header row g-0 align-items-center">
         <div class="col">
             <h3 class="text-center">Settings</h3>
         </div>
@@ -10,55 +10,57 @@
         </div>
     </div>
 
-    <div class="setting-group">
-        <h5>General</h5>
-        <ak-toggle
-            [label]="'Show timer'"
-            [(value)]="gameManager.gameSettings.showTimer"
-            (valueChange)="toggleChange('showTimer', $event)"
-        ></ak-toggle>
-    </div>
-    
-    <div class="setting-group">
-        <h5>
-            <span>Assistive</span>
-            <ng-container *ngIf="gameManager.gameInstance?.hardcore">
-                <i class="fas fa-skull color-red ms-4 me-2"></i>
-                <span class="text-transform-none">Disabled in hardcore mode!</span>
-            </ng-container>
-        </h5>
-        <ak-toggle
-            [label]="'Show conflicts'"
-            [disabled]="gameManager.gameInstance?.hardcore"
-            [(value)]="gameManager.gameSettings.showConflicts"
-            (valueChange)="toggleChange('showConflicts', $event)"
-        ></ak-toggle>
-        <ak-toggle
-            [label]="'Erase pencil'"
-            [labelDescription]="'After entering a number, any conflicting penciled in values in the same row, column and 3x3 square will be erased'"
-            [expandLabelDescription]="true"
-            [disabled]="gameManager.gameInstance?.hardcore"
-            [(value)]="gameManager.gameSettings.erasePencil"
-            (valueChange)="toggleChange('erasePencil', $event)"
-        ></ak-toggle>
-        <ak-toggle
-            [label]="'Disable inputs'"
-            [labelDescription]="'Number inputs will be disabled when the count for their values reaches nine'"
-            [expandLabelDescription]="true"
-            [disabled]="gameManager.gameInstance?.hardcore"
-            [(value)]="gameManager.gameSettings.disableInputs"
-            (valueChange)="toggleChange('disableInputs', $event)"
-        ></ak-toggle>
-    </div>
+    <div class="dialog-body">
+        <div class="setting-group">
+            <h5>General</h5>
+            <ak-toggle
+                [label]="'Show timer'"
+                [(value)]="gameManager.gameSettings.showTimer"
+                (valueChange)="toggleChange('showTimer', $event)"
+            ></ak-toggle>
+        </div>
+        
+        <div class="setting-group">
+            <h5>
+                <span>Assistive</span>
+                <ng-container *ngIf="gameManager.gameInstance?.hardcore">
+                    <i class="fas fa-skull color-red ms-4 me-2"></i>
+                    <span class="text-transform-none">Disabled in hardcore mode!</span>
+                </ng-container>
+            </h5>
+            <ak-toggle
+                [label]="'Show conflicts'"
+                [disabled]="gameManager.gameInstance?.hardcore"
+                [(value)]="gameManager.gameSettings.showConflicts"
+                (valueChange)="toggleChange('showConflicts', $event)"
+            ></ak-toggle>
+            <ak-toggle
+                [label]="'Erase pencil'"
+                [labelDescription]="'After entering a number, any conflicting penciled in values in the same row, column and 3x3 square will be erased'"
+                [expandLabelDescription]="true"
+                [disabled]="gameManager.gameInstance?.hardcore"
+                [(value)]="gameManager.gameSettings.erasePencil"
+                (valueChange)="toggleChange('erasePencil', $event)"
+            ></ak-toggle>
+            <ak-toggle
+                [label]="'Disable inputs'"
+                [labelDescription]="'Number inputs will be disabled when the count for their values reaches nine'"
+                [expandLabelDescription]="true"
+                [disabled]="gameManager.gameInstance?.hardcore"
+                [(value)]="gameManager.gameSettings.disableInputs"
+                (valueChange)="toggleChange('disableInputs', $event)"
+            ></ak-toggle>
+        </div>
 
-    <div class="setting-group">
-        <h5>Game Saves</h5>
-        <ak-toggle
-            [label]="'Exit save'"
-            [labelDescription]="'Sudoku progress will be automatically saved when exiting the game'"
-            [expandLabelDescription]="true"
-            [(value)]="gameManager.gameSettings.exitSave"
-            (valueChange)="toggleChange('exitSave', $event)"
-        ></ak-toggle>
+        <div class="setting-group">
+            <h5>Game Saves</h5>
+            <ak-toggle
+                [label]="'Exit save'"
+                [labelDescription]="'Sudoku progress will be automatically saved when exiting the game'"
+                [expandLabelDescription]="true"
+                [(value)]="gameManager.gameSettings.exitSave"
+                (valueChange)="toggleChange('exitSave', $event)"
+            ></ak-toggle>
+        </div>
     </div>
 </div>
