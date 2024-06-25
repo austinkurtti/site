@@ -14,10 +14,16 @@ export class SudokuManager {
     public savedGame: SudokuGameInstance = null;
 
     public initialize(): void {
+        // General
         this.gameSettings.showTimer = LocalStorageService.getItem(`${this.localStoragePrefix}_showTimer`) ?? true;
-        this.gameSettings.erasePencil = LocalStorageService.getItem(`${this.localStoragePrefix}_erasePencil`) ?? false;
+
+        // Assisstive
         this.gameSettings.showConflicts = LocalStorageService.getItem(`${this.localStoragePrefix}_showConflicts`) ?? false;
+        this.gameSettings.erasePencil = LocalStorageService.getItem(`${this.localStoragePrefix}_erasePencil`) ?? false;
         this.gameSettings.disableInputs = LocalStorageService.getItem(`${this.localStoragePrefix}_disableInputs`) ?? true;
+        this.gameSettings.extraHighlights = LocalStorageService.getItem(`${this.localStoragePrefix}_extraHighlights`) ?? false;
+
+        // Game Saves
         this.gameSettings.exitSave = LocalStorageService.getItem(`${this.localStoragePrefix}_exitSave`) ?? true;
 
         const saveData = LocalStorageService.getItem(`${this.localStoragePrefix}_savedGame`);

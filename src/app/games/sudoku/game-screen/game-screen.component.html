@@ -82,7 +82,12 @@
                     tabindex="0"
                     class="sudoku-cell col align-items-center justify-content-center"
                     [id]="'cell-' + rowIndex + '-' + colIndex"
-                    [ngClass]="{ 'given': cell.given, 'active': cell.active, 'conflicted': this.gameManager.gameSettings.showConflicts && cell.numConflicts > 0 }"
+                    [ngClass]="{
+                        'given': cell.given,
+                        'active': cell.active,
+                        'extra-highlight': !this.gameManager.gameInstance.hardcore && this.gameManager.gameSettings.extraHighlights && (rowIndex === activeCellRow || colIndex === activeCellCol),
+                        'conflicted': !this.gameManager.gameInstance.hardcore && this.gameManager.gameSettings.showConflicts && cell.numConflicts > 0
+                    }"
                     (click)="focusCell(rowIndex, colIndex)"
                     (keydown)="cellKeydown(rowIndex, colIndex, $event)">
                     <span class="normal position-absolute" [ngClass]="{ 'revealed': cell.revealed === true, 'valid': cell.valid === true, 'invalid': cell.valid === false }">

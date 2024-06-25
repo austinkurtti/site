@@ -36,7 +36,7 @@
             ></ak-toggle>
             <ak-toggle
                 [label]="'Erase pencil'"
-                [labelDescription]="'After entering a number, any conflicting penciled in values in the same row, column and 3x3 square will be erased'"
+                [labelDescription]="'After entering a number, any conflicting penciled in values in the same row, column, and 3x3 square will be erased'"
                 [expandLabelDescription]="true"
                 [disabled]="gameManager.gameInstance?.hardcore"
                 [(value)]="gameManager.gameSettings.erasePencil"
@@ -49,6 +49,14 @@
                 [disabled]="gameManager.gameInstance?.hardcore"
                 [(value)]="gameManager.gameSettings.disableInputs"
                 (valueChange)="toggleChange('disableInputs', $event)"
+            ></ak-toggle>
+            <ak-toggle
+                [label]="'Extra highlights'"
+                [labelDescription]="'Cells in the same row and column as the active cell will be highlighted'"
+                [expandLabelDescription]="true"
+                [disabled]="gameManager.gameInstance?.hardcore"
+                [(value)]="gameManager.gameSettings.extraHighlights"
+                (valueChange)="toggleChange('extraHighlights', $event)"
             ></ak-toggle>
         </div>
 

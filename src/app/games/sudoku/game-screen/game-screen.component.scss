@@ -6,6 +6,9 @@
 $sudoku-header-height: $base-size * 6;
 $sudoku-border-width: math.div($base-size, 5);
 
+$sudoku-color-active: #d6d652;
+$sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts $color-white, 3 parts $color-gray-200
+
 :host {
     display: flex;
     flex-direction: column;
@@ -105,7 +108,11 @@ $sudoku-border-width: math.div($base-size, 5);
                     }
 
                     &.active {
-                        background-color: #d6d652;
+                        background-color: $sudoku-color-active;
+                    }
+
+                    &:not(.active).extra-highlight {
+                        background-color: $sudoku-color-extra-highlight;
                     }
 
                     &.conflicted::after {
