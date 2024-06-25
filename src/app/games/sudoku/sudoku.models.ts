@@ -45,11 +45,12 @@ export const sudokuValueCandidateMap = new Map<number, SudokuCandidate>([
 export class SudokuGameSettings {
     // General
     public showTimer = true;
-    public erasePencil = false;
 
     // Assistive
     public showConflicts = false;
-    public disableInputs = false;
+    public erasePencil = false;
+    public disableInputs = true;
+    public extraHighlights = false;
 
     // Game Saves
     public exitSave = true;

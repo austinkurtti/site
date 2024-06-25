@@ -6,6 +6,9 @@
 $sudoku-header-height: $base-size * 6;
 $sudoku-border-width: math.div($base-size, 5);
 
+$sudoku-color-active: #d6d652;
+$sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts $color-white, 3 parts $color-gray-200
+
 :host {
     display: flex;
     flex-direction: column;
@@ -62,6 +65,7 @@ $sudoku-border-width: math.div($base-size, 5);
                 flex-direction: column;
                 max-height: 100%;
                 max-width: 100%;
+                position: relative;
 
                 > .row {
                     flex: 1;
@@ -104,7 +108,11 @@ $sudoku-border-width: math.div($base-size, 5);
                     }
 
                     &.active {
-                        background-color: #d6d652;
+                        background-color: $sudoku-color-active;
+                    }
+
+                    &:not(.active).extra-highlight {
+                        background-color: $sudoku-color-extra-highlight;
                     }
 
                     &.conflicted::after {
@@ -139,6 +147,22 @@ $sudoku-border-width: math.div($base-size, 5);
 
                     .candidate-row {
                         flex: 1 1;
+                    }
+                }
+
+                #sudoku-pause-overlay {
+                    backdrop-filter: blur(math.div($base-size, 2));
+                    background-color: rgba($color: $color-gray-500, $alpha: .5);
+                    position: absolute;
+
+                    > div {
+                        background-color: $color-sudoku-light;
+                        border-color: $color-black;
+                        border-radius: math.div($base-size, 4);
+                        border-style: solid;
+                        border-width: math.div($base-size, 8);
+                        color: $color-sudoku-dark;
+                        font-weight: bold;
                     }
                 }
             }

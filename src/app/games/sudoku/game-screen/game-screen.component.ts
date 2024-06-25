@@ -30,6 +30,8 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     public board = new SudokuBoard();
     public shifting = false;
     public pencilIn = false;
+    public activeCellRow?: number = null;
+    public activeCellCol?: number = null;
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public GameState = SudokuGameState;
@@ -53,15 +55,14 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     private _startTime: number;
     private _pauseTime: number;
     private _pauseSum: number;
+    private _manualPauseActive: boolean;
     private _autoPauseDebounce: Subscription;
-    private _activeCellRow?: number = null;
-    private _activeCellCol?: number = null;
 
     private _destroyed$ = new Subject<void>();
 
     private get _activeCell(): SudokuCell {
-        return this._activeCellRow !== null && this._activeCellCol !== null
-            ? this.board.cells[this._activeCellRow][this._activeCellCol]
+        return this.activeCellRow !== null && this.activeCellCol !== null
+            ? this.board.cells[this.activeCellRow][this.activeCellCol]
             : null;
     }
 
@@ -78,9 +79,9 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     @HostListener('window:keydown.space', ['$event'])
     public windowSpace(event: KeyboardEvent) {
         if (this.board.state === SudokuGameState.paused) {
-            this.resumeTimer();
+            this.resumeTimer(true);
         } else if (this.board.state === SudokuGameState.running) {
-            this.pauseTimer();
+            this.pauseTimer(true);
         }
 
         event.preventDefault();
@@ -90,7 +91,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     @HostListener('window:keydown.shift.arrowup', ['$event'])
     public windowArrowUp(event: KeyboardEvent) {
         if (this._activeCell && this.board.state === SudokuGameState.running) {
-            this._arrowFocusNextCell(this._activeCellRow - 1, this._activeCellCol);
+            this._arrowFocusNextCell(this.activeCellRow - 1, this.activeCellCol);
         }
     }
 
@@ -98,7 +99,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     @HostListener('window:keydown.shift.arrowdown', ['$event'])
     public windowArrowDown(event: KeyboardEvent) {
         if (this._activeCell && this.board.state === SudokuGameState.running) {
-            this._arrowFocusNextCell(this._activeCellRow + 1, this._activeCellCol);
+            this._arrowFocusNextCell(this.activeCellRow + 1, this.activeCellCol);
         }
     }
 
@@ -106,7 +107,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     @HostListener('window:keydown.shift.arrowleft', ['$event'])
     public windowArrowLeft(event: KeyboardEvent) {
         if (this._activeCell && this.board.state === SudokuGameState.running) {
-            this._arrowFocusNextCell(this._activeCellRow, this._activeCellCol - 1);
+            this._arrowFocusNextCell(this.activeCellRow, this.activeCellCol - 1);
         }
     }
 
@@ -114,7 +115,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     @HostListener('window:keydown.shift.arrowright', ['$event'])
     public windowArrowRight(event: KeyboardEvent) {
         if (this._activeCell && this.board.state === SudokuGameState.running) {
-            this._arrowFocusNextCell(this._activeCellRow, this._activeCellCol + 1);
+            this._arrowFocusNextCell(this.activeCellRow, this.activeCellCol + 1);
         }
     }
     // #endregion
@@ -141,13 +142,13 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
                         for (let rIndex = 0; rIndex < this.board.cells.length; rIndex++) {
                             const cIndex = this.board.cells[rIndex].findIndex(cell => cell.active);
                             if (cIndex !== -1) {
-                                this._activeCellRow = rIndex;
-                                this._activeCellCol = cIndex;
+                                this.activeCellRow = rIndex;
+                                this.activeCellCol = cIndex;
                                 break;
                             }
                         }
                     } else {
-                        this._activeCellRow = this._activeCellCol = 0;
+                        this.activeCellRow = this.activeCellCol = 0;
                         this._activeCell.active = true;
                     }
 
@@ -168,7 +169,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this._destroyed$))
             .subscribe(solved => {
                 if (solved) {
-                    this.pauseTimer(SudokuGameState.solved);
+                    this.pauseTimer(false, SudokuGameState.solved);
                     if (this.gameManager.savedGame) {
                         this.gameManager.deleteSave();
                     }
@@ -205,7 +206,13 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     }
 
     public showHelpDialog(): void {
-        this._dialogService.show(HelpDialogComponent, DialogSize.small);
+        const componentRef = this._dialogService.show(HelpDialogComponent, DialogSize.small);
+        if (componentRef) {
+            this.pauseTimer(false);
+            componentRef.closeCallback = () => {
+                this.resumeTimer(false);
+            };
+        }
     }
 
     public showSettingsDialog(): void {
@@ -213,7 +220,9 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
 
         const componentRef = this._dialogService.show(SettingsDialogComponent, DialogSize.small);
         if (componentRef) {
+            this.pauseTimer(false);
             componentRef.closeCallback = () => {
+                this.resumeTimer(false);
                 if (oldDisableInputs !== this.gameManager.gameSettings.disableInputs) {
                     this._checkAllCellValueCounts();
                 }
@@ -255,21 +264,31 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
         this._startTimerInterval();
     };
 
-    public pauseTimer = (boardStateOverride?: SudokuGameState): void => {
+    public pauseTimer = (manual: boolean, boardStateOverride?: SudokuGameState): void => {
+        if (this.board.state === SudokuGameState.paused) {
+            return;
+        }
+
+        this._manualPauseActive = manual;
         this._pauseTime = Date.now();
         this.board.state = boardStateOverride ?? SudokuGameState.paused;
         this._clearTimerInterval();
     };
 
-    public resumeTimer = (): void => {
+    public resumeTimer = (manual: boolean): void => {
+        if (this.board.state === SudokuGameState.running || (this._manualPauseActive && !manual)) {
+            return;
+        }
+
+        this._manualPauseActive = false;
         this.board.state = SudokuGameState.running;
         this._pauseSum += Date.now() - this._pauseTime;
         this._startTimerInterval();
     };
 
     public checkCell(): void {
-        if (this._activeCellRow !== null && this._activeCellCol !== null && this._canSetCellValue) {
-            this.board.validateCell(this._activeCellRow, this._activeCellCol, true);
+        if (this.activeCellRow !== null && this.activeCellCol !== null && this._canSetCellValue) {
+            this.board.validateCell(this.activeCellRow, this.activeCellCol, true);
         }
     }
 
@@ -278,8 +297,8 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     }
 
     public revealCell(): void {
-        if (this._activeCellRow !== null && this._activeCellCol !== null && this._canSetCellValue) {
-            this.board.revealCell(this._activeCellRow, this._activeCellCol);
+        if (this.activeCellRow !== null && this.activeCellCol !== null && this._canSetCellValue) {
+            this.board.revealCell(this.activeCellRow, this.activeCellCol);
             this._checkAllCellValueCounts();
             this.board.checkSolved();
         }
@@ -295,7 +314,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             componentRef.confirm = () => {
                 this._dialogService.close();
                 this.board.revealAll();
-                this.pauseTimer(SudokuGameState.solved);
+                this.pauseTimer(false, SudokuGameState.solved);
                 this._checkAllCellValueCounts();
             };
             componentRef.cancel = () => {
@@ -348,10 +367,10 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             this._activeCell.active = false;
         }
 
-        this._activeCellRow = rowIndex;
-        this._activeCellCol = colIndex;
+        this.activeCellRow = rowIndex;
+        this.activeCellCol = colIndex;
 
-        (document.querySelector(`#cell-${this._activeCellRow}-${this._activeCellCol}`) as HTMLElement).focus();
+        (document.querySelector(`#cell-${this.activeCellRow}-${this.activeCellCol}`) as HTMLElement).focus();
         this._activeCell.active = true;
     }
 
@@ -517,15 +536,15 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             }
 
             if (this.gameManager.gameSettings.erasePencil && !this.gameManager.gameInstance.hardcore) {
-                this.board.clearCandidates(this._activeCellRow, this._activeCellCol, value);
+                this.board.clearCandidates(this.activeCellRow, this.activeCellCol, value);
             }
         }
 
         if (this.gameManager.gameInstance.hardcore && this._activeCell.value) {
-            const cellSolution = this.board.getCellSolution(this._activeCellRow, this._activeCellCol);
+            const cellSolution = this.board.getCellSolution(this.activeCellRow, this.activeCellCol);
             if (this._activeCell.value !== cellSolution) {
                 this._activeCell.valid = false;
-                this.pauseTimer(SudokuGameState.failed);
+                this.pauseTimer(false, SudokuGameState.failed);
                 if (this.gameManager.savedGame) {
                     this.gameManager.deleteSave();
                 }
@@ -580,9 +599,9 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             return;
         }
 
-        const squareRowStart = Math.floor(this._activeCellRow / 3) * 3;
+        const squareRowStart = Math.floor(this.activeCellRow / 3) * 3;
         const squareRowEnd = squareRowStart + 3;
-        const squareColStart = Math.floor(this._activeCellCol / 3) * 3;
+        const squareColStart = Math.floor(this.activeCellCol / 3) * 3;
         const squareColEnd = squareColStart + 3;
         const square = this.board.cells.slice(squareRowStart, squareRowEnd).map(squareRow => squareRow.slice(squareColStart, squareColEnd));
         const squareCells = [...square[0], ...square[1], ...square[2]];
@@ -591,12 +610,12 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             this._activeCell.numConflicts = 0;
 
             // Check for any conflicts in the row, column or square
-            const rowConflict = this.board.cells[this._activeCellRow].filter(cell => cell.value === valueToCheck).length > 1;
-            const colConflict = this.board.cells.filter(row => row[this._activeCellCol].value === valueToCheck).length > 1;
+            const rowConflict = this.board.cells[this.activeCellRow].filter(cell => cell.value === valueToCheck).length > 1;
+            const colConflict = this.board.cells.filter(row => row[this.activeCellCol].value === valueToCheck).length > 1;
             const squareConflict = squareCells.filter(cell => cell.value === valueToCheck).length > 1;
 
             if (rowConflict) {
-                this.board.cells[this._activeCellRow].forEach(cell => {
+                this.board.cells[this.activeCellRow].forEach(cell => {
                     if (cell.value === valueToCheck) {
                         cell.numConflicts++;
                     }
@@ -604,8 +623,8 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             }
             if (colConflict) {
                 this.board.cells.forEach(row => {
-                    if (row[this._activeCellCol].value === valueToCheck) {
-                        row[this._activeCellCol].numConflicts++;
+                    if (row[this.activeCellCol].value === valueToCheck) {
+                        row[this.activeCellCol].numConflicts++;
                     }
                 });
             }
@@ -618,14 +637,14 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             }
         } else {
             // Remove conflicts for the row, column and square
-            this.board.cells[this._activeCellRow].forEach(cell => {
+            this.board.cells[this.activeCellRow].forEach(cell => {
                 if (cell.value === valueToCheck) {
                     cell.numConflicts--;
                 }
             });
             this.board.cells.forEach(row => {
-                if (row[this._activeCellCol].value === valueToCheck) {
-                    row[this._activeCellCol].numConflicts--;
+                if (row[this.activeCellCol].value === valueToCheck) {
+                    row[this.activeCellCol].numConflicts--;
                 }
             });
             squareCells.forEach(cell => {
@@ -716,7 +735,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             }
 
             this._autoPauseDebounce = timer(60000).subscribe(() => {
-                this.pauseTimer();
+                this.pauseTimer(false);
                 this._clearAutoPauseDebounce();
             });
         } else if (document.visibilityState === 'visible' && this._autoPauseDebounce) {
