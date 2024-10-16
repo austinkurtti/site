@@ -16,8 +16,7 @@ export class GamesHomeComponent {
         new GameLinkModel({
             name: 'Solitaire',
             icon: 'fas fa-heart',
-            route: 'solitaire',
-            disabled: true
+            route: 'solitaire'
         }),
         new GameLinkModel({
             name: 'Warships',

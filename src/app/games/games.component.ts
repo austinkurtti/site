@@ -1,6 +1,7 @@
 import { Component, Renderer2, inject } from '@angular/core';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { GamesHomeComponent } from './games-home.component';
+import { SolitaireComponent } from './solitaire/solitaire.component';
 import { SudokuComponent } from './sudoku/sudoku.component';
 
 @Component({
@@ -35,6 +36,9 @@ export class GamesComponent {
         if (activatedComponent instanceof SudokuComponent) {
             (titleEl.firstChild as HTMLElement).innerHTML = 'Sudoku';
             this._renderer.setAttribute(headerEl, 'data-game', 'sudoku');
+        } else if (activatedComponent instanceof SolitaireComponent) {
+            (titleEl.firstChild as HTMLElement).innerHTML = 'Solitaire';
+            this._renderer.setAttribute(headerEl, 'data-game', 'solitaire');
         }
     }
 }

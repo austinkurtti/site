@@ -24,6 +24,19 @@
                 }
             }
         }
+
+        &[data-game="solitaire"] {
+            background-color: $color-solitaire-light;
+            color: $color-solitaire-dark;
+
+            button {
+                color: $color-solitaire-dark;
+
+                &:hover {
+                    color: $color-white;
+                }
+            }
+        }
     }
 
     main {

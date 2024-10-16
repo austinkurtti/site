@@ -43,10 +43,11 @@
     }
 
     &.solitaire {
-        background-color: $color-solitaire-green;
+        background-color: $color-solitaire;
 
         .game-name {
-            background-color: lighten($color-solitaire-green, 10%);
+            background-color: $color-solitaire-light;
+            color: $color-solitaire-dark;
         }
     }
 

@@ -32,8 +32,3 @@ export class CardModel {
         }
     }
 }
-
-export class FoundationModel {
-    suit: Suit;
-    cards: CardModel[] = [];
-}

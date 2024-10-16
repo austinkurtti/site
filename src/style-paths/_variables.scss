@@ -35,9 +35,13 @@ $color-sudoku-light         : lighten($color-sudoku, 25%);
 $color-sudoku-dark          : darken($color-sudoku, 15%);
 
 // Solitaire
-$color-solitaire-green      : #38b64a;
-$color-solitaire-dark-green : #208a2e;
-$color-solitaire-blue       : #48bfe5;
+$color-solitaire            : #38b64a;
+$color-solitaire-light      : lighten($color-solitaire, 25%);
+$color-solitaire-dark       : darken($color-solitaire, 15%);
+
+// $color-solitaire-green      : #38b64a;
+// $color-solitaire-dark-green : #208a2e;
+// $color-solitaire-blue       : #48bfe5;
 
 // Warships
 $color-warships             : #5298d6;

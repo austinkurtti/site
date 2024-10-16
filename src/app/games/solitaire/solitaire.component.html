@@ -1,39 +1,86 @@
-<header class="row g-0 align-items-center position-fixed w-100">
-    <div class="col text-end">
-        <label class="me-3">Time</label>
-        <span>{{ time }}</span>
-    </div>
+<div id="solitaire-header" class="row g-0 px-2 px-lg-4 align-items-center">
     <div class="col text-center">
-        <label class="me-3">Score</label>
-        <span>{{ score }}</span>
+        <span class="ms-3">{{ time$ | async }}</span>
     </div>
-    <div class="col">
-        <label class="me-3">Moves</label>
-        <span>{{ moves }}</span>
-    </div>
-</header>
+</div>
 
-<main class="row g-0 position-static h-100">
-    <div id="stock-col" class="col-auto h-100">
-        <div id="stock" [ngClass]="{'empty': !stock.length}">
+<div id="solitaire-content" class="container-fluid g-0 d-flex flex-column flex-grow-1">
+    <div class="row g-0 p-2 p-lg-4">
+        <div *ngFor="let foundation of foundations; let i = index;"
+            cdkDropList
+            cdkDropListSortingDisabled
+            class="foundation col-auto"
+            [id]="'foundation-' + i"
+            [cdkDropListData]="foundation"
+            [cdkDropListConnectedTo]="dropListIds"
+            (cdkDropListDropped)="drop($event)"
+        >
+            <ng-container *ngIf="foundation.length">
+                <div *akLet="foundation[foundation.length - 1] as card" class="solitaire-card">
+                    <i class="suit-icon" [attr.data-suit]="card.suit"></i>
+                    <span>{{ Rank[card.rank] }}</span>
+                </div>
+            </ng-container>
         </div>
+        <div class="col d-flex justify-content-end">
+            <div id="waste"
+                cdkDropList
+                cdkDropListSortingDisabled
+                [cdkDropListData]="waste"
+                [cdkDropListConnectedTo]="dropListIds"
+                (cdkDropListDropped)="drop($event)"
+            >
+                <div *ngFor="let card of waste"
+                    cdkDrag
+                    class="solitaire-card"
+                    [cdkDragData]="card"
+                    [cdkDragBoundary]="'ak-solitaire'"
+                >
+                    <i class="suit-icon" [attr.data-suit]="card.suit"></i>
+                    <span>{{ Rank[card.rank] }}</span>
+                    <div *cdkDragPlaceholder>
+                        <!-- Intentionally empty -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="stock"
+            class="col-auto position-relative"
+            [ngClass]="stock.length ? 'solitaire-card' : ''"
+            (click)="stock.length ? popStock() : resetStock()"
+        ></div>
     </div>
-    <div class="col d-flex justify-content-around h-100">
-        <div *ngFor="let tableau of tableaus"
-            class="tableau">
-            <div *ngFor="let card of tableau; let i = index;"
-                class="solitaire-card"
-                [ngClass]="{'facedown': card.facedown}"
-                [ngStyle]="{'transform': 'translateY(' + ((i * 4 * baseSizePx) - (i * 12 * baseSizePx)) + 'px)'}">
-                <ng-container *ngIf="!card.facedown">
-                    {{ Suit[card.suit] + ' ' + Rank[card.rank] }}
-                </ng-container>
+    <div class="row g-0 p-2 p-lg-4 justify-content-between flex-grow-1">
+        <div *ngFor="let tableau of tableaus; let i = index;" class="lane col-auto">
+            <div *ngFor="let tableauCard of tableau; let j = index;"
+                class="solitaire-card facedown"
+                [ngStyle]="{ 'marginTop': (j * 2) + 'rem' }"
+            ></div>
+            <div cdkDropList
+                cdkDropListSortingDisabled
+                class="h-100"
+                [id]="'pile-' + i"
+                [cdkDropListData]="piles[i]"
+                [cdkDropListConnectedTo]="dropListIds"
+                (cdkDropListDropped)="drop($event)"
+            >
+                <div *ngFor="let card of piles[i]; let j = index;"
+                    cdkDrag
+                    class="solitaire-card"
+                    [ngStyle]="{ 'marginTop': ((j + (tableau.length)) * 2) + 'rem' }"
+                    [cdkDragData]="card"
+                    [cdkDragBoundary]="'ak-solitaire'"
+                    [cdkDragDisabled]="card.facedown"
+                >
+                    <ng-container *ngIf="!card.facedown">
+                        <i class="suit-icon" [attr.data-suit]="card.suit"></i>
+                        <span>{{ Rank[card.rank] }}</span>
+                    </ng-container>
+                    <div *cdkDragPlaceholder>
+                        <!-- Intentionally empty -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div id="foundation-col" class="col-auto h-100">
-        <div *ngFor="let foundation of foundations"
-            class="foundation">
-        </div>
-    </div>
-</main>
+</div>

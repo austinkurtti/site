@@ -2,68 +2,90 @@
 
 @import 'variables';
 
+$solitaire-header-height: $base-size * 6;
+
 $card-height        : $base-size * 12;
 $card-width         : $card-height * .714;
 
 :host {
-    background-color: $color-solitaire-green;
-    display: block;
+    display: flex;
+    flex-direction: column;
     height: 100%;
 
-    header {
-        background-color: $color-slate;
-        color: $color-white;
+    #solitaire-header {
+        // background-color: $color-slate;
+        // color: $color-white;
     }
 
-    main {
-        #stock, .foundation, .solitaire-card {
-            border-radius: math.div($base-size, 2);
+    #solitaire-content {
+        #stock, #waste, .foundation, .solitaire-card {
+            background-color: $color-white;
+            border-radius: math.div($base-size, 3);
             height: $card-height;
             width: $card-width;
         }
 
+        .foundation:not(:first-child), #stock {
+            margin-left: $base-size;
+        }
+
+        .lane {
+            position: relative;
+            width: $card-width;
+        }
+
         .solitaire-card {
-            background-color: $color-white;
-            border-color: $color-white;
+            border-color: $color-gray-400;
             border-style: solid;
-            border-width: math.div($base-size, 2);
+            position: absolute;
 
             &.facedown {
-                background-color: $color-solitaire-blue;
+                background-color: $color-gray-200;
+            }
+
+            [data-suit] {
+                background-repeat: no-repeat;
+                display: block;
+                height: $base-size;
+                width: $base-size;
+            }
+            [data-suit="1"] {
+                background-image: url('/assets/svgs/heart.svg');
+            }
+            [data-suit="2"] {
+                background-image: url('/assets/svgs/diamond.svg');
+            }
+            [data-suit="3"] {
+                background-image: url('/assets/svgs/club.svg');
+            }
+            [data-suit="4"] {
+                background-image: url('/assets/svgs/spade.svg');
             }
         }
+    }
+}
 
-        #stock-col {
-            background-color: $color-solitaire-dark-green;
-            padding: $base-size;
+.cdk-drag-preview {
+    background-color: $color-white;
+    border-radius: math.div($base-size, 3);
+    height: $card-height;
+    width: $card-width;
+}
 
-            #stock {
-                background-color: $color-solitaire-blue;
-                border-color: $color-white;
-                border-style: solid;
-                border-width: math.div($base-size, 2);
+@media (min-width: 0px) {
+    #solitaire-header {
+        height: $solitaire-header-height * .5;
+    }
+}
 
-                &.empty {
-                    background-color: $color-solitaire-green;
-                }
-            }
-        }
+@media (min-width: $breakpoint-tablet) {
+    #solitaire-header {
+        height: $solitaire-header-height * .75;
+    }
+}
 
-        .tableau {
-            padding: $base-size;
-        }
-
-        #foundation-col {
-            background-color: $color-solitaire-dark-green;
-            padding: $base-size;
-
-            .foundation {
-                background-color: $color-solitaire-green;
-
-                &:not(:last-child) {
-                    margin-bottom: $base-size;
-                }
-            }
-        }
+@media (min-width: $breakpoint-desktop) {
+    #solitaire-header {
+        height: $solitaire-header-height;
     }
 }
