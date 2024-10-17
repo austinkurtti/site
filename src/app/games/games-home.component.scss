@@ -42,6 +42,15 @@
         }
     }
 
+    &.tile-slide {
+        background-color: $color-tile-slide;
+
+        .game-name {
+            background-color: $color-tile-slide-light;
+            color: $color-tile-slide-dark
+        }
+    }
+
     &.solitaire {
         background-color: $color-solitaire-green;
 

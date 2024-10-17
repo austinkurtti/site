@@ -14,6 +14,11 @@ export class GamesHomeComponent {
             route: 'sudoku'
         }),
         new GameLinkModel({
+            name: 'Tile Slide',
+            icon: 'fas fa-th',
+            route: 'tile-slide'
+        }),
+        new GameLinkModel({
             name: 'Solitaire',
             icon: 'fas fa-heart',
             route: 'solitaire',

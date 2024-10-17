@@ -24,6 +24,19 @@
                 }
             }
         }
+
+        &[data-game="tile-slide"] {
+            background-color: $color-tile-slide-light;
+            color: $color-tile-slide-dark;
+
+            button {
+                color: $color-tile-slide-dark;
+
+                &:hover {
+                    color: $color-white;
+                }
+            }
+        }
     }
 
     main {

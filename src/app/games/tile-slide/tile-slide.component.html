@@ -1,0 +1,11 @@
+<div id="tile-slide-content" class="row g-0">
+    <div id="tile-slide-container" class="col align-items-center p-5">
+        <div id="tile-slide-board">
+            <div class="row g-0" *ngFor="let row of numbers">
+                <div *ngFor="let col of row" class="tile col align-items-center justify-content-center">
+                    {{ col }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

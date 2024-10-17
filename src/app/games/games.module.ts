@@ -26,6 +26,11 @@ import { GamesComponent } from './games.component';
                         path: 'sudoku',
                         title: 'Sudoku',
                         loadChildren: () => import('./sudoku/sudoku.module').then(m => m.SudokuModule)
+                    },
+                    {
+                        path: 'tile-slide',
+                        title: 'Tile Slide',
+                        loadComponent: () => import('./tile-slide/tile-slide.component').then(x => x.TileSlideComponent)
                     }
                 ]
             }

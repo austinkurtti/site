@@ -39,6 +39,11 @@ $color-solitaire-green      : #38b64a;
 $color-solitaire-dark-green : #208a2e;
 $color-solitaire-blue       : #48bfe5;
 
+// Tile Slide
+$color-tile-slide           : #d14444;
+$color-tile-slide-light     : lighten($color-tile-slide, 25%);
+$color-tile-slide-dark      : darken($color-tile-slide, 15%);
+
 // Warships
 $color-warships             : #5298d6;
 

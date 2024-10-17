@@ -2,6 +2,7 @@ import { Component, Renderer2, inject } from '@angular/core';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { GamesHomeComponent } from './games-home.component';
 import { SudokuComponent } from './sudoku/sudoku.component';
+import { TileSlideComponent } from './tile-slide/tile-slide.component';
 
 @Component({
     selector: 'ak-games',
@@ -35,6 +36,9 @@ export class GamesComponent {
         if (activatedComponent instanceof SudokuComponent) {
             (titleEl.firstChild as HTMLElement).innerHTML = 'Sudoku';
             this._renderer.setAttribute(headerEl, 'data-game', 'sudoku');
+        } else if (activatedComponent instanceof TileSlideComponent) {
+            (titleEl.firstChild as HTMLElement).innerHTML = 'Tile Slide';
+            this._renderer.setAttribute(headerEl, 'data-game', 'tile-slide');
         }
     }
 }
