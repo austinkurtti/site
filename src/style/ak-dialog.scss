@@ -1,17 +1,18 @@
 @use 'sass:math';
 
-@import 'variables';
+@use 'variables';
+@use 'keyframes';
 
 dialog {
     align-items: center;
-    background-color: rgba($color: $color-slate, $alpha: .5);
+    background-color: rgba($color: variables.$color-slate, $alpha: .5);
     border: none;
     height: 100%;
     justify-content: center;
     opacity: 0;
     padding: 0;
     width: 100%;
-    z-index: $z-index-dialog;
+    z-index: variables.$z-index-dialog;
 
     &[open] {
         display: flex;
@@ -29,24 +30,24 @@ dialog {
     }
 
     .dialog-content {
-        animation: $dialog-appear-name $dialog-appear-timing $dialog-appear-duration;
-        background-color: $color-white;
-        border-radius: math.div($base-size, 4);
-        box-shadow: $hard-box-shadow;
-        margin: 0 math.div($base-size, 2);
+        animation: keyframes.$dialog-appear-name keyframes.$dialog-appear-timing keyframes.$dialog-appear-duration;
+        background-color: variables.$color-white;
+        border-radius: math.div(variables.$base-size, 4);
+        box-shadow: variables.$hard-box-shadow;
+        margin: 0 math.div(variables.$base-size, 2);
 
         .dialog-header {
-            padding: $base-size;
+            padding: variables.$base-size;
         }
 
         .dialog-body {
             max-height: 50vh;
             overflow: auto;
-            padding: $base-size;
+            padding: variables.$base-size;
         }
 
         .dialog-actions {
-            padding: $base-size;
+            padding: variables.$base-size;
         }
     }
 
@@ -64,7 +65,7 @@ dialog {
         }
     }
 
-    @media (min-width: $breakpoint-tablet) {
+    @media (min-width: variables.$breakpoint-tablet) {
         &.small .dialog-content {
             width: 60%;
         }
@@ -78,7 +79,7 @@ dialog {
         }
     }
 
-    @media (min-width: $breakpoint-desktop) {
+    @media (min-width: variables.$breakpoint-desktop) {
         &.small .dialog-content {
             width: 40%;
         }

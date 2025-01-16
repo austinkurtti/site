@@ -1,21 +1,21 @@
 @use 'sass:math';
 
-@import 'variables';
+@use 'variables';
 
 .curly-brace {
-    color: $color-gold;
-    font-size: $default-font-size * 3;
+    color: variables.$color-gold;
+    font-size: variables.$default-font-size * 3;
     font-weight: bold;
 }
 
 #quick-facts {
-    background-color: $theme-primary-background;
-    border: 1px solid $theme-font-color;
+    background-color: variables.$theme-primary-background;
+    border: 1px solid variables.$theme-font-color;
 
     i {
-        color: $color-green;
+        color: variables.$color-green;
         text-align: center;
-        width: $base-size * 3;
+        width: variables.$base-size * 3;
     }
 
     [class$=-fact] {
@@ -24,7 +24,7 @@
 
     .primary-fact {
         font-weight: bold;
-        margin-bottom: math.div($base-size, 4);
+        margin-bottom: math.div(variables.$base-size, 4);
     }
 
     .secondary-fact {

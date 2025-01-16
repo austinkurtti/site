@@ -1,29 +1,29 @@
 @use 'sass:math';
 
-@import 'variables';
-@import 'keyframes';
+@use 'variables';
+@use 'keyframes';
 
 :host {
-    background-color: $theme-content-background;
-    color: $theme-font-color;
+    background-color: variables.$theme-content-background;
+    color: variables.$theme-font-color;
     display: block;
 
     header {
-        animation: $opacity-name $opacity-duration $opacity-timing;
-        background-color: $theme-primary-background;
-        box-shadow: $soft-box-shadow;
-        z-index: $z-index-header;
+        animation: keyframes.$opacity-name keyframes.$opacity-duration keyframes.$opacity-timing;
+        background-color: variables.$theme-primary-background;
+        box-shadow: variables.$soft-box-shadow;
+        z-index: variables.$z-index-header;
 
         #header-title span {
-            background-color: $theme-font-color;
-            color: $theme-primary-background;
+            background-color: variables.$theme-font-color;
+            color: variables.$theme-primary-background;
             font-weight: bold;
-            padding: 0 math.div($base-size, 2);
+            padding: 0 math.div(variables.$base-size, 2);
         }
 
         #header-nav {
             a:not(:last-child) {
-                margin-right: $base-size * 1.5;
+                margin-right: variables.$base-size * 1.5;
             }
         }
 
@@ -31,17 +31,17 @@
             width: 75%;
 
             [role=menuitem]:hover {
-                background-color: $theme-primary-background;
+                background-color: variables.$theme-primary-background;
             }
 
             #menu-buttons {
-                border-top: 1px solid $theme-font-color;
+                border-top: 1px solid variables.$theme-font-color;
             }
         }
 
         a {
-            color: $theme-font-color;
-            font-size: $default-font-size * 1.25;
+            color: variables.$theme-font-color;
+            font-size: variables.$default-font-size * 1.25;
             font-weight: normal;
             text-decoration: none;
             text-transform: uppercase;
@@ -50,10 +50,10 @@
                 position: relative;
 
                 &::after {
-                    background-color: $theme-font-color;
-                    bottom: -(math.div($base-size, 4));
+                    background-color: variables.$theme-font-color;
+                    bottom: -(math.div(variables.$base-size, 4));
                     content: '';
-                    height: math.div($base-size, 8);
+                    height: math.div(variables.$base-size, 8);
                     left: 0;
                     position: absolute;
                     transition: ease-in transform .2s;
@@ -67,7 +67,7 @@
             }
     
             &.active > span::after {
-                background-color: $color-blue;
+                background-color: variables.$color-blue;
             }
     
             &:hover > span::after {
@@ -83,10 +83,10 @@
     }
 
     footer {
-        background-color: $theme-primary-background;
+        background-color: variables.$theme-primary-background;
 
         .footer-text {
-            margin-right: $base-size * 2;
+            margin-right: variables.$base-size * 2;
         }
     }
 }

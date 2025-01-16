@@ -1,3 +1,4 @@
+@use 'sass:color';
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&display=swap');
 
 // -----------------------------------------
@@ -31,8 +32,8 @@ $color-error                : $color-red;
 
 // Sudoku
 $color-sudoku               : #9344d1;
-$color-sudoku-light         : lighten($color-sudoku, 25%);
-$color-sudoku-dark          : darken($color-sudoku, 15%);
+$color-sudoku-light         : color.adjust($color-sudoku, $lightness: 25%);
+$color-sudoku-dark          : color.adjust($color-sudoku, $lightness: -15%);
 
 // Solitaire
 $color-solitaire-green      : #38b64a;

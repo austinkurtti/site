@@ -1,74 +1,76 @@
+@use 'variables';
+
 // Color classes
 .color-white {
-    color: $color-white;
-    fill: $color-white;
-    stroke: $color-white;
+    color: variables.$color-white;
+    fill: variables.$color-white;
+    stroke: variables.$color-white;
 }
 
 .color-red {
-    color: $color-red;
-    fill: $color-red;
-    stroke: $color-red;
+    color: variables.$color-red;
+    fill: variables.$color-red;
+    stroke: variables.$color-red;
 }
 
 .color-orange {
-    color: $color-orange;
-    fill: $color-orange;
-    stroke: $color-orange;
+    color: variables.$color-orange;
+    fill: variables.$color-orange;
+    stroke: variables.$color-orange;
 }
 
 .color-gold {
-    color: $color-gold;
-    fill: $color-gold;
-    stroke: $color-gold;
+    color: variables.$color-gold;
+    fill: variables.$color-gold;
+    stroke: variables.$color-gold;
 }
 
 .color-yellow {
-    color: $color-yellow;
-    fill: $color-yellow;
-    stroke: $color-yellow;
+    color: variables.$color-yellow;
+    fill: variables.$color-yellow;
+    stroke: variables.$color-yellow;
 }
 
 .color-lime {
-    color: $color-lime;
-    fill: $color-lime;
-    stroke: $color-lime;
+    color: variables.$color-lime;
+    fill: variables.$color-lime;
+    stroke: variables.$color-lime;
 }
 
 .color-green {
-    color: $color-green;
-    fill: $color-green;
-    stroke: $color-green;
+    color: variables.$color-green;
+    fill: variables.$color-green;
+    stroke: variables.$color-green;
 }
 
 .color-sky {
-    color: $color-sky;
-    fill: $color-sky;
-    stroke: $color-sky;
+    color: variables.$color-sky;
+    fill: variables.$color-sky;
+    stroke: variables.$color-sky;
 }
 
 .color-blue {
-    color: $color-blue;
-    fill: $color-blue;
-    stroke: $color-blue;
+    color: variables.$color-blue;
+    fill: variables.$color-blue;
+    stroke: variables.$color-blue;
 }
 
 .color-purple {
-    color: $color-purple;
-    fill: $color-purple;
-    stroke: $color-purple;
+    color: variables.$color-purple;
+    fill: variables.$color-purple;
+    stroke: variables.$color-purple;
 }
 
 .color-success {
-    color: $color-success;
-    fill: $color-success;
-    stroke: $color-success;
+    color: variables.$color-success;
+    fill: variables.$color-success;
+    stroke: variables.$color-success;
 }
 
 .color-error {
-    color: $color-error;
-    fill: $color-error;
-    stroke: $color-error;
+    color: variables.$color-error;
+    fill: variables.$color-error;
+    stroke: variables.$color-error;
 }
 
 // Text/font classes

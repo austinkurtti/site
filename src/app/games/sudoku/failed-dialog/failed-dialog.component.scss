@@ -1,16 +1,16 @@
-@import 'variables';
+@use 'variables';
 
 :host {
     .dialog-header {
         margin: 0;
-        padding: $base-size * 4 $base-size;
+        padding: variables.$base-size * 4 variables.$base-size;
     }
 
     .dialog-body {
-        background-color: $color-gray-100;
+        background-color: variables.$color-gray-100;
     }
 
     .dialog-actions {
-        padding: $base-size * 4 $base-size;
+        padding: variables.$base-size * 4 variables.$base-size;
     }
 }

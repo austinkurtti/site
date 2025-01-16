@@ -1,6 +1,6 @@
-@import 'variables';
+@use 'variables';
 
 h2 {
-    color: $color-purple;
+    color: variables.$color-purple;
     text-transform: lowercase;
 }

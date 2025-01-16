@@ -1,7 +1,8 @@
 @use 'sass:math';
+@use 'sass:color';
 
-@import 'variables';
-@import 'keyframes';
+@use 'variables';
+@use 'keyframes';
 
 /***********************
 
@@ -13,27 +14,27 @@ html {
     scroll-behavior: smooth;
 
     &[data-theme="light"] {
-        --theme-primary-background: #{$color-white};
-        --theme-content-background: #{$color-ivory};
-        --theme-font-color: #{$color-black};
+        --theme-primary-background: #{variables.$color-white};
+        --theme-content-background: #{variables.$color-ivory};
+        --theme-font-color: #{variables.$color-black};
 
-        --theme-hoverable-background: #{$color-black};
-        --theme-hoverable-font-color: #{$color-white};
+        --theme-hoverable-background: #{variables.$color-black};
+        --theme-hoverable-font-color: #{variables.$color-white};
     }
 
     &[data-theme="dark"] {
-        --theme-primary-background: #{$color-black};
-        --theme-content-background: #{$color-slate};
-        --theme-font-color: #{$color-white};
+        --theme-primary-background: #{variables.$color-black};
+        --theme-content-background: #{variables.$color-slate};
+        --theme-font-color: #{variables.$color-white};
 
-        --theme-hoverable-background: #{$color-white};
-        --theme-hoverable-font-color: #{$color-black};
+        --theme-hoverable-background: #{variables.$color-white};
+        --theme-hoverable-font-color: #{variables.$color-black};
     }
 }
 
 body {
-    font-family: $default-font-family;
-    font-size: $default-font-size;
+    font-family: variables.$default-font-family;
+    font-size: variables.$default-font-size;
     height: 100%;
     line-height: 1;
     margin: 0;
@@ -41,7 +42,7 @@ body {
 
 section {
     .content {
-        padding: $base-size * 10 0;
+        padding: variables.$base-size * 10 0;
 
         &.deferred {
             opacity: 0;
@@ -64,7 +65,7 @@ h1, h2, h3, h4, h5 {
 }
 
 h3:not(:last-child) {
-    margin-bottom: $base-size;
+    margin-bottom: variables.$base-size;
 }
 
 label {
@@ -78,7 +79,7 @@ p {
 }
 
 p:not(:last-child) {
-    margin-bottom: $base-size;
+    margin-bottom: variables.$base-size;
 }
 
 :focus:not(:focus-visible) {
@@ -87,21 +88,21 @@ p:not(:last-child) {
 }
 
 :focus-visible, button:focus {
-    outline-color: $theme-font-color;
+    outline-color: variables.$theme-font-color;
     outline-style: dashed;
-    outline-width: math.div($base-size, 4);
+    outline-width: math.div(variables.$base-size, 4);
 }
 
 button {
     background-color: transparent;
-    border-color: $theme-font-color;
-    border-radius: math.div($base-size, 4);
+    border-color: variables.$theme-font-color;
+    border-radius: math.div(variables.$base-size, 4);
     border-style: solid;
-    border-width: math.div($base-size, 8);
-    color: $theme-font-color;
-    font-family: $default-font-family;
-    font-size: $default-font-size;
-    padding: math.div($base-size, 2);
+    border-width: math.div(variables.$base-size, 8);
+    color: variables.$theme-font-color;
+    font-family: variables.$default-font-family;
+    font-size: variables.$default-font-size;
+    padding: math.div(variables.$base-size, 2);
 
     &:disabled {
         opacity: .5;
@@ -111,7 +112,7 @@ button {
         cursor: pointer;
 
         &:hover {
-            background-color: lighten($color-slate, 60%);
+            background-color: color.adjust(variables.$color-slate, $lightness: 60%);
         }
     }
     
@@ -124,23 +125,23 @@ button {
 
         &:not(:disabled):hover {
             background-color: transparent;
-            color: $color-blue;
+            color: variables.$color-blue;
         }
     }
 
     &.confirm-button {
         &:hover, &:focus {
-            background-color: $color-green;
-            border-color: $color-green;
-            color: $color-white;
+            background-color: variables.$color-green;
+            border-color: variables.$color-green;
+            color: variables.$color-white;
         }
     }
 
     &.cancel-button {
         &:hover, &:focus {
-            background-color: $color-red;
-            border-color: $color-red;
-            color: $color-white;
+            background-color: variables.$color-red;
+            border-color: variables.$color-red;
+            color: variables.$color-white;
         }
     }
 }
@@ -150,7 +151,7 @@ a[href] {
     text-decoration: none;
 
     &:link, &:visited {
-        color: $color-blue;
+        color: variables.$color-blue;
     }
 
     &:hover {
@@ -163,20 +164,20 @@ ul {
 }
 
 kbd {
-    background-color: $color-ivory;
-    border-color: $color-gray-300;
+    background-color: variables.$color-ivory;
+    border-color: variables.$color-gray-300;
     border-radius: 3px;
     border-style: solid;
     border-width: 1px;
     box-shadow:
-        0 1px 1px rgba($color: $color-black, $alpha: 2),
-        0 2px 0 0 rgba($color: $color-white, $alpha: 7) inset;
-    color: $color-black;
+        0 1px 1px rgba($color: variables.$color-black, $alpha: 2),
+        0 2px 0 0 rgba($color: variables.$color-white, $alpha: 7) inset;
+    color: variables.$color-black;
     display: inline-block;
-    font-size: $default-font-size * .8;
+    font-size: variables.$default-font-size * .8;
     font-weight: bold;
     line-height: 1;
-    padding: math.div($base-size, 8) math.div($base-size, 4);
+    padding: math.div(variables.$base-size, 8) math.div(variables.$base-size, 4);
     white-space: nowrap;
 }
 
@@ -187,132 +188,132 @@ kbd {
 ***********************/
 @media (min-width: 0px) {
     header {
-        height: $header-height * .5;
+        height: variables.$header-height * .5;
 
         .header-icon-button {
-            height: $header-height * .5;
-            width: $header-height * .5;
+            height: variables.$header-height * .5;
+            width: variables.$header-height * .5;
         }
 
         #header-title span {
-            font-size: $default-font-size * 1.25;
-            line-height: $base-size * 1.25;
+            font-size: variables.$default-font-size * 1.25;
+            line-height: variables.$base-size * 1.25;
         }
     }
 
     main {
-        padding-top: $header-height * .5;
+        padding-top: variables.$header-height * .5;
     }
 
     footer {
-        height: $header-height * .5;
+        height: variables.$header-height * .5;
     }
 
     h1 {
-        font-size: $default-font-size * 3;
-        line-height: $default-font-size * 3;
+        font-size: variables.$default-font-size * 3;
+        line-height: variables.$default-font-size * 3;
     }
 
     h2 {
-        font-size: $default-font-size * 2;
-        line-height: $default-font-size * 2;
+        font-size: variables.$default-font-size * 2;
+        line-height: variables.$default-font-size * 2;
     }
 
     h3 {
-        font-size: $default-font-size * 1.25;
-        line-height: $default-font-size * 1.25;
+        font-size: variables.$default-font-size * 1.25;
+        line-height: variables.$default-font-size * 1.25;
     }
 
     h4 {
-        font-size: $default-font-size * 1.1;
-        line-height: $default-font-size * 1.1;
+        font-size: variables.$default-font-size * 1.1;
+        line-height: variables.$default-font-size * 1.1;
     }
 }
 
-@media (min-width: $breakpoint-tablet) {
+@media (min-width: variables.$breakpoint-tablet) {
     header {
-        height: $header-height * .75;
+        height: variables.$header-height * .75;
 
         .header-icon-button {
-            height: $header-height * .75;
-            width: $header-height * .75;
+            height: variables.$header-height * .75;
+            width: variables.$header-height * .75;
         }
 
         #header-title span {
-            font-size: $default-font-size * 1.75;
-            line-height: $base-size * 1.75;
+            font-size: variables.$default-font-size * 1.75;
+            line-height: variables.$base-size * 1.75;
         }
     }
 
     main {
-        padding-top: $header-height * .75;
+        padding-top: variables.$header-height * .75;
     }
 
     footer {
-        height: $header-height * .75;
+        height: variables.$header-height * .75;
     }
 
     h1 {
-        font-size: $default-font-size * 4.5;
-        line-height: $default-font-size * 4.5;
+        font-size: variables.$default-font-size * 4.5;
+        line-height: variables.$default-font-size * 4.5;
     }
 
     h2 {
-        font-size: $default-font-size * 2.5;
-        line-height: $default-font-size * 2.5;
+        font-size: variables.$default-font-size * 2.5;
+        line-height: variables.$default-font-size * 2.5;
     }
 
     h3 {
-        font-size: $default-font-size * 1.35;
-        line-height: $default-font-size * 1.35;
+        font-size: variables.$default-font-size * 1.35;
+        line-height: variables.$default-font-size * 1.35;
     }
 
     h4 {
-        font-size: $default-font-size * 1.15;
-        line-height: $default-font-size * 1.15;
+        font-size: variables.$default-font-size * 1.15;
+        line-height: variables.$default-font-size * 1.15;
     }
 }
 
-@media (min-width: $breakpoint-desktop) {
+@media (min-width: variables.$breakpoint-desktop) {
     header {
-        height: $header-height;
+        height: variables.$header-height;
 
         .header-icon-button {
-            height: $header-height;
-            width: $header-height;
+            height: variables.$header-height;
+            width: variables.$header-height;
         }
 
         #header-title span {
-            font-size: $default-font-size * 2;
-            line-height: $base-size * 2;
+            font-size: variables.$default-font-size * 2;
+            line-height: variables.$base-size * 2;
         }
     }
 
     main {
-        padding-top: $header-height;
+        padding-top: variables.$header-height;
     }
 
     footer {
-        height: $header-height;
+        height: variables.$header-height;
     }
 
     h1 {
-        font-size: $default-font-size * 6;
-        line-height: $default-font-size * 6;
+        font-size: variables.$default-font-size * 6;
+        line-height: variables.$default-font-size * 6;
     }
 
     h2 {
-        font-size: $default-font-size * 3;
-        line-height: $default-font-size * 3;
+        font-size: variables.$default-font-size * 3;
+        line-height: variables.$default-font-size * 3;
     }
 
     h3 {
-        font-size: $default-font-size * 1.5;
-        line-height: $default-font-size * 1.5;
+        font-size: variables.$default-font-size * 1.5;
+        line-height: variables.$default-font-size * 1.5;
     }
 
     h4 {
-        font-size: $default-font-size * 1.25;
-        line-height: $default-font-size * 1.25;
+        font-size: variables.$default-font-size * 1.25;
+        line-height: variables.$default-font-size * 1.25;
     }
 }

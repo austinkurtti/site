@@ -1,25 +1,25 @@
-@import 'variables';
+@use 'variables';
 
 :host {
-    height: $base-size * 2;
+    height: variables.$base-size * 2;
 
     .contact-icon-wrapper {
         display: inline-block;
-        margin-left: $base-size * 2;
+        margin-left: variables.$base-size * 2;
 
         &:first-child {
             margin-left: 0;
         }
 
         .contact-icon {
-            color: $theme-font-color;
-            font-size: $default-font-size;
-            height: $base-size * 2;
+            color: variables.$theme-font-color;
+            font-size: variables.$default-font-size;
+            height: variables.$base-size * 2;
             text-decoration: none;
-            width: $base-size * 2;
+            width: variables.$base-size * 2;
 
             &:hover {
-                color: $color-blue;
+                color: variables.$color-blue;
             }
         }
     }

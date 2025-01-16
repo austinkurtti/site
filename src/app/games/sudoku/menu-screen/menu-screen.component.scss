@@ -1,6 +1,6 @@
 @use 'sass:math';
 
-@import 'variables';
+@use 'variables';
 
 :host {
     display: block;
@@ -23,26 +23,26 @@
     }
 
     [id^=difficulty-] {
-        padding: $base-size;
+        padding: variables.$base-size;
         text-align: center;
         width: 100%;
 
         &.selected {
-            background-color: $color-sudoku-light;
-            color: $color-sudoku-dark;
+            background-color: variables.$color-sudoku-light;
+            color: variables.$color-sudoku-dark;
             font-weight: bold;
         }
     }
 
     #confirm-button:hover {
-        background-color: $color-green;
-        border-color: $color-green;
-        color: $color-white;
+        background-color: variables.$color-green;
+        border-color: variables.$color-green;
+        color: variables.$color-white;
     }
 
     #cancel-button:hover {
-        background-color: $color-red;
-        border-color: $color-red;
-        color: $color-white;
+        background-color: variables.$color-red;
+        border-color: variables.$color-red;
+        color: variables.$color-white;
     }
 }

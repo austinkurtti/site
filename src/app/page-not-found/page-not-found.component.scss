@@ -1,13 +1,13 @@
-@import 'variables';
+@use 'variables';
 
 :host {
-    background-color: $theme-content-background;
+    background-color: variables.$theme-content-background;
     display: block;
     height: 100%;
 
     #oops {
-        background-color: $color-gray-100;
-        border-radius: $base-size;
-        padding: $base-size * 5;
+        background-color: variables.$color-gray-100;
+        border-radius: variables.$base-size;
+        padding: variables.$base-size * 5;
     }
 }

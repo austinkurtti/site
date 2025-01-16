@@ -1,12 +1,12 @@
-@import 'variables';
-@import 'keyframes';
+@use 'variables';
+@use 'keyframes';
 
 section {
-    background: repeating-linear-gradient(0deg, $theme-primary-background 0, $theme-primary-background 20%, transparent 0, transparent 50%),
-                repeating-linear-gradient(45deg, $theme-content-background 0, $theme-content-background 10%, transparent 0, transparent 50%);
-    background-color: $theme-primary-background;
-    background-size: $base-size * 2 $base-size * 2;
-    border-bottom: 1px solid $theme-font-color;
+    background: repeating-linear-gradient(0deg, variables.$theme-primary-background 0, variables.$theme-primary-background 20%, transparent 0, transparent 50%),
+                repeating-linear-gradient(45deg, variables.$theme-content-background 0, variables.$theme-content-background 10%, transparent 0, transparent 50%);
+    background-color: variables.$theme-primary-background;
+    background-size: variables.$base-size * 2 variables.$base-size * 2;
+    border-bottom: 1px solid variables.$theme-font-color;
     min-height: 100vh;
 
     .content {
@@ -17,65 +17,65 @@ section {
 
             h1 {
                 #hi {
-                    animation: $opacity-name $opacity-duration $opacity-timing;
+                    animation: keyframes.$opacity-name keyframes.$opacity-duration keyframes.$opacity-timing;
                     animation-delay: .75s;
                     animation-fill-mode: forwards;
-                    color: $theme-font-color;
+                    color: variables.$theme-font-color;
                     opacity: 0;
                 }
 
                 #im {
-                    animation: $opacity-name $opacity-duration $opacity-timing;
+                    animation: keyframes.$opacity-name keyframes.$opacity-duration keyframes.$opacity-timing;
                     animation-delay: 1.5s;
                     animation-fill-mode: forwards;
-                    color: $theme-font-color;
+                    color: variables.$theme-font-color;
                     opacity: 0;
                 }
 
                 #austin {
-                    animation: $opacity-name $opacity-duration $opacity-timing;
+                    animation: keyframes.$opacity-name keyframes.$opacity-duration keyframes.$opacity-timing;
                     animation-delay: 1.75s;
                     animation-fill-mode: forwards;
-                    color: $color-green;
+                    color: variables.$color-green;
                     opacity: 0;
                 }
             }
 
             img {
-                animation: $opacity-name $opacity-duration $opacity-timing;
+                animation: keyframes.$opacity-name keyframes.$opacity-duration keyframes.$opacity-timing;
                 animation-delay: 2s;
                 animation-fill-mode: forwards;
-                border-radius: $base-size;
-                box-shadow: $hard-box-shadow;
+                border-radius: variables.$base-size;
+                box-shadow: variables.$hard-box-shadow;
                 opacity: 0;
 
                 @media (min-width: 0px) {
                     height: 30vh;
                 }
         
-                @media (min-width: $breakpoint-tablet) {
+                @media (min-width: variables.$breakpoint-tablet) {
                     height: 40vh;
                 }
         
-                @media (min-width: $breakpoint-desktop) {
+                @media (min-width: variables.$breakpoint-desktop) {
                     height: 50vh;
                 }
             }
         }
 
         #scroll-down {
-            animation: $opacity-name $opacity-duration $opacity-timing;
+            animation: keyframes.$opacity-name keyframes.$opacity-duration keyframes.$opacity-timing;
             animation-delay: 2.25s;
             animation-fill-mode: forwards;
             bottom: 0%;
-            color: $theme-font-color;
+            color: variables.$theme-font-color;
             left: 50%;
             opacity: 0;
             transform: translateX(-50%);
             user-select: none;
 
             i {
-                animation: $bounce-name $bounce-duration $bounce-timing;
+                animation: keyframes.$bounce-name keyframes.$bounce-duration keyframes.$bounce-timing;
                 animation-iteration-count: infinite;
             }
         }

@@ -1,27 +1,27 @@
 @use 'sass:math';
 
-@import 'variables';
+@use 'variables';
 
 .curly-brace {
-    color: $color-gold;
-    font-size: $default-font-size * 3;
+    color: variables.$color-gold;
+    font-size: variables.$default-font-size * 3;
     font-weight: bold;
 }
 
 #skill-filters {
-    background-color: $theme-primary-background;
-    border: 1px solid $theme-font-color;
-    padding: $base-size;
+    background-color: variables.$theme-primary-background;
+    border: 1px solid variables.$theme-font-color;
+    padding: variables.$base-size;
 
     button {
-        $translate-distance: math.div($base-size, 8);
+        $translate-distance: math.div(variables.$base-size, 8);
 
         border-color: currentColor;
         box-shadow: $translate-distance $translate-distance currentColor;
         transform: translate($translate-distance * -1, $translate-distance * -1);
 
         &:not(:last-child) {
-            margin-right: $base-size;
+            margin-right: variables.$base-size;
         }
 
         &:hover, &:focus-visible {
@@ -37,14 +37,14 @@
         }
 
         &.off {
-            background-color: $theme-content-background;
-            color: $theme-font-color;
+            background-color: variables.$theme-content-background;
+            color: variables.$theme-font-color;
         }
     }
 }
 
 #skill-grid {
-    border-color: $theme-font-color;
+    border-color: variables.$theme-font-color;
     border-style: solid;
     border-width: 0 1px 1px 1px;
     position: relative;

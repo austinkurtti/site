@@ -1,8 +1,8 @@
 @use 'sass:math';
 
-@import 'variables';
-@import 'keyframes';
+@use 'variables';
+@use 'keyframes';
 
 #career-item-container {
-    background-color: $theme-primary-background;
+    background-color: variables.$theme-primary-background;
 }

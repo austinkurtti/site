@@ -1,6 +1,7 @@
 @use 'sass:math';
+@use 'sass:color';
 
-@import 'variables';
+@use 'variables';
 
 :host {
     display: block;
@@ -18,9 +19,9 @@
     }
 
     p {
-        font-size: $default-font-size * .8;
+        font-size: variables.$default-font-size * .8;
         font-style: italic;
-        line-height: $default-font-size;
+        line-height: variables.$default-font-size;
     }
 
     .toggle-container {
@@ -29,54 +30,54 @@
 
         &.off {
             .toggle-background {
-                background-color: $color-gray-300;
+                background-color: variables.$color-gray-300;
             }
 
             .toggle-foreground {
-                left: math.div($base-size, 4);
+                left: math.div(variables.$base-size, 4);
             }
         }
 
         &.on {
             .toggle-background {
-                background-color: $color-success;
+                background-color: variables.$color-success;
             }
 
             .toggle-foreground {
-                left: $base-size * 3.25;
+                left: variables.$base-size * 3.25;
             }
         }
 
         .toggle-background {
             align-items: center;
-            border-radius: $base-size;
+            border-radius: variables.$base-size;
             display: flex;
             justify-content: space-between;
-            padding: math.div($base-size, 2);
+            padding: math.div(variables.$base-size, 2);
             transition: ease-in background-color .1s;
-            width: $base-size * 4;
+            width: variables.$base-size * 4;
 
             .fa-check {
-                color: lighten($color-success, 60%);
-                height: $base-size;
-                width: $base-size;
+                color: color.adjust(variables.$color-success, $lightness: 60%);
+                height: variables.$base-size;
+                width: variables.$base-size;
             }
 
             .fa-times {
-                color: $color-slate;
-                height: $base-size;
-                width: $base-size;
+                color: variables.$color-slate;
+                height: variables.$base-size;
+                width: variables.$base-size;
             }
         }
 
         .toggle-foreground {
-            background-color: $color-white;
-            border-radius: $base-size;
-            height: $base-size * 1.5;
+            background-color: variables.$color-white;
+            border-radius: variables.$base-size;
+            height: variables.$base-size * 1.5;
             position: absolute;
-            top: math.div($base-size, 4);
+            top: math.div(variables.$base-size, 4);
             transition: ease-in left .1s;
-            width: $base-size * 1.5;
+            width: variables.$base-size * 1.5;
         }
     }
 }

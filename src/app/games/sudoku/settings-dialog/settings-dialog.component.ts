@@ -2,15 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ToggleComponent } from '@components/toggle/toggle.component';
 import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
-import { TooltipDirective } from '@directives/tooltip/tooltip.directive';
 import { LocalStorageService } from '@services/local-storage.service';
 import { SudokuManager } from '../sudoku-manager';
 
 @Component({
     imports: [
         CommonModule,
-        ToggleComponent,
-        TooltipDirective
+        ToggleComponent
     ],
     selector: 'ak-settings-dialog',
     styleUrls: ['./settings-dialog.component.scss'],

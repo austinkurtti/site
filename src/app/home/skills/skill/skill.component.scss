@@ -1,20 +1,20 @@
-@import 'variables';
+@use 'variables';
 
 :host {
     &[skill-type=front] {
-        color: $color-green;
+        color: variables.$color-green;
     }
 
     &[skill-type=back] {
-        color: $color-red;
+        color: variables.$color-red;
     }
 
     &[skill-type=data] {
-        color: $color-sky;
+        color: variables.$color-sky;
     }
 
     &[skill-type=tool] {
-        color: $color-orange;
+        color: variables.$color-orange;
     }
 
     .skill-icon {
@@ -26,15 +26,15 @@
         }
 
         @media (min-width: 0px) {
-            font-size: $default-font-size * 3;
+            font-size: variables.$default-font-size * 3;
         }
 
-        @media (min-width: $breakpoint-tablet) {
-            font-size: $default-font-size * 4.5;
+        @media (min-width: variables.$breakpoint-tablet) {
+            font-size: variables.$default-font-size * 4.5;
         }
 
-        @media (min-width: $breakpoint-desktop) {
-            font-size: $default-font-size * 6;
+        @media (min-width: variables.$breakpoint-desktop) {
+            font-size: variables.$default-font-size * 6;
         }
     }
 }

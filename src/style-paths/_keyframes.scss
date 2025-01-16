@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables';
 
 // -----------------------------------------
 // Core keyframes
@@ -81,7 +81,7 @@ $dialog-appear-timing       : ease-in;
 @keyframes #{$dialog-appear-name} {
     0% {
         opacity: 0;
-        transform: translateY($base-size * -2);
+        transform: translateY(variables.$base-size * -2);
     }
     100% {
         opacity: 1;
@@ -98,10 +98,10 @@ $bg-pos-scroll-timing       : linear;
 @keyframes #{$bg-pos-scroll-name} {
     0% {
         background-position-x: 0;
-        background-position-y: $base-size;
+        background-position-y: variables.$base-size;
     }
     100% {
-        background-position-x: $base-size * 1.5;
-        background-position-y: $base-size * 4;
+        background-position-x: variables.$base-size * 1.5;
+        background-position-y: variables.$base-size * 4;
     }
 }

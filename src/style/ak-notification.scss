@@ -1,30 +1,30 @@
 @use 'sass:math';
 
-@import 'variables';
+@use 'variables';
 
 .ak-notification {
     align-items: center;
-    border-radius: math.div($base-size, 4);
-    bottom: $base-size;
+    border-radius: math.div(variables.$base-size, 4);
+    bottom: variables.$base-size;
     display: flex;
-    left: $base-size;
-    padding: $base-size;
+    left: variables.$base-size;
+    padding: variables.$base-size;
     position: absolute;
-    z-index: $z-index-notification;
+    z-index: variables.$z-index-notification;
 
     &.info {
-        background-color: $color-blue;
+        background-color: variables.$color-blue;
     }
 
     &.success {
-        background-color: $color-green;
+        background-color: variables.$color-green;
     }
 
     &.error {
-        background-color: $color-red;
+        background-color: variables.$color-red;
     }
 
     i {
-        margin-right: $base-size;
+        margin-right: variables.$base-size;
     }
 }
