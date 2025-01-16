@@ -14,8 +14,7 @@
 
     <div id="sudoku-state" class="col col-lg-4 text-center">
         <ng-container *ngIf="gameManager.gameSettings.showTimer">
-            <button tabindex="0"
-                class="icon-button"
+            <button class="icon-button"
                 [disabled]="board.state === GameState.solved"
                 (click)="board.state === GameState.paused ? resumeTimer(true) : (board.state === GameState.running ? pauseTimer(true) : null)">
                 <i class="fas"

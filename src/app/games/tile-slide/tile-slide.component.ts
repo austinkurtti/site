@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { TooltipDirective } from '@directives/tooltip/tooltip.directive';
 
 @Component({
     standalone: true,
     selector: 'ak-tile-slide',
     styleUrls: ['./tile-slide.component.scss'],
     templateUrl: './tile-slide.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
-        CommonModule
+        CommonModule,
+        TooltipDirective
     ]
 })
 export class TileSlideComponent implements OnInit {
@@ -33,5 +36,13 @@ export class TileSlideComponent implements OnInit {
                 row[i] = randomizedNums.shift();
             }
         });
+    }
+
+    public back(): void {
+        // TODO
+    }
+
+    public showHelpDialog(): void {
+        // TODO
     }
 }

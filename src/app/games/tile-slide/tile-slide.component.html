@@ -1,3 +1,32 @@
+<div id="tile-slide-header" class="row g-0 px-2 px-lg-4 align-items-center">
+    <div id="tile-slide-nav" class="col-auto col-lg-4">
+        <button akTooltip
+            class="icon-button"
+            [tooltipContent]="'Back'"
+            (click)="back()">
+            <i class="fas fa-2x fa-angle-left"></i>
+        </button>
+    </div>
+
+    <div id="tile-slide-state" class="col col-lg-4 text-center">
+        <button class="icon-button">
+            <i class="fas fa-pause"></i>
+        </button>
+        <span id="tile-slide-time" class="ms-3">00:00:00</span>
+        <span id="tile-slide-moves" class="ms-3">0</span>
+    </div>
+
+    <div id="tile-slide-actions" class="col-auto col-lg-4 d-flex justify-content-end">
+        <button
+            akTooltip
+            class="icon-button"
+            [tooltipContent]="'Help'"
+            (click)="showHelpDialog()">
+            <i class="fas fa-question-circle fa-2x"></i>
+        </button>
+    </div>
+</div>
+
 <div id="tile-slide-content" class="row g-0">
     <div id="tile-slide-container" class="col align-items-center p-5">
         <div id="tile-slide-board">
