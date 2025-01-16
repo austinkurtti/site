@@ -2,7 +2,8 @@ import { Directive, ElementRef, HostBinding, OnDestroy, OnInit, inject } from '@
 import { MenuDirective } from './menu.directive';
 
 @Directive({
-    selector: '[akMenuContent]'
+    selector: '[akMenuContent]',
+    standalone: false
 })
 export class MenuContentDirective implements OnInit, OnDestroy {
     @HostBinding('attr.role') role = 'menu';

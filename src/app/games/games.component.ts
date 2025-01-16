@@ -6,7 +6,8 @@ import { SudokuComponent } from './sudoku/sudoku.component';
 @Component({
     selector: 'ak-games',
     styleUrls: ['./games.component.scss'],
-    templateUrl: './games.component.html'
+    templateUrl: './games.component.html',
+    standalone: false
 })
 export class GamesComponent {
     // eslint-disable-next-line @typescript-eslint/naming-convention

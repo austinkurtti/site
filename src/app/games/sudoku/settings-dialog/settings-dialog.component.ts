@@ -7,7 +7,6 @@ import { LocalStorageService } from '@services/local-storage.service';
 import { SudokuManager } from '../sudoku-manager';
 
 @Component({
-    standalone: true,
     imports: [
         CommonModule,
         ToggleComponent,

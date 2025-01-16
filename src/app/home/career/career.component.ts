@@ -6,7 +6,8 @@ import { CareerItemComponent } from './career-item/career-item.component';
 @Component({
     selector: 'ak-career',
     styleUrls: ['./career.component.scss'],
-    templateUrl: './career.component.html'
+    templateUrl: './career.component.html',
+    standalone: false
 })
 export class CareerComponent extends SectionDirective {
     @ViewChildren(CareerItemComponent) careerItems: QueryList<CareerItemComponent>;

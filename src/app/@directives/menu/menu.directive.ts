@@ -12,7 +12,8 @@ export enum MenuPosition {
 }
 
 @Directive({
-    selector: '[akMenu]'
+    selector: '[akMenu]',
+    standalone: false
 })
 export class MenuDirective {
     @Input() menuPosition: MenuPosition = MenuPosition.bottomRight;

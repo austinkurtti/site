@@ -5,7 +5,8 @@ import { SkillType } from '../skills.models';
 @Component({
     selector: 'ak-skill',
     styleUrls: ['./skill.component.scss'],
-    templateUrl: './skill.component.html'
+    templateUrl: './skill.component.html',
+    standalone: false
 })
 export class SkillComponent {
     @Input() name: string;

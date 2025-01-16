@@ -5,7 +5,8 @@ import { DialogService } from '@services/dialog.service';
 @Component({
     selector: 'ak-app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements AfterViewInit {
     @ViewChild(DialogDirective, { static: true }) dialog: DialogDirective;

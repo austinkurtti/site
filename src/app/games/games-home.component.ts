@@ -4,7 +4,8 @@ import { GameLinkModel } from './games.models';
 @Component({
     selector: 'ak-games-home',
     styleUrls: ['./games-home.component.scss'],
-    templateUrl: './games-home.component.html'
+    templateUrl: './games-home.component.html',
+    standalone: false
 })
 export class GamesHomeComponent {
     public games: GameLinkModel[] = [

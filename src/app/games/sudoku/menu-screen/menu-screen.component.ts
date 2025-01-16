@@ -9,7 +9,8 @@ import { SudokuMenuState } from './menu-screen.models';
 @Component({
     selector: 'ak-sudoku-menu-screen',
     styleUrls: ['./menu-screen.component.scss'],
-    templateUrl: './menu-screen.component.html'
+    templateUrl: './menu-screen.component.html',
+    standalone: false
 })
 export class SudokuMenuScreenComponent {
     public gameManager = inject(SudokuManager);

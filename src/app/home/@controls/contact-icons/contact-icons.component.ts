@@ -4,7 +4,8 @@ import { ContactIconModel } from './contact-icon.model';
 @Component({
     selector: 'ak-contact-icons',
     templateUrl: './contact-icons.component.html',
-    styleUrls: ['./contact-icons.component.scss']
+    styleUrls: ['./contact-icons.component.scss'],
+    standalone: false
 })
 export class ContactIconsComponent {
     public icons = [

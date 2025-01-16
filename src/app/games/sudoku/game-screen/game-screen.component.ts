@@ -20,7 +20,8 @@ import { SudokuCandidate, SudokuCell, SudokuGameState, SudokuScreenState } from 
 @Component({
     selector: 'ak-sudoku-game-screen',
     styleUrls: ['./game-screen.component.scss'],
-    templateUrl: './game-screen.component.html'
+    templateUrl: './game-screen.component.html',
+    standalone: false
 })
 export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     // #region - Public variables

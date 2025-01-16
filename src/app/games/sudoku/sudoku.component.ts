@@ -6,7 +6,8 @@ import { SudokuDifficulty, SudokuGameInstance, SudokuScreenState } from './sudok
 @Component({
     selector: 'ak-sudoku',
     styleUrls: ['./sudoku.component.scss'],
-    templateUrl: './sudoku.component.html'
+    templateUrl: './sudoku.component.html',
+    standalone: false
 })
 export class SudokuComponent implements OnInit, OnDestroy {
     public gameManager = inject(SudokuManager);

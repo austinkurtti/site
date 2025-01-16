@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { TooltipDirective } from '@directives/tooltip/tooltip.directive';
 
 @Component({
-    standalone: true,
     imports: [
         CommonModule,
         FormsModule,

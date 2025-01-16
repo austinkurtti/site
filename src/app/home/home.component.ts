@@ -9,7 +9,8 @@ import { NavigationAnchorModel } from './navigation.model';
 @Component({
     selector: 'ak-home',
     styleUrls: ['./home.component.scss'],
-    templateUrl: './home.component.html'
+    templateUrl: './home.component.html',
+    standalone: false
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('header') header: ElementRef;

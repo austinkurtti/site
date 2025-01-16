@@ -8,7 +8,6 @@ import { take } from 'rxjs/operators';
 import { SudokuManager } from '../sudoku-manager';
 
 @Component({
-    standalone: true,
     imports: [
         CommonModule,
         DifficultyPipe

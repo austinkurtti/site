@@ -6,7 +6,8 @@ import { SkillType, skills } from './skills.models';
 @Component({
     selector: 'ak-skills',
     styleUrls: ['./skills.component.scss'],
-    templateUrl: './skills.component.html'
+    templateUrl: './skills.component.html',
+    standalone: false
 })
 export class SkillsComponent extends SectionDirective implements OnInit {
     public navigationId = skillsId;

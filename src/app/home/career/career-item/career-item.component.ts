@@ -3,7 +3,8 @@ import { Component, ContentChild, EventEmitter, HostBinding, Input, Output, Temp
 @Component({
     selector: 'ak-career-item',
     styleUrls: ['./career-item.component.scss'],
-    templateUrl: './career-item.component.html'
+    templateUrl: './career-item.component.html',
+    standalone: false
 })
 export class CareerItemComponent {
     @Input() name: string;

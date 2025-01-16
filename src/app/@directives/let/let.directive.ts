@@ -5,7 +5,8 @@ interface ILetContext<T> {
 }
 
 @Directive({
-    selector: '[akLet]'
+    selector: '[akLet]',
+    standalone: false
 })
 export class LetDirective<T> {
     @Input()
