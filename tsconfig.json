@@ -2,7 +2,6 @@
     "compileOnSave": false,
     "compilerOptions": {
         "baseUrl": "./",
-        "downlevelIteration": true,
         "paths": {
             "@components/*": [
                 "src/app/@components/*"
@@ -27,6 +26,7 @@
             ]
         },
         "outDir": "./dist/out-tsc",
+        "esModuleInterop": true,
         "sourceMap": true,
         "declaration": false,
         "module": "es2020",
