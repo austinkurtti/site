@@ -1,10 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, ContentChild, EventEmitter, HostBinding, Input, Output, TemplateRef } from '@angular/core';
 
 @Component({
     selector: 'ak-career-item',
     styleUrls: ['./career-item.component.scss'],
     templateUrl: './career-item.component.html',
-    standalone: false
+    imports: [
+        CommonModule
+    ]
 })
 export class CareerItemComponent {
     @Input() name: string;

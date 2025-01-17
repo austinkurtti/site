@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from '@components/confirm/confirm.component';
@@ -9,6 +10,13 @@ import { DialogService } from '@services/dialog.service';
 import { NotificationService } from '@services/notification.service';
 import { BehaviorSubject, Subject, Subscription, timer } from 'rxjs';
 import { skip, takeUntil } from 'rxjs/operators';
+import { ToggleComponent } from '../../../@components/toggle/toggle.component';
+import { MenuContentDirective } from '../../../@directives/menu/menu-content.directive';
+import { MenuItemDirective } from '../../../@directives/menu/menu-item.directive';
+import { MenuDirective } from '../../../@directives/menu/menu.directive';
+import { TooltipDirective } from '../../../@directives/tooltip/tooltip.directive';
+import { DifficultyPipe } from '../../../@pipes/difficulty.pipe';
+import { HasFlagPipe } from '../../../@pipes/has-flag.pipe';
 import { FailedDialogComponent } from '../failed-dialog/failed-dialog.component';
 import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
 import { SettingsDialogComponent } from '../settings-dialog/settings-dialog.component';
@@ -21,7 +29,16 @@ import { SudokuCandidate, SudokuCell, SudokuGameState, SudokuScreenState } from 
     selector: 'ak-sudoku-game-screen',
     styleUrls: ['./game-screen.component.scss'],
     templateUrl: './game-screen.component.html',
-    standalone: false
+    imports: [
+        CommonModule,
+        DifficultyPipe,
+        HasFlagPipe,
+        MenuDirective,
+        MenuContentDirective,
+        MenuItemDirective,
+        ToggleComponent,
+        TooltipDirective
+    ]
 })
 export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     // #region - Public variables

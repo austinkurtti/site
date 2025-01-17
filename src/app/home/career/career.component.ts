@@ -1,5 +1,7 @@
 import { Component, QueryList, ViewChildren } from '@angular/core';
 import { careerId, careerText } from '@constants/strings';
+import { DeferLoadDirective } from '../../@directives/defer-load/defer-load.directive';
+import { SectionTitleComponent } from '../@controls/section-title/section-title.component';
 import { SectionDirective } from '../@controls/section/section.directive';
 import { CareerItemComponent } from './career-item/career-item.component';
 
@@ -7,7 +9,11 @@ import { CareerItemComponent } from './career-item/career-item.component';
     selector: 'ak-career',
     styleUrls: ['./career.component.scss'],
     templateUrl: './career.component.html',
-    standalone: false
+    imports: [
+        CareerItemComponent,
+        DeferLoadDirective,
+        SectionTitleComponent
+    ]
 })
 export class CareerComponent extends SectionDirective {
     @ViewChildren(CareerItemComponent) careerItems: QueryList<CareerItemComponent>;

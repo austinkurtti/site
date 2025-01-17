@@ -1,5 +1,7 @@
 import { Component, Renderer2, inject } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
+import { TooltipDirective } from '../@directives/tooltip/tooltip.directive';
 import { GamesHomeComponent } from './games-home.component';
 import { SudokuComponent } from './sudoku/sudoku.component';
 
@@ -7,7 +9,11 @@ import { SudokuComponent } from './sudoku/sudoku.component';
     selector: 'ak-games',
     styleUrls: ['./games.component.scss'],
     templateUrl: './games.component.html',
-    standalone: false
+    imports: [
+        RouterLink,
+        RouterOutlet,
+        TooltipDirective
+    ]
 })
 export class GamesComponent {
     // eslint-disable-next-line @typescript-eslint/naming-convention

@@ -1,10 +1,7 @@
 import { Directive, EventEmitter, HostBinding, HostListener, Output, inject } from '@angular/core';
 import { MenuDirective } from './menu.directive';
 
-@Directive({
-    selector: '[akMenuItem]',
-    standalone: false
-})
+@Directive({ selector: '[akMenuItem]' })
 export class MenuItemDirective {
     @Output() menuItemClick = new EventEmitter<string>();
 

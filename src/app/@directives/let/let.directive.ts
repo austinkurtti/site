@@ -4,19 +4,16 @@ interface ILetContext<T> {
     akLet: T;
 }
 
-@Directive({
-    selector: '[akLet]',
-    standalone: false
-})
+@Directive({ selector: '[akLet]' })
 export class LetDirective<T> {
-    @Input()
-    private set akLet(value: T) {
-        this._context.akLet = value;
-    }
-
     private _context: ILetContext<T> = { akLet: undefined };
 
     constructor(viewContainer: ViewContainerRef, templateRef: TemplateRef<ILetContext<T>>) {
         viewContainer.createEmbeddedView(templateRef, this._context);
+    }
+
+    @Input()
+    private set akLet(value: T) {
+        this._context.akLet = value;
     }
 }

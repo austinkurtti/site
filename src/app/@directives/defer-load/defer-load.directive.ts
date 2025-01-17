@@ -1,9 +1,6 @@
 import { AfterViewInit, Directive, ElementRef, EventEmitter, HostBinding, Input, Output, inject } from '@angular/core';
 
-@Directive({
-    selector: '[akDeferLoad]',
-    standalone: false
-})
+@Directive({ selector: '[akDeferLoad]' })
 export class DeferLoadDirective implements AfterViewInit {
     @Input() public threshold = 0;
 

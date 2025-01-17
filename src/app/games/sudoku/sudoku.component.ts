@@ -1,5 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { SudokuGameScreenComponent } from './game-screen/game-screen.component';
+import { SudokuMenuScreenComponent } from './menu-screen/menu-screen.component';
 import { SudokuManager } from './sudoku-manager';
 import { SudokuDifficulty, SudokuGameInstance, SudokuScreenState } from './sudoku.models';
 
@@ -7,7 +10,11 @@ import { SudokuDifficulty, SudokuGameInstance, SudokuScreenState } from './sudok
     selector: 'ak-sudoku',
     styleUrls: ['./sudoku.component.scss'],
     templateUrl: './sudoku.component.html',
-    standalone: false
+    imports: [
+        CommonModule,
+        SudokuGameScreenComponent,
+        SudokuMenuScreenComponent
+    ]
 })
 export class SudokuComponent implements OnInit, OnDestroy {
     public gameManager = inject(SudokuManager);
