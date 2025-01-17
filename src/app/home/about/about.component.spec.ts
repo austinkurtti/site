@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { AboutComponent } from './about.component';
 
 describe('AboutComponent', () => {
@@ -9,6 +10,12 @@ describe('AboutComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 AboutComponent
+            ],
+            providers: [
+                {
+                    provide: ActivatedRoute,
+                    useValue: {}
+                }
             ]
         }).compileComponents();
     }));
