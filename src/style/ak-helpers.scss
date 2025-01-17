@@ -74,6 +74,14 @@
 }
 
 // Text/font classes
+.font-family-handwriting {
+    font-family: variables.$handwriting-font-family;
+}
+
+.font-family-monospace {
+    font-family: monospace;
+}
+
 .text-transform-none {
     text-transform: none;
 }

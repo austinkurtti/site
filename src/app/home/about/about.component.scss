@@ -2,32 +2,13 @@
 
 @use 'variables';
 
-.curly-brace {
-    color: variables.$color-gold;
-    font-size: variables.$default-font-size * 3;
-    font-weight: bold;
-}
+.about-content {
+    border-radius: math.div(variables.$base-size, 4);
+    box-shadow: variables.$soft-box-shadow;
+    padding: variables.$base-size * 2;
 
-#quick-facts {
-    background-color: variables.$theme-primary-background;
-    border: 1px solid variables.$theme-font-color;
-
-    i {
-        color: variables.$color-green;
-        text-align: center;
-        width: variables.$base-size * 3;
-    }
-
-    [class$=-fact] {
-        display: block;
-    }
-
-    .primary-fact {
-        font-weight: bold;
-        margin-bottom: math.div(variables.$base-size, 4);
-    }
-
-    .secondary-fact {
-        font-style: italic;
+    .timeline-description {
+        border-left: 1px solid variables.$theme-font-color;
+        padding-left: variables.$base-size * 2.25;
     }
 }

@@ -125,7 +125,7 @@ button {
 
         &:not(:disabled):hover {
             background-color: transparent;
-            color: variables.$color-blue;
+            color: variables.$color-sky;
         }
     }
 
@@ -151,7 +151,7 @@ a[href] {
     text-decoration: none;
 
     &:link, &:visited {
-        color: variables.$color-blue;
+        color: variables.$color-sky;
     }
 
     &:hover {

@@ -4,7 +4,7 @@
 @use 'keyframes';
 
 :host {
-    background-color: variables.$theme-content-background;
+    background-color: variables.$theme-primary-background;
     color: variables.$theme-font-color;
     display: block;
 
@@ -16,6 +16,7 @@
 
         #header-title span {
             background-color: variables.$theme-font-color;
+            border-radius: math.div(variables.$base-size, 4);
             color: variables.$theme-primary-background;
             font-weight: bold;
             padding: 0 math.div(variables.$base-size, 2);
@@ -67,7 +68,7 @@
             }
     
             &.active > span::after {
-                background-color: variables.$color-blue;
+                background-color: variables.$color-sky;
             }
     
             &:hover > span::after {
@@ -84,9 +85,10 @@
 
     footer {
         background-color: variables.$theme-primary-background;
+        border-top: 1px solid variables.$theme-font-color;
 
-        .footer-text {
-            margin-right: variables.$base-size * 2;
+        ak-contact-icons {
+            margin-left: variables.$base-size * 2;
         }
     }
 }

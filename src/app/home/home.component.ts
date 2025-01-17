@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { aboutId, aboutText, careerId, careerText, introId, introText, skillsId, skillsText } from '@constants/strings';
+import { aboutId, aboutText, introId, introText, skillsId, skillsText } from '@constants/strings';
 import { MenuPosition } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { LocalStorageService } from '@services/local-storage.service';
@@ -53,10 +53,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             id: aboutId,
             text: aboutText
         }),
-        new NavigationAnchorModel({
-            id: careerId,
-            text: careerText
-        }),
+        // new NavigationAnchorModel({
+        //     id: careerId,
+        //     text: careerText
+        // }),
         new NavigationAnchorModel({
             id: skillsId,
             text: skillsText

@@ -12,7 +12,7 @@
                     <button class="d-flex align-items-center justify-content-between fs-2 px-3 w-100" [disabled]="!gameManager.savedGame" (click)="resume()">
                         <span>Resume</span>
                         <div *ngIf="gameManager.savedGame" class="d-flex align-items-center">
-                            <span class="d-none d-md-inline fs-6">{{ gameManager.savedGame.time$ | async }}</span>
+                            <span class="d-none d-md-inline fs-6 font-family-monospace">{{ gameManager.savedGame.time$ | async }}</span>
                             <span class="fs-6 ms-3">{{ gameManager.savedGame.difficulty | sudokuDifficulty }}</span>
                             <i *ngIf="gameManager.savedGame.hardcore" class="fas fa-skull color-red fs-6 ms-3"></i>
                         </div>

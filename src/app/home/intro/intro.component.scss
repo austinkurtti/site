@@ -36,8 +36,10 @@ section {
                     animation: keyframes.$opacity-name keyframes.$opacity-duration keyframes.$opacity-timing;
                     animation-delay: 1.75s;
                     animation-fill-mode: forwards;
-                    color: variables.$color-green;
+                    color: variables.$color-sky;
+                    font-family: variables.$handwriting-font-family;
                     opacity: 0;
+                    text-transform: none;
                 }
             }
 
