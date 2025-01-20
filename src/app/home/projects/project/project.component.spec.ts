@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { CareerComponent } from './career.component';
+import { ProjectComponent } from './project.component';
 
-describe('CareerComponent', () => {
-    let component: CareerComponent;
-    let fixture: ComponentFixture<CareerComponent>;
+describe('ProjectComponent', () => {
+    let component: ProjectComponent;
+    let fixture: ComponentFixture<ProjectComponent>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
-                CareerComponent
+                ProjectComponent
             ]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(CareerComponent);
+        fixture = TestBed.createComponent(ProjectComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

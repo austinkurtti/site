@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { aboutId, aboutText, introId, introText, skillsId, skillsText } from '@constants/strings';
+import { aboutId, aboutText, introId, introText, projectsId, projectsText, skillsId, skillsText } from '@constants/strings';
 import { MenuPosition } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { LocalStorageService } from '@services/local-storage.service';
@@ -14,6 +14,7 @@ import { ContactIconsComponent } from './@controls/contact-icons/contact-icons.c
 import { AboutComponent } from './about/about.component';
 import { IntroComponent } from './intro/intro.component';
 import { NavigationAnchorModel } from './navigation.model';
+import { ProjectsComponent } from './projects/projects.component';
 import { SkillsComponent } from './skills/skills.component';
 
 @Component({
@@ -22,13 +23,13 @@ import { SkillsComponent } from './skills/skills.component';
     templateUrl: './home.component.html',
     imports: [
         AboutComponent,
-        // CareerComponent,
         CommonModule,
         ContactIconsComponent,
         IntroComponent,
         MenuContentDirective,
         MenuDirective,
         MenuItemDirective,
+        ProjectsComponent,
         RouterLink,
         SkillsComponent,
         TooltipDirective
@@ -52,13 +53,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             id: aboutId,
             text: aboutText
         }),
-        // new NavigationAnchorModel({
-        //     id: careerId,
-        //     text: careerText
-        // }),
         new NavigationAnchorModel({
             id: skillsId,
             text: skillsText
+        }),
+        new NavigationAnchorModel({
+            id: projectsId,
+            text: projectsText
         })
     ];
 

@@ -12,7 +12,7 @@
 
     <div class="dialog-body">
         <div class="setting-group">
-            <h5>General</h5>
+            <h5 class="text-uppercase">General</h5>
             <ak-toggle
                 [label]="'Show timer'"
                 [(value)]="gameManager.gameSettings.showTimer"
@@ -22,7 +22,7 @@
         
         <div class="setting-group">
             <h5>
-                <span>Assistive</span>
+                <span class="text-uppercase">Assistive</span>
                 <ng-container *ngIf="gameManager.gameInstance?.hardcore">
                     <i class="fas fa-skull color-red ms-4 me-2"></i>
                     <span class="text-transform-none">Disabled in hardcore mode!</span>
@@ -61,7 +61,7 @@
         </div>
 
         <div class="setting-group">
-            <h5>Game Saves</h5>
+            <h5 class="text-uppercase">Game Saves</h5>
             <ak-toggle
                 [label]="'Exit save'"
                 [labelDescription]="'Sudoku progress will be automatically saved when exiting the game'"

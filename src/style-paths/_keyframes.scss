@@ -88,20 +88,3 @@ $dialog-appear-timing       : ease-in;
         transform: translateY(0);
     }
 }
-
-// -----------------------------------------
-// Career keyframes
-// -----------------------------------------
-$bg-pos-scroll-name         : kfCareerItemBgHover;
-$bg-pos-scroll-duration     : 2s;
-$bg-pos-scroll-timing       : linear;
-@keyframes #{$bg-pos-scroll-name} {
-    0% {
-        background-position-x: 0;
-        background-position-y: variables.$base-size;
-    }
-    100% {
-        background-position-x: variables.$base-size * 1.5;
-        background-position-y: variables.$base-size * 4;
-    }
-}
