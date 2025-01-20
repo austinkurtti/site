@@ -38,6 +38,7 @@ section {
                     animation-fill-mode: forwards;
                     color: variables.$color-sky;
                     font-family: variables.$handwriting-font-family;
+                    margin-left: variables.$base-size * 2;
                     opacity: 0;
                     text-transform: none;
                 }

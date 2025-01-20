@@ -12,7 +12,6 @@ import { MenuDirective } from '../@directives/menu/menu.directive';
 import { TooltipDirective } from '../@directives/tooltip/tooltip.directive';
 import { ContactIconsComponent } from './@controls/contact-icons/contact-icons.component';
 import { AboutComponent } from './about/about.component';
-import { CareerComponent } from './career/career.component';
 import { IntroComponent } from './intro/intro.component';
 import { NavigationAnchorModel } from './navigation.model';
 import { SkillsComponent } from './skills/skills.component';
@@ -23,7 +22,7 @@ import { SkillsComponent } from './skills/skills.component';
     templateUrl: './home.component.html',
     imports: [
         AboutComponent,
-        CareerComponent,
+        // CareerComponent,
         CommonModule,
         ContactIconsComponent,
         IntroComponent,

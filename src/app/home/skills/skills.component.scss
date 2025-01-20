@@ -2,60 +2,33 @@
 
 @use 'variables';
 
-.curly-brace {
-    color: variables.$color-gold;
-    font-size: variables.$default-font-size * 3;
-    font-weight: bold;
-}
+#skills-carousel {
+    background-color: variables.$theme-content-background;
+    border-bottom: 1px solid variables.$theme-font-color;
+    border-top: 1px solid variables.$theme-font-color;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
 
-#skill-filters {
-    background-color: variables.$theme-primary-background;
-    border: 1px solid variables.$theme-font-color;
-    padding: variables.$base-size;
-
-    button {
-        $translate-distance: math.div(variables.$base-size, 8);
-
-        border-color: currentColor;
-        box-shadow: $translate-distance $translate-distance currentColor;
-        transform: translate($translate-distance * -1, $translate-distance * -1);
-
-        &:not(:last-child) {
-            margin-right: variables.$base-size;
-        }
-
-        &:hover, &:focus-visible {
-            background-color: transparent;
-            box-shadow: $translate-distance * .5 $translate-distance * .5 currentColor;
-            transform: translate($translate-distance * -.5, $translate-distance * -.5);
-        }
-
-        &:active {
-            background-color: transparent;
-            box-shadow: none;
-            transform: translate(0, 0);
-        }
-
-        &.off {
-            background-color: variables.$theme-content-background;
-            color: variables.$theme-font-color;
-        }
+    ak-skill {
+        transition: ease-in-out transform 1s;
     }
 }
 
-#skill-grid {
-    border-color: variables.$theme-font-color;
-    border-style: solid;
-    border-width: 0 1px 1px 1px;
-    position: relative;
-
-    ak-skill.off {
-        visibility: hidden;
+@media (min-width: 0px) {
+    ak-skill {
+        width: math.div(100%, 3);
     }
+}
 
-    #empty-message {
-        left: 0;
-        position: absolute;
-        top: 0;
+@media (min-width: variables.$breakpoint-tablet) {
+    ak-skill {
+        width: math.div(100%, 4);
+    }
+}
+
+@media (min-width: variables.$breakpoint-desktop) {
+    ak-skill {
+        width: math.div(100%, 6);
     }
 }

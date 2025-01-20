@@ -1,20 +1,27 @@
+@use 'sass:math';
+
 @use 'variables';
 
 :host {
+    align-items: center;
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: center;
+
     &[skill-type=front] {
-        color: variables.$color-green;
+        color: variables.$color-blue;
     }
 
     &[skill-type=back] {
-        color: variables.$color-red;
+        color: variables.$color-gold;
     }
 
     &[skill-type=data] {
-        color: variables.$color-sky;
+        color: variables.$color-purple;
     }
 
     &[skill-type=tool] {
-        color: variables.$color-orange;
+        color: variables.$color-red;
     }
 
     .skill-icon {
