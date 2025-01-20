@@ -17,6 +17,7 @@ html {
         --theme-primary-background: #{variables.$color-white};
         --theme-content-background: #{variables.$color-ivory};
         --theme-font-color: #{variables.$color-black};
+        --theme-font-color-rgb: #{variables.$color-black-rgb};
 
         --theme-hoverable-background: #{variables.$color-black};
         --theme-hoverable-font-color: #{variables.$color-white};
@@ -26,6 +27,7 @@ html {
         --theme-primary-background: #{variables.$color-black};
         --theme-content-background: #{variables.$color-slate};
         --theme-font-color: #{variables.$color-white};
+        --theme-font-color-rgb: #{variables.$color-white-rgb};
 
         --theme-hoverable-background: #{variables.$color-white};
         --theme-hoverable-font-color: #{variables.$color-black};

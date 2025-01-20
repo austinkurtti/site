@@ -3,12 +3,10 @@
 @use 'variables';
 
 #skills-carousel {
-    background-color: variables.$theme-content-background;
+    background-color: variables.$color-ivory;
     border-bottom: 1px solid variables.$theme-font-color;
     border-top: 1px solid variables.$theme-font-color;
     display: flex;
-    flex-wrap: nowrap;
-    overflow-x: hidden;
 
     ak-skill {
         transition: ease-in-out transform 1s;
