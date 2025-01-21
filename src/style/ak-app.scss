@@ -160,6 +160,10 @@ button {
             background-color: variables.$color-green;
             border-color: variables.$color-green;
             color: variables.$color-white;
+
+            i {
+                color: variables.$color-white;
+            }
         }
     }
 
@@ -168,6 +172,10 @@ button {
             background-color: variables.$color-red;
             border-color: variables.$color-red;
             color: variables.$color-white;
+
+            i {
+                color: variables.$color-white;
+            }
         }
     }
 }
@@ -182,6 +190,18 @@ a[href] {
 
     &:hover {
         text-decoration: underline;
+
+        i {
+            color: variables.$color-sky;
+        }
+    }
+}
+
+a[routerLink] {
+    &:hover {
+        i {
+            color: variables.$color-sky;
+        }
     }
 }
 

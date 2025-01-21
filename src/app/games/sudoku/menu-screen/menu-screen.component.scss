@@ -33,16 +33,4 @@
             font-weight: bold;
         }
     }
-
-    #confirm-button:hover {
-        background-color: variables.$color-green;
-        border-color: variables.$color-green;
-        color: variables.$color-white;
-    }
-
-    #cancel-button:hover {
-        background-color: variables.$color-red;
-        border-color: variables.$color-red;
-        color: variables.$color-white;
-    }
 }
