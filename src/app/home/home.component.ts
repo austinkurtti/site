@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { aboutId, aboutText, introId, introText, projectsId, projectsText, skillsId, skillsText } from '@constants/strings';
 import { MenuPosition } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
@@ -30,7 +29,6 @@ import { SkillsComponent } from './skills/skills.component';
         MenuDirective,
         MenuItemDirective,
         ProjectsComponent,
-        RouterLink,
         SkillsComponent,
         TooltipDirective
     ]

@@ -15,7 +15,7 @@
         z-index: variables.$z-index-header;
 
         #header-title span {
-            background-color: variables.$theme-font-color;
+            background-color: variables.$color-sky;
             border-radius: math.div(variables.$base-size, 4);
             color: variables.$theme-primary-background;
             font-weight: bold;

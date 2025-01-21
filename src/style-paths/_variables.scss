@@ -13,94 +13,99 @@
 // -----------------------------------------
 // Colors
 // -----------------------------------------
-$color-white                : #fff;
-$color-ivory                : #eaeaea;
-$color-gray-100             : #ddd;
-$color-gray-200             : #ccc;
-$color-gray-300             : #bbb;
-$color-gray-400             : #9c9c9c;
-$color-gray-500             : #888;
-$color-gray                 : $color-gray-500;
-$color-gray-600             : #777;
-$color-gray-700             : #666;
-$color-gray-800             : #555;
-$color-slate                : #434343;
-$color-black                : #333;
-$color-red                  : #e01919;
-$color-orange               : #e07c19;
-$color-gold                 : #e0bc19;
-$color-yellow               : #e0e019;
-$color-lime                 : #bce019;
-$color-green                : #19e019;
-$color-sky                  : #19bce0;
-$color-blue                 : #1919e0;
-$color-purple               : #7c19e0;
+$color-white                            : #fff;
+$color-ivory                            : #eaeaea;
+$color-gray-100                         : #ddd;
+$color-gray-200                         : #ccc;
+$color-gray-300                         : #bbb;
+$color-gray-400                         : #9c9c9c;
+$color-gray-500                         : #888;
+$color-gray                             : $color-gray-500;
+$color-gray-600                         : #777;
+$color-gray-700                         : #666;
+$color-gray-800                         : #555;
+$color-slate                            : #434343;
+$color-black                            : #333;
+$color-navy                             : #192639;
+$color-light-navy                       : #273343;
+$color-red                              : #e01919;
+$color-orange                           : #e07c19;
+$color-gold                             : #e0bc19;
+$color-yellow                           : #e0e019;
+$color-lime                             : #bce019;
+$color-green                            : #19e019;
+$color-sky                              : #19bce0;
+$color-blue                             : #1919e0;
+$color-purple                           : #7c19e0;
 
-$color-white-rgb            : 255, 255, 255;
-$color-black-rgb            : 51, 51, 51;
+$color-white-rgb                        : 255, 255, 255;
+$color-black-rgb                        : 51, 51, 51;
 
-$color-success              : $color-green;
-$color-error                : $color-red;
+$color-success                          : $color-green;
+$color-error                            : $color-red;
 
 // Sudoku
-$color-sudoku               : #9344d1;
-$color-sudoku-light         : color.adjust($color-sudoku, $lightness: 25%);
-$color-sudoku-dark          : color.adjust($color-sudoku, $lightness: -15%);
+$color-sudoku                           : #9344d1;
+$color-sudoku-light                     : color.adjust($color-sudoku, $lightness: 25%);
+$color-sudoku-dark                      : color.adjust($color-sudoku, $lightness: -15%);
 
 // Solitaire
-$color-solitaire-green      : #38b64a;
-$color-solitaire-dark-green : #208a2e;
-$color-solitaire-blue       : #48bfe5;
+$color-solitaire-green                  : #38b64a;
+$color-solitaire-dark-green             : #208a2e;
+$color-solitaire-blue                   : #48bfe5;
 
 // Warships
-$color-warships             : #5298d6;
+$color-warships                         : #5298d6;
 
 // -----------------------------------------
 // Core settings
 // -----------------------------------------
-$base-size                  : 1rem;
-$base-z-index               : 0;
+$base-size                              : 1rem;
+$base-z-index                           : 0;
 
-$header-height              : $base-size * 6;
+$header-height                          : $base-size * 6;
 
 // -----------------------------------------
 // Fonts
 // -----------------------------------------
-$default-font-family        : 'Roboto Flex', sans-serif;
-$default-font-size          : $base-size;
-$font-awesome-font-family   : 'Font Awesome 5 Free';
-$handwriting-font-family    : 'Caveat', sans-serif;
+$default-font-family                    : 'Roboto Flex', sans-serif;
+$default-font-size                      : $base-size;
+$font-awesome-font-family               : 'Font Awesome 5 Free';
+$handwriting-font-family                : 'Caveat', sans-serif;
 
 // -----------------------------------------
 // Theme
 // -----------------------------------------
-$theme-primary-background   : var(--theme-primary-background);
-$theme-content-background   : var(--theme-content-background);
-$theme-font-color           : var(--theme-font-color);
-$theme-font-color-rgb       : var(--theme-font-color-rgb);
+$theme-primary-background               : var(--theme-primary-background);
+$theme-content-background               : var(--theme-content-background);
 
-$theme-hoverable-background : var(--theme-hoverable-background);
-$theme-hoverable-font-color : var(--theme-hoverable-font-color);
+$theme-font-color                       : var(--theme-font-color);
+$theme-font-color-rgb                   : var(--theme-font-color-rgb);
+$theme-font-emphasized-color            : var(--theme-font-emphasized-color);
+$theme-icon-color                       : var(--theme-icon-color);
+
+$theme-hoverable-background             : var(--theme-hoverable-background);
+$theme-hoverable-font-color             : var(--theme-hoverable-font-color);
 
 // -----------------------------------------
 // Effects
 // -----------------------------------------
-$soft-box-shadow            : 0 2px 10px 0 rgba($theme-font-color-rgb, .15);
-$hard-box-shadow            : 0 2px 10px 0 rgba($theme-font-color-rgb, .55);
+$soft-box-shadow                        : 0 2px 10px 0 rgba($theme-font-color-rgb, .15);
+$hard-box-shadow                        : 0 2px 10px 0 rgba($theme-font-color-rgb, .55);
 
 // -----------------------------------------
 // Breakpoints
 // -----------------------------------------
-$breakpoint-tablet          : 768px;
-$breakpoint-desktop         : 992px;
+$breakpoint-tablet                      : 768px;
+$breakpoint-desktop                     : 992px;
 
 // -----------------------------------------
 // Z-indexes
 // -----------------------------------------
-$z-index-bump               : $base-z-index + 100;
-$z-index-header             : 1000;
-$z-index-menu               : 2000;
-$z-index-notification       : 3000;
-$z-index-dialog             : 10000;
-$z-index-tooltip            : 100000;
-$z-index-confetti           : 1000000;
+$z-index-bump                           : $base-z-index + 100;
+$z-index-header                         : 1000;
+$z-index-menu                           : 2000;
+$z-index-notification                   : 3000;
+$z-index-dialog                         : 10000;
+$z-index-tooltip                        : 100000;
+$z-index-confetti                       : 1000000;

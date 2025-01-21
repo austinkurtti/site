@@ -3,7 +3,7 @@
 @use 'variables';
 
 #skills-carousel {
-    background-color: variables.$color-ivory;
+    background-color: variables.$theme-content-background;
     border-bottom: 1px solid variables.$theme-font-color;
     border-top: 1px solid variables.$theme-font-color;
     display: flex;

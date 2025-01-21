@@ -16,18 +16,26 @@ html {
     &[data-theme="light"] {
         --theme-primary-background: #{variables.$color-white};
         --theme-content-background: #{variables.$color-ivory};
+
         --theme-font-color: #{variables.$color-black};
         --theme-font-color-rgb: #{variables.$color-black-rgb};
+
+        --theme-font-emphasized-color: #{variables.$color-black};
+        --theme-icon-color: #{variables.$color-black};
 
         --theme-hoverable-background: #{variables.$color-black};
         --theme-hoverable-font-color: #{variables.$color-white};
     }
 
     &[data-theme="dark"] {
-        --theme-primary-background: #{variables.$color-black};
-        --theme-content-background: #{variables.$color-slate};
-        --theme-font-color: #{variables.$color-white};
+        --theme-primary-background: #{variables.$color-navy};
+        --theme-content-background: #{variables.$color-light-navy};
+
+        --theme-font-color: #{variables.$color-gray-200};
         --theme-font-color-rgb: #{variables.$color-white-rgb};
+
+        --theme-font-emphasized-color: #{variables.$color-white};
+        --theme-icon-color: #{variables.$color-white};
 
         --theme-hoverable-background: #{variables.$color-white};
         --theme-hoverable-font-color: #{variables.$color-black};
@@ -61,6 +69,7 @@ section {
 }
 
 h1, h2, h3, h4, h5 {
+    color: variables.$theme-font-emphasized-color;
     font-weight: bold;
     margin: 0;
 }
@@ -70,8 +79,13 @@ h3:not(:last-child) {
 }
 
 label {
+    color: variables.$theme-font-emphasized-color;
     font-weight: bold;
     margin: 0;
+}
+
+b {
+    color: variables.$theme-font-emphasized-color
 }
 
 p {
@@ -119,14 +133,25 @@ button {
     
     &.icon-button {
         border: none;
+
+        i {
+            color: variables.$theme-icon-color;
+        }
     }
 
     &.header-icon-button {
         border: none;
 
+        i {
+            color: variables.$theme-icon-color;
+        }
+
         &:not(:disabled):hover {
             background-color: transparent;
-            color: variables.$color-sky;
+
+            i {
+                color: variables.$color-sky;
+            }
         }
     }
 
@@ -180,6 +205,10 @@ kbd {
     line-height: 1;
     padding: math.div(variables.$base-size, 8) math.div(variables.$base-size, 4);
     white-space: nowrap;
+}
+
+i[class*="fas"], i[class*="fab"], i[class*="far"], i[class*="devicon"] {
+    color: variables.$theme-icon-color;
 }
 
 /***********************

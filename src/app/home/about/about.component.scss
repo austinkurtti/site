@@ -3,8 +3,8 @@
 @use 'variables';
 
 .about-content {
+    background-color: variables.$theme-content-background;
     border-radius: math.div(variables.$base-size, 4);
-    box-shadow: variables.$soft-box-shadow;
     padding: variables.$base-size * 2;
 
     .timeline-description {

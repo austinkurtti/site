@@ -8,23 +8,8 @@
     flex: 0 0 auto;
     justify-content: center;
 
-    &[skill-type=front] {
-        color: variables.$color-blue;
-    }
-
-    &[skill-type=back] {
-        color: variables.$color-gold;
-    }
-
-    &[skill-type=data] {
-        color: variables.$color-purple;
-    }
-
-    &[skill-type=tool] {
-        color: variables.$color-red;
-    }
-
     .skill-icon {
+        color: variables.$color-sky;
         display: inline-block;
         transition: ease-in transform .1s;
 

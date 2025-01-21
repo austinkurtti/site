@@ -2,13 +2,6 @@
     <ng-template #headerButtons>
         <button akTooltip
             class="header-icon-button"
-            routerLink="/games"
-            [tooltipContent]="'Games'"
-            [tooltipPosition]="TooltipPosition.bottom">
-            <i class="fas fa-2x fa-gamepad"></i>
-        </button>
-        <button akTooltip
-            class="header-icon-button"
             [tooltipContent]="'Theme'"
             [tooltipPosition]="TooltipPosition.bottom"
             (click)="toggleTheme()">

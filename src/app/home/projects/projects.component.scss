@@ -3,8 +3,8 @@
 @use 'variables';
 
 ak-project {
+    background-color: variables.$theme-content-background;
     border-radius: math.div(variables.$base-size, 4);
-    box-shadow: variables.$soft-box-shadow;
     display: block;
     padding: variables.$base-size * 2;
 }

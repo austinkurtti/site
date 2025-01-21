@@ -12,13 +12,11 @@
         }
 
         .contact-icon {
-            color: variables.$theme-font-color;
-            font-size: variables.$default-font-size;
             height: variables.$base-size * 2;
             text-decoration: none;
             width: variables.$base-size * 2;
 
-            &:hover {
+            &:hover > i {
                 color: variables.$color-sky;
             }
         }
