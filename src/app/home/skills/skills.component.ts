@@ -39,11 +39,13 @@ export class SkillsComponent extends SectionDirective implements OnInit, AfterVi
 
     public ngAfterViewInit(): void {
         this._startTranslateTimer();
+        document.addEventListener('visibilitychange', this._documentVisibilitychange);
     }
 
     public ngOnDestroy(): void {
         this._cancelShiftTimer();
         this._cancelTranslateTimer();
+        document.removeEventListener('visibilitychange', this._documentVisibilitychange);
     }
 
     public mouseover() {
@@ -91,5 +93,14 @@ export class SkillsComponent extends SectionDirective implements OnInit, AfterVi
     private _cancelTranslateTimer = (): void => {
         this._translateTimer?.unsubscribe();
         this._translateTimer = null;
+    };
+
+    private _documentVisibilitychange = (event: Event): void => {
+        if (document.visibilityState === 'hidden') {
+            this._cancelShiftTimer();
+            this._cancelTranslateTimer();
+        } else if (document.visibilityState === 'visible') {
+            this._startTranslateTimer();
+        }
     };
 }
