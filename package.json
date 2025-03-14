@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "test:prod": "ng test --browsers=ChromeHeadless --no-progress --no-watch",
-    "build:prod": "ng build --configuration production && cp ./docs/index.html ./docs/404.html"
+    "build:prod": "ng build --configuration production && cp ./docs/browser/index.html ./docs/browser/404.html"
   },
   "private": true,
   "dependencies": {
