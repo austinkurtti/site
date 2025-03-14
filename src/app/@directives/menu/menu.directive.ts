@@ -11,9 +11,7 @@ export enum MenuPosition {
     bottomRight     = bottom | right
 }
 
-@Directive({
-    selector: '[akMenu]'
-})
+@Directive({ selector: '[akMenu]' })
 export class MenuDirective {
     @Input() menuPosition: MenuPosition = MenuPosition.bottomRight;
     @ContentChild('menuContent') menuContent: TemplateRef<any>;

@@ -7,9 +7,10 @@ describe('IntroComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [IntroComponent]
-        })
-            .compileComponents();
+            imports: [
+                IntroComponent
+            ]
+        }).compileComponents();
     }));
 
     beforeEach(() => {

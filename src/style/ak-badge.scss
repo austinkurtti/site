@@ -1,13 +1,15 @@
 @use 'sass:math';
 
-@import 'variables';
+@use 'variables';
 
 .ak-badge {
     border: 1px solid currentColor;
+    border-radius: math.div(variables.$base-size, 4);
     display: inline-block;
-    padding: math.div($base-size, 4);
+    padding-left: math.div(variables.$base-size, 4);
+    padding-right: math.div(variables.$base-size, 4);
 
     &:not(:last-child) {
-        margin-right: math.div($base-size, 4);
+        margin-right: math.div(variables.$base-size, 2);
     }
 }

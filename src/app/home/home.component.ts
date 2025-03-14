@@ -1,15 +1,37 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
-import { aboutId, aboutText, careerId, careerText, introId, introText, skillsId, skillsText } from '@constants/strings';
+import { aboutId, aboutText, introId, introText, projectsId, projectsText, skillsId, skillsText } from '@constants/strings';
 import { MenuPosition } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { LocalStorageService } from '@services/local-storage.service';
 import { Subscription, timer } from 'rxjs';
+import { MenuContentDirective } from '../@directives/menu/menu-content.directive';
+import { MenuItemDirective } from '../@directives/menu/menu-item.directive';
+import { MenuDirective } from '../@directives/menu/menu.directive';
+import { TooltipDirective } from '../@directives/tooltip/tooltip.directive';
+import { ContactIconsComponent } from './@controls/contact-icons/contact-icons.component';
+import { AboutComponent } from './about/about.component';
+import { IntroComponent } from './intro/intro.component';
 import { NavigationAnchorModel } from './navigation.model';
+import { ProjectsComponent } from './projects/projects.component';
+import { SkillsComponent } from './skills/skills.component';
 
 @Component({
     selector: 'ak-home',
     styleUrls: ['./home.component.scss'],
-    templateUrl: './home.component.html'
+    templateUrl: './home.component.html',
+    imports: [
+        AboutComponent,
+        CommonModule,
+        ContactIconsComponent,
+        IntroComponent,
+        MenuContentDirective,
+        MenuDirective,
+        MenuItemDirective,
+        ProjectsComponent,
+        SkillsComponent,
+        TooltipDirective
+    ]
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('header') header: ElementRef;
@@ -30,12 +52,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             text: aboutText
         }),
         new NavigationAnchorModel({
-            id: careerId,
-            text: careerText
-        }),
-        new NavigationAnchorModel({
             id: skillsId,
             text: skillsText
+        }),
+        new NavigationAnchorModel({
+            id: projectsId,
+            text: projectsText
         })
     ];
 

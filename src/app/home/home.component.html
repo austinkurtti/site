@@ -1,13 +1,5 @@
-<!-- Header -->
 <header #header class="position-fixed w-100 row g-0 align-items-center">
     <ng-template #headerButtons>
-        <button akTooltip
-            class="header-icon-button"
-            routerLink="/games"
-            [tooltipContent]="'Games'"
-            [tooltipPosition]="TooltipPosition.bottom">
-            <i class="fas fa-2x fa-gamepad"></i>
-        </button>
         <button akTooltip
             class="header-icon-button"
             [tooltipContent]="'Theme'"
@@ -52,19 +44,15 @@
 </header>
 
 <main #main class="position-static">
-    <!-- Content -->
     <ak-intro></ak-intro>
     <ak-about></ak-about>
-    <ak-career></ak-career>
     <ak-skills></ak-skills>
-
-    <!-- Footer -->
-    <footer class="row g-0 justify-content-center align-items-center">
-        <div class="col-auto footer-text">
-            <i class="far fa-copyright"></i>&nbsp;{{ title }}
-        </div>
-        <div class="col-auto">
-            <ak-contact-icons></ak-contact-icons>
-        </div>
-    </footer>
+    <ak-projects></ak-projects>
 </main>
+
+<footer class="row g-0 align-items-center justify-content-center">
+    <div class="col-auto d-flex align-items-center">
+        <span><i class="far fa-copyright"></i>&nbsp;{{ title }}</span>
+        <ak-contact-icons></ak-contact-icons>
+    </div>
+</footer>

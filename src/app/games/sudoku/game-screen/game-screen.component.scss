@@ -1,10 +1,10 @@
 @use 'sass:math';
 
-@import 'variables';
-@import 'keyframes';
+@use 'variables';
+@use 'keyframes';
 
-$sudoku-header-height: $base-size * 6;
-$sudoku-border-width: math.div($base-size, 5);
+$sudoku-header-height: variables.$base-size * 6;
+$sudoku-border-width: math.div(variables.$base-size, 5);
 
 $sudoku-color-active: #d6d652;
 $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts $color-white, 3 parts $color-gray-200
@@ -15,17 +15,17 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
     height: 100%;
 
     #building {
-        background-color: $color-ivory;
+        background-color: variables.$color-ivory;
         top: 0;
-        z-index: $z-index-bump;
+        z-index: variables.$z-index-bump;
     }
 
     #sudoku-header {
-        padding: 0 $base-size * 2;
+        padding: 0 variables.$base-size * 2;
 
         button {
             &:not(:first-child) {
-                margin-left: $base-size;
+                margin-left: variables.$base-size;
             }
         }
 
@@ -41,8 +41,8 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
 
         #sudoku-actions {
             #game-data {
-                border-top: 1px solid $color-black;
-                font-size: $default-font-size * .75;
+                border-top: 1px solid variables.$color-black;
+                font-size: variables.$default-font-size * .75;
             }
         }
     }
@@ -85,6 +85,7 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                     border-width: math.div($sudoku-border-width, 2);
                     display: flex;
                     flex-direction: column;
+                    font-family: monospace;
 
                     &:nth-child(1), &:nth-child(4), &:nth-child(7) {
                         border-left: $sudoku-border-width solid;
@@ -100,11 +101,11 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                     }
 
                     &:hover:not(.given):not(.active) {
-                        background-color: $color-white;
+                        background-color: variables.$color-white;
                     }
 
                     &.given {
-                        background-color: $color-gray-200;
+                        background-color: variables.$color-gray-200;
                     }
 
                     &.active {
@@ -116,16 +117,16 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                     }
 
                     &.conflicted::after {
-                        border-radius: $base-size;
-                        color: $color-error;
+                        border-radius: variables.$base-size;
+                        color: variables.$color-error;
                         content: '\f06a'; // exclamation-circle
-                        font-family: $font-awesome-font-family;
-                        font-size: $base-size;
+                        font-family: variables.$font-awesome-font-family;
+                        font-size: variables.$base-size;
                         font-style: normal;
                         font-variant: normal;
                         font-weight: 900;
                         margin-left: auto;
-                        padding: math.div($base-size, 4);
+                        padding: math.div(variables.$base-size, 4);
                         text-rendering: auto;
                     }
 
@@ -133,15 +134,15 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                         font-weight: bold;
 
                         &.revealed {
-                            color: $color-blue;
+                            color: variables.$color-blue;
                         }
 
                         &.valid {
-                            color: $color-success;
+                            color: variables.$color-success;
                         }
         
                         &.invalid {
-                            color: $color-error;
+                            color: variables.$color-error;
                         }
                     }
 
@@ -151,17 +152,17 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                 }
 
                 #sudoku-pause-overlay {
-                    backdrop-filter: blur(math.div($base-size, 2));
-                    background-color: rgba($color: $color-gray-500, $alpha: .5);
+                    backdrop-filter: blur(math.div(variables.$base-size, 2));
+                    background-color: rgba($color: variables.$color-gray-500, $alpha: .5);
                     position: absolute;
 
                     > div {
-                        background-color: $color-sudoku-light;
-                        border-color: $color-black;
-                        border-radius: math.div($base-size, 4);
+                        background-color: variables.$color-sudoku-light;
+                        border-color: variables.$color-black;
+                        border-radius: math.div(variables.$base-size, 4);
                         border-style: solid;
-                        border-width: math.div($base-size, 8);
-                        color: $color-sudoku-dark;
+                        border-width: math.div(variables.$base-size, 8);
+                        color: variables.$color-sudoku-dark;
                         font-weight: bold;
                     }
                 }
@@ -172,9 +173,10 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
             max-height: 50%;
 
             .sudoku-input {
-                background-color: $color-gray-200;
+                background-color: variables.$color-gray-200;
                 border: math.div($sudoku-border-width, 2) solid;
-                border-radius: math.div($base-size, 4);
+                border-radius: math.div(variables.$base-size, 4);
+                font-family: monospace;
                 font-weight: bold;
                 height: 100%;
                 width: 100%;
@@ -185,7 +187,7 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                 }
     
                 &:not(:disabled):hover {
-                    background-color: $color-gray-300;
+                    background-color: variables.$color-gray-300;
                     cursor: pointer;
                 }
 
@@ -244,7 +246,7 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
     }
 }
 
-@media (min-width: $breakpoint-tablet) {
+@media (min-width: variables.$breakpoint-tablet) {
     #sudoku-header {
         height: $sudoku-header-height * .75;
     }
@@ -271,7 +273,7 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
     }
 }
 
-@media (min-width: $breakpoint-desktop) {
+@media (min-width: variables.$breakpoint-desktop) {
     #sudoku-header {
         height: $sudoku-header-height;
     }

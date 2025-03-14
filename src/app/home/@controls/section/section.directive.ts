@@ -7,7 +7,7 @@ export abstract class SectionDirective {
 
     public deferThreshold = .25;
 
-    private _renderer = inject(Renderer2);
+    protected _renderer = inject(Renderer2);
 
     public abstract navigationId: string;
 

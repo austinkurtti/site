@@ -1,26 +1,26 @@
-@import 'variables';
+@use 'variables';
 
 :host {
-    background-color: $color-ivory;
-    color: $color-black;
+    background-color: variables.$color-ivory;
+    color: variables.$color-black;
     display: flex;
     flex-direction: column;
     height: 100%;
 
     header {
-        background-color: $color-white;
-        box-shadow: $soft-box-shadow;
-        z-index: $z-index-header;
+        background-color: variables.$color-white;
+        box-shadow: variables.$soft-box-shadow;
+        z-index: variables.$z-index-header;
 
         &[data-game="sudoku"] {
-            background-color: $color-sudoku-light;
-            color: $color-sudoku-dark;
+            background-color: variables.$color-sudoku-light;
+            color: variables.$color-sudoku-dark;
 
             button {
-                color: $color-sudoku-dark;
+                color: variables.$color-sudoku-dark;
 
                 &:hover {
-                    color: $color-white;
+                    color: variables.$color-white;
                 }
             }
         }

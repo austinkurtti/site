@@ -1,21 +1,37 @@
 import { Routes } from '@angular/router';
+import { GamesHomeComponent } from '../games/games-home.component';
+import { GamesComponent } from '../games/games.component';
+import { SudokuComponent } from '../games/sudoku/sudoku.component';
+import { HomeComponent } from '../home/home.component';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 export const appRoutes: Routes = [
     {
         path: '',
         pathMatch: 'full',
         title: 'Austin Kurtti',
-        loadChildren: () => import('../home/home.module').then(m => m.HomeModule)
+        component: HomeComponent
     },
     {
         path: 'games',
-        title: 'Games',
-        loadChildren: () => import('../games/games.module').then(m => m.GamesModule)
+        component: GamesComponent,
+        children: [
+            {
+                path: '',
+                title: 'Games',
+                component: GamesHomeComponent
+            },
+            {
+                path: 'sudoku',
+                title: 'Sudoku',
+                component: SudokuComponent
+            }
+        ]
     },
     {
         path: 'page-not-found',
         title: 'Page Not Found',
-        loadChildren: () => import('../page-not-found/page-not-found.module').then(m => m.PageNotFoundModule)
+        component: PageNotFoundComponent
     },
     {
         path: '**',

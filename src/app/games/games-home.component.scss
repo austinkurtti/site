@@ -1,60 +1,61 @@
 @use 'sass:math';
+@use 'sass:color';
 
-@import 'variables';
+@use 'variables';
 
 .game {
     border: none;
-    border-radius: math.div($base-size, 2);
+    border-radius: math.div(variables.$base-size, 2);
     overflow: hidden;
     padding: 0;
     transition: ease-in box-shadow .1s;
     width: 100%;
 
     &:not(:disabled):hover {
-        box-shadow: $hard-box-shadow;
+        box-shadow: variables.$hard-box-shadow;
     }
 
     .game-icon {
-        font-size: $default-font-size * 4;
-        padding: $base-size;
+        font-size: variables.$default-font-size * 4;
+        padding: variables.$base-size;
     }
 
     .game-name {
-        font-size: $default-font-size * 2;
-        padding: $base-size;
+        font-size: variables.$default-font-size * 2;
+        padding: variables.$base-size;
     }
 
     .coming-soon {
-        color: $color-white;
+        color: variables.$color-white;
         cursor: not-allowed;
-        font-size: $default-font-size * 3;
+        font-size: variables.$default-font-size * 3;
         left: 0;
         top: 0;
-        z-index: $z-index-bump;
+        z-index: variables.$z-index-bump;
     }
 
     &.sudoku {
-        background-color: $color-sudoku;
+        background-color: variables.$color-sudoku;
 
         .game-name {
-            background-color: $color-sudoku-light;
-            color: $color-sudoku-dark;
+            background-color: variables.$color-sudoku-light;
+            color: variables.$color-sudoku-dark;
         }
     }
 
     &.solitaire {
-        background-color: $color-solitaire-green;
+        background-color: variables.$color-solitaire-green;
 
         .game-name {
-            background-color: lighten($color-solitaire-green, 10%);
+            background-color: color.adjust(variables.$color-solitaire-green, $lightness: 10%);
         }
     }
 
     &.warships {
-        background-color: $color-warships;
+        background-color: variables.$color-warships;
 
         .game-name {
-            background-color: lighten($color-warships, 10%);
+            background-color: color.adjust(variables.$color-warships, $lightness: 10%);
         }
     }
 }

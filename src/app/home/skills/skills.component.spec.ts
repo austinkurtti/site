@@ -7,9 +7,10 @@ describe('SkillsComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [SkillsComponent]
-        })
-            .compileComponents();
+            imports: [
+                SkillsComponent
+            ]
+        }).compileComponents();
     }));
 
     beforeEach(() => {

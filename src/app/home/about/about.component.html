@@ -3,43 +3,73 @@
         class="content"
         [threshold]="deferThreshold"
         (deferLoad)="deferLoad()">
-        <div class="row g-0 px-4 px-xl-0">
-            <div class="col-12 offset-xl-2 col-xl-8">
+        <div class="row g-0 px-4 px-xxl-0 mb-3">
+            <div class="col-12 offset-xxl-2 col-xxl-8">
                 <ak-section-title [text]="title"></ak-section-title>
             </div>
         </div>
-        <div class="row g-0 px-4 px-xl-0">
-            <div class="col-12 offset-xl-2 col-xl-8">
-                <div class="row g-0 align-items-center">
-                    <div class="col-12 col-xl pe-4">
-                        <div class="curly-brace">&lcub;</div>
-                        <p class="ps-5">Welcome to the site! This is where I attempt to keep an up-to-date representation of my experience as a software engineer. It's also where you might catch me experimenting with the latest ideas bouncing around in my head.</p>
-                        <p class="ps-5">When I'm not mashing away at a keyboard you can find me binging a TV series, catching the games of my favorite sports teams, looking for good food, tackling the next home improvement project, or planning my next trip.</p>
-                        <p class="mb-0 ps-5">Check out the <a routerLink="/games">games library</a> I'm building! It's a constant work in progress, but I continue to work on it as I find time.</p>
-                        <div class="curly-brace">&rcub;</div>
+        <div class="row g-0 px-4 px-xxl-0">
+            <div class="col-12 offset-xxl-2 col-xxl-8">
+                <div class="row g-0">
+                    <div class="col-12 col-xxl-6 pe-0 pe-xxl-4 pb-4 pb-xxl-0">
+                        <div class="about-content">
+                            <p>Welcome to my site! This is where I try to keep an accurate representation of my experience as a software engineer. It's also where you might catch me experimenting with the latest ideas bouncing around in my head.</p>
+                             <p>I work remotely out of Minneapolis as a <b>Staff Software Engineer</b> for NAVEX, a GRC web software company based in Portland. But before that I was a student at the <b>University of Kansas</b> and graduated with a degree in Computer Science.</p>
+                            <p class="mb-0">Check out the <a routerLink="/games">games library</a> I'm building! It's a constant work in progress, but I continue to build it out as I find time and ideas.</p>
+                        </div>
                     </div>
-                    <div class="col-12 col-xl-auto ps-0 ps-xl-4">
-                        <div id="quick-facts" class="d-flex flex-column p-4 p-xl-5 mt-5 mt-xl-0 justify-content-center">
-                            <div class="d-flex mb-4 mb-xl-5 align-items-center">
-                                <i class="fas fa-2x fa-university"></i>
-                                <div class="ms-3">
-                                    <span class="primary-fact">University of Kansas</span>
-                                    <span class="secondary-fact">Computer Science</span>
-                                </div>
+                    <div class="col-12 col-xxl-6 ps-0 ps-xxl-4 pt-4 pt-xxl-0">
+                        <div class="about-content">
+                            <div>
+                                <label class="me-3">2023</label>
+                                <b>Staff Software Engineer</b>
+                                <p class="timeline-description ms-3 my-3">
+                                    My current role at NAVEX. As a front-end codeowner, I am responsible for reviewing code changes from other engineers. I play a central role in architectural changes of the Angular web client for NAVEX's risk governance solution, IRM (Integrated Risk Management).
+                                    <br>
+                                    <span class="ak-badge color-sky">TypeScript</span>
+                                    <span class="ak-badge color-sky">Angular</span>
+                                    <span class="ak-badge color-sky">C#</span>
+                                    <span class="ak-badge color-sky">.NET</span>
+                                    <span class="ak-badge color-sky">T-SQL</span>
+                                </p>
                             </div>
-                            <div class="d-flex mb-4 mb-xl-5 align-items-center">
-                                <i class="fas fa-2x fa-code"></i>
-                                <div class="ms-3">
-                                    <span class="primary-fact">Staff Software Engineer</span>
-                                    <span class="secondary-fact">NAVEX</span>
-                                </div>
+                            <div>
+                                <label class="me-3">2022</label>
+                                <b>Senior Software Engineer</b>
+                                <p class="timeline-description ms-3 my-3">
+                                    Through several years of building my development skills and gaining experience across the tech stack, I earned new positions. First I was promoted to senior engineer, then to staff engineer a year later.
+                                    <br>
+                                    <span class="ak-badge color-sky">TypeScript</span>
+                                    <span class="ak-badge color-sky">Angular</span>
+                                    <span class="ak-badge color-sky">C#</span>
+                                    <span class="ak-badge color-sky">.NET</span>
+                                    <span class="ak-badge color-sky">T-SQL</span>
+                                </p>
                             </div>
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-2x fa-map-marked-alt"></i>
-                                <div class="ms-3">
-                                    <span class="primary-fact">Minneapolis, MN</span>
-                                    <span class="secondary-fact"><s>Goose</s> Gray duck</span>
-                                </div>
+                            <div>
+                                <label class="me-3">2017</label>
+                                <b>Software Engineer</b>
+                                <p class="timeline-description ms-3 my-3">
+                                    Fresh out of college I was hired by Lockpath, a relatively young company building a powerful GRC application called Keylight.  Lockpath was bought by NAVEX in 2019, but our engineering team remained largely the same.
+                                    <br>
+                                    <span class="ak-badge color-sky">TypeScript</span>
+                                    <span class="ak-badge color-sky">Angular</span>
+                                    <span class="ak-badge color-sky">C#</span>
+                                    <span class="ak-badge color-sky">.NET</span>
+                                    <span class="ak-badge color-sky">T-SQL</span>
+                                </p>
+                            </div>
+                            <div>
+                                <label class="me-3">2014</label>
+                                <b>Web Developer</b>
+                                <p class="timeline-description border-0 ms-3 my-3">
+                                    My first job in the web development industry. While in school at KU, I worked part-time for AllofE Solutions. I mostly worked on their suite of higher education apps, but also maintained legacy systems.
+                                    <br>
+                                    <span class="ak-badge color-sky">JavaScript</span>
+                                    <span class="ak-badge color-sky">Ext JS</span>
+                                    <span class="ak-badge color-sky">PHP</span>
+                                    <span class="ak-badge color-sky">MySQL</span>
+                                </p>
                             </div>
                         </div>
                     </div>
