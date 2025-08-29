@@ -1,7 +1,22 @@
 @use 'sass:math';
 
 @use 'variables';
+@use 'mixins';
 
-label {
-    font-size: math.div(variables.$default-font-size, 2);
+:host {
+    min-width: 50vw;
+
+    @include mixins.for-md-screens {
+        min-width: 35vw;
+    }
+    @include mixins.for-lg-screens {
+        min-width: 20vw;
+    }
+    @include mixins.for-xxl-screens {
+        min-width: 15vw;
+    }
+
+    label {
+        font-size: math.div(variables.$default-font-size, 2);
+    }
 }

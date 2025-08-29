@@ -2,6 +2,7 @@
 
 @use 'variables';
 @use 'keyframes';
+@use 'mixins';
 
 $sudoku-header-height: variables.$base-size * 6;
 $sudoku-border-width: math.div(variables.$base-size, 5);
@@ -197,14 +198,14 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                 }
             }
 
-            @media (min-width: 0px) {
+            @include mixins.for-xs-screens {
                 .sudoku-input-col {
                     flex: 0 0 auto;
                     width: 20%;
                 }
             }
 
-            @media (min-width: 992px) {
+            @include mixins.for-lg-screens {
                 .sudoku-input-col-4 {
                     flex: 0 0 auto;
                     width: 33.33333333%;
@@ -219,7 +220,7 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
     }
 }
 
-@media (min-width: 0px) {
+@include mixins.for-xs-screens {
     #sudoku-header {
         height: $sudoku-header-height * .5;
     }
@@ -246,7 +247,7 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
     }
 }
 
-@media (min-width: variables.$breakpoint-tablet) {
+@include mixins.for-md-screens {
     #sudoku-header {
         height: $sudoku-header-height * .75;
     }
@@ -273,7 +274,7 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
     }
 }
 
-@media (min-width: variables.$breakpoint-desktop) {
+@include mixins.for-lg-screens {
     #sudoku-header {
         height: $sudoku-header-height;
     }

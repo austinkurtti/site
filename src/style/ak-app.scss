@@ -3,6 +3,7 @@
 
 @use 'variables';
 @use 'keyframes';
+@use 'mixins';
 
 /***********************
 
@@ -253,7 +254,7 @@ i[class*="fas"], i[class*="fab"], i[class*="far"], i[class*="devicon"] {
     Media queries
 
 ***********************/
-@media (min-width: 0px) {
+@include mixins.for-xs-screens {
     header {
         height: variables.$header-height * .667;
 
@@ -297,7 +298,7 @@ i[class*="fas"], i[class*="fab"], i[class*="far"], i[class*="devicon"] {
     }
 }
 
-@media (min-width: variables.$breakpoint-tablet) {
+@include mixins.for-md-screens {
     header {
         height: variables.$header-height * .75;
 
@@ -341,7 +342,7 @@ i[class*="fas"], i[class*="fab"], i[class*="far"], i[class*="devicon"] {
     }
 }
 
-@media (min-width: variables.$breakpoint-desktop) {
+@include mixins.for-lg-screens {
     header {
         height: variables.$header-height;
 

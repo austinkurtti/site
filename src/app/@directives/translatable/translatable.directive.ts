@@ -37,14 +37,15 @@ export class TranslatableDirective implements OnInit, AfterViewInit, OnDestroy {
         this.translating$.next(true);
 
         // Freeze the element dimensions to prevent jankiness during translation
+        const computedStyle = getComputedStyle(this.elementRef.nativeElement);
         this._preservedDisplay = this.elementRef.nativeElement.style.display;
         this._preservedHeight = this.elementRef.nativeElement.style.height;
         this._preservedWidth = this.elementRef.nativeElement.style.width;
         if (this._inlineElementTagNames.includes(this.elementRef.nativeElement.tagName)) {
             this._renderer.setStyle(this.elementRef.nativeElement, 'display', 'inline-block');
         }
-        this._renderer.setStyle(this.elementRef.nativeElement, 'height', this.elementRef.nativeElement.clientHeight + 'px');
-        this._renderer.setStyle(this.elementRef.nativeElement, 'width', this.elementRef.nativeElement.clientWidth + 'px');
+        this._renderer.setStyle(this.elementRef.nativeElement, 'height', computedStyle.height);
+        this._renderer.setStyle(this.elementRef.nativeElement, 'width', computedStyle.width);
         this._renderer.addClass(this.elementRef.nativeElement, 'translating');
 
         // Reset translation to empty string
