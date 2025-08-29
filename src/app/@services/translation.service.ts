@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { TranslatableDirective } from '@directives/translatable/translatable.directive';
 import { BehaviorSubject } from 'rxjs';
 import { skip } from 'rxjs/operators';
+import { WorkerService } from './worker.service';
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +12,8 @@ export class TranslationService {
 
     public modelsLoaded$ = new BehaviorSubject<boolean>(false);
     public translating$ = new BehaviorSubject<boolean>(false);
+
+    private _workerService = inject(WorkerService);
 
     private _translatables: TranslatableDirective[] = [];
     private _translatableQueue: TranslatableDirective[] = [];
@@ -52,20 +55,23 @@ export class TranslationService {
             return;
         }
 
-        try {
-            // TODO - ideally spread the translation workload across multiple parallel workers
-            this._translationWorker = new Worker(new URL('../@workers/translation.worker.ts', import.meta.url), { type: 'module' });
-            this._translationWorker.onmessage = this._translationWorkerOnMessage;
-            this._doNextTranslation(languageCode);
-        } catch (error) {
-            console.error('Error creating translation worker:', error);
-        }
+        // TODO - may not be feasible... but it would be great to have this spread across multiple workers to speed up translations
+        this._workerService.requestWorker()
+            .then(() => {
+                this._translationWorker = new Worker(new URL('../@workers/translation.worker.ts', import.meta.url), { type: 'module' });
+                this._translationWorker.onmessage = this._translationWorkerOnMessage;
+                this._doNextTranslation(languageCode);
+            })
+            .catch(error => {
+                console.error('Web worker request denied. Unable to perform translations.', error);
+            });
     }
 
     private _doNextTranslation(languageCode: string) {
         if (this._translatableQueue.length === 0) {
             this._translationWorker.removeAllListeners?.();
             this._translationWorker.terminate();
+            this._workerService.releaseWorker();
             this.translating$.next(false);
         } else {
             const translatable = this._translatableQueue.shift();

@@ -2,6 +2,7 @@ import { BehaviorSubject } from 'rxjs';
 import { getSquare } from './sudoku.functions';
 import { SudokuCell, SudokuDifficulty, SudokuGameState, sudokuValueCandidateMap } from './sudoku.models';
 
+// TODO - make this an injectable and implement WorkerService
 export class SudokuBoard {
     public state = SudokuGameState.paused;
     public cells: Array<Array<SudokuCell>> = [];
