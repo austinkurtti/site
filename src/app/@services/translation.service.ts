@@ -1,0 +1,135 @@
+import { Injectable } from '@angular/core';
+import { TranslatableDirective } from '@directives/translatable/translatable.directive';
+import { BehaviorSubject } from 'rxjs';
+import { skip } from 'rxjs/operators';
+
+@Injectable({
+    providedIn: 'root'
+})
+export class TranslationService {
+    public models = [];
+
+    public modelsLoaded$ = new BehaviorSubject<boolean>(false);
+    public translating$ = new BehaviorSubject<boolean>(false);
+
+    private _translatables: TranslatableDirective[] = [];
+    private _translatableQueue: TranslatableDirective[] = [];
+    private _translatingIndex = 0;
+    private _translationWorker: Worker;
+    private _workersEnabled = false;
+
+    constructor() {
+        if (window.isSecureContext && typeof Worker !== 'undefined') {
+            this._workersEnabled = true;
+        } else {
+            this._workersEnabled = false;
+            // TODO - web workers unavailable, do something?
+        }
+    }
+
+    public registerTranslatable(item: TranslatableDirective) {
+        this._translatables.push(item);
+    }
+
+    public unregisterTranslatable(item: TranslatableDirective) {
+        this._translatables = this._translatables.filter(t => t !== item);
+    }
+
+    public translateAll(languageCode: string) {
+        this.translating$.next(true);
+        this._translatableQueue = [...this._translatables];
+        this._translatingIndex = 0;
+        this._doTranslations(languageCode);
+    }
+
+    private _doTranslations(languageCode: string) {
+        if (this._translatableQueue.length === 0) {
+            return;
+        }
+
+        if (!this._workersEnabled) {
+            console.error('Web workers are not enabled');
+            return;
+        }
+
+        try {
+            // TODO - ideally spread the translation workload across multiple parallel workers
+            this._translationWorker = new Worker(new URL('../@workers/translation.worker.ts', import.meta.url), { type: 'module' });
+            this._translationWorker.onmessage = this._translationWorkerOnMessage;
+            this._doNextTranslation(languageCode);
+        } catch (error) {
+            console.error('Error creating translation worker:', error);
+        }
+    }
+
+    private _doNextTranslation(languageCode: string) {
+        if (this._translatableQueue.length === 0) {
+            this._translationWorker.removeAllListeners?.();
+            this._translationWorker.terminate();
+            this.translating$.next(false);
+        } else {
+            const translatable = this._translatableQueue.shift();
+            translatable.translating$
+                .pipe(
+                    skip(1)
+                )
+                .subscribe(translating => {
+                    if (!translating) {
+                        this._translatingIndex++;
+                        this._doNextTranslation(languageCode);
+                    }
+                });
+
+            // To help reduce innaccuracies from translation chaining, always perform the translation from original language, English
+            this._translationWorker.postMessage({
+                text: translatable.originalText,
+                sourceLanguage: 'eng_Latn',
+                targetLanguage: languageCode,
+                index: this._translatingIndex
+            });
+        }
+    }
+
+    private _translationWorkerOnMessage = (event) => {
+        let translatable: TranslatableDirective;
+
+        switch (event.data.status) {
+            // Pipeline messages
+            case 'initiate':
+                // Model file loading started, add model to array
+                event.data.progress = 0;
+                this.models = [...this.models, event.data];
+                break;
+            case 'progress':
+                // Model file loading progress
+                const model = this.models.find(m => m.file === event.data.file);
+                model.progress = event.data.progress;
+                break;
+            case 'done':
+                // Model file loading done, remove it from array
+                this.models = this.models.filter(m => m.file !== event.data.file);
+                break;
+            case 'ready':
+                // Pipeline ready, worker can now accept translate messages
+                this.modelsLoaded$.next(true);
+                break;
+
+            // Custom messages
+            case 'translate-start':
+                // Translation started
+                translatable = this._translatables[event.data.index];
+                translatable.translateStart();
+                break;
+            case 'translate-progress':
+                // Translation progress
+                translatable = this._translatables[event.data.index];
+                translatable.translateProgress(event.data.output);
+                break;
+            case 'translate-done':
+                // Translation done
+                translatable = this._translatables[event.data.index];
+                translatable.translateDone(event.data.output[0].translation_text);
+                break;
+        }
+    };
+}
