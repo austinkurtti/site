@@ -7,7 +7,7 @@
     border-radius: math.div(variables.$base-size, 4);
     padding: variables.$base-size * 2;
 
-    .timeline-description {
+    .timeline-description, .timeline-badges {
         border-left: 1px solid variables.$theme-font-color;
         padding-left: variables.$base-size * 2.25;
     }

@@ -1,0 +1,7 @@
+@use 'sass:math';
+
+@use 'variables';
+
+label {
+    font-size: math.div(variables.$default-font-size, 2);
+}

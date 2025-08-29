@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
+import { TranslationsComponent } from '@components/translations/translations.component';
 import { aboutId, aboutText, introId, introText, projectsId, projectsText, skillsId, skillsText } from '@constants/strings';
-import { MenuPosition } from '@directives/menu/menu.directive';
+import { MenuPosition, MenuWidth } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
+import { TranslatableDirective } from "@directives/translatable/translatable.directive";
 import { LocalStorageService } from '@services/local-storage.service';
 import { Subscription, timer } from 'rxjs';
 import { MenuContentDirective } from '../@directives/menu/menu-content.directive';
@@ -30,7 +32,9 @@ import { SkillsComponent } from './skills/skills.component';
         MenuItemDirective,
         ProjectsComponent,
         SkillsComponent,
-        TooltipDirective
+        TooltipDirective,
+        TranslatableDirective,
+        TranslationsComponent
     ]
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -61,9 +65,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         })
     ];
 
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     public MenuPosition = MenuPosition;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+    public MenuWidth = MenuWidth;
     public TooltipPosition = TooltipPosition;
 
     private _renderer = inject(Renderer2);

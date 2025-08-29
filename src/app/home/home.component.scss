@@ -28,18 +28,6 @@
             }
         }
 
-        [role=menu] {
-            width: 75%;
-
-            [role=menuitem]:hover {
-                background-color: variables.$theme-primary-background;
-            }
-
-            #menu-buttons {
-                border-top: 1px solid variables.$theme-font-color;
-            }
-        }
-
         a {
             color: variables.$theme-font-color;
             font-size: variables.$default-font-size * 1.25;

@@ -39,10 +39,6 @@
             outline-style: solid;
             outline-width: math.div(variables.$base-size, 12);
         }
-
-        &::placeholder {
-            font-style: italic;
-        }
     }
 
     button {
