@@ -10,7 +10,7 @@ import { WorkerService } from './worker.service';
 export class TranslationService {
     public models = [];
 
-    public modelsLoaded$ = new BehaviorSubject<boolean>(false);
+    public modelsLoading$ = new BehaviorSubject<boolean>(false);
     public translating$ = new BehaviorSubject<boolean>(false);
 
     private _workerService = inject(WorkerService);
@@ -120,6 +120,7 @@ export class TranslationService {
             // Pipeline messages
             case 'initiate':
                 // Model file loading started, add model to array
+                this.modelsLoading$.next(true);
                 event.data.progress = 0;
                 this.models = [...this.models, event.data];
                 break;
@@ -134,7 +135,7 @@ export class TranslationService {
                 break;
             case 'ready':
                 // Pipeline ready, worker can now accept translate messages
-                this.modelsLoaded$.next(true);
+                this.modelsLoading$.next(false);
                 break;
 
             // Custom messages
