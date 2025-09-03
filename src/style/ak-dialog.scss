@@ -2,6 +2,7 @@
 
 @use 'variables';
 @use 'keyframes';
+@use 'mixins';
 
 dialog {
     align-items: center;
@@ -51,7 +52,7 @@ dialog {
         }
     }
 
-    @media (min-width: 0px) {
+    @include mixins.for-xs-screens {
         &.small .dialog-content {
             width: 80%;
         }
@@ -65,7 +66,7 @@ dialog {
         }
     }
 
-    @media (min-width: variables.$breakpoint-tablet) {
+    @include mixins.for-md-screens {
         &.small .dialog-content {
             width: 60%;
         }
@@ -79,7 +80,7 @@ dialog {
         }
     }
 
-    @media (min-width: variables.$breakpoint-desktop) {
+    @include mixins.for-lg-screens {
         &.small .dialog-content {
             width: 40%;
         }

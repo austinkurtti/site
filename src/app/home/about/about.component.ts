@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { aboutId, aboutText } from '@constants/strings';
+import { TranslatableDirective } from '@directives/translatable/translatable.directive';
 import { DeferLoadDirective } from '../../@directives/defer-load/defer-load.directive';
 import { SectionTitleComponent } from '../@controls/section-title/section-title.component';
 import { SectionDirective } from '../@controls/section/section.directive';
@@ -12,7 +13,8 @@ import { SectionDirective } from '../@controls/section/section.directive';
     imports: [
         DeferLoadDirective,
         RouterLink,
-        SectionTitleComponent
+        SectionTitleComponent,
+        TranslatableDirective
     ]
 })
 export class AboutComponent extends SectionDirective {

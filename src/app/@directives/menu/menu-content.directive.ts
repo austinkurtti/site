@@ -10,20 +10,21 @@ export class MenuContentDirective implements OnInit, OnDestroy {
     private _elementRef = inject(ElementRef);
 
     public ngOnInit(): void {
-        document.addEventListener('click', this._documentClickListener);
+        document.addEventListener('click', this._outsideClickListener);
         this._elementRef.nativeElement.addEventListener('focusin', this._focusInListener);
     }
 
     public ngOnDestroy(): void {
-        document.removeEventListener('click', this._documentClickListener);
+        document.removeEventListener('click', this._outsideClickListener);
         this._elementRef.nativeElement.removeEventListener('focusin', this._focusInListener);
         this._elementRef.nativeElement.removeEventListener('focusout', this._focusOutListener);
     }
 
-    private _documentClickListener = (event: PointerEvent): void => {
-        // Any click after a menu is opened should result in the menu closing
-        this.menu.close();
-    };
+    private _outsideClickListener = (event: PointerEvent): void => {
+        if (!this._elementRef.nativeElement.contains(event.target)) {
+            this.menu.close();
+        }
+    }
 
     private _focusInListener = (event: FocusEvent): void => {
         this._elementRef.nativeElement.addEventListener('focusout', this._focusOutListener);

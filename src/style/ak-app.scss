@@ -3,6 +3,7 @@
 
 @use 'variables';
 @use 'keyframes';
+@use 'mixins';
 
 /***********************
 
@@ -215,6 +216,7 @@ kbd {
     border-radius: 3px;
     border-style: solid;
     border-width: 1px;
+    // TODO - are these alpha values right?
     box-shadow:
         0 1px 1px rgba($color: variables.$color-black, $alpha: 2),
         0 2px 0 0 rgba($color: variables.$color-white, $alpha: 7) inset;
@@ -231,18 +233,34 @@ i[class*="fas"], i[class*="fab"], i[class*="far"], i[class*="devicon"] {
     color: variables.$theme-icon-color;
 }
 
+.translating {
+    animation-name: keyframes.$gradient-name;
+    animation-duration: 4s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    background: linear-gradient(
+        270deg,
+        rgba($color: variables.$color-sky, $alpha: 34%),
+        rgba($color: variables.$color-blue, $alpha: 34%),
+        rgba($color: variables.$color-red, $alpha: 34%),
+        rgba($color: variables.$color-orange, $alpha: 34%)
+    );
+    background-size: 400% 400%;
+    border-radius: 3px;
+}
+
 /***********************
 
     Media queries
 
 ***********************/
-@media (min-width: 0px) {
+@include mixins.for-xs-screens {
     header {
-        height: variables.$header-height * .5;
+        height: variables.$header-height * .667;
 
         .header-icon-button {
-            height: variables.$header-height * .5;
-            width: variables.$header-height * .5;
+            height: variables.$header-height * .667;
+            width: variables.$header-height * .667;
         }
 
         #header-title span {
@@ -252,11 +270,11 @@ i[class*="fas"], i[class*="fab"], i[class*="far"], i[class*="devicon"] {
     }
 
     main {
-        padding-top: variables.$header-height * .5;
+        padding-top: variables.$header-height * .667;
     }
 
     footer {
-        height: variables.$header-height * .5;
+        height: variables.$header-height * .667;
     }
 
     h1 {
@@ -280,7 +298,7 @@ i[class*="fas"], i[class*="fab"], i[class*="far"], i[class*="devicon"] {
     }
 }
 
-@media (min-width: variables.$breakpoint-tablet) {
+@include mixins.for-md-screens {
     header {
         height: variables.$header-height * .75;
 
@@ -324,7 +342,7 @@ i[class*="fas"], i[class*="fab"], i[class*="far"], i[class*="devicon"] {
     }
 }
 
-@media (min-width: variables.$breakpoint-desktop) {
+@include mixins.for-lg-screens {
     header {
         height: variables.$header-height;
 

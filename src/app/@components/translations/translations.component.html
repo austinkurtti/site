@@ -1,0 +1,36 @@
+<div class="row g-0 mb-3">
+    <div class="col">
+        <ak-select
+            id="language"
+            [label]="'Language'"
+            [options]="languageOptions"
+            [(ngModel)]="selectedLanguage"
+        ></ak-select>
+    </div>
+</div>
+<div class="row g-0 justify-content-end">
+    <!-- Future magic wand goes here -->
+    <div class="col-auto position-relative">
+        <div *ngIf="(translationService.translating$ | async)" class="d-flex align-items-center justify-content-center position-absolute h-100 w-100">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </div>
+        <button
+            [disabled]="(translationService.translating$ | async)"
+            (click)="translate()"
+        >
+            <span>Translate</span>
+        </button>
+    </div>
+</div>
+<div *ngIf="(translationService.modelsLoading$ | async)" class="row g-0 mt-3">
+    <label>
+        <i class="fas fa-circle-notch fa-spin me-1"></i>
+        <span>Models loading...</span>
+    </label>
+    <div>
+        <ng-container *ngFor="let model of translationService.models">
+            <label class="d-block">{{ model.file }}</label>
+            <progress class="w-100" max="100" [value]="model.progress"></progress>
+        </ng-container>
+    </div>
+</div>

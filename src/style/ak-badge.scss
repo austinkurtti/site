@@ -6,6 +6,7 @@
     border: 1px solid currentColor;
     border-radius: math.div(variables.$base-size, 4);
     display: inline-block;
+    line-height: 1.5;
     padding-left: math.div(variables.$base-size, 4);
     padding-right: math.div(variables.$base-size, 4);
 

@@ -1,6 +1,7 @@
 @use 'sass:math';
 
 @use 'variables';
+@use 'mixins';
 
 #skills-carousel {
     background-color: variables.$theme-content-background;
@@ -13,19 +14,19 @@
     }
 }
 
-@media (min-width: 0px) {
+@include mixins.for-xs-screens {
     ak-skill {
         width: math.div(100%, 3);
     }
 }
 
-@media (min-width: variables.$breakpoint-tablet) {
+@include mixins.for-md-screens {
     ak-skill {
         width: math.div(100%, 4);
     }
 }
 
-@media (min-width: variables.$breakpoint-desktop) {
+@include mixins.for-lg-screens {
     ak-skill {
         width: math.div(100%, 6);
     }

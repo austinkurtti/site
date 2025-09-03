@@ -31,7 +31,9 @@ export class SolvedDialogComponent extends DialogBaseDirective implements OnInit
         this.timeDisplay = this.gameManager.gameInstance.time$.value.trimLeftChars(['0', ':']);
     }
 
-    public ngAfterViewInit(): void {
+    public override ngAfterViewInit(): void {
+        super.ngAfterViewInit();
+
         // Because who doesn't love confetti?
         const rect = this._elementRef.nativeElement.getBoundingClientRect();
         const bursts: number[][] = [

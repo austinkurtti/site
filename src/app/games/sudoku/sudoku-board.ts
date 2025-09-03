@@ -2,6 +2,7 @@ import { BehaviorSubject } from 'rxjs';
 import { getSquare } from './sudoku.functions';
 import { SudokuCell, SudokuDifficulty, SudokuGameState, sudokuValueCandidateMap } from './sudoku.models';
 
+// TODO - make this an injectable and implement WorkerService
 export class SudokuBoard {
     public state = SudokuGameState.paused;
     public cells: Array<Array<SudokuCell>> = [];
@@ -21,6 +22,7 @@ export class SudokuBoard {
     }
 
     public cleanup(): void {
+        this._worker?.removeAllListeners();
         this._worker?.terminate();
     }
 
@@ -29,7 +31,7 @@ export class SudokuBoard {
         this.solved$.next(false);
         return new Promise<void>(resolve => {
             if (window.isSecureContext && typeof Worker !== 'undefined') {
-                this._worker = new Worker(new URL('./sudoku.worker.ts', import.meta.url));
+                this._worker = new Worker(new URL('./sudoku.worker.ts', import.meta.url), { type: 'module' });
                 this._worker.onmessage = ({ data }) => {
                     this._solution = data.solution;
                     this.cells = data.cells;

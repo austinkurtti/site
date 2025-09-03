@@ -1,6 +1,7 @@
 @use 'sass:math';
 
 @use 'variables';
+@use 'mixins';
 
 #ak-tooltip-container {
     height: 100%;
@@ -54,19 +55,19 @@
         }
     }
 
-    @media (min-width: 0px) {
+    @include mixins.for-xs-screens {
         .ak-tooltip {
             max-width: 35%;
         }
     }
 
-    @media (min-width: variables.$breakpoint-tablet) {
+    @include mixins.for-md-screens {
         .ak-tooltip {
             max-width: 25%;
         }
     }
 
-    @media (min-width: variables.$breakpoint-desktop) {
+    @include mixins.for-lg-screens {
         .ak-tooltip {
             max-width: 15%;
         }

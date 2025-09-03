@@ -1,6 +1,7 @@
 @use 'sass:math';
 
 @use 'variables';
+@use 'mixins';
 
 :host {
     background-color: variables.$theme-content-background;
@@ -19,15 +20,13 @@
         }
 
         i {
-            @media (min-width: 0px) {
-                font-size: variables.$default-font-size * 1.5;
-            }
+            min-width: 0px;
     
-            @media (min-width: variables.$breakpoint-tablet) {
+            @include mixins.for-md-screens {
                 font-size: variables.$default-font-size * 1.35;
             }
     
-            @media (min-width: variables.$breakpoint-desktop) {
+            @include mixins.for-lg-screens {
                 font-size: variables.$default-font-size * 1.25;
             }
         }

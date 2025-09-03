@@ -1,18 +1,9 @@
 <header #header class="position-fixed w-100 row g-0 align-items-center">
-    <ng-template #headerButtons>
-        <button akTooltip
-            class="header-icon-button"
-            [tooltipContent]="'Theme'"
-            [tooltipPosition]="TooltipPosition.bottom"
-            (click)="toggleTheme()">
-            <i class="theme-toggle fas fa-2x" [ngClass]="currentThemeValue ? 'fa-sun' : 'fa-moon'"></i>
-        </button>
-    </ng-template>
-
     <button akMenu
-        id="menu-button"
+        id="menu-nav"
         class="col-auto header-icon-button d-flex d-xl-none align-items-center justify-content-center"
-        [menuPosition]="MenuPosition.bottomLeft">
+        [menuPosition]="MenuPosition.bottomLeft"
+        [menuWidth]="MenuWidth.threeQuarters">
         <i class="fas fa-bars fa-2x"></i>
         <ng-template #menuContent>
             <div akMenuContent>
@@ -22,9 +13,6 @@
                     [href]="'#' + anchor.id">
                     <span>{{ anchor.text }}</span>
                 </a>
-                <div id="menu-buttons" class="d-flex justify-content-evenly">
-                    <ng-template [ngTemplateOutlet]="headerButtons"></ng-template>
-                </div>
             </div>
         </ng-template>
     </button>
@@ -35,11 +23,29 @@
         <a *ngFor="let anchor of navigationAnchors"
             #navAnchor
             [href]="'#' + anchor.id">
-            <span>{{ anchor.text }}</span>
+            <span akTranslatable>{{ anchor.text }}</span>
         </a>
     </div>
-    <div class="col-auto col-xl-3 d-none d-xl-flex justify-content-end">
-        <ng-template [ngTemplateOutlet]="headerButtons"></ng-template>
+    <div class="col-auto col-xl-3 d-flex justify-content-end">
+        <button akMenu akTooltip
+            class="header-icon-button"
+            [menuPosition]="MenuPosition.bottomRight"
+            [tooltipContent]="'Translate'"
+            [tooltipPosition]="TooltipPosition.bottom">
+            <i class="fas fa-language fa-2x"></i>
+            <ng-template #menuContent>
+                <div akMenuContent>
+                    <ak-translations></ak-translations>
+                </div>
+            </ng-template>
+        </button>
+        <button akTooltip
+            class="header-icon-button"
+            [tooltipContent]="'Theme'"
+            [tooltipPosition]="TooltipPosition.bottom"
+            (click)="toggleTheme()">
+            <i class="fas fa-2x" [ngClass]="currentThemeValue ? 'fa-sun' : 'fa-moon'"></i>
+        </button>
     </div>
 </header>
 

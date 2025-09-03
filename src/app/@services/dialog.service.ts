@@ -33,7 +33,7 @@ export class DialogService {
     public show<T extends DialogBaseDirective>(componentType: Type<T>, size: DialogSize, allowSoftClose = true): T {
         // I refuse to allow more than one dialog open at once
         if (this._open) {
-            return;
+            return null;
         }
 
         this._open = true;
