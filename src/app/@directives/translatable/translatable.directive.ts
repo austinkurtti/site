@@ -9,6 +9,7 @@ export class TranslatableDirective implements OnInit, AfterViewInit, OnDestroy {
     public elementRef = inject(ElementRef);
 
     public originalText = '';
+    public currentLanguage = 'eng_Latn';
 
     public translating$ = new BehaviorSubject<boolean>(false);
 
@@ -67,6 +68,12 @@ export class TranslatableDirective implements OnInit, AfterViewInit, OnDestroy {
         this._renderer.setStyle(this.elementRef.nativeElement, 'width', this._preservedWidth);
 
         this.translating$.next(false);
+    }
+
+    public reset(): void {
+        this._translation = this.originalText;
+        this.currentLanguage = 'eng_Latn';
+        this._setInnerText();
     }
 
     private _setInnerText(): void {

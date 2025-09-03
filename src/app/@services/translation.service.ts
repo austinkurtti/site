@@ -52,6 +52,15 @@ export class TranslationService {
             return;
         }
 
+        // Don't run the translation pipeline for English
+        if (this._targetLanguage === 'eng_Latn') {
+            this._translatableQueue.forEach(translatable => {
+                translatable.reset();
+            });
+            this.translating$.next(false);
+            return;
+        }
+
         if (!this._workersEnabled) {
             console.error('Web workers are not enabled');
             return;
@@ -77,25 +86,30 @@ export class TranslationService {
             this.translating$.next(false);
         } else {
             const translatable = this._translatableQueue.shift();
-            translatable.translating$
-                .pipe(
-                    skip(1),
-                    takeWhile(value => value, true)
-                )
-                .subscribe(translating => {
-                    if (!translating) {
-                        this._translatingIndex++;
-                        this._doNextTranslation();
-                    }
-                });
+            if (translatable.currentLanguage === this._targetLanguage) {
+                this._doNextTranslation();
+            } else {
+                translatable.currentLanguage = this._targetLanguage;
+                translatable.translating$
+                    .pipe(
+                        skip(1),
+                        takeWhile(value => value, true)
+                    )
+                    .subscribe(translating => {
+                        if (!translating) {
+                            this._translatingIndex++;
+                            this._doNextTranslation();
+                        }
+                    });
 
-            // To help reduce innaccuracies from translation chaining, always perform the translation from original language, English
-            this._translationWorker.postMessage({
-                text: translatable.originalText,
-                sourceLanguage: 'eng_Latn',
-                targetLanguage: this._targetLanguage,
-                index: this._translatingIndex
-            });
+                // To help reduce innaccuracies from translation chaining, always perform the translation from original language, English
+                this._translationWorker.postMessage({
+                    text: translatable.originalText,
+                    sourceLanguage: 'eng_Latn',
+                    targetLanguage: this._targetLanguage,
+                    index: this._translatingIndex
+                });
+            }
         }
     }
 
