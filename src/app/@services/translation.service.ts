@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { TranslatableDirective } from '@directives/translatable/translatable.directive';
 import { BehaviorSubject } from 'rxjs';
-import { skip } from 'rxjs/operators';
+import { skip, takeWhile } from 'rxjs/operators';
 import { WorkerService } from './worker.service';
 
 @Injectable({
@@ -20,6 +20,7 @@ export class TranslationService {
     private _translatingIndex = 0;
     private _translationWorker: Worker;
     private _workersEnabled = false;
+    private _targetLanguage = 'eng_Latn';
 
     constructor() {
         if (window.isSecureContext && typeof Worker !== 'undefined') {
@@ -38,14 +39,15 @@ export class TranslationService {
         this._translatables = this._translatables.filter(t => t !== item);
     }
 
-    public translateAll(languageCode: string) {
+    public translateAll = (languageCode: string): void => {
         this.translating$.next(true);
+        this._targetLanguage = languageCode;
         this._translatableQueue = [...this._translatables];
         this._translatingIndex = 0;
-        this._doTranslations(languageCode);
+        this._doTranslations();
     }
 
-    private _doTranslations(languageCode: string) {
+    private _doTranslations = (): void => {
         if (this._translatableQueue.length === 0) {
             return;
         }
@@ -60,14 +62,14 @@ export class TranslationService {
             .then(() => {
                 this._translationWorker = new Worker(new URL('../@workers/translation.worker.ts', import.meta.url), { type: 'module' });
                 this._translationWorker.onmessage = this._translationWorkerOnMessage;
-                this._doNextTranslation(languageCode);
+                this._doNextTranslation();
             })
             .catch(error => {
                 console.error('Web worker request denied. Unable to perform translations.', error);
             });
     }
 
-    private _doNextTranslation(languageCode: string) {
+    private _doNextTranslation = (): void => {
         if (this._translatableQueue.length === 0) {
             this._translationWorker.removeAllListeners?.();
             this._translationWorker.terminate();
@@ -77,12 +79,13 @@ export class TranslationService {
             const translatable = this._translatableQueue.shift();
             translatable.translating$
                 .pipe(
-                    skip(1)
+                    skip(1),
+                    takeWhile(value => value, true)
                 )
                 .subscribe(translating => {
                     if (!translating) {
                         this._translatingIndex++;
-                        this._doNextTranslation(languageCode);
+                        this._doNextTranslation();
                     }
                 });
 
@@ -90,7 +93,7 @@ export class TranslationService {
             this._translationWorker.postMessage({
                 text: translatable.originalText,
                 sourceLanguage: 'eng_Latn',
-                targetLanguage: languageCode,
+                targetLanguage: this._targetLanguage,
                 index: this._translatingIndex
             });
         }

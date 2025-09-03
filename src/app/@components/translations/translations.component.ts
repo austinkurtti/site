@@ -33,7 +33,7 @@ export class TranslationsComponent implements OnInit {
         this.selectedLanguage = this.languageOptions[0].value;
     }
 
-    public translate(): void {
+    public translate = (): void => {
         this.translationService.translateAll(this.selectedLanguage);
     }
 }
