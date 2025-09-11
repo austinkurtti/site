@@ -1,0 +1,29 @@
+@use 'sass:math';
+
+@use 'variables';
+@use 'mixins';
+
+:host {
+    min-width: 70vw;
+
+    @include mixins.for-md-screens {
+        min-width: 55vw;
+    }
+    @include mixins.for-lg-screens {
+        min-width: 40vw;
+    }
+    @include mixins.for-xxl-screens {
+        min-width: 25vw;
+    }
+
+    .theme-radio {
+        bottom: math.div(variables.$base-size, 1.6);
+        pointer-events: none;
+    }
+
+    .theme-text {
+        bottom: math.div(variables.$base-size, 2);
+        left: variables.$base-size * 2;
+        pointer-events: none;
+    }
+}

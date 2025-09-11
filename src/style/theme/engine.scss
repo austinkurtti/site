@@ -1,0 +1,21 @@
+@use 'theme/maps/light' as light;
+@use 'theme/maps/dark' as dark;
+
+$themes: (
+    'light': light.$map,
+    'dark': dark.$map
+);
+
+:root {
+    @each $name, $map in $themes {
+        $attr-selector: '&[data-theme=#{$name}]';
+
+        #{$attr-selector} {
+            @each $property-collection, $property-variables in $map {
+                @each $variable-key, $variable-value in $property-variables {
+                    --theme-#{$property-collection}-#{$variable-key}: #{$variable-value};
+                }
+            }
+        }
+    }
+}

@@ -1,7 +1,7 @@
 @use 'variables';
 
 :host {
-    background-color: variables.$theme-content-background;
+    background-color: variables.$theme-bg-color-secondary;
     display: block;
     height: 100%;
 

@@ -1,0 +1,115 @@
+@use 'sass:map';
+@use 'sass:math';
+
+@use 'theme/maps/light' as light;
+@use 'theme/maps/dark' as dark;
+@use 'variables';
+
+:host {
+    cursor: pointer;
+
+    &:hover {
+        .theme-colors {
+            border-left-color: variables.$color-sky;
+            border-top-color: variables.$color-sky;
+            border-right-color: variables.$color-sky;
+        }
+
+        .theme-radio-label {
+            border-color: variables.$color-sky;
+        }
+    }
+
+    &[card-theme="light"] {
+        .theme-colors {
+            background-color: map.get(light.$map, 'background-color', 'primary');
+
+            .theme-font-color-emphasized {
+                background-color: map.get(light.$map, 'font-color', 'emphasized');
+            }
+
+            .theme-bg-color-secondary {
+                background-color: map.get(light.$map, 'background-color', 'secondary');
+
+                .theme-font-color-primary {
+                    background-color: map.get(light.$map, 'font-color', 'primary');
+                }
+            }
+
+            .accent-color {
+                background-color: variables.$color-sky;
+            }
+        }
+    }
+
+    &[card-theme="dark"] {
+        .theme-colors {
+            background-color: map.get(dark.$map, 'background-color', 'primary');
+
+            .theme-font-color-emphasized {
+                background-color: map.get(dark.$map, 'font-color', 'emphasized');
+            }
+
+            .theme-bg-color-secondary {
+                background-color: map.get(dark.$map, 'background-color', 'secondary');
+
+                .theme-font-color-primary {
+                    background-color: map.get(dark.$map, 'font-color', 'primary');
+                }
+            }
+
+            .accent-color {
+                background-color: variables.$color-sky;
+            }
+        }
+    }
+
+    .theme-colors {
+        border: solid variables.$color-gray 1px;
+        border-top-left-radius: math.div(variables.$base-size, 4);
+        border-top-right-radius: math.div(variables.$base-size, 4);
+
+        .theme-font-color-emphasized {
+            border-radius: math.div(variables.$base-size, 4);
+            height: math.div(variables.$base-size, 2);
+            width: 25%;
+        }
+
+        .theme-bg-color-secondary {
+            border-radius: math.div(variables.$base-size, 4);
+            height: variables.$base-size * 5;
+
+            .theme-font-color-primary {
+                border-radius: math.div(variables.$base-size, 4);
+                height: math.div(variables.$base-size, 2);
+                left: math.div(variables.$base-size, 2);
+
+                &:nth-of-type(1) {
+                    top: math.div(variables.$base-size, 2);
+                    width: 90%;
+                }
+
+                &:nth-of-type(2) {
+                    top: variables.$base-size * 1.5;
+                    width: 40%;
+                }
+            }
+        }
+
+        .accent-color {
+            border-radius: math.div(variables.$base-size, 4);
+            bottom: math.div(variables.$base-size, 2);
+            height: variables.$base-size;
+            right: math.div(variables.$base-size, 2);
+            width: variables.$base-size * 2;
+        }
+    }
+
+    .theme-radio-label {
+        border: solid variables.$color-gray 1px;
+        border-top: none;
+        border-bottom-left-radius: math.div(variables.$base-size, 4);
+        border-bottom-right-radius: math.div(variables.$base-size, 4);
+        height: variables.$base-size * 2;
+    }
+}

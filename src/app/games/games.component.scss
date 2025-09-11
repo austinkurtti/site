@@ -9,7 +9,7 @@
 
     header {
         background-color: variables.$color-white;
-        box-shadow: variables.$soft-box-shadow;
+        box-shadow: variables.$theme-box-shadow-soft;
         z-index: variables.$z-index-header;
 
         &[data-game="sudoku"] {

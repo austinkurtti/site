@@ -4,20 +4,20 @@
 @use 'keyframes';
 
 :host {
-    background-color: variables.$theme-primary-background;
-    color: variables.$theme-font-color;
+    background-color: variables.$theme-bg-color-primary;
+    color: variables.$theme-font-color-primary;
     display: block;
 
     header {
         animation: keyframes.$opacity-name keyframes.$opacity-duration keyframes.$opacity-timing;
-        background-color: variables.$theme-primary-background;
-        box-shadow: variables.$soft-box-shadow;
+        background-color: variables.$theme-bg-color-primary;
+        box-shadow: variables.$theme-box-shadow-soft;
         z-index: variables.$z-index-header;
 
         #header-title span {
             background-color: variables.$color-sky;
             border-radius: math.div(variables.$base-size, 4);
-            color: variables.$theme-primary-background;
+            color: variables.$theme-bg-color-primary;
             font-weight: bold;
             padding: 0 math.div(variables.$base-size, 2);
         }
@@ -29,7 +29,7 @@
         }
 
         a {
-            color: variables.$theme-font-color;
+            color: variables.$theme-font-color-primary;
             font-size: variables.$default-font-size * 1.25;
             font-weight: normal;
             text-decoration: none;
@@ -38,7 +38,7 @@
                 position: relative;
 
                 &::after {
-                    background-color: variables.$theme-font-color;
+                    background-color: variables.$theme-font-color-primary;
                     bottom: -(math.div(variables.$base-size, 4));
                     content: '';
                     height: math.div(variables.$base-size, 8);
@@ -71,8 +71,8 @@
     }
 
     footer {
-        background-color: variables.$theme-primary-background;
-        border-top: 1px solid variables.$theme-font-color;
+        background-color: variables.$theme-bg-color-primary;
+        border-top: 1px solid variables.$theme-font-color-primary;
 
         ak-contact-icons {
             margin-left: variables.$base-size * 2;

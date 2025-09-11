@@ -4,9 +4,9 @@
 @use 'mixins';
 
 #skills-carousel {
-    background-color: variables.$theme-content-background;
-    border-bottom: 1px solid variables.$theme-font-color;
-    border-top: 1px solid variables.$theme-font-color;
+    background-color: variables.$theme-bg-color-secondary;
+    border-bottom: 1px solid variables.$theme-font-color-primary;
+    border-top: 1px solid variables.$theme-font-color-primary;
     display: flex;
 
     ak-skill {

@@ -11,9 +11,9 @@
     z-index: variables.$z-index-tooltip;
 
     .ak-tooltip {
-        background-color: variables.$theme-hoverable-background;
+        background-color: variables.$theme-bg-color-tooltip;
         border-radius: math.div(variables.$base-size, 4);
-        color: variables.$theme-hoverable-font-color;
+        color: variables.$theme-font-color-tooltip;
         min-width: variables.$base-size;
         padding: variables.$base-size;
         position: absolute;
@@ -27,28 +27,28 @@
         }
 
         &.top:after {
-            border-color: variables.$theme-hoverable-background transparent transparent transparent;
+            border-color: variables.$theme-bg-color-tooltip transparent transparent transparent;
             left: 50%;
             top: 100%;
             transform: translateX(-50%);
         }
 
         &.right:after {
-            border-color: transparent variables.$theme-hoverable-background transparent transparent;
+            border-color: transparent variables.$theme-bg-color-tooltip transparent transparent;
             left: -(variables.$base-size * 2);
             top: 50%;
             transform: translateY(-50%);
         }
 
         &.bottom:after {
-            border-color: transparent transparent variables.$theme-hoverable-background transparent;
+            border-color: transparent transparent variables.$theme-bg-color-tooltip transparent;
             left: 50%;
             top: -50%;
             transform: translateX(-50%);
         }
 
         &.left:after {
-            border-color: transparent transparent transparent variables.$theme-hoverable-background;
+            border-color: transparent transparent transparent variables.$theme-bg-color-tooltip;
             left: 100%;
             top: 50%;
             transform: translateY(-50%);

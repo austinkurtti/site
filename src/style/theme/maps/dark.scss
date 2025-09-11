@@ -1,0 +1,23 @@
+@use 'sass:color';
+
+@use 'variables';
+
+$map: (
+    'background-color': (
+        'primary': variables.$color-navy,
+        'secondary': variables.$color-light-navy,
+        'tooltip': variables.$color-white
+    ),
+    'box-shadow': (
+        'soft': 0 2px 10px 0 color.scale(variables.$color-gray-200, $alpha: -85%),
+        'hard': 0 2px 10px 0 color.scale(variables.$color-gray-200, $alpha: -45%)
+    ),
+    'font-color': (
+        'primary': variables.$color-gray-200,
+        'emphasized': variables.$color-white,
+        'tooltip': variables.$color-black
+    ),
+    'icon-color': (
+        'primary': variables.$color-white
+    )
+)

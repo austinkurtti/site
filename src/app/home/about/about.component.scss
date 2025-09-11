@@ -3,12 +3,12 @@
 @use 'variables';
 
 .about-content {
-    background-color: variables.$theme-content-background;
+    background-color: variables.$theme-bg-color-secondary;
     border-radius: math.div(variables.$base-size, 4);
     padding: variables.$base-size * 2;
 
     .timeline-description, .timeline-badges {
-        border-left: 1px solid variables.$theme-font-color;
+        border-left: 1px solid variables.$theme-font-color-primary;
         padding-left: variables.$base-size * 2.25;
     }
 }
