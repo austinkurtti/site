@@ -4,6 +4,7 @@ import { MenuDirective } from './menu.directive';
 @Directive({ selector: '[akMenuContent]' })
 export class MenuContentDirective implements OnInit, OnDestroy {
     @HostBinding('attr.role') role = 'menu';
+    @HostBinding('class') classes = 'position-absolute';
 
     public menu = inject(MenuDirective);
 
@@ -21,7 +22,7 @@ export class MenuContentDirective implements OnInit, OnDestroy {
     }
 
     private _outsideClickListener = (event: PointerEvent): void => {
-        if (!this._elementRef.nativeElement.contains(event.target)) {
+        if (!this._elementRef.nativeElement.contains(event.target) && !this.menu.containsEventTarget(event.target)) {
             this.menu.close();
         }
     }
