@@ -1,6 +1,7 @@
 @use 'variables';
 
 // Color classes
+// TODO - not sure I want these anymore... they make it tough to work with themes
 .color-white {
     color: variables.$color-white;
     fill: variables.$color-white;

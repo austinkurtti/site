@@ -1,5 +1,8 @@
 @use 'theme/maps/light' as light;
 @use 'theme/maps/dark' as dark;
+@use 'theme/maps/high-contrast' as highContrast;
+
+@use 'variables';
 @use 'mixins';
 
 $themes: (
@@ -8,6 +11,9 @@ $themes: (
 );
 
 :root {
+    // TODO - extract into theme?
+    --theme-accent-color-primary: #{variables.$color-sky};
+
     @each $name, $map in $themes {
         $attr-selector: '&[data-theme=#{$name}]';
 
@@ -24,5 +30,16 @@ $themes: (
         @media (prefers-color-scheme: dark) {
             @include mixins.unfold-theme-map(dark.$map);
         }
+    }
+}
+
+// High contrast preference overrides all other themes
+@media (prefers-contrast: more) {
+    :root,
+    :root[data-theme=light],
+    :root[data-theme=dark],
+    :root[data-theme=sync] {
+        --theme-accent-color-primary: #{variables.$color-purple};
+        @include mixins.unfold-theme-map(highContrast.$map);
     }
 }

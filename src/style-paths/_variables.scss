@@ -26,13 +26,16 @@ $color-gray-700                         : #666;
 $color-gray-800                         : #555;
 $color-slate                            : #434343;
 $color-black                            : #333;
+$color-vanta-black                      : #000;
 $color-navy                             : #192639;
 $color-light-navy                       : #273343;
 $color-red                              : #e01958;
 $color-orange                           : #e0a119;
+$color-yellow                           : #e0e019;
 $color-green                            : #19e0a1;
 $color-sky                              : #19bce0;
 $color-blue                             : #1958e0;
+$color-purple                           : #a119e0;
 
 $color-white-rgb                        : 255, 255, 255;
 $color-black-rgb                        : 51, 51, 51;
@@ -72,9 +75,12 @@ $handwriting-font-family                : 'Caveat', sans-serif;
 // -----------------------------------------
 // Theme
 // -----------------------------------------
+$theme-accent-color-primary             : var(--theme-accent-color-primary);
+
 $theme-bg-color-primary                 : var(--theme-background-color-primary);
 $theme-bg-color-secondary               : var(--theme-background-color-secondary);
 $theme-bg-color-tooltip                 : var(--theme-background-color-tooltip);
+$theme-bg-color-input                   : var(--theme-background-color-input);
 
 $theme-box-shadow-soft                  : var(--theme-box-shadow-soft);
 $theme-box-shadow-hard                  : var(--theme-box-shadow-hard);
@@ -82,6 +88,7 @@ $theme-box-shadow-hard                  : var(--theme-box-shadow-hard);
 $theme-font-color-primary               : var(--theme-font-color-primary);
 $theme-font-color-emphasized            : var(--theme-font-color-emphasized);
 $theme-font-color-tooltip               : var(--theme-font-color-tooltip);
+$theme-font-color-input                 : var(--theme-font-color-input);
 
 $theme-icon-color-primary               : var(--theme-icon-color-primary);
 

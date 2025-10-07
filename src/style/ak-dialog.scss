@@ -37,6 +37,10 @@ dialog {
         box-shadow: variables.$theme-box-shadow-hard;
         margin: 0 math.div(variables.$base-size, 2);
 
+        @media (prefers-contrast: more) {
+            border: 1px solid variables.$theme-accent-color-primary;
+        }
+
         .dialog-header {
             padding: variables.$base-size;
         }

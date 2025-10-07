@@ -23,10 +23,12 @@
     }
 
     select {
-        border-color: variables.$color-black;
+        background-color: variables.$theme-bg-color-input;
+        border-color: variables.$theme-font-color-input;
         border-radius: math.div(variables.$base-size, 4);
         border-style: solid;
         border-width: math.div(variables.$base-size, 8);
+        color: variables.$theme-font-color-input;
         font-family: variables.$default-font-family;
         font-size: variables.$default-font-size;
         height: variables.$base-size * 3;
@@ -48,7 +50,7 @@
         }
 
         &:focus {
-            outline-color: variables.$color-black;
+            outline-color: variables.$theme-font-color-input;
             outline-style: solid;
             outline-width: math.div(variables.$base-size, 12);
         }

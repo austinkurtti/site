@@ -11,13 +11,13 @@
 
         &:hover {
             .theme-colors {
-                border-left-color: variables.$color-sky;
-                border-top-color: variables.$color-sky;
-                border-right-color: variables.$color-sky;
+                border-left-color: variables.$theme-accent-color-primary;
+                border-top-color: variables.$theme-accent-color-primary;
+                border-right-color: variables.$theme-accent-color-primary;
             }
 
             .theme-radio-label {
-                border-color: variables.$color-sky;
+                border-color: variables.$theme-accent-color-primary;
             }
         }
     }
@@ -39,7 +39,7 @@
             }
 
             .accent-color {
-                background-color: variables.$color-sky;
+                background-color: variables.$theme-accent-color-primary;
             }
         }
     }
@@ -61,7 +61,7 @@
             }
 
             .accent-color {
-                background-color: variables.$color-sky;
+                background-color: variables.$theme-accent-color-primary;
             }
         }
     }

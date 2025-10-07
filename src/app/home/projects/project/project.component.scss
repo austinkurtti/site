@@ -10,8 +10,12 @@
     flex-grow: 1;
     padding: variables.$base-size * 2;
 
+    @media (prefers-contrast: more) {
+        border: 1px solid variables.$theme-accent-color-primary;
+    }
+
     .project-icon {
-        color: variables.$color-sky;
+        color: variables.$theme-accent-color-primary;
     }
 
     .project-links {

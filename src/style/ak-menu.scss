@@ -13,6 +13,10 @@
     position: absolute;
     z-index: variables.$z-index-menu;
 
+    @media (prefers-contrast: more) {
+        border: 1px solid variables.$theme-accent-color-primary;
+    }
+
     [role=menuitem] {
         cursor: pointer;
         display: block;

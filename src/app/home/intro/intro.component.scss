@@ -43,7 +43,7 @@ section {
                     animation: keyframes.$opacity-name keyframes.$opacity-duration keyframes.$opacity-timing;
                     animation-delay: 1.75s;
                     animation-fill-mode: forwards;
-                    color: variables.$color-sky;
+                    color: variables.$theme-accent-color-primary;
                     font-family: variables.$handwriting-font-family;
                     margin-left: variables.$base-size * 2;
                     opacity: 0;

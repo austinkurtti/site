@@ -127,7 +127,7 @@ button {
             background-color: transparent;
 
             i {
-                color: variables.$color-sky;
+                color: variables.$theme-accent-color-primary;
             }
         }
     }
@@ -162,14 +162,14 @@ a[href] {
     text-decoration: none;
 
     &:link, &:visited {
-        color: variables.$color-sky;
+        color: variables.$theme-accent-color-primary;
     }
 
     &:hover {
         text-decoration: underline;
 
         i {
-            color: variables.$color-sky;
+            color: variables.$theme-accent-color-primary;
         }
     }
 }
@@ -177,7 +177,7 @@ a[href] {
 a[routerLink] {
     &:hover {
         i {
-            color: variables.$color-sky;
+            color: variables.$theme-accent-color-primary;
         }
     }
 }
@@ -226,6 +226,10 @@ i[class*="fas"], i[class*="fab"], i[class*="far"], i[class*="devicon"] {
 
     @media (prefers-reduced-motion) {
         animation-duration: 0s;
+    }
+
+    @media (prefers-contrast: more) {
+        border: 1px solid variables.$theme-accent-color-primary;
     }
 }
 

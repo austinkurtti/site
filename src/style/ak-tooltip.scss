@@ -18,12 +18,20 @@
         padding: variables.$base-size;
         position: absolute;
 
+        @media (prefers-contrast: more) {
+            border: 1px solid variables.$theme-accent-color-primary;
+        }
+
         // For tooltip arrow
         &:after {
             border-style: solid;
             border-width: variables.$base-size;
             content: "";
             position: absolute;
+
+            @media (prefers-contrast: more) {
+                border-style: none;
+            }
         }
 
         &.top:after {

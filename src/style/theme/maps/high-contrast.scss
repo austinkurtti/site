@@ -1,0 +1,25 @@
+@use 'sass:color';
+
+@use 'variables';
+
+$map: (
+    'background-color': (
+        'primary': variables.$color-vanta-black,
+        'secondary': variables.$color-vanta-black,
+        'tooltip': variables.$color-black,
+        'input': variables.$color-vanta-black
+    ),
+    'box-shadow': (
+        'soft': none,
+        'hard': none
+    ),
+    'font-color': (
+        'primary': variables.$color-white,
+        'emphasized': variables.$color-white,
+        'tooltip': variables.$color-white,
+        'input': variables.$color-white
+    ),
+    'icon-color': (
+        'primary': variables.$color-yellow
+    )
+)
