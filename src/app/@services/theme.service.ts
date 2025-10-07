@@ -68,7 +68,7 @@ export class ThemeService {
 
     private _applyTheme(): void {
         if (this.syncWithBrowser()) {
-            // TODO(#60) - apply user's media feature preferences
+            document.documentElement.setAttribute('data-theme', 'sync');
         } else {
             document.documentElement.setAttribute('data-theme', this.theme());
         }

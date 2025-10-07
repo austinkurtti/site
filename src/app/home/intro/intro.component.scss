@@ -22,6 +22,10 @@ section {
                     animation-delay: .75s;
                     animation-fill-mode: forwards;
                     opacity: 0;
+
+                    @media (prefers-reduced-motion) {
+                        animation-delay: 0s;
+                    }
                 }
 
                 #im {
@@ -29,6 +33,10 @@ section {
                     animation-delay: 1.5s;
                     animation-fill-mode: forwards;
                     opacity: 0;
+
+                    @media (prefers-reduced-motion) {
+                        animation-delay: 0s;
+                    }
                 }
 
                 #austin {
@@ -40,6 +48,10 @@ section {
                     margin-left: variables.$base-size * 2;
                     opacity: 0;
                     text-transform: none;
+
+                    @media (prefers-reduced-motion) {
+                        animation-delay: 0s;
+                    }
                 }
             }
 
@@ -51,6 +63,10 @@ section {
                 box-shadow: variables.$theme-box-shadow-hard;
                 height: 30vh;
                 opacity: 0;
+
+                @media (prefers-reduced-motion) {
+                    animation-delay: 0s;
+                }
 
                 @include mixins.for-md-screens {
                     height: 40vh;
@@ -71,9 +87,19 @@ section {
             transform: translateX(-50%);
             user-select: none;
 
+            @media (prefers-reduced-motion) {
+                animation-delay: 0s;
+            }
+
             i {
-                animation: keyframes.$bounce-name keyframes.$bounce-duration keyframes.$bounce-timing;
+                animation-duration: keyframes.$bounce-duration;
+                animation-name: keyframes.$bounce-name;
                 animation-iteration-count: infinite;
+                animation-timing-function: keyframes.$bounce-timing;
+
+                @media (prefers-reduced-motion) {
+                    animation-duration: 0s;
+                }
             }
         }
     }

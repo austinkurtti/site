@@ -11,6 +11,10 @@
     transition: ease-in box-shadow .1s;
     width: 100%;
 
+    @media (prefers-reduced-motion) {
+        transition: none;
+    }
+
     &:not(:disabled):hover {
         box-shadow: variables.$theme-box-shadow-hard;
     }

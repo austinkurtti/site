@@ -9,7 +9,12 @@
         left: variables.$base-size * .65;
         position: absolute;
         top: variables.$base-size * 1.3;
-        transition: ease-in font-size .1s, ease-in top .1s;
+        transition: ease-in font-size .1s,
+                    ease-in top .1s;
+
+        @media (prefers-reduced-motion) {
+            transition: none;
+        }
 
         &.float {
             font-size: variables.$default-font-size * .8;

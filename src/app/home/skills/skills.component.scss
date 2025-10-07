@@ -11,6 +11,10 @@
 
     ak-skill {
         transition: ease-in-out transform 1s;
+
+        @media (prefers-reduced-motion) {
+            transition: none;
+        }
     }
 }
 

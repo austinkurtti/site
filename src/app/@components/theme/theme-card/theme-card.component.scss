@@ -6,21 +6,23 @@
 @use 'variables';
 
 :host {
-    cursor: pointer;
+    &[disabled=false] {
+        cursor: pointer;
 
-    &:hover {
-        .theme-colors {
-            border-left-color: variables.$color-sky;
-            border-top-color: variables.$color-sky;
-            border-right-color: variables.$color-sky;
-        }
+        &:hover {
+            .theme-colors {
+                border-left-color: variables.$color-sky;
+                border-top-color: variables.$color-sky;
+                border-right-color: variables.$color-sky;
+            }
 
-        .theme-radio-label {
-            border-color: variables.$color-sky;
+            .theme-radio-label {
+                border-color: variables.$color-sky;
+            }
         }
     }
 
-    &[card-theme="light"] {
+    &[card-theme=light] {
         .theme-colors {
             background-color: map.get(light.$map, 'background-color', 'primary');
 
@@ -42,7 +44,7 @@
         }
     }
 
-    &[card-theme="dark"] {
+    &[card-theme=dark] {
         .theme-colors {
             background-color: map.get(dark.$map, 'background-color', 'primary');
 

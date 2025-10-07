@@ -44,9 +44,13 @@
                     height: math.div(variables.$base-size, 8);
                     left: 0;
                     position: absolute;
-                    transition: ease-in transform .2s;
                     transform-origin: bottom right;
+                    transition: ease-in transform .2s;
                     width: 100%;
+
+                    @media (prefers-reduced-motion) {
+                        transition: none;
+                    }
                 }
             }
 

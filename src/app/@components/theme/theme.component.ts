@@ -1,5 +1,6 @@
 import { Component, HostBinding, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ToggleComponent } from '@components/toggle/toggle.component';
 import { ThemeService } from '@services/theme.service';
 import { ThemeCardComponent } from "./theme-card/theme-card.component";
 
@@ -9,7 +10,8 @@ import { ThemeCardComponent } from "./theme-card/theme-card.component";
     templateUrl: './theme.component.html',
     imports: [
         FormsModule,
-        ThemeCardComponent
+        ThemeCardComponent,
+        ToggleComponent
     ]
 })
 export class ThemeComponent {

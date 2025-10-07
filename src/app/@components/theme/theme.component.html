@@ -1,5 +1,4 @@
-<!-- TODO(#60) - apply user's media feature preferences -->
-<!-- <div class="row g-0 mb-3">
+<div class="row g-0 mb-3">
     <div class="col">
         <ak-toggle
             [label]="'Sync with browser'"
@@ -7,7 +6,7 @@
             (valueChange)="themeService.syncWithBrowser.set($event)"
         ></ak-toggle>
     </div>
-</div> -->
+</div>
 <div class="row">
     <div class="col-6 position-relative">
         <input type="radio"
@@ -15,11 +14,15 @@
             class="theme-radio position-absolute"
             name="theme"
             value="light"
+            [disabled]="themeService.syncWithBrowser()"
             [(ngModel)]="themeService.theme"
         />
         <label for="theme-light">
             <div class="theme-text position-absolute">Light</div>
-            <ak-theme-card [theme]="'light'"></ak-theme-card>
+            <ak-theme-card
+                [theme]="'light'"
+                [disabled]="themeService.syncWithBrowser()"
+            ></ak-theme-card>
         </label>
     </div>
     <div class="col-6 position-relative">
@@ -28,11 +31,15 @@
             class="theme-radio position-absolute"
             name="theme"
             value="dark"
+            [disabled]="themeService.syncWithBrowser()"
             [(ngModel)]="themeService.theme"
         />
         <label for="theme-dark">
             <div class="theme-text position-absolute">Dark</div>
-            <ak-theme-card [theme]="'dark'"></ak-theme-card>
+            <ak-theme-card
+                [theme]="'dark'"
+                [disabled]="themeService.syncWithBrowser()"
+            ></ak-theme-card>
         </label>
     </div>
     <!-- TODO(#62) - more themes -->

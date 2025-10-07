@@ -32,6 +32,10 @@ section {
             transform: translateX(10%);
             transition: linear opacity .5s,
                         linear transform .5s;
+
+            @media (prefers-reduced-motion) {
+                transition: none;
+            }
             
             &.loaded {
                 opacity: 1;
@@ -206,10 +210,10 @@ i[class*="fas"], i[class*="fab"], i[class*="far"], i[class*="devicon"] {
 }
 
 .translating {
-    animation-name: keyframes.$gradient-name;
     animation-duration: 4s;
-    animation-timing-function: ease;
     animation-iteration-count: infinite;
+    animation-name: keyframes.$gradient-name;
+    animation-timing-function: ease;
     background: linear-gradient(
         270deg,
         rgba($color: variables.$color-sky, $alpha: 34%),
@@ -219,6 +223,10 @@ i[class*="fas"], i[class*="fab"], i[class*="far"], i[class*="devicon"] {
     );
     background-size: 400% 400%;
     border-radius: 3px;
+
+    @media (prefers-reduced-motion) {
+        animation-duration: 0s;
+    }
 }
 
 /***********************
