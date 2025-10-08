@@ -46,7 +46,7 @@ section {
 }
 
 h1, h2, h3, h4, h5 {
-    color: variables.$theme-font-color-emphasized;
+    color: variables.$theme-font-color-large;
     font-weight: bold;
     margin: 0;
 }
@@ -56,13 +56,13 @@ h3:not(:last-child) {
 }
 
 label {
-    color: variables.$theme-font-color-emphasized;
+    color: variables.$theme-font-color-large;
     font-weight: bold;
     margin: 0;
 }
 
 b {
-    color: variables.$theme-font-color-emphasized
+    color: variables.$theme-font-color-large
 }
 
 p {
@@ -80,18 +80,18 @@ p:not(:last-child) {
 }
 
 :focus-visible, button:focus {
-    outline-color: variables.$theme-font-color-primary;
+    outline-color: variables.$theme-font-color-normal;
     outline-style: dashed;
     outline-width: math.div(variables.$base-size, 4);
 }
 
 button {
     background-color: transparent;
-    border-color: variables.$theme-font-color-primary;
+    border-color: variables.$theme-font-color-normal;
     border-radius: math.div(variables.$base-size, 4);
     border-style: solid;
     border-width: math.div(variables.$base-size, 8);
-    color: variables.$theme-font-color-primary;
+    color: variables.$theme-font-color-normal;
     font-family: variables.$default-font-family;
     font-size: variables.$default-font-size;
     padding: math.div(variables.$base-size, 2);

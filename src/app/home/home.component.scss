@@ -5,7 +5,7 @@
 
 :host {
     background-color: variables.$theme-bg-color-primary;
-    color: variables.$theme-font-color-primary;
+    color: variables.$theme-font-color-normal;
     display: block;
 
     header {
@@ -15,7 +15,7 @@
         z-index: variables.$z-index-header;
 
         @media (prefers-contrast: more) {
-            border-bottom: 1px solid variables.$theme-font-color-primary;
+            border-bottom: 1px solid variables.$theme-font-color-normal;
         }
 
         @media (forced-colors) {
@@ -39,7 +39,7 @@
         }
 
         a {
-            color: variables.$theme-font-color-primary;
+            color: variables.$theme-font-color-normal;
             font-size: variables.$default-font-size * 1.25;
             font-weight: normal;
             text-decoration: none;
@@ -48,7 +48,7 @@
                 position: relative;
 
                 &::after {
-                    background-color: variables.$theme-font-color-primary;
+                    background-color: variables.$theme-font-color-normal;
                     bottom: -(math.div(variables.$base-size, 4));
                     content: '';
                     height: math.div(variables.$base-size, 8);
@@ -86,7 +86,7 @@
 
     footer {
         background-color: variables.$theme-bg-color-primary;
-        border-top: 1px solid variables.$theme-font-color-primary;
+        border-top: 1px solid variables.$theme-font-color-normal;
 
         ak-contact-icons {
             margin-left: variables.$base-size * 2;

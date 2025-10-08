@@ -7,7 +7,7 @@ section {
                 repeating-linear-gradient(45deg, variables.$theme-bg-color-secondary 0, variables.$theme-bg-color-secondary 10%, transparent 0, transparent 50%);
     background-color: variables.$theme-bg-color-primary;
     background-size: variables.$base-size * 2 variables.$base-size * 2;
-    border-bottom: 1px solid variables.$theme-font-color-primary;
+    border-bottom: 1px solid variables.$theme-font-color-normal;
     min-height: 100vh;
 
     .content {

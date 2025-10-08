@@ -5,8 +5,8 @@
 
 #skills-carousel {
     background-color: variables.$theme-bg-color-secondary;
-    border-bottom: 1px solid variables.$theme-font-color-primary;
-    border-top: 1px solid variables.$theme-font-color-primary;
+    border-bottom: 1px solid variables.$theme-font-color-normal;
+    border-top: 1px solid variables.$theme-font-color-normal;
     display: flex;
 
     ak-skill {
