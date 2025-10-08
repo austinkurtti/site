@@ -4,11 +4,18 @@
 
 $map: (
     'accent-color': (
-        'primary': variables.$color-yellow
+        // General
+        'primary': variables.$color-yellow,
+
+        // Games
+        'sudoku': variables.$color-yellow
     ),
     'background-color': (
+        // General
         'primary': variables.$color-vanta-black,
         'secondary': variables.$color-vanta-black,
+
+        // Controls
         'tooltip': variables.$color-black,
         'input': variables.$color-vanta-black
     ),
@@ -17,8 +24,11 @@ $map: (
         'hard': none
     ),
     'font-color': (
+        // General
         'normal': variables.$color-white,
         'large': variables.$color-white,
+
+        // Controls
         'tooltip': variables.$color-white,
         'input': variables.$color-white
     ),

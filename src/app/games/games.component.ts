@@ -1,5 +1,8 @@
 import { Component, Renderer2, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { ThemeComponent } from '@components/theme/theme.component';
+import { MenuContentDirective } from '@directives/menu/menu-content.directive';
+import { MenuDirective, MenuPosition } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { TooltipDirective } from '../@directives/tooltip/tooltip.directive';
 import { GamesHomeComponent } from './games-home.component';
@@ -10,25 +13,25 @@ import { SudokuComponent } from './sudoku/sudoku.component';
     styleUrls: ['./games.component.scss'],
     templateUrl: './games.component.html',
     imports: [
+        MenuDirective,
+        MenuContentDirective,
         RouterLink,
         RouterOutlet,
+        ThemeComponent,
         TooltipDirective
     ]
 })
 export class GamesComponent {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+    public MenuPosition = MenuPosition;
     public TooltipPosition = TooltipPosition;
 
     private _renderer = inject(Renderer2);
 
     public routerOutletActivate(activatedComponent: any) {
-        // Only supporting light theme for now
-        document.documentElement.setAttribute('data-theme', 'light');
-
         const headerEl = document.querySelector('header');
         const titleEl = headerEl.children[0] as HTMLElement;
-        const exitButtonEl = headerEl.children[1] as HTMLElement;
-        const closeButtonEl = headerEl.children[2] as HTMLElement;
+        const exitButtonEl = document.querySelector('#exit-button');
+        const closeButtonEl = document.querySelector('#close-button');
         if (activatedComponent instanceof GamesHomeComponent) {
             (titleEl.firstChild as HTMLElement).innerHTML = 'Games';
             this._renderer.removeAttribute(headerEl, 'data-game');

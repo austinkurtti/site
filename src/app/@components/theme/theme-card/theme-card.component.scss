@@ -26,15 +26,15 @@
         .theme-colors {
             background-color: map.get(light.$map, 'background-color', 'primary');
 
-            .theme-font-color-emphasized {
-                background-color: map.get(light.$map, 'font-color', 'emphasized');
+            .theme-font-color-large {
+                background-color: map.get(light.$map, 'font-color', 'large');
             }
 
             .theme-bg-color-secondary {
                 background-color: map.get(light.$map, 'background-color', 'secondary');
 
-                .theme-font-color-primary {
-                    background-color: map.get(light.$map, 'font-color', 'primary');
+                .theme-font-color-normal {
+                    background-color: map.get(light.$map, 'font-color', 'normal');
                 }
             }
 
@@ -48,15 +48,15 @@
         .theme-colors {
             background-color: map.get(dark.$map, 'background-color', 'primary');
 
-            .theme-font-color-emphasized {
-                background-color: map.get(dark.$map, 'font-color', 'emphasized');
+            .theme-font-color-large {
+                background-color: map.get(dark.$map, 'font-color', 'large');
             }
 
             .theme-bg-color-secondary {
                 background-color: map.get(dark.$map, 'background-color', 'secondary');
 
-                .theme-font-color-primary {
-                    background-color: map.get(dark.$map, 'font-color', 'primary');
+                .theme-font-color-normal {
+                    background-color: map.get(dark.$map, 'font-color', 'normal');
                 }
             }
 
@@ -71,7 +71,7 @@
         border-top-left-radius: math.div(variables.$base-size, 4);
         border-top-right-radius: math.div(variables.$base-size, 4);
 
-        .theme-font-color-emphasized {
+        .theme-font-color-large {
             border-radius: math.div(variables.$base-size, 4);
             height: math.div(variables.$base-size, 2);
             width: 25%;
@@ -81,7 +81,7 @@
             border-radius: math.div(variables.$base-size, 4);
             height: variables.$base-size * 5;
 
-            .theme-font-color-primary {
+            .theme-font-color-normal {
                 border-radius: math.div(variables.$base-size, 4);
                 height: math.div(variables.$base-size, 2);
                 left: math.div(variables.$base-size, 2);
