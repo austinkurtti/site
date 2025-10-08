@@ -39,7 +39,7 @@
             }
 
             .accent-color {
-                background-color: variables.$theme-accent-color-primary;
+                background-color: map.get(light.$map, 'accent-color', 'primary');
             }
         }
     }
@@ -61,7 +61,7 @@
             }
 
             .accent-color {
-                background-color: variables.$theme-accent-color-primary;
+                background-color: map.get(dark.$map, 'accent-color', 'primary');
             }
         }
     }

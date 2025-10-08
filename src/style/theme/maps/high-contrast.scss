@@ -3,6 +3,9 @@
 @use 'variables';
 
 $map: (
+    'accent-color': (
+        'primary': variables.$color-yellow
+    ),
     'background-color': (
         'primary': variables.$color-vanta-black,
         'secondary': variables.$color-vanta-black,
@@ -20,6 +23,6 @@ $map: (
         'input': variables.$color-white
     ),
     'icon-color': (
-        'primary': variables.$color-yellow
+        'primary': variables.$color-white
     )
 )

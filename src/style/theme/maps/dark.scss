@@ -3,6 +3,9 @@
 @use 'variables';
 
 $map: (
+    'accent-color': (
+        'primary': variables.$color-sky
+    ),
     'background-color': (
         'primary': variables.$color-navy,
         'secondary': variables.$color-light-navy,
