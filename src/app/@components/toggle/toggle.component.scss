@@ -40,7 +40,7 @@
 
         &.on {
             .toggle-background {
-                background-color: variables.$color-success;
+                background-color: variables.$color-positive;
             }
 
             .toggle-foreground {
@@ -62,7 +62,7 @@
             }
 
             .fa-check {
-                color: color.adjust(variables.$color-success, $lightness: 60%);
+                color: variables.$icon-color-on-positive;
                 height: variables.$base-size;
                 width: variables.$base-size;
             }

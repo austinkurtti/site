@@ -8,7 +8,7 @@
     label {
         left: variables.$base-size * .65;
         position: absolute;
-        top: variables.$base-size;
+        top: variables.$base-size * 1.3;
         transition: ease-in font-size .1s,
                     ease-in top .1s;
 
@@ -23,15 +23,16 @@
     }
 
     select {
-        background-color: variables.$theme-bg-color-input;
-        border-color: variables.$theme-font-color-input;
+        background-color: variables.$theme-bg-color-secondary;
+        border-color: variables.$theme-font-color-normal;
         border-radius: math.div(variables.$base-size, 4);
         border-style: solid;
         border-width: math.div(variables.$base-size, 8);
-        color: variables.$theme-font-color-input;
+        box-sizing: border-box;
+        color: variables.$theme-font-color-normal;
         font-family: variables.$default-font-family;
         font-size: variables.$default-font-size;
-        height: variables.$base-size * 3;
+        height: variables.$base-size * 3.5;
         padding-bottom: math.div(variables.$base-size, 4);
         padding-left: math.div(variables.$base-size, 2);
         padding-right: math.div(variables.$base-size, 2);
@@ -50,7 +51,7 @@
         }
 
         &:focus {
-            outline-color: variables.$theme-font-color-input;
+            outline-color: variables.$theme-font-color-normal;
             outline-style: solid;
             outline-width: math.div(variables.$base-size, 12);
         }
@@ -60,6 +61,6 @@
         pointer-events: none;
         position: absolute;
         right: variables.$base-size;
-        top: variables.$base-size;
+        top: variables.$base-size * 1.3;
     }
 }

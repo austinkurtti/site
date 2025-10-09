@@ -7,7 +7,15 @@
     }
 
     .dialog-body {
-        background-color: variables.$color-gray-100;
+        background-color: variables.$theme-bg-color-secondary;
+
+        #incorrect {
+            color: variables.$theme-font-color-negative-on-secondary;
+        }
+
+        #correct {
+            color: variables.$theme-font-color-positive-on-secondary;
+        }
     }
 
     .dialog-actions {

@@ -28,13 +28,14 @@ export class GamesComponent {
     private _renderer = inject(Renderer2);
 
     public routerOutletActivate(activatedComponent: any) {
+        const akGamesEl = document.querySelector('ak-games');
         const headerEl = document.querySelector('header');
         const titleEl = headerEl.children[0] as HTMLElement;
         const exitButtonEl = document.querySelector('#exit-button');
         const closeButtonEl = document.querySelector('#close-button');
         if (activatedComponent instanceof GamesHomeComponent) {
             (titleEl.firstChild as HTMLElement).innerHTML = 'Games';
-            this._renderer.removeAttribute(headerEl, 'data-game');
+            this._renderer.removeAttribute(akGamesEl, 'data-game');
             this._renderer.removeClass(exitButtonEl, 'd-none');
             this._renderer.addClass(closeButtonEl, 'd-none');
         } else {
@@ -44,7 +45,7 @@ export class GamesComponent {
 
         if (activatedComponent instanceof SudokuComponent) {
             (titleEl.firstChild as HTMLElement).innerHTML = 'Sudoku';
-            this._renderer.setAttribute(headerEl, 'data-game', 'sudoku');
+            this._renderer.setAttribute(akGamesEl, 'data-game', 'sudoku');
         }
     }
 }

@@ -13,15 +13,30 @@
     z-index: variables.$z-index-notification;
 
     &.info {
-        background-color: variables.$color-blue;
+        background-color: variables.$color-neutral;
+        color: variables.$font-color-on-neutral;
+
+        i {
+            color: variables.$icon-color-on-neutral;
+        }
     }
 
     &.success {
-        background-color: variables.$color-green;
+        background-color: variables.$color-positive;
+        color: variables.$font-color-on-positive;
+
+        i {
+            color: variables.$icon-color-on-positive;
+        }
     }
 
     &.error {
-        background-color: variables.$color-red;
+        background-color: variables.$color-negative;
+        color: variables.$font-color-on-negative;
+
+        i {
+            color: variables.$icon-color-on-negative;
+        }
     }
 
     i {

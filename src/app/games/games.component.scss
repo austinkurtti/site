@@ -2,11 +2,13 @@
 @use 'functions';
 
 :host {
-    background-color: variables.$theme-bg-color-primary;
-    color: variables.$theme-font-color-normal;
     display: flex;
     flex-direction: column;
     height: 100%;
+
+    &[data-game="sudoku"] {
+        --theme-accent-color-primary: var(--theme-accent-color-sudoku);
+    }
 
     header {
         background-color: variables.$theme-bg-color-primary;
@@ -18,10 +20,6 @@
             #theme-button {
                 display: none;
             }
-        }
-
-        &[data-game="sudoku"] {
-            --theme-accent-color-primary: var(--theme-accent-color-sudoku);
         }
     }
 

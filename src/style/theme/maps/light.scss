@@ -1,6 +1,7 @@
 @use 'sass:color';
 
 @use 'variables';
+@use 'functions';
 
 $map: (
     'accent-color': (
@@ -14,10 +15,14 @@ $map: (
         // General
         'primary': variables.$color-white,
         'secondary': variables.$color-ivory,
+        'tertiary': variables.$color-gray-200,
 
         // Controls
         'tooltip': variables.$color-black,
-        'input': variables.$color-white
+
+        // Games
+        'sudoku-active': #d6d652,
+        'sudoku-extra-highlight': #e1e1c1 // 2 parts #d6d652, 3 parts $color-white, 3 parts $color-gray-200
     ),
     'box-shadow': (
         'soft': 0 2px 10px 0 color.scale(variables.$color-black, $alpha: -85%),
@@ -27,12 +32,23 @@ $map: (
         // General
         'normal': variables.$color-black,
         'large': variables.$color-vanta-black,
+        'neutral-on-primary': functions.adjust-to-contrast(variables.$color-neutral, variables.$color-white, 7, $prefer: 'darken'),
+        'neutral-on-secondary': functions.adjust-to-contrast(variables.$color-neutral, variables.$color-ivory, 7, $prefer: 'darken'),
+        'positive-on-primary': functions.adjust-to-contrast(variables.$color-positive, variables.$color-white, 7, $prefer: 'darken'),
+        'positive-on-secondary': functions.adjust-to-contrast(variables.$color-positive, variables.$color-ivory, 7, $prefer: 'darken'),
+        'negative-on-primary': functions.adjust-to-contrast(variables.$color-negative, variables.$color-white, 7, $prefer: 'darken'),
+        'negative-on-secondary': functions.adjust-to-contrast(variables.$color-negative, variables.$color-ivory, 7, $prefer: 'darken'),
 
         // Controls
-        'tooltip': variables.$color-white,
-        'input': variables.$color-black
+        'tooltip': variables.$color-white
     ),
     'icon-color': (
-        'primary': variables.$color-black
+        'primary': variables.$color-black,
+        'neutral-on-primary': variables.$color-neutral,
+        'neutral-on-secondary': variables.$color-neutral,
+        'positive-on-primary': functions.adjust-to-contrast(variables.$color-positive, variables.$color-white, 3, $prefer: 'darken'),
+        'positive-on-secondary': functions.adjust-to-contrast(variables.$color-positive, variables.$color-ivory, 3, $prefer: 'darken'),
+        'negative-on-primary': variables.$color-negative,
+        'negative-on-secondary': variables.$color-negative
     )
 )

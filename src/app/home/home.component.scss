@@ -4,8 +4,6 @@
 @use 'keyframes';
 
 :host {
-    background-color: variables.$theme-bg-color-primary;
-    color: variables.$theme-font-color-normal;
     display: block;
 
     header {

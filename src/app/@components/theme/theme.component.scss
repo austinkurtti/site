@@ -23,7 +23,6 @@
 
     .theme-text {
         bottom: math.div(variables.$base-size, 2);
-        left: variables.$base-size * 2;
-        pointer-events: none;
+        left: variables.$base-size * 2.5;
     }
 }

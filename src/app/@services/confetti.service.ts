@@ -117,8 +117,8 @@ export class ConfettiService {
     }
 
     private _randomColor(): string {
-        const random = Math.floor(Math.random() * 9);
-        return `color-${['red', 'orange', 'gold', 'yellow', 'lime', 'green', 'sky', 'blue', 'purple'][random]}`;
+        const random = Math.floor(Math.random() * 7);
+        return ['red', 'orange', 'yellow', 'green', 'sky', 'blue', 'purple'][random];
     }
 
     private _randomShape(): string {

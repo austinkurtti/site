@@ -3,7 +3,7 @@
 <div class="dialog-body row g-0">
     <div class="col-6 text-center">
         <span>{{ gameManager.gameInstance.difficulty | sudokuDifficulty }}</span>
-        <i *ngIf="gameManager.gameInstance.hardcore" class="fas fa-skull color-red ms-3"></i>
+        <i *ngIf="gameManager.gameInstance.hardcore" class="fas fa-skull ms-3"></i>
     </div>
     <div class="col-6 text-center">
         <time [dateTime]="(gameManager.gameInstance.time$ | async)">{{ timeDisplay }}</time>

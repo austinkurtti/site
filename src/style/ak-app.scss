@@ -1,5 +1,4 @@
 @use 'sass:math';
-@use 'sass:color';
 
 @use 'variables';
 @use 'functions';
@@ -17,6 +16,8 @@ html {
 }
 
 body {
+    background-color: variables.$theme-bg-color-primary;
+    color: variables.$theme-font-color-normal;
     font-family: variables.$default-font-family;
     font-size: variables.$default-font-size;
     height: 100%;
@@ -87,7 +88,7 @@ p:not(:last-child) {
 }
 
 button {
-    background-color: transparent;
+    background-color: variables.$theme-bg-color-primary;
     border-color: variables.$theme-font-color-normal;
     border-radius: math.div(variables.$base-size, 4);
     border-style: solid;
@@ -105,7 +106,7 @@ button {
         cursor: pointer;
 
         &:hover {
-            background-color: color.adjust(variables.$color-slate, $lightness: 60%);
+            background-color: variables.$theme-bg-color-secondary;
         }
     }
     
@@ -135,24 +136,24 @@ button {
 
     &.confirm-button:not(:disabled) {
         &:hover, &:focus {
-            background-color: variables.$color-green;
-            border-color: variables.$color-green;
-            color: functions.adjust-to-contrast(variables.$color-green, variables.$color-green);
+            background-color: variables.$color-positive;
+            border-color: variables.$color-positive;
+            color: variables.$font-color-on-positive;
 
             i {
-                color: functions.adjust-to-contrast(variables.$color-green, variables.$color-green, 3);
+                color: variables.$icon-color-on-positive;
             }
         }
     }
 
     &.cancel-button:not(:disabled) {
         &:hover, &:focus {
-            background-color: variables.$color-red;
-            border-color: variables.$color-red;
-            color: functions.adjust-to-contrast(variables.$color-red, variables.$color-red);
+            background-color: variables.$color-negative;
+            border-color: variables.$color-negative;
+            color: variables.$font-color-on-negative;
 
             i {
-                color: functions.adjust-to-contrast(variables.$color-red, variables.$color-red, 3);
+                color: variables.$icon-color-on-negative;
             }
         }
     }

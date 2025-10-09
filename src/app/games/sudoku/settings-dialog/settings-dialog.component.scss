@@ -3,7 +3,7 @@
 @use 'variables';
 
 .setting-group {
-    background-color: variables.$color-ivory;
+    background-color: variables.$theme-bg-color-secondary;
     border-radius: math.div(variables.$base-size, 4);
     padding: math.div(variables.$base-size, 2);
 
@@ -19,5 +19,9 @@
         &:not(:last-child) {
             margin-bottom: variables.$base-size;
         }
+    }
+
+    .fa-skull {
+        color: variables.$theme-icon-color-negative-on-secondary;
     }
 }
