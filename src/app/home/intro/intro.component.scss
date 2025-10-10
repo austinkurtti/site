@@ -55,24 +55,31 @@ section {
                 }
             }
 
-            img {
-                animation: keyframes.$opacity-name keyframes.$opacity-duration keyframes.$opacity-timing;
-                animation-delay: 2s;
-                animation-fill-mode: forwards;
-                border-radius: variables.$base-size;
-                box-shadow: variables.$theme-box-shadow-hard;
+            #img-container {
+                // Use vh for both height and width so original image ratio is maintained
                 height: 30vh;
-                opacity: 0;
-
-                @media (prefers-reduced-motion) {
-                    animation-delay: 0s;
-                }
+                width: 22.5vh;
 
                 @include mixins.for-md-screens {
                     height: 40vh;
+                    width: 30vh;
                 }
                 @include mixins.for-lg-screens {
                     height: 50vh;
+                    width: 37.5vh;
+                }
+
+                img {
+                    animation: keyframes.$opacity-name keyframes.$opacity-duration keyframes.$opacity-timing;
+                    animation-delay: 2s;
+                    animation-fill-mode: forwards;
+                    border-radius: variables.$base-size;
+                    box-shadow: variables.$theme-box-shadow-hard;
+                    opacity: 0;
+
+                    @media (prefers-reduced-motion) {
+                        animation-delay: 0s;
+                    }
                 }
             }
         }
