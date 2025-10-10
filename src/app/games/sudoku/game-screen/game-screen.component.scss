@@ -7,8 +7,8 @@
 $sudoku-header-height: variables.$base-size * 6;
 $sudoku-border-width: math.div(variables.$base-size, 5);
 
-$sudoku-color-active: #d6d652;
-$sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts $color-white, 3 parts $color-gray-200
+$sudoku-color-active: var(--theme-background-color-sudoku-active);
+$sudoku-color-extra-highlight: var(--theme-background-color-sudoku-extra-highlight);
 
 :host {
     display: flex;
@@ -16,7 +16,7 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
     height: 100%;
 
     #building {
-        background-color: variables.$color-ivory;
+        background-color: variables.$theme-bg-color-secondary;
         top: 0;
         z-index: variables.$z-index-bump;
     }
@@ -38,11 +38,15 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
             #sudoku-time {
                 font-family: monospace;
             }
+
+            .fa-skull {
+                color: variables.$theme-icon-color-negative-on-primary;
+            }
         }
 
         #sudoku-actions {
             #game-data {
-                border-top: 1px solid variables.$color-black;
+                border-top: 1px solid variables.$theme-font-color-normal;
                 font-size: variables.$default-font-size * .75;
             }
         }
@@ -102,11 +106,11 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                     }
 
                     &:hover:not(.given):not(.active) {
-                        background-color: variables.$color-white;
+                        background-color: variables.$theme-bg-color-secondary;
                     }
 
                     &.given {
-                        background-color: variables.$color-gray-200;
+                        background-color: variables.$theme-bg-color-tertiary;
                     }
 
                     &.active {
@@ -119,7 +123,7 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
 
                     &.conflicted::after {
                         border-radius: variables.$base-size;
-                        color: variables.$color-error;
+                        color: variables.$theme-font-color-negative-on-primary;
                         content: '\f06a'; // exclamation-circle
                         font-family: variables.$font-awesome-font-family;
                         font-size: variables.$base-size;
@@ -135,15 +139,15 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                         font-weight: bold;
 
                         &.revealed {
-                            color: variables.$color-blue;
+                            color: variables.$theme-font-color-neutral-on-primary;
                         }
 
                         &.valid {
-                            color: variables.$color-success;
+                            color: variables.$theme-font-color-positive-on-primary;
                         }
         
                         &.invalid {
-                            color: variables.$color-error;
+                            color: variables.$theme-font-color-negative-on-primary;
                         }
                     }
 
@@ -158,12 +162,9 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                     position: absolute;
 
                     > div {
-                        background-color: variables.$color-sudoku-light;
-                        border-color: variables.$color-black;
+                        background-color: variables.$color-sudoku;
                         border-radius: math.div(variables.$base-size, 4);
-                        border-style: solid;
-                        border-width: math.div(variables.$base-size, 8);
-                        color: variables.$color-sudoku-dark;
+                        color: variables.$color-white;
                         font-weight: bold;
                     }
                 }
@@ -174,7 +175,6 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
             max-height: 50%;
 
             .sudoku-input {
-                background-color: variables.$color-gray-200;
                 border: math.div($sudoku-border-width, 2) solid;
                 border-radius: math.div(variables.$base-size, 4);
                 font-family: monospace;
@@ -188,7 +188,7 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                 }
     
                 &:not(:disabled):hover {
-                    background-color: variables.$color-gray-300;
+                    background-color: variables.$theme-bg-color-secondary;
                     cursor: pointer;
                 }
 

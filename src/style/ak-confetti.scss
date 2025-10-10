@@ -3,6 +3,40 @@
 .confetti {
     pointer-events: none;
     position: absolute;
-    transition: linear left .1s, linear top .1s, linear transform .1s;
+    transition: linear left .1s,
+                linear top .1s,
+                linear transform .1s;
     z-index: variables.$z-index-confetti;
+
+    @media (prefers-reduced-motion) {
+        transition: none;
+    }
+
+    &.red {
+        color: variables.$color-red;
+    }
+
+    &.orange {
+        color: variables.$color-orange;
+    }
+
+    &.yellow {
+        color: variables.$color-yellow;
+    }
+
+    &.green {
+        color: variables.$color-green;
+    }
+
+    &.sky {
+        color: variables.$color-sky;
+    }
+
+    &.blue {
+        color: variables.$color-blue;
+    }
+
+    &.purple {
+        color: variables.$color-purple;
+    }
 }

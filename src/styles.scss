@@ -1,12 +1,10 @@
-@use 'variables';
-@use 'keyframes';
-@use 'mixins';
+@use 'theme/engine';
 
-@use '/src/style/ak-app.scss';
-@use '/src/style/ak-badge.scss';
-@use '/src/style/ak-confetti.scss';
-@use '/src/style/ak-dialog.scss';
-@use '/src/style/ak-helpers.scss';
-@use '/src/style/ak-menu.scss';
-@use '/src/style/ak-notification.scss';
-@use '/src/style/ak-tooltip.scss';
+@use 'ak-app';
+@use 'ak-badge';
+@use 'ak-confetti';
+@use 'ak-dialog';
+@use 'ak-helpers';
+@use 'ak-menu';
+@use 'ak-notification';
+@use 'ak-tooltip';

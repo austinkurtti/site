@@ -36,8 +36,16 @@ export class MenuDirective {
     private _isOpen = false;
 
     @HostListener('click', ['$event']) hostClick(event: PointerEvent): void {
-        event.stopPropagation();
-        (this._isOpen ? this.close : this.open)();
+        if (this._isOpen) {
+            this.close();
+        } else {
+            // Only open the menu after the entire click event loop finishes
+            // menu-content.directive attaches it's _outsideClickListener to the document, which will execute last in the event
+            // This allows any currently open menu to close first and prevents the view from jolting around as menus simultaneiously calcuate their sizes
+            setTimeout(() => {
+                this.open();
+            }, 0);
+        }
     }
 
     public open = (): void => {
@@ -85,6 +93,8 @@ export class MenuDirective {
         this._viewContainerRef.clear();
         this._isOpen = false;
     };
+
+    public containsEventTarget = (target: EventTarget): boolean => this._elementRef.nativeElement.contains(target);
 
     private _positionTop(menuEl: any, hostRect: any): void {
         this._renderer.setStyle(menuEl, 'bottom', `${document.body.clientHeight - hostRect.top}px`);

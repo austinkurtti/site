@@ -4,14 +4,18 @@
 @use 'mixins';
 
 :host {
-    background-color: variables.$theme-content-background;
+    background-color: variables.$theme-bg-color-secondary;
     border-radius: math.div(variables.$base-size, 4);
     display: block;
     flex-grow: 1;
     padding: variables.$base-size * 2;
 
+    @media (prefers-contrast: more) {
+        border: 1px solid variables.$theme-accent-color-primary;
+    }
+
     .project-icon {
-        color: variables.$color-sky;
+        color: variables.$theme-accent-color-primary;
     }
 
     .project-links {

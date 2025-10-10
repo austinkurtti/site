@@ -7,11 +7,15 @@
 }
 
 [role=menu] {
-    background-color: variables.$theme-primary-background;
+    background-color: variables.$theme-bg-color-primary;
     border-radius: math.div(variables.$base-size, 4);
-    box-shadow: variables.$hard-box-shadow;
+    box-shadow: variables.$theme-box-shadow-hard;
     position: absolute;
     z-index: variables.$z-index-menu;
+
+    @media (prefers-contrast: more) {
+        border: 1px solid variables.$theme-accent-color-primary;
+    }
 
     [role=menuitem] {
         cursor: pointer;
@@ -29,7 +33,7 @@
         }
 
         &:hover {
-            background-color: variables.$theme-content-background;
+            background-color: variables.$theme-bg-color-secondary;
         }
     }
 }

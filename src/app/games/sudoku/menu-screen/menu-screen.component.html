@@ -14,7 +14,7 @@
                         <div *ngIf="gameManager.savedGame" class="d-flex align-items-center">
                             <span class="d-none d-md-inline fs-6 font-family-monospace">{{ gameManager.savedGame.time$ | async }}</span>
                             <span class="fs-6 ms-3">{{ gameManager.savedGame.difficulty | sudokuDifficulty }}</span>
-                            <i *ngIf="gameManager.savedGame.hardcore" class="fas fa-skull color-red fs-6 ms-3"></i>
+                            <i *ngIf="gameManager.savedGame.hardcore" class="fas fa-skull fs-6 ms-3"></i>
                         </div>
                     </button>
                 </div>
@@ -33,33 +33,73 @@
         </ng-container>
 
         <ng-container *ngSwitchCase="MenuState.new">
+            <ng-template #difficultyCard let-icon="icon">
+                <div class="difficulty-card p-3 text-center">
+                    <i class="fas fa-3x" [ngClass]="icon"></i>
+                </div>
+                <div class="difficulty-radio-label"></div>
+            </ng-template>
+
             <div class="row g-0 px-2 px-md-0 mb-5">
                 <h2>New Game</h2>
             </div>
-            <div class="row g-0 align-items-center px-2 px-md-0">
+            <div class="row align-items-center px-2 px-md-0">
                 <div class="col-12 mb-2">
                     <label>Difficulty</label>
                 </div>
-                <div class="col-4">
-                    <button id="difficulty-easy"
-                        [ngClass]="difficulty === Difficulty.easy ? 'selected' : ''"
-                        (click)="difficulty = Difficulty.easy">
-                        <span>Easy</span>
-                    </button>
+                <div class="col-4 position-relative">
+                    <div class="difficulty">
+                        <input type="radio"
+                            id="difficulty-easy"
+                            class="difficulty-radio mx-2 position-absolute"
+                            name="difficulty"
+                            [value]="Difficulty.easy"
+                            [(ngModel)]="difficulty"
+                        />
+                        <label for="difficulty-easy">
+                            <div class="difficulty-text position-absolute">Easy</div>
+                            <ng-container
+                                [ngTemplateOutlet]="difficultyCard"
+                                [ngTemplateOutletContext]="{ icon: 'fa-laugh' }"
+                            ></ng-container>
+                        </label>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <button id="difficulty-medium"
-                        [ngClass]="difficulty === Difficulty.medium ? 'selected' : ''"
-                        (click)="difficulty = Difficulty.medium">
-                        <span>Medium</span>
-                    </button>
+                <div class="col-4 position-relative">
+                    <div class="difficulty">
+                        <input type="radio"
+                            id="difficulty-medium"
+                            class="difficulty-radio mx-2 position-absolute"
+                            name="difficulty"
+                            [value]="Difficulty.medium"
+                            [(ngModel)]="difficulty"
+                        />
+                        <label for="difficulty-medium">
+                            <div class="difficulty-text position-absolute">Medium</div>
+                            <ng-container
+                                [ngTemplateOutlet]="difficultyCard"
+                                [ngTemplateOutletContext]="{ icon: 'fa-smile' }"
+                            ></ng-container>
+                        </label>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <button id="difficulty-hard"
-                        [ngClass]="difficulty === Difficulty.hard ? 'selected' : ''"
-                        (click)="difficulty = Difficulty.hard">
-                        <span>Hard</span>
-                    </button>
+                <div class="col-4 position-relative">
+                    <div class="difficulty">
+                        <input type="radio"
+                            id="difficulty-hard"
+                            class="difficulty-radio mx-2 position-absolute"
+                            name="difficulty"
+                            [value]="Difficulty.hard"
+                            [(ngModel)]="difficulty"
+                        />
+                        <label for="difficulty-hard">
+                            <div class="difficulty-text position-absolute">Hard</div>
+                            <ng-container
+                                [ngTemplateOutlet]="difficultyCard"
+                                [ngTemplateOutletContext]="{ icon: 'fa-surprise' }"
+                            ></ng-container>
+                        </label>
+                    </div>
                 </div>
             </div>
             <ak-toggle

@@ -9,7 +9,12 @@
         left: variables.$base-size * .65;
         position: absolute;
         top: variables.$base-size * 1.3;
-        transition: ease-in font-size .1s, ease-in top .1s;
+        transition: ease-in font-size .1s,
+                    ease-in top .1s;
+
+        @media (prefers-reduced-motion) {
+            transition: none;
+        }
 
         &.float {
             font-size: variables.$default-font-size * .8;
@@ -18,13 +23,16 @@
     }
 
     input {
-        border-color: variables.$color-black;
+        background-color: variables.$theme-bg-color-secondary;
+        border-color: variables.$theme-font-color-normal;
         border-radius: math.div(variables.$base-size, 4);
         border-style: solid;
         border-width: math.div(variables.$base-size, 8);
+        box-sizing: border-box;
+        color: variables.$theme-font-color-normal;
         font-family: variables.$default-font-family;
         font-size: variables.$default-font-size;
-        height: variables.$base-size * 2;
+        height: variables.$base-size * 3.5;
         padding-bottom: math.div(variables.$base-size, 4);
         padding-left: math.div(variables.$base-size, 2);
         padding-right: math.div(variables.$base-size, 2);
@@ -35,15 +43,20 @@
         }
 
         &:focus {
-            outline-color: variables.$color-black;
+            outline-color: variables.$theme-font-color-normal;
             outline-style: solid;
             outline-width: math.div(variables.$base-size, 12);
         }
     }
 
     button {
+        background-color: variables.$theme-bg-color-secondary;
         position: absolute;
         right: variables.$base-size * .65;
         top: variables.$base-size * .65;
+
+        &:not(:disabled):hover {
+            background-color: variables.$theme-bg-color-tertiary;
+        }
     }
 }

@@ -10,10 +10,14 @@
     justify-content: center;
 
     .skill-icon {
-        color: variables.$color-sky;
+        color: variables.$theme-accent-color-primary;
         display: inline-block;
         font-size: variables.$default-font-size * 3;
         transition: ease-in transform .1s;
+
+        @media (prefers-reduced-motion) {
+            transition: none;
+        }
 
         &:hover {
             transform: scale(110%);

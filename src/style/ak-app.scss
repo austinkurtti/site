@@ -1,7 +1,7 @@
 @use 'sass:math';
-@use 'sass:color';
 
 @use 'variables';
+@use 'functions';
 @use 'keyframes';
 @use 'mixins';
 
@@ -13,37 +13,11 @@
 html {
     height: 100%;
     scroll-behavior: smooth;
-
-    &[data-theme="light"] {
-        --theme-primary-background: #{variables.$color-white};
-        --theme-content-background: #{variables.$color-ivory};
-
-        --theme-font-color: #{variables.$color-black};
-        --theme-font-color-rgb: #{variables.$color-black-rgb};
-
-        --theme-font-emphasized-color: #{variables.$color-black};
-        --theme-icon-color: #{variables.$color-black};
-
-        --theme-hoverable-background: #{variables.$color-black};
-        --theme-hoverable-font-color: #{variables.$color-white};
-    }
-
-    &[data-theme="dark"] {
-        --theme-primary-background: #{variables.$color-navy};
-        --theme-content-background: #{variables.$color-light-navy};
-
-        --theme-font-color: #{variables.$color-gray-200};
-        --theme-font-color-rgb: #{variables.$color-white-rgb};
-
-        --theme-font-emphasized-color: #{variables.$color-white};
-        --theme-icon-color: #{variables.$color-white};
-
-        --theme-hoverable-background: #{variables.$color-white};
-        --theme-hoverable-font-color: #{variables.$color-black};
-    }
 }
 
 body {
+    background-color: variables.$theme-bg-color-primary;
+    color: variables.$theme-font-color-normal;
     font-family: variables.$default-font-family;
     font-size: variables.$default-font-size;
     height: 100%;
@@ -60,6 +34,10 @@ section {
             transform: translateX(10%);
             transition: linear opacity .5s,
                         linear transform .5s;
+
+            @media (prefers-reduced-motion) {
+                transition: none;
+            }
             
             &.loaded {
                 opacity: 1;
@@ -70,7 +48,7 @@ section {
 }
 
 h1, h2, h3, h4, h5 {
-    color: variables.$theme-font-emphasized-color;
+    color: variables.$theme-font-color-large;
     font-weight: bold;
     margin: 0;
 }
@@ -80,13 +58,13 @@ h3:not(:last-child) {
 }
 
 label {
-    color: variables.$theme-font-emphasized-color;
+    color: variables.$theme-font-color-large;
     font-weight: bold;
     margin: 0;
 }
 
 b {
-    color: variables.$theme-font-emphasized-color
+    color: variables.$theme-font-color-large
 }
 
 p {
@@ -104,18 +82,18 @@ p:not(:last-child) {
 }
 
 :focus-visible, button:focus {
-    outline-color: variables.$theme-font-color;
+    outline-color: variables.$theme-font-color-normal;
     outline-style: dashed;
     outline-width: math.div(variables.$base-size, 4);
 }
 
 button {
-    background-color: transparent;
-    border-color: variables.$theme-font-color;
+    background-color: variables.$theme-bg-color-primary;
+    border-color: variables.$theme-font-color-normal;
     border-radius: math.div(variables.$base-size, 4);
     border-style: solid;
     border-width: math.div(variables.$base-size, 8);
-    color: variables.$theme-font-color;
+    color: variables.$theme-font-color-normal;
     font-family: variables.$default-font-family;
     font-size: variables.$default-font-size;
     padding: math.div(variables.$base-size, 2);
@@ -128,7 +106,7 @@ button {
         cursor: pointer;
 
         &:hover {
-            background-color: color.adjust(variables.$color-slate, $lightness: 60%);
+            background-color: variables.$theme-bg-color-secondary;
         }
     }
     
@@ -136,7 +114,7 @@ button {
         border: none;
 
         i {
-            color: variables.$theme-icon-color;
+            color: variables.$theme-icon-color-primary;
         }
     }
 
@@ -144,38 +122,38 @@ button {
         border: none;
 
         i {
-            color: variables.$theme-icon-color;
+            color: variables.$theme-icon-color-primary;
         }
 
         &:not(:disabled):hover {
             background-color: transparent;
 
             i {
-                color: variables.$color-sky;
+                color: variables.$theme-accent-color-primary;
             }
         }
     }
 
-    &.confirm-button {
+    &.confirm-button:not(:disabled) {
         &:hover, &:focus {
-            background-color: variables.$color-green;
-            border-color: variables.$color-green;
-            color: variables.$color-white;
+            background-color: variables.$color-positive;
+            border-color: variables.$color-positive;
+            color: variables.$font-color-on-positive;
 
             i {
-                color: variables.$color-white;
+                color: variables.$icon-color-on-positive;
             }
         }
     }
 
-    &.cancel-button {
+    &.cancel-button:not(:disabled) {
         &:hover, &:focus {
-            background-color: variables.$color-red;
-            border-color: variables.$color-red;
-            color: variables.$color-white;
+            background-color: variables.$color-negative;
+            border-color: variables.$color-negative;
+            color: variables.$font-color-on-negative;
 
             i {
-                color: variables.$color-white;
+                color: variables.$icon-color-on-negative;
             }
         }
     }
@@ -186,14 +164,14 @@ a[href] {
     text-decoration: none;
 
     &:link, &:visited {
-        color: variables.$color-sky;
+        color: variables.$theme-accent-color-primary;
     }
 
     &:hover {
         text-decoration: underline;
 
         i {
-            color: variables.$color-sky;
+            color: variables.$theme-accent-color-primary;
         }
     }
 }
@@ -201,7 +179,7 @@ a[href] {
 a[routerLink] {
     &:hover {
         i {
-            color: variables.$color-sky;
+            color: variables.$theme-accent-color-primary;
         }
     }
 }
@@ -230,14 +208,14 @@ kbd {
 }
 
 i[class*="fas"], i[class*="fab"], i[class*="far"], i[class*="devicon"] {
-    color: variables.$theme-icon-color;
+    color: variables.$theme-icon-color-primary;
 }
 
 .translating {
-    animation-name: keyframes.$gradient-name;
     animation-duration: 4s;
-    animation-timing-function: ease;
     animation-iteration-count: infinite;
+    animation-name: keyframes.$gradient-name;
+    animation-timing-function: ease;
     background: linear-gradient(
         270deg,
         rgba($color: variables.$color-sky, $alpha: 34%),
@@ -247,6 +225,14 @@ i[class*="fas"], i[class*="fab"], i[class*="far"], i[class*="devicon"] {
     );
     background-size: 400% 400%;
     border-radius: 3px;
+
+    @media (prefers-reduced-motion) {
+        animation-duration: 0s;
+    }
+
+    @media (prefers-contrast: more) {
+        border: 1px solid variables.$theme-accent-color-primary;
+    }
 }
 
 /***********************

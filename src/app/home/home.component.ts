@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
+import { ThemeComponent } from "@components/theme/theme.component";
 import { TranslationsComponent } from '@components/translations/translations.component';
 import { aboutId, aboutText, introId, introText, projectsId, projectsText, skillsId, skillsText } from '@constants/strings';
 import { MenuPosition, MenuWidth } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { TranslatableDirective } from "@directives/translatable/translatable.directive";
-import { LocalStorageService } from '@services/local-storage.service';
 import { Subscription, timer } from 'rxjs';
 import { MenuContentDirective } from '../@directives/menu/menu-content.directive';
 import { MenuItemDirective } from '../@directives/menu/menu-item.directive';
@@ -32,19 +32,19 @@ import { SkillsComponent } from './skills/skills.component';
         MenuItemDirective,
         ProjectsComponent,
         SkillsComponent,
+        ThemeComponent,
         TooltipDirective,
         TranslatableDirective,
         TranslationsComponent
     ]
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HomeComponent implements AfterViewInit, OnDestroy {
     @ViewChild('header') header: ElementRef;
     @ViewChild('headerMenuContent') headerMenuContent: ElementRef;
 
     @ViewChildren('navAnchor') navAnchors: QueryList<ElementRef>;
 
     public title = 'AUSTIN KURTTI';
-    public currentThemeValue: boolean;
 
     public navigationAnchors = [
         new NavigationAnchorModel({
@@ -71,7 +71,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     private _renderer = inject(Renderer2);
 
-    private _themeKey = 'theme';
     private _debounce: Subscription = null;
     private _activeAnchor: ElementRef = null;
 
@@ -108,27 +107,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    public ngOnInit(): void {
-        this.currentThemeValue = !!LocalStorageService.getItem(this._themeKey);
-    }
-
     public ngAfterViewInit(): void {
-        this._setTheme();
         this.updateActiveNav();
     }
 
     public ngOnDestroy(): void {
         this._clearDebounce();
-    }
-
-    public toggleTheme(): void {
-        this.currentThemeValue = !LocalStorageService.getItem(this._themeKey);
-        LocalStorageService.setItem(this._themeKey, this.currentThemeValue);
-        this._setTheme();
-    }
-
-    private _setTheme(): void {
-        document.documentElement.setAttribute('data-theme', this.currentThemeValue ? 'dark' : 'light');
     }
 
     private _clearDebounce(): void {

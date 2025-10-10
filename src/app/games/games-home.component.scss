@@ -2,6 +2,7 @@
 @use 'sass:color';
 
 @use 'variables';
+@use 'functions';
 
 .game {
     border: none;
@@ -11,8 +12,12 @@
     transition: ease-in box-shadow .1s;
     width: 100%;
 
+    @media (prefers-reduced-motion) {
+        transition: none;
+    }
+
     &:not(:disabled):hover {
-        box-shadow: variables.$hard-box-shadow;
+        box-shadow: variables.$theme-box-shadow-hard;
     }
 
     .game-icon {
@@ -37,25 +42,39 @@
     &.sudoku {
         background-color: variables.$color-sudoku;
 
+        .game-icon i {
+            color: functions.adjust-to-contrast(variables.$color-sudoku, variables.$color-sudoku, 3);
+        }
+
         .game-name {
-            background-color: variables.$color-sudoku-light;
-            color: variables.$color-sudoku-dark;
+            background-color: functions.adjust-to-contrast(variables.$color-sudoku, variables.$color-sudoku);
+            color: variables.$color-sudoku;
         }
     }
 
     &.solitaire {
         background-color: variables.$color-solitaire-green;
 
+        .game-icon i {
+            color: functions.adjust-to-contrast(variables.$color-solitaire-green, variables.$color-solitaire-green, 3);
+        }
+
         .game-name {
-            background-color: color.adjust(variables.$color-solitaire-green, $lightness: 10%);
+            background-color: functions.adjust-to-contrast(variables.$color-solitaire-green, variables.$color-solitaire-green);
+            color: variables.$color-solitaire-green;
         }
     }
 
     &.warships {
         background-color: variables.$color-warships;
 
+        .game-icon i {
+            color: functions.adjust-to-contrast(variables.$color-warships, variables.$color-warships, 3);
+        }
+
         .game-name {
-            background-color: color.adjust(variables.$color-warships, $lightness: 10%);
+            background-color: functions.adjust-to-contrast(variables.$color-warships, variables.$color-warships);
+            color: variables.$color-warships;
         }
     }
 }

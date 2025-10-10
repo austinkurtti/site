@@ -5,6 +5,7 @@
 .ak-badge {
     border: 1px solid currentColor;
     border-radius: math.div(variables.$base-size, 4);
+    color: variables.$theme-accent-color-primary;
     display: inline-block;
     line-height: 1.5;
     padding-left: math.div(variables.$base-size, 4);

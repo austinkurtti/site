@@ -6,31 +6,71 @@
     display: block;
     height: 100%;
 
-    #difficulty-easy {
-        border-bottom-right-radius: 0;
-        border-top-right-radius: 0;
+    button {
+        &:hover {
+            .fa-skull {
+                color: variables.$theme-icon-color-negative-on-secondary;
+            }
+        }
+
+        .fa-skull {
+            color: variables.$theme-icon-color-negative-on-primary;
+        }
     }
 
-    #difficulty-medium {
-        border-left-width: 0;
-        border-radius: 0;
-        border-right-width: 0;
-    }
+    .difficulty {
+        &:hover {
+            .difficulty-card, .difficulty-radio-label {
+                border-color: variables.$theme-accent-color-primary;
+            }
 
-    #difficulty-hard {
-        border-bottom-left-radius: 0;
-        border-top-left-radius: 0;
-    }
+            .fas {
+                color: variables.$theme-accent-color-primary;
+            }
+        }
 
-    [id^=difficulty-] {
-        padding: variables.$base-size;
-        text-align: center;
-        width: 100%;
+        [for^=difficulty-] {
+            cursor: pointer;
+        }
 
-        &.selected {
-            background-color: variables.$color-sudoku-light;
-            color: variables.$color-sudoku-dark;
-            font-weight: bold;
+        .difficulty-radio {
+            bottom: math.div(variables.$base-size, 1.6);
+            pointer-events: none;
+
+            &:checked + label {
+                .difficulty-card {
+                    background-color: variables.$theme-accent-color-primary;
+                    border-color: variables.$theme-accent-color-primary;
+                }
+
+                .difficulty-radio-label {
+                    border-color: variables.$theme-accent-color-primary;
+                }
+
+                .fas {
+                    color: variables.$color-white;
+                }
+            }
+        }
+
+        .difficulty-text {
+            bottom: math.div(variables.$base-size, 2);
+            left: variables.$base-size * 2.5;
+        }
+
+        .difficulty-card {
+            border: solid variables.$color-gray 1px;
+            border-top-left-radius: math.div(variables.$base-size, 4);
+            border-top-right-radius: math.div(variables.$base-size, 4);
+        }
+
+        .difficulty-radio-label {
+            border-bottom: solid variables.$color-gray 1px;
+            border-left: solid variables.$color-gray 1px;
+            border-right: solid variables.$color-gray 1px;
+            border-bottom-left-radius: math.div(variables.$base-size, 4);
+            border-bottom-right-radius: math.div(variables.$base-size, 4);
+            height: variables.$base-size * 2;
         }
     }
 }

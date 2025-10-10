@@ -39,12 +39,18 @@
                 </div>
             </ng-template>
         </button>
-        <button akTooltip
+        <button akMenu akTooltip
+            id="theme-button"
             class="header-icon-button"
+            [menuPosition]="MenuPosition.bottomRight"
             [tooltipContent]="'Theme'"
-            [tooltipPosition]="TooltipPosition.bottom"
-            (click)="toggleTheme()">
-            <i class="fas fa-2x" [ngClass]="currentThemeValue ? 'fa-sun' : 'fa-moon'"></i>
+            [tooltipPosition]="TooltipPosition.bottom">
+            <i class="fas fa-palette fa-2x"></i>
+            <ng-template #menuContent>
+                <div akMenuContent>
+                    <ak-theme></ak-theme>
+                </div>
+            </ng-template>
         </button>
     </div>
 </header>

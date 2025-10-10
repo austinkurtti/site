@@ -1,5 +1,7 @@
 @use 'sass:color';
 
+@use 'functions';
+
 @font-face {
     font-family: 'Roboto Flex';
     src: url('../assets/fonts/roboto-flex/roboto-flex.ttf') format('truetype');
@@ -26,23 +28,30 @@ $color-gray-700                         : #666;
 $color-gray-800                         : #555;
 $color-slate                            : #434343;
 $color-black                            : #333;
+$color-vanta-black                      : #000;
 $color-navy                             : #192639;
 $color-light-navy                       : #273343;
-$color-red                              : #e01919;
-$color-orange                           : #e07c19;
-$color-gold                             : #e0bc19;
+$color-ocean                            : #2e4261;
+$color-red                              : #e01958;
+$color-orange                           : #e0a119;
 $color-yellow                           : #e0e019;
-$color-lime                             : #bce019;
-$color-green                            : #19e019;
+$color-green                            : #19e0a1;
 $color-sky                              : #19bce0;
-$color-blue                             : #1919e0;
-$color-purple                           : #7c19e0;
+$color-blue                             : #1958e0;
+$color-purple                           : #a119e0;
 
 $color-white-rgb                        : 255, 255, 255;
 $color-black-rgb                        : 51, 51, 51;
 
-$color-success                          : $color-green;
-$color-error                            : $color-red;
+$color-neutral                          : $color-blue;
+$font-color-on-neutral                  : functions.adjust-to-contrast($color-neutral, $color-neutral);
+$icon-color-on-neutral                  : functions.adjust-to-contrast($color-neutral, $color-neutral, 3);
+$color-positive                         : $color-green;
+$font-color-on-positive                 : functions.adjust-to-contrast($color-positive, $color-positive);
+$icon-color-on-positive                 : functions.adjust-to-contrast($color-positive, $color-positive, 3);
+$color-negative                         : $color-red;
+$font-color-on-negative                 : functions.adjust-to-contrast($color-negative, $color-negative);
+$icon-color-on-negative                 : functions.adjust-to-contrast($color-negative, $color-negative, 3);
 
 // Sudoku
 $color-sudoku                           : #9344d1;
@@ -76,22 +85,33 @@ $handwriting-font-family                : 'Caveat', sans-serif;
 // -----------------------------------------
 // Theme
 // -----------------------------------------
-$theme-primary-background               : var(--theme-primary-background);
-$theme-content-background               : var(--theme-content-background);
+$theme-accent-color-primary             : var(--theme-accent-color-primary);
 
-$theme-font-color                       : var(--theme-font-color);
-$theme-font-color-rgb                   : var(--theme-font-color-rgb);
-$theme-font-emphasized-color            : var(--theme-font-emphasized-color);
-$theme-icon-color                       : var(--theme-icon-color);
+$theme-bg-color-primary                 : var(--theme-background-color-primary);
+$theme-bg-color-secondary               : var(--theme-background-color-secondary);
+$theme-bg-color-tertiary                : var(--theme-background-color-tertiary);
+$theme-bg-color-tooltip                 : var(--theme-background-color-tooltip);
 
-$theme-hoverable-background             : var(--theme-hoverable-background);
-$theme-hoverable-font-color             : var(--theme-hoverable-font-color);
+$theme-box-shadow-soft                  : var(--theme-box-shadow-soft);
+$theme-box-shadow-hard                  : var(--theme-box-shadow-hard);
 
-// -----------------------------------------
-// Effects
-// -----------------------------------------
-$soft-box-shadow                        : 0 2px 10px 0 rgba($theme-font-color-rgb, .15);
-$hard-box-shadow                        : 0 2px 10px 0 rgba($theme-font-color-rgb, .55);
+$theme-font-color-normal                : var(--theme-font-color-normal);
+$theme-font-color-large                 : var(--theme-font-color-large);
+$theme-font-color-neutral-on-primary    : var(--theme-font-color-neutral-on-primary);
+$theme-font-color-neutral-on-secondary  : var(--theme-font-color-neutral-on-secondary);
+$theme-font-color-positive-on-primary   : var(--theme-font-color-positive-on-primary);
+$theme-font-color-positive-on-secondary : var(--theme-font-color-positive-on-secondary);
+$theme-font-color-negative-on-primary   : var(--theme-font-color-negative-on-primary);
+$theme-font-color-negative-on-secondary : var(--theme-font-color-negative-on-secondary);
+$theme-font-color-tooltip               : var(--theme-font-color-tooltip);
+
+$theme-icon-color-primary               : var(--theme-icon-color-primary);
+$theme-icon-color-neutral-on-primary    : var(--theme-icon-color-neutral-on-primary);
+$theme-icon-color-neutral-on-secondary  : var(--theme-icon-color-neutral-on-secondary);
+$theme-icon-color-positive-on-primary   : var(--theme-icon-color-positive-on-primary);
+$theme-icon-color-positive-on-secondary : var(--theme-icon-color-positive-on-secondary);
+$theme-icon-color-negative-on-primary   : var(--theme-icon-color-negative-on-primary);
+$theme-icon-color-negative-on-secondary : var(--theme-icon-color-negative-on-secondary);
 
 // -----------------------------------------
 // Breakpoints

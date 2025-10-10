@@ -3,11 +3,11 @@
 @use 'mixins';
 
 section {
-    background: repeating-linear-gradient(0deg, variables.$theme-primary-background 0, variables.$theme-primary-background 20%, transparent 0, transparent 50%),
-                repeating-linear-gradient(45deg, variables.$theme-content-background 0, variables.$theme-content-background 10%, transparent 0, transparent 50%);
-    background-color: variables.$theme-primary-background;
+    background: repeating-linear-gradient(0deg, variables.$theme-bg-color-primary 0, variables.$theme-bg-color-primary 20%, transparent 0, transparent 50%),
+                repeating-linear-gradient(45deg, variables.$theme-bg-color-secondary 0, variables.$theme-bg-color-secondary 10%, transparent 0, transparent 50%);
+    background-color: variables.$theme-bg-color-primary;
     background-size: variables.$base-size * 2 variables.$base-size * 2;
-    border-bottom: 1px solid variables.$theme-font-color;
+    border-bottom: 1px solid variables.$theme-font-color-normal;
     min-height: 100vh;
 
     .content {
@@ -22,6 +22,10 @@ section {
                     animation-delay: .75s;
                     animation-fill-mode: forwards;
                     opacity: 0;
+
+                    @media (prefers-reduced-motion) {
+                        animation-delay: 0s;
+                    }
                 }
 
                 #im {
@@ -29,34 +33,53 @@ section {
                     animation-delay: 1.5s;
                     animation-fill-mode: forwards;
                     opacity: 0;
+
+                    @media (prefers-reduced-motion) {
+                        animation-delay: 0s;
+                    }
                 }
 
                 #austin {
                     animation: keyframes.$opacity-name keyframes.$opacity-duration keyframes.$opacity-timing;
                     animation-delay: 1.75s;
                     animation-fill-mode: forwards;
-                    color: variables.$color-sky;
+                    color: variables.$theme-accent-color-primary;
                     font-family: variables.$handwriting-font-family;
                     margin-left: variables.$base-size * 2;
                     opacity: 0;
                     text-transform: none;
+
+                    @media (prefers-reduced-motion) {
+                        animation-delay: 0s;
+                    }
                 }
             }
 
-            img {
-                animation: keyframes.$opacity-name keyframes.$opacity-duration keyframes.$opacity-timing;
-                animation-delay: 2s;
-                animation-fill-mode: forwards;
-                border-radius: variables.$base-size;
-                box-shadow: variables.$hard-box-shadow;
+            #img-container {
+                // Use vh for both height and width so original image ratio is maintained
                 height: 30vh;
-                opacity: 0;
+                width: 22.5vh;
 
                 @include mixins.for-md-screens {
                     height: 40vh;
+                    width: 30vh;
                 }
                 @include mixins.for-lg-screens {
                     height: 50vh;
+                    width: 37.5vh;
+                }
+
+                img {
+                    animation: keyframes.$opacity-name keyframes.$opacity-duration keyframes.$opacity-timing;
+                    animation-delay: 2s;
+                    animation-fill-mode: forwards;
+                    border-radius: variables.$base-size;
+                    box-shadow: variables.$theme-box-shadow-hard;
+                    opacity: 0;
+
+                    @media (prefers-reduced-motion) {
+                        animation-delay: 0s;
+                    }
                 }
             }
         }
@@ -71,9 +94,19 @@ section {
             transform: translateX(-50%);
             user-select: none;
 
+            @media (prefers-reduced-motion) {
+                animation-delay: 0s;
+            }
+
             i {
-                animation: keyframes.$bounce-name keyframes.$bounce-duration keyframes.$bounce-timing;
+                animation-duration: keyframes.$bounce-duration;
+                animation-name: keyframes.$bounce-name;
                 animation-iteration-count: infinite;
+                animation-timing-function: keyframes.$bounce-timing;
+
+                @media (prefers-reduced-motion) {
+                    animation-duration: 0s;
+                }
             }
         }
     }
