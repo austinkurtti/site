@@ -1,10 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { GameLinkModel } from './games.models';
 
 @Component({
     selector: 'ak-games-home',
     styleUrls: ['./games-home.component.scss'],
-    templateUrl: './games-home.component.html'
+    templateUrl: './games-home.component.html',
+    imports: [
+        CommonModule,
+        RouterLink
+    ]
 })
 export class GamesHomeComponent {
     public games: GameLinkModel[] = [

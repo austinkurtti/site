@@ -1,0 +1,54 @@
+@use 'sass:color';
+
+@use 'variables';
+@use 'functions';
+
+$map: (
+    'accent-color': (
+        // General
+        'primary': variables.$color-yellow,
+
+        // Games
+        'sudoku': variables.$color-yellow
+    ),
+    'background-color': (
+        // General
+        'primary': variables.$color-vanta-black,
+        'secondary': variables.$color-vanta-black,
+        'tertiary': variables.$color-vanta-black,
+
+        // Controls
+        'tooltip': variables.$color-black,
+
+        // Games
+        'sudoku-active': #785d23,
+        'sudoku-extra-highlight': #443b28
+    ),
+    'box-shadow': (
+        'soft': none,
+        'hard': none
+    ),
+    'font-color': (
+        // General
+        'normal': variables.$color-white,
+        'large': variables.$color-white,
+        'neutral-on-primary': functions.adjust-to-contrast(variables.$color-neutral, variables.$color-vanta-black, 7),
+        'neutral-on-secondary': functions.adjust-to-contrast(variables.$color-neutral, variables.$color-vanta-black, 7),
+        'positive-on-primary': variables.$color-positive,
+        'positive-on-secondary': variables.$color-positive,
+        'negative-on-primary': functions.adjust-to-contrast(variables.$color-negative, variables.$color-vanta-black, 7),
+        'negative-on-secondary': functions.adjust-to-contrast(variables.$color-negative, variables.$color-vanta-black, 7),
+
+        // Controls
+        'tooltip': variables.$color-white
+    ),
+    'icon-color': (
+        'primary': variables.$color-white,
+        'neutral-on-primary': variables.$color-neutral,
+        'neutral-on-secondary': variables.$color-neutral,
+        'positive-on-primary': variables.$color-positive,
+        'positive-on-secondary': variables.$color-positive,
+        'negative-on-primary': variables.$color-negative,
+        'negative-on-secondary': variables.$color-negative
+    )
+)

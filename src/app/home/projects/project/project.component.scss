@@ -1,0 +1,38 @@
+@use 'sass:math';
+
+@use 'variables';
+@use 'mixins';
+
+:host {
+    background-color: variables.$theme-bg-color-secondary;
+    border-radius: math.div(variables.$base-size, 4);
+    display: block;
+    flex-grow: 1;
+    padding: variables.$base-size * 2;
+
+    @media (prefers-contrast: more) {
+        border: 1px solid variables.$theme-accent-color-primary;
+    }
+
+    .project-icon {
+        color: variables.$theme-accent-color-primary;
+    }
+
+    .project-links {
+        a:not(:first-child) {
+            margin-left: variables.$base-size;
+        }
+
+        i {
+            min-width: 0px;
+    
+            @include mixins.for-md-screens {
+                font-size: variables.$default-font-size * 1.35;
+            }
+    
+            @include mixins.for-lg-screens {
+                font-size: variables.$default-font-size * 1.25;
+            }
+        }
+    }
+}

@@ -1,0 +1,117 @@
+@use 'sass:map';
+@use 'sass:math';
+
+@use 'theme/maps/light' as light;
+@use 'theme/maps/dark' as dark;
+@use 'variables';
+
+:host {
+    &[disabled=false] {
+        cursor: pointer;
+
+        &:hover {
+            .theme-colors {
+                border-left-color: variables.$theme-accent-color-primary;
+                border-top-color: variables.$theme-accent-color-primary;
+                border-right-color: variables.$theme-accent-color-primary;
+            }
+
+            .theme-radio-label {
+                border-color: variables.$theme-accent-color-primary;
+            }
+        }
+    }
+
+    &[card-theme=light] {
+        .theme-colors {
+            background-color: map.get(light.$map, 'background-color', 'primary');
+
+            .theme-font-color-large {
+                background-color: map.get(light.$map, 'font-color', 'large');
+            }
+
+            .theme-bg-color-secondary {
+                background-color: map.get(light.$map, 'background-color', 'secondary');
+
+                .theme-font-color-normal {
+                    background-color: map.get(light.$map, 'font-color', 'normal');
+                }
+            }
+
+            .accent-color {
+                background-color: map.get(light.$map, 'accent-color', 'primary');
+            }
+        }
+    }
+
+    &[card-theme=dark] {
+        .theme-colors {
+            background-color: map.get(dark.$map, 'background-color', 'primary');
+
+            .theme-font-color-large {
+                background-color: map.get(dark.$map, 'font-color', 'large');
+            }
+
+            .theme-bg-color-secondary {
+                background-color: map.get(dark.$map, 'background-color', 'secondary');
+
+                .theme-font-color-normal {
+                    background-color: map.get(dark.$map, 'font-color', 'normal');
+                }
+            }
+
+            .accent-color {
+                background-color: map.get(dark.$map, 'accent-color', 'primary');
+            }
+        }
+    }
+
+    .theme-colors {
+        border: solid variables.$color-gray 1px;
+        border-top-left-radius: math.div(variables.$base-size, 4);
+        border-top-right-radius: math.div(variables.$base-size, 4);
+
+        .theme-font-color-large {
+            border-radius: math.div(variables.$base-size, 4);
+            height: math.div(variables.$base-size, 2);
+            width: 25%;
+        }
+
+        .theme-bg-color-secondary {
+            border-radius: math.div(variables.$base-size, 4);
+            height: variables.$base-size * 5;
+
+            .theme-font-color-normal {
+                border-radius: math.div(variables.$base-size, 4);
+                height: math.div(variables.$base-size, 2);
+                left: math.div(variables.$base-size, 2);
+
+                &:nth-of-type(1) {
+                    top: math.div(variables.$base-size, 2);
+                    width: 90%;
+                }
+
+                &:nth-of-type(2) {
+                    top: variables.$base-size * 1.5;
+                    width: 40%;
+                }
+            }
+        }
+
+        .accent-color {
+            border-radius: math.div(variables.$base-size, 4);
+            bottom: math.div(variables.$base-size, 2);
+            height: variables.$base-size;
+            right: math.div(variables.$base-size, 2);
+            width: variables.$base-size * 2;
+        }
+    }
+
+    .theme-radio-label {
+        border: solid variables.$color-gray 1px;
+        border-top: none;
+        border-bottom-left-radius: math.div(variables.$base-size, 4);
+        border-bottom-right-radius: math.div(variables.$base-size, 4);
+        height: variables.$base-size * 2;
+    }
+}

@@ -1,0 +1,103 @@
+@use 'variables';
+
+// -----------------------------------------
+// Core keyframes
+// -----------------------------------------
+$opacity-name               : kfOpacity;
+$opacity-duration           : .5s;
+$opacity-timing             : ease-in;
+@keyframes #{$opacity-name} {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+$shrink-name                : kfShrink;
+$shrink-duration            : .25s;
+$shrink-timing              : ease-in;
+@keyframes #{$shrink-name} {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0);
+    }
+}
+
+$grow-name                  : kfGrow;
+$grow-duration              : .25s;
+$grow-timing                : ease-in;
+@keyframes #{$grow-name} {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+$rotate-name                : kfRotate;
+$rotate-duration            : 2s;
+$rotate-timing              : linear;
+@keyframes #{$rotate-name} {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+$bounce-name                : kfBounce;
+$bounce-duration            : 2s;
+$bounce-timing              : ease-in-out;
+@keyframes #{$bounce-name} {
+    0% {
+        transform: translateY(-50%);
+    }
+    15% {
+        transform: translateY(0%);
+    }
+    35% {
+        transform: translateY(-20%);
+    }
+    50% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(-50%);
+    }
+}
+
+$gradient-name              : kfGradient;
+@keyframes #{$gradient-name} {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+// -----------------------------------------
+// Dialog keyframes
+// -----------------------------------------
+$dialog-appear-name         : kfDialogAppear;
+$dialog-appear-duration     : .2s;
+$dialog-appear-timing       : ease-in;
+@keyframes #{$dialog-appear-name} {
+    0% {
+        opacity: 0;
+        transform: translateY(variables.$base-size * -2);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

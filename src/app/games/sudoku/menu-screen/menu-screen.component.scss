@@ -1,48 +1,76 @@
 @use 'sass:math';
 
-@import 'variables';
+@use 'variables';
 
 :host {
     display: block;
     height: 100%;
 
-    #difficulty-easy {
-        border-bottom-right-radius: 0;
-        border-top-right-radius: 0;
-    }
+    button {
+        &:hover {
+            .fa-skull {
+                color: variables.$theme-icon-color-negative-on-secondary;
+            }
+        }
 
-    #difficulty-medium {
-        border-left-width: 0;
-        border-radius: 0;
-        border-right-width: 0;
-    }
-
-    #difficulty-hard {
-        border-bottom-left-radius: 0;
-        border-top-left-radius: 0;
-    }
-
-    [id^=difficulty-] {
-        padding: $base-size;
-        text-align: center;
-        width: 100%;
-
-        &.selected {
-            background-color: $color-sudoku-light;
-            color: $color-sudoku-dark;
-            font-weight: bold;
+        .fa-skull {
+            color: variables.$theme-icon-color-negative-on-primary;
         }
     }
 
-    #confirm-button:hover {
-        background-color: $color-green;
-        border-color: $color-green;
-        color: $color-white;
-    }
+    .difficulty {
+        &:hover {
+            .difficulty-card, .difficulty-radio-label {
+                border-color: variables.$theme-accent-color-primary;
+            }
 
-    #cancel-button:hover {
-        background-color: $color-red;
-        border-color: $color-red;
-        color: $color-white;
+            .fas {
+                color: variables.$theme-accent-color-primary;
+            }
+        }
+
+        [for^=difficulty-] {
+            cursor: pointer;
+        }
+
+        .difficulty-radio {
+            bottom: math.div(variables.$base-size, 1.6);
+            pointer-events: none;
+
+            &:checked + label {
+                .difficulty-card {
+                    background-color: variables.$theme-accent-color-primary;
+                    border-color: variables.$theme-accent-color-primary;
+                }
+
+                .difficulty-radio-label {
+                    border-color: variables.$theme-accent-color-primary;
+                }
+
+                .fas {
+                    color: variables.$color-white;
+                }
+            }
+        }
+
+        .difficulty-text {
+            bottom: math.div(variables.$base-size, 2);
+            left: variables.$base-size * 2.5;
+        }
+
+        .difficulty-card {
+            border: solid variables.$color-gray 1px;
+            border-top-left-radius: math.div(variables.$base-size, 4);
+            border-top-right-radius: math.div(variables.$base-size, 4);
+        }
+
+        .difficulty-radio-label {
+            border-bottom: solid variables.$color-gray 1px;
+            border-left: solid variables.$color-gray 1px;
+            border-right: solid variables.$color-gray 1px;
+            border-bottom-left-radius: math.div(variables.$base-size, 4);
+            border-bottom-right-radius: math.div(variables.$base-size, 4);
+            height: variables.$base-size * 2;
+        }
     }
 }

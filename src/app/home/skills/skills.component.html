@@ -3,59 +3,23 @@
         class="content"
         [threshold]="deferThreshold"
         (deferLoad)="deferLoad()">
-        <div class="row g-0 px-4 px-xl-0">
-            <div class="col-12 offset-xl-2 col-xl-8">
+        <div class="row g-0 px-4 px-xxl-0 mb-3">
+            <div class="col-12 offset-xxl-2 col-xxl-8">
                 <ak-section-title [text]="title"></ak-section-title>
             </div>
         </div>
-        <div class="row g-0 mb-5 px-4 px-xl-0">
-            <div class="col-12 offset-xl-2 col-xl-8">
-                <div class="curly-brace">&lcub;</div>
-                <p class="ps-5">I consider myself a front-ender first, but working as a full-stack engineer professionally for several years has kept my skills sharp on both sides of the stack. Angular is the framework I have the most experience in, but I would love to explore others like React and Vue in the near future. I strive to always be learning.</p>
-                <p class="mb-0 ps-5">Take a look at the collection below to get an idea of my skillset.</p>
-                <div class="curly-brace">&rcub;</div>
-            </div>
-        </div>
-        <div class="row g-0 px-4 px-xl-0 justify-content-center">
-            <div id="skill-filters" class="col-12 col-xl-8">
-                <button class="color-green"
-                    [ngClass]="{'off': !skillFilters.hasFlag(SkillType.front)}"
-                    (click)="toggleFilter(SkillType.front)">
-                    <span>Front</span>
-                </button>
-                <button class="color-red"
-                    [ngClass]="{'off': !skillFilters.hasFlag(SkillType.back)}"
-                    (click)="toggleFilter(SkillType.back)">
-                    <span>Back</span>
-                </button>
-                <button class="color-sky"
-                    [ngClass]="{'off': !skillFilters.hasFlag(SkillType.data)}"
-                    (click)="toggleFilter(SkillType.data)">
-                    <span>Data</span>
-                </button>
-                <button class="color-orange"
-                    [ngClass]="{'off': !skillFilters.hasFlag(SkillType.tool)}"
-                    (click)="toggleFilter(SkillType.tool)">
-                    <span>Tool</span>
-                </button>
-            </div>
-        </div>
-        <div class="row g-0 px-4 px-xl-0 justify-content-center">
-            <div id="skill-grid" class="col-12 col-xl-8">
-                <div class="row g-0">
-                    <ng-container *ngFor="let skill of skills">
-                        <ak-skill class="col-4 col-xl-3 col-xl-2 py-3 py-md-4 py-xl-5"
-                            [ngClass]="{'off': !skillFilters.hasFlag(skill.type)}"
-                            [name]="skill.name"
-                            [icon]="skill.icon"
-                            [type]="skill.type"
-                        ></ak-skill>
-                    </ng-container>
-                </div>
-                <div *ngIf="skillFilters === 0" id="empty-message" class="d-flex h-100 w-100 align-items-center justify-content-center">
-                    <span class="ms-3">Huh, kinda empty here...</span>
-                </div>
-            </div>
+        <div #skillsCarousel
+            id="skills-carousel"
+            class="py-3"
+            (mouseover)="mouseover()"
+            (mouseout)="mouseout()">
+            <ng-container *ngFor="let skill of skills">
+                <ak-skill
+                    [name]="skill.name"
+                    [icon]="skill.icon"
+                    [type]="skill.type"
+                ></ak-skill>
+            </ng-container>
         </div>
     </div>
 </section>

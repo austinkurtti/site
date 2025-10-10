@@ -11,11 +11,19 @@ export enum MenuPosition {
     bottomRight     = bottom | right
 }
 
-@Directive({
-    selector: '[akMenu]'
-})
+export enum MenuWidth {
+    auto            = 'auto',
+    full            = '100%',
+    threeQuarters   = '75%',
+    half            = '50%',
+    third           = '33.33%',
+    quarter         = '25%'
+}
+
+@Directive({ selector: '[akMenu]' })
 export class MenuDirective {
     @Input() menuPosition: MenuPosition = MenuPosition.bottomRight;
+    @Input() menuWidth: MenuWidth = MenuWidth.auto;
     @ContentChild('menuContent') menuContent: TemplateRef<any>;
 
     @HostBinding('attr.tabindex') tabindex = 0;
@@ -28,8 +36,16 @@ export class MenuDirective {
     private _isOpen = false;
 
     @HostListener('click', ['$event']) hostClick(event: PointerEvent): void {
-        event.stopPropagation();
-        (this._isOpen ? this.close : this.open)();
+        if (this._isOpen) {
+            this.close();
+        } else {
+            // Only open the menu after the entire click event loop finishes
+            // menu-content.directive attaches it's _outsideClickListener to the document, which will execute last in the event
+            // This allows any currently open menu to close first and prevents the view from jolting around as menus simultaneiously calcuate their sizes
+            setTimeout(() => {
+                this.open();
+            }, 0);
+        }
     }
 
     public open = (): void => {
@@ -37,29 +53,33 @@ export class MenuDirective {
         // Give menu components a complete cycle to settle their views and bindings before calculating positioning
         menu.detectChanges();
 
+        // Size the menu - this must be done before positioning
         const menuEl = menu.rootNodes[0];
+        this._renderer.setStyle(menuEl, 'width', this.menuWidth);
+
+        // Position the menu
         const hostRect = this._elementRef.nativeElement.getBoundingClientRect();
         if (this.menuPosition.hasFlag(MenuPosition.top)) {
-            if ((document.body.clientHeight - hostRect.top + menuEl.clientHeight) > document.body.clientHeight) {
+            if (menuEl.clientHeight > hostRect.top) {
                 this._positionBottom(menuEl, hostRect);
             } else {
                 this._positionTop(menuEl, hostRect);
             }
         } else if (this.menuPosition.hasFlag(MenuPosition.bottom)) {
-            if ((hostRect.bottom + menuEl.clientHeight) > document.body.clientHeight) {
+            if (menuEl.clientHeight > (document.body.clientHeight - hostRect.bottom)) {
                 this._positionTop(menuEl, hostRect);
             } else {
                 this._positionBottom(menuEl, hostRect);
             }
         }
         if (this.menuPosition.hasFlag(MenuPosition.right)) {
-            if ((hostRect.left + menuEl.clientWidth) > document.body.clientWidth) {
+            if (menuEl.clientWidth > hostRect.right) {
                 this._positionLeft(menuEl, hostRect);
             } else {
                 this._positionRight(menuEl, hostRect);
             }
         } else if (this.menuPosition.hasFlag(MenuPosition.left)) {
-            if ((document.body.clientWidth - hostRect.right + menuEl.clientWidth) > document.body.clientWidth) {
+            if (menuEl.clientWidth > (document.body.clientWidth - hostRect.left)) {
                 this._positionRight(menuEl, hostRect);
             } else {
                 this._positionLeft(menuEl, hostRect);
@@ -74,12 +94,14 @@ export class MenuDirective {
         this._isOpen = false;
     };
 
+    public containsEventTarget = (target: EventTarget): boolean => this._elementRef.nativeElement.contains(target);
+
     private _positionTop(menuEl: any, hostRect: any): void {
         this._renderer.setStyle(menuEl, 'bottom', `${document.body.clientHeight - hostRect.top}px`);
     }
 
     private _positionRight(menuEl: any, hostRect: any): void {
-        this._renderer.setStyle(menuEl, 'left', `${hostRect.left}px`);
+        this._renderer.setStyle(menuEl, 'right', `${document.body.clientWidth - hostRect.right}px`);
     }
 
     private _positionBottom(menuEl: any, hostRect: any): void {
@@ -87,6 +109,6 @@ export class MenuDirective {
     }
 
     private _positionLeft(menuEl: any, hostRect: any): void {
-        this._renderer.setStyle(menuEl, 'right', `${document.body.clientWidth - hostRect.right}px`);
+        this._renderer.setStyle(menuEl, 'left', `${hostRect.left}px`);
     }
 }

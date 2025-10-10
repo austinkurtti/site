@@ -1,7 +1,9 @@
 @use 'sass:math';
 
-@import 'variables';
-@import 'keyframes';
+@use 'variables';
+@use 'functions';
+@use 'keyframes';
+@use 'mixins';
 
 /***********************
 
@@ -11,29 +13,13 @@
 html {
     height: 100%;
     scroll-behavior: smooth;
-
-    &[data-theme="light"] {
-        --theme-primary-background: #{$color-white};
-        --theme-content-background: #{$color-ivory};
-        --theme-font-color: #{$color-black};
-
-        --theme-hoverable-background: #{$color-black};
-        --theme-hoverable-font-color: #{$color-white};
-    }
-
-    &[data-theme="dark"] {
-        --theme-primary-background: #{$color-black};
-        --theme-content-background: #{$color-slate};
-        --theme-font-color: #{$color-white};
-
-        --theme-hoverable-background: #{$color-white};
-        --theme-hoverable-font-color: #{$color-black};
-    }
 }
 
 body {
-    font-family: $default-font-family;
-    font-size: $default-font-size;
+    background-color: variables.$theme-bg-color-primary;
+    color: variables.$theme-font-color-normal;
+    font-family: variables.$default-font-family;
+    font-size: variables.$default-font-size;
     height: 100%;
     line-height: 1;
     margin: 0;
@@ -41,13 +27,17 @@ body {
 
 section {
     .content {
-        padding: $base-size * 10 0;
+        padding: variables.$base-size * 10 0;
 
         &.deferred {
             opacity: 0;
             transform: translateX(10%);
             transition: linear opacity .5s,
                         linear transform .5s;
+
+            @media (prefers-reduced-motion) {
+                transition: none;
+            }
             
             &.loaded {
                 opacity: 1;
@@ -58,18 +48,23 @@ section {
 }
 
 h1, h2, h3, h4, h5 {
+    color: variables.$theme-font-color-large;
     font-weight: bold;
     margin: 0;
-    text-transform: uppercase;
 }
 
 h3:not(:last-child) {
-    margin-bottom: $base-size;
+    margin-bottom: variables.$base-size;
 }
 
 label {
+    color: variables.$theme-font-color-large;
     font-weight: bold;
     margin: 0;
+}
+
+b {
+    color: variables.$theme-font-color-large
 }
 
 p {
@@ -78,7 +73,7 @@ p {
 }
 
 p:not(:last-child) {
-    margin-bottom: $base-size;
+    margin-bottom: variables.$base-size;
 }
 
 :focus:not(:focus-visible) {
@@ -87,21 +82,21 @@ p:not(:last-child) {
 }
 
 :focus-visible, button:focus {
-    outline-color: $theme-font-color;
+    outline-color: variables.$theme-font-color-normal;
     outline-style: dashed;
-    outline-width: math.div($base-size, 4);
+    outline-width: math.div(variables.$base-size, 4);
 }
 
 button {
-    background-color: transparent;
-    border-color: $theme-font-color;
-    border-radius: math.div($base-size, 4);
+    background-color: variables.$theme-bg-color-primary;
+    border-color: variables.$theme-font-color-normal;
+    border-radius: math.div(variables.$base-size, 4);
     border-style: solid;
-    border-width: math.div($base-size, 8);
-    color: $theme-font-color;
-    font-family: $default-font-family;
-    font-size: $default-font-size;
-    padding: math.div($base-size, 2);
+    border-width: math.div(variables.$base-size, 8);
+    color: variables.$theme-font-color-normal;
+    font-family: variables.$default-font-family;
+    font-size: variables.$default-font-size;
+    padding: math.div(variables.$base-size, 2);
 
     &:disabled {
         opacity: .5;
@@ -111,36 +106,55 @@ button {
         cursor: pointer;
 
         &:hover {
-            background-color: lighten($color-slate, 60%);
+            background-color: variables.$theme-bg-color-secondary;
         }
     }
     
     &.icon-button {
         border: none;
+
+        i {
+            color: variables.$theme-icon-color-primary;
+        }
     }
 
     &.header-icon-button {
         border: none;
 
+        i {
+            color: variables.$theme-icon-color-primary;
+        }
+
         &:not(:disabled):hover {
             background-color: transparent;
-            color: $color-blue;
+
+            i {
+                color: variables.$theme-accent-color-primary;
+            }
         }
     }
 
-    &.confirm-button {
+    &.confirm-button:not(:disabled) {
         &:hover, &:focus {
-            background-color: $color-green;
-            border-color: $color-green;
-            color: $color-white;
+            background-color: variables.$color-positive;
+            border-color: variables.$color-positive;
+            color: variables.$font-color-on-positive;
+
+            i {
+                color: variables.$icon-color-on-positive;
+            }
         }
     }
 
-    &.cancel-button {
+    &.cancel-button:not(:disabled) {
         &:hover, &:focus {
-            background-color: $color-red;
-            border-color: $color-red;
-            color: $color-white;
+            background-color: variables.$color-negative;
+            border-color: variables.$color-negative;
+            color: variables.$font-color-on-negative;
+
+            i {
+                color: variables.$icon-color-on-negative;
+            }
         }
     }
 }
@@ -150,11 +164,23 @@ a[href] {
     text-decoration: none;
 
     &:link, &:visited {
-        color: $color-blue;
+        color: variables.$theme-accent-color-primary;
     }
 
     &:hover {
         text-decoration: underline;
+
+        i {
+            color: variables.$theme-accent-color-primary;
+        }
+    }
+}
+
+a[routerLink] {
+    &:hover {
+        i {
+            color: variables.$theme-accent-color-primary;
+        }
     }
 }
 
@@ -163,21 +189,50 @@ ul {
 }
 
 kbd {
-    background-color: $color-ivory;
-    border-color: $color-gray-300;
+    background-color: variables.$color-ivory;
+    border-color: variables.$color-gray-300;
     border-radius: 3px;
     border-style: solid;
     border-width: 1px;
+    // TODO - are these alpha values right?
     box-shadow:
-        0 1px 1px rgba($color: $color-black, $alpha: 2),
-        0 2px 0 0 rgba($color: $color-white, $alpha: 7) inset;
-    color: $color-black;
+        0 1px 1px rgba($color: variables.$color-black, $alpha: 2),
+        0 2px 0 0 rgba($color: variables.$color-white, $alpha: 7) inset;
+    color: variables.$color-black;
     display: inline-block;
-    font-size: $default-font-size * .8;
+    font-size: variables.$default-font-size * .8;
     font-weight: bold;
     line-height: 1;
-    padding: math.div($base-size, 8) math.div($base-size, 4);
+    padding: math.div(variables.$base-size, 8) math.div(variables.$base-size, 4);
     white-space: nowrap;
+}
+
+i[class*="fas"], i[class*="fab"], i[class*="far"], i[class*="devicon"] {
+    color: variables.$theme-icon-color-primary;
+}
+
+.translating {
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-name: keyframes.$gradient-name;
+    animation-timing-function: ease;
+    background: linear-gradient(
+        270deg,
+        rgba($color: variables.$color-sky, $alpha: 34%),
+        rgba($color: variables.$color-blue, $alpha: 34%),
+        rgba($color: variables.$color-red, $alpha: 34%),
+        rgba($color: variables.$color-orange, $alpha: 34%)
+    );
+    background-size: 400% 400%;
+    border-radius: 3px;
+
+    @media (prefers-reduced-motion) {
+        animation-duration: 0s;
+    }
+
+    @media (prefers-contrast: more) {
+        border: 1px solid variables.$theme-accent-color-primary;
+    }
 }
 
 /***********************
@@ -185,134 +240,134 @@ kbd {
     Media queries
 
 ***********************/
-@media (min-width: 0px) {
+@include mixins.for-xs-screens {
     header {
-        height: $header-height * .5;
+        height: variables.$header-height * .667;
 
         .header-icon-button {
-            height: $header-height * .5;
-            width: $header-height * .5;
+            height: variables.$header-height * .667;
+            width: variables.$header-height * .667;
         }
 
         #header-title span {
-            font-size: $default-font-size * 1.25;
-            line-height: $base-size * 1.25;
+            font-size: variables.$default-font-size * 1.25;
+            line-height: variables.$base-size * 1.25;
         }
     }
 
     main {
-        padding-top: $header-height * .5;
+        padding-top: variables.$header-height * .667;
     }
 
     footer {
-        height: $header-height * .5;
+        height: variables.$header-height * .667;
     }
 
     h1 {
-        font-size: $default-font-size * 3;
-        line-height: $default-font-size * 3;
+        font-size: variables.$default-font-size * 3;
+        line-height: variables.$default-font-size * 3;
     }
 
     h2 {
-        font-size: $default-font-size * 2;
-        line-height: $default-font-size * 2;
+        font-size: variables.$default-font-size * 2;
+        line-height: variables.$default-font-size * 2;
     }
 
     h3 {
-        font-size: $default-font-size * 1.25;
-        line-height: $default-font-size * 1.25;
+        font-size: variables.$default-font-size * 1.25;
+        line-height: variables.$default-font-size * 1.25;
     }
 
     h4 {
-        font-size: $default-font-size * 1.1;
-        line-height: $default-font-size * 1.1;
+        font-size: variables.$default-font-size * 1.1;
+        line-height: variables.$default-font-size * 1.1;
     }
 }
 
-@media (min-width: $breakpoint-tablet) {
+@include mixins.for-md-screens {
     header {
-        height: $header-height * .75;
+        height: variables.$header-height * .75;
 
         .header-icon-button {
-            height: $header-height * .75;
-            width: $header-height * .75;
+            height: variables.$header-height * .75;
+            width: variables.$header-height * .75;
         }
 
         #header-title span {
-            font-size: $default-font-size * 1.75;
-            line-height: $base-size * 1.75;
+            font-size: variables.$default-font-size * 1.75;
+            line-height: variables.$base-size * 1.75;
         }
     }
 
     main {
-        padding-top: $header-height * .75;
+        padding-top: variables.$header-height * .75;
     }
 
     footer {
-        height: $header-height * .75;
+        height: variables.$header-height * .75;
     }
 
     h1 {
-        font-size: $default-font-size * 4.5;
-        line-height: $default-font-size * 4.5;
+        font-size: variables.$default-font-size * 4.5;
+        line-height: variables.$default-font-size * 4.5;
     }
 
     h2 {
-        font-size: $default-font-size * 2.5;
-        line-height: $default-font-size * 2.5;
+        font-size: variables.$default-font-size * 2.5;
+        line-height: variables.$default-font-size * 2.5;
     }
 
     h3 {
-        font-size: $default-font-size * 1.35;
-        line-height: $default-font-size * 1.35;
+        font-size: variables.$default-font-size * 1.35;
+        line-height: variables.$default-font-size * 1.35;
     }
 
     h4 {
-        font-size: $default-font-size * 1.15;
-        line-height: $default-font-size * 1.15;
+        font-size: variables.$default-font-size * 1.15;
+        line-height: variables.$default-font-size * 1.15;
     }
 }
 
-@media (min-width: $breakpoint-desktop) {
+@include mixins.for-lg-screens {
     header {
-        height: $header-height;
+        height: variables.$header-height;
 
         .header-icon-button {
-            height: $header-height;
-            width: $header-height;
+            height: variables.$header-height;
+            width: variables.$header-height;
         }
 
         #header-title span {
-            font-size: $default-font-size * 2;
-            line-height: $base-size * 2;
+            font-size: variables.$default-font-size * 2;
+            line-height: variables.$base-size * 2;
         }
     }
 
     main {
-        padding-top: $header-height;
+        padding-top: variables.$header-height;
     }
 
     footer {
-        height: $header-height;
+        height: variables.$header-height;
     }
 
     h1 {
-        font-size: $default-font-size * 6;
-        line-height: $default-font-size * 6;
+        font-size: variables.$default-font-size * 6;
+        line-height: variables.$default-font-size * 6;
     }
 
     h2 {
-        font-size: $default-font-size * 3;
-        line-height: $default-font-size * 3;
+        font-size: variables.$default-font-size * 3;
+        line-height: variables.$default-font-size * 3;
     }
 
     h3 {
-        font-size: $default-font-size * 1.5;
-        line-height: $default-font-size * 1.5;
+        font-size: variables.$default-font-size * 1.5;
+        line-height: variables.$default-font-size * 1.5;
     }
 
     h4 {
-        font-size: $default-font-size * 1.25;
-        line-height: $default-font-size * 1.25;
+        font-size: variables.$default-font-size * 1.25;
+        line-height: variables.$default-font-size * 1.25;
     }
 }

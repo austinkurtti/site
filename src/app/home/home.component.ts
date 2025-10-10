@@ -1,24 +1,50 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
-import { aboutId, aboutText, careerId, careerText, introId, introText, skillsId, skillsText } from '@constants/strings';
-import { MenuPosition } from '@directives/menu/menu.directive';
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
+import { ThemeComponent } from "@components/theme/theme.component";
+import { TranslationsComponent } from '@components/translations/translations.component';
+import { aboutId, aboutText, introId, introText, projectsId, projectsText, skillsId, skillsText } from '@constants/strings';
+import { MenuPosition, MenuWidth } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
-import { LocalStorageService } from '@services/local-storage.service';
+import { TranslatableDirective } from "@directives/translatable/translatable.directive";
 import { Subscription, timer } from 'rxjs';
+import { MenuContentDirective } from '../@directives/menu/menu-content.directive';
+import { MenuItemDirective } from '../@directives/menu/menu-item.directive';
+import { MenuDirective } from '../@directives/menu/menu.directive';
+import { TooltipDirective } from '../@directives/tooltip/tooltip.directive';
+import { ContactIconsComponent } from './@controls/contact-icons/contact-icons.component';
+import { AboutComponent } from './about/about.component';
+import { IntroComponent } from './intro/intro.component';
 import { NavigationAnchorModel } from './navigation.model';
+import { ProjectsComponent } from './projects/projects.component';
+import { SkillsComponent } from './skills/skills.component';
 
 @Component({
     selector: 'ak-home',
     styleUrls: ['./home.component.scss'],
-    templateUrl: './home.component.html'
+    templateUrl: './home.component.html',
+    imports: [
+        AboutComponent,
+        CommonModule,
+        ContactIconsComponent,
+        IntroComponent,
+        MenuContentDirective,
+        MenuDirective,
+        MenuItemDirective,
+        ProjectsComponent,
+        SkillsComponent,
+        ThemeComponent,
+        TooltipDirective,
+        TranslatableDirective,
+        TranslationsComponent
+    ]
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HomeComponent implements AfterViewInit, OnDestroy {
     @ViewChild('header') header: ElementRef;
     @ViewChild('headerMenuContent') headerMenuContent: ElementRef;
 
     @ViewChildren('navAnchor') navAnchors: QueryList<ElementRef>;
 
     public title = 'AUSTIN KURTTI';
-    public currentThemeValue: boolean;
 
     public navigationAnchors = [
         new NavigationAnchorModel({
@@ -30,23 +56,21 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             text: aboutText
         }),
         new NavigationAnchorModel({
-            id: careerId,
-            text: careerText
-        }),
-        new NavigationAnchorModel({
             id: skillsId,
             text: skillsText
+        }),
+        new NavigationAnchorModel({
+            id: projectsId,
+            text: projectsText
         })
     ];
 
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     public MenuPosition = MenuPosition;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+    public MenuWidth = MenuWidth;
     public TooltipPosition = TooltipPosition;
 
     private _renderer = inject(Renderer2);
 
-    private _themeKey = 'theme';
     private _debounce: Subscription = null;
     private _activeAnchor: ElementRef = null;
 
@@ -83,27 +107,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    public ngOnInit(): void {
-        this.currentThemeValue = !!LocalStorageService.getItem(this._themeKey);
-    }
-
     public ngAfterViewInit(): void {
-        this._setTheme();
         this.updateActiveNav();
     }
 
     public ngOnDestroy(): void {
         this._clearDebounce();
-    }
-
-    public toggleTheme(): void {
-        this.currentThemeValue = !LocalStorageService.getItem(this._themeKey);
-        LocalStorageService.setItem(this._themeKey, this.currentThemeValue);
-        this._setTheme();
-    }
-
-    private _setTheme(): void {
-        document.documentElement.setAttribute('data-theme', this.currentThemeValue ? 'dark' : 'light');
     }
 
     private _clearDebounce(): void {

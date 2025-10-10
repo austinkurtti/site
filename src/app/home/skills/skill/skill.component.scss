@@ -1,40 +1,34 @@
-@import 'variables';
+@use 'sass:math';
+
+@use 'variables';
+@use 'mixins';
 
 :host {
-    &[skill-type=front] {
-        color: $color-green;
-    }
-
-    &[skill-type=back] {
-        color: $color-red;
-    }
-
-    &[skill-type=data] {
-        color: $color-sky;
-    }
-
-    &[skill-type=tool] {
-        color: $color-orange;
-    }
+    align-items: center;
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: center;
 
     .skill-icon {
+        color: variables.$theme-accent-color-primary;
         display: inline-block;
+        font-size: variables.$default-font-size * 3;
         transition: ease-in transform .1s;
+
+        @media (prefers-reduced-motion) {
+            transition: none;
+        }
 
         &:hover {
             transform: scale(110%);
         }
 
-        @media (min-width: 0px) {
-            font-size: $default-font-size * 3;
+        @include mixins.for-md-screens {
+            font-size: variables.$default-font-size * 4.5;
         }
 
-        @media (min-width: $breakpoint-tablet) {
-            font-size: $default-font-size * 4.5;
-        }
-
-        @media (min-width: $breakpoint-desktop) {
-            font-size: $default-font-size * 6;
+        @include mixins.for-lg-screens {
+            font-size: variables.$default-font-size * 6;
         }
     }
 }

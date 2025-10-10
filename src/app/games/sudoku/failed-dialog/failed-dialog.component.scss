@@ -1,16 +1,24 @@
-@import 'variables';
+@use 'variables';
 
 :host {
     .dialog-header {
         margin: 0;
-        padding: $base-size * 4 $base-size;
+        padding: variables.$base-size * 4 variables.$base-size;
     }
 
     .dialog-body {
-        background-color: $color-gray-100;
+        background-color: variables.$theme-bg-color-secondary;
+
+        #incorrect {
+            color: variables.$theme-font-color-negative-on-secondary;
+        }
+
+        #correct {
+            color: variables.$theme-font-color-positive-on-secondary;
+        }
     }
 
     .dialog-actions {
-        padding: $base-size * 4 $base-size;
+        padding: variables.$base-size * 4 variables.$base-size;
     }
 }

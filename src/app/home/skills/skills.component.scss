@@ -1,61 +1,37 @@
 @use 'sass:math';
 
-@import 'variables';
+@use 'variables';
+@use 'mixins';
 
-.curly-brace {
-    color: $color-gold;
-    font-size: $default-font-size * 3;
-    font-weight: bold;
-}
+#skills-carousel {
+    background-color: variables.$theme-bg-color-secondary;
+    border-bottom: 1px solid variables.$theme-font-color-normal;
+    border-top: 1px solid variables.$theme-font-color-normal;
+    display: flex;
 
-#skill-filters {
-    background-color: $theme-primary-background;
-    border: 1px solid $theme-font-color;
-    padding: $base-size;
+    ak-skill {
+        transition: ease-in-out transform 1s;
 
-    button {
-        $translate-distance: math.div($base-size, 8);
-
-        border-color: currentColor;
-        box-shadow: $translate-distance $translate-distance currentColor;
-        transform: translate($translate-distance * -1, $translate-distance * -1);
-
-        &:not(:last-child) {
-            margin-right: $base-size;
-        }
-
-        &:hover, &:focus-visible {
-            background-color: transparent;
-            box-shadow: $translate-distance * .5 $translate-distance * .5 currentColor;
-            transform: translate($translate-distance * -.5, $translate-distance * -.5);
-        }
-
-        &:active {
-            background-color: transparent;
-            box-shadow: none;
-            transform: translate(0, 0);
-        }
-
-        &.off {
-            background-color: $theme-content-background;
-            color: $theme-font-color;
+        @media (prefers-reduced-motion) {
+            transition: none;
         }
     }
 }
 
-#skill-grid {
-    border-color: $theme-font-color;
-    border-style: solid;
-    border-width: 0 1px 1px 1px;
-    position: relative;
-
-    ak-skill.off {
-        visibility: hidden;
+@include mixins.for-xs-screens {
+    ak-skill {
+        width: math.div(100%, 3);
     }
+}
 
-    #empty-message {
-        left: 0;
-        position: absolute;
-        top: 0;
+@include mixins.for-md-screens {
+    ak-skill {
+        width: math.div(100%, 4);
+    }
+}
+
+@include mixins.for-lg-screens {
+    ak-skill {
+        width: math.div(100%, 6);
     }
 }

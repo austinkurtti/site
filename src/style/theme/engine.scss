@@ -1,0 +1,52 @@
+@use 'theme/maps/light' as light;
+@use 'theme/maps/dark' as dark;
+@use 'theme/maps/high-contrast' as highContrast;
+
+@use 'variables';
+@use 'mixins';
+
+/*
+!STANDARDS
+
+*Color Contrast
+https://developer.mozilla.org/en-US/docs/Web/Accessibility/Guides/Understanding_WCAG/Perceivable/Color_contrast
+
+*Color Blindness
+These color combos should be avoided for elements that are important to distinguish without help from non-color alternatives:
+red/green, green/brown, blue/purple, green/blue, light green/yellow, blue/gray, green/gray, green/black
+*/
+
+$themes: (
+    'light': light.$map,
+    'dark': dark.$map
+);
+
+:root {
+    @each $name, $map in $themes {
+        $attr-selector: '&[data-theme=#{$name}]';
+
+        #{$attr-selector} {
+            @include mixins.unfold-theme-map($map);
+        }
+    }
+
+    &[data-theme=sync] {
+        @media (prefers-color-scheme: light) {
+            @include mixins.unfold-theme-map(light.$map);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            @include mixins.unfold-theme-map(dark.$map);
+        }
+    }
+}
+
+// High contrast preference overrides all other themes
+@media (prefers-contrast: more) {
+    :root,
+    :root[data-theme=light],
+    :root[data-theme=dark],
+    :root[data-theme=sync] {
+        @include mixins.unfold-theme-map(highContrast.$map);
+    }
+}

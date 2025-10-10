@@ -1,17 +1,20 @@
 @use 'sass:math';
 
-@import 'variables';
+@use 'variables';
+@use 'keyframes';
+@use 'mixins';
 
 dialog {
     align-items: center;
-    background-color: rgba($color: $color-slate, $alpha: .5);
+    background-color: rgba($color: variables.$color-slate, $alpha: .5);
     border: none;
+    color: variables.$theme-font-color-normal;
     height: 100%;
     justify-content: center;
     opacity: 0;
     padding: 0;
     width: 100%;
-    z-index: $z-index-dialog;
+    z-index: variables.$z-index-dialog;
 
     &[open] {
         display: flex;
@@ -29,28 +32,32 @@ dialog {
     }
 
     .dialog-content {
-        animation: $dialog-appear-name $dialog-appear-timing $dialog-appear-duration;
-        background-color: $color-white;
-        border-radius: math.div($base-size, 4);
-        box-shadow: $hard-box-shadow;
-        margin: 0 math.div($base-size, 2);
+        animation: keyframes.$dialog-appear-name keyframes.$dialog-appear-timing keyframes.$dialog-appear-duration;
+        background-color: variables.$theme-bg-color-primary;
+        border-radius: math.div(variables.$base-size, 4);
+        box-shadow: variables.$theme-box-shadow-hard;
+        margin: 0 math.div(variables.$base-size, 2);
+
+        @media (prefers-contrast: more) {
+            border: 1px solid variables.$theme-accent-color-primary;
+        }
 
         .dialog-header {
-            padding: $base-size;
+            padding: variables.$base-size;
         }
 
         .dialog-body {
             max-height: 50vh;
             overflow: auto;
-            padding: $base-size;
+            padding: variables.$base-size;
         }
 
         .dialog-actions {
-            padding: $base-size;
+            padding: variables.$base-size;
         }
     }
 
-    @media (min-width: 0px) {
+    @include mixins.for-xs-screens {
         &.small .dialog-content {
             width: 80%;
         }
@@ -64,7 +71,7 @@ dialog {
         }
     }
 
-    @media (min-width: $breakpoint-tablet) {
+    @include mixins.for-md-screens {
         &.small .dialog-content {
             width: 60%;
         }
@@ -78,7 +85,7 @@ dialog {
         }
     }
 
-    @media (min-width: $breakpoint-desktop) {
+    @include mixins.for-lg-screens {
         &.small .dialog-content {
             width: 40%;
         }

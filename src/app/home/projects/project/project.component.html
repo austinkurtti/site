@@ -1,0 +1,19 @@
+<div class="row g-0 mb-3 align-items-center">
+    <div class="col">
+        <i class="fa-2x project-icon" [ngClass]="icon()"></i>
+    </div>
+    <div *ngIf="hasLinks()" class="col-auto project-links">
+        <a *ngIf="gitHubLink()" target="_blank" [href]="gitHubLink()">
+            <i class="fab fa-github"></i>
+        </a>
+        <a *ngIf="externalLink()" target="_blank" [routerLink]="externalLink()">
+            <i class="fas fa-external-link-alt"></i>
+        </a>
+    </div>
+</div>
+<div class="row g-0 mb-3">
+    <div class="col">
+        <h4>{{ name() }}</h4>
+    </div>
+</div>
+<ng-content></ng-content>

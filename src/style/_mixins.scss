@@ -1,0 +1,56 @@
+@use 'variables';
+
+// -----------------------------------------
+// Theme
+// -----------------------------------------
+@mixin unfold-theme-map($map) {
+    @each $property-collection, $property-variables in $map {
+        @each $variable-key, $variable-value in $property-variables {
+            --theme-#{$property-collection}-#{$variable-key}: #{$variable-value};
+        }
+    }
+}
+
+// -----------------------------------------
+// Media Queries
+//
+// These are purposely _not_ using max-width
+// to allow some to be undefined and revert
+// back to the previous breakpoint instead
+// of picking up default styles
+// -----------------------------------------
+@mixin for-xs-screens {
+    @media (min-width: 0px) {
+        @content;
+    }
+}
+
+@mixin for-sm-screens {
+    @media (min-width: variables.$breakpoint-sm) {
+        @content;
+    }
+}
+
+@mixin for-md-screens {
+    @media (min-width: variables.$breakpoint-md) {
+        @content;
+    }
+}
+
+@mixin for-lg-screens {
+    @media (min-width: variables.$breakpoint-lg) {
+        @content;
+    }
+}
+
+@mixin for-xl-screens {
+    @media (min-width: variables.$breakpoint-xl) {
+        @content;
+    }
+}
+
+@mixin for-xxl-screens {
+    @media (min-width: variables.$breakpoint-xxl) {
+        @content;
+    }
+}

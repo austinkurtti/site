@@ -1,11 +1,11 @@
 // Navigation ids
 export const introId = 'intro';
 export const aboutId = 'about';
-export const careerId = 'career';
 export const skillsId = 'skills';
+export const projectsId = 'projects';
 
 // Sections
 export const introText = 'Intro';
 export const aboutText = 'About me';
-export const careerText = 'Career';
 export const skillsText = 'Skills';
+export const projectsText = 'Projects';

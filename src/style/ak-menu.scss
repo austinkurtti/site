@@ -1,35 +1,39 @@
 @use 'sass:math';
 
-@import 'variables';
+@use 'variables';
 
 .menu-host {
     cursor: pointer;
 }
 
 [role=menu] {
-    background-color: $theme-primary-background;
-    border-radius: math.div($base-size, 4);
-    box-shadow: $hard-box-shadow;
+    background-color: variables.$theme-bg-color-primary;
+    border-radius: math.div(variables.$base-size, 4);
+    box-shadow: variables.$theme-box-shadow-hard;
     position: absolute;
-    z-index: $z-index-menu;
+    z-index: variables.$z-index-menu;
+
+    @media (prefers-contrast: more) {
+        border: 1px solid variables.$theme-accent-color-primary;
+    }
 
     [role=menuitem] {
         cursor: pointer;
         display: block;
-        padding: $base-size;
+        padding: variables.$base-size;
 
         &:first-child {
-            border-top-left-radius: math.div($base-size, 4);
-            border-top-right-radius: math.div($base-size, 4);
+            border-top-left-radius: math.div(variables.$base-size, 4);
+            border-top-right-radius: math.div(variables.$base-size, 4);
         }
 
         &:last-child {
-            border-bottom-left-radius: math.div($base-size, 4);
-            border-bottom-right-radius: math.div($base-size, 4);
+            border-bottom-left-radius: math.div(variables.$base-size, 4);
+            border-bottom-right-radius: math.div(variables.$base-size, 4);
         }
 
         &:hover {
-            background-color: $theme-content-background;
+            background-color: variables.$theme-bg-color-secondary;
         }
     }
 }

@@ -7,9 +7,10 @@ describe('ContactIconsComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ContactIconsComponent]
-        })
-            .compileComponents();
+            imports: [
+                ContactIconsComponent
+            ]
+        }).compileComponents();
     }));
 
     beforeEach(() => {

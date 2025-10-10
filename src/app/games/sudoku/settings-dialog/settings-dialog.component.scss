@@ -1,14 +1,14 @@
 @use 'sass:math';
 
-@import 'variables';
+@use 'variables';
 
 .setting-group {
-    background-color: $color-ivory;
-    border-radius: math.div($base-size, 4);
-    padding: math.div($base-size, 2);
+    background-color: variables.$theme-bg-color-secondary;
+    border-radius: math.div(variables.$base-size, 4);
+    padding: math.div(variables.$base-size, 2);
 
     &:not(:first-child) {
-        margin-top: $base-size;
+        margin-top: variables.$base-size;
     }
 
     h5 {
@@ -17,7 +17,11 @@
 
     ak-toggle {
         &:not(:last-child) {
-            margin-bottom: $base-size;
+            margin-bottom: variables.$base-size;
         }
+    }
+
+    .fa-skull {
+        color: variables.$theme-icon-color-negative-on-secondary;
     }
 }

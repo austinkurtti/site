@@ -1,13 +1,14 @@
 @use 'sass:math';
 
-@import 'variables';
-@import 'keyframes';
+@use 'variables';
+@use 'keyframes';
+@use 'mixins';
 
-$sudoku-header-height: $base-size * 6;
-$sudoku-border-width: math.div($base-size, 5);
+$sudoku-header-height: variables.$base-size * 6;
+$sudoku-border-width: math.div(variables.$base-size, 5);
 
-$sudoku-color-active: #d6d652;
-$sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts $color-white, 3 parts $color-gray-200
+$sudoku-color-active: var(--theme-background-color-sudoku-active);
+$sudoku-color-extra-highlight: var(--theme-background-color-sudoku-extra-highlight);
 
 :host {
     display: flex;
@@ -15,15 +16,15 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
     height: 100%;
 
     #building {
-        background-color: $color-ivory;
+        background-color: variables.$theme-bg-color-secondary;
         top: 0;
-        z-index: $z-index-bump;
+        z-index: variables.$z-index-bump;
     }
 
     #sudoku-header {
         button {
             &:not(:first-child) {
-                margin-left: $base-size;
+                margin-left: variables.$base-size;
             }
         }
 
@@ -35,12 +36,16 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
             #sudoku-time {
                 font-family: monospace;
             }
+
+            .fa-skull {
+                color: variables.$theme-icon-color-negative-on-primary;
+            }
         }
 
         #sudoku-actions {
             #game-data {
-                border-top: 1px solid $color-black;
-                font-size: $default-font-size * .75;
+                border-top: 1px solid variables.$theme-font-color-normal;
+                font-size: variables.$default-font-size * .75;
             }
         }
     }
@@ -83,6 +88,7 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                     border-width: math.div($sudoku-border-width, 2);
                     display: flex;
                     flex-direction: column;
+                    font-family: monospace;
 
                     &:nth-child(1), &:nth-child(4), &:nth-child(7) {
                         border-left: $sudoku-border-width solid;
@@ -98,11 +104,11 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                     }
 
                     &:hover:not(.given):not(.active) {
-                        background-color: $color-white;
+                        background-color: variables.$theme-bg-color-secondary;
                     }
 
                     &.given {
-                        background-color: $color-gray-200;
+                        background-color: variables.$theme-bg-color-tertiary;
                     }
 
                     &.active {
@@ -114,16 +120,16 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                     }
 
                     &.conflicted::after {
-                        border-radius: $base-size;
-                        color: $color-error;
+                        border-radius: variables.$base-size;
+                        color: variables.$theme-font-color-negative-on-primary;
                         content: '\f06a'; // exclamation-circle
-                        font-family: $font-awesome-font-family;
-                        font-size: $base-size;
+                        font-family: variables.$font-awesome-font-family;
+                        font-size: variables.$base-size;
                         font-style: normal;
                         font-variant: normal;
                         font-weight: 900;
                         margin-left: auto;
-                        padding: math.div($base-size, 4);
+                        padding: math.div(variables.$base-size, 4);
                         text-rendering: auto;
                     }
 
@@ -131,15 +137,15 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                         font-weight: bold;
 
                         &.revealed {
-                            color: $color-blue;
+                            color: variables.$theme-font-color-neutral-on-primary;
                         }
 
                         &.valid {
-                            color: $color-success;
+                            color: variables.$theme-font-color-positive-on-primary;
                         }
         
                         &.invalid {
-                            color: $color-error;
+                            color: variables.$theme-font-color-negative-on-primary;
                         }
                     }
 
@@ -149,17 +155,14 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                 }
 
                 #sudoku-pause-overlay {
-                    backdrop-filter: blur(math.div($base-size, 2));
-                    background-color: rgba($color: $color-gray-500, $alpha: .5);
+                    backdrop-filter: blur(math.div(variables.$base-size, 2));
+                    background-color: rgba($color: variables.$color-gray-500, $alpha: .5);
                     position: absolute;
 
                     > div {
-                        background-color: $color-sudoku-light;
-                        border-color: $color-black;
-                        border-radius: math.div($base-size, 4);
-                        border-style: solid;
-                        border-width: math.div($base-size, 8);
-                        color: $color-sudoku-dark;
+                        background-color: variables.$color-sudoku;
+                        border-radius: math.div(variables.$base-size, 4);
+                        color: variables.$color-white;
                         font-weight: bold;
                     }
                 }
@@ -170,9 +173,9 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
             max-height: 50%;
 
             .sudoku-input {
-                background-color: $color-gray-200;
                 border: math.div($sudoku-border-width, 2) solid;
-                border-radius: math.div($base-size, 4);
+                border-radius: math.div(variables.$base-size, 4);
+                font-family: monospace;
                 font-weight: bold;
                 height: 100%;
                 width: 100%;
@@ -183,7 +186,7 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                 }
     
                 &:not(:disabled):hover {
-                    background-color: $color-gray-300;
+                    background-color: variables.$theme-bg-color-secondary;
                     cursor: pointer;
                 }
 
@@ -193,14 +196,14 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
                 }
             }
 
-            @media (min-width: 0px) {
+            @include mixins.for-xs-screens {
                 .sudoku-input-col {
                     flex: 0 0 auto;
                     width: 20%;
                 }
             }
 
-            @media (min-width: 992px) {
+            @include mixins.for-lg-screens {
                 .sudoku-input-col-4 {
                     flex: 0 0 auto;
                     width: 33.33333333%;
@@ -215,7 +218,7 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
     }
 }
 
-@media (min-width: 0px) {
+@include mixins.for-xs-screens {
     #sudoku-header {
         height: $sudoku-header-height * .5;
     }
@@ -242,7 +245,7 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
     }
 }
 
-@media (min-width: $breakpoint-tablet) {
+@include mixins.for-md-screens {
     #sudoku-header {
         height: $sudoku-header-height * .75;
     }
@@ -269,7 +272,7 @@ $sudoku-color-extra-highlight: #e1e1c1; // 2 parts $sudoku-color-active, 3 parts
     }
 }
 
-@media (min-width: $breakpoint-desktop) {
+@include mixins.for-lg-screens {
     #sudoku-header {
         height: $sudoku-header-height;
     }

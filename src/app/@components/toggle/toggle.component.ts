@@ -3,7 +3,6 @@ import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@an
 import { TooltipDirective } from '@directives/tooltip/tooltip.directive';
 
 @Component({
-    standalone: true,
     imports: [
         CommonModule,
         TooltipDirective

@@ -1,0 +1,134 @@
+@use 'sass:color';
+
+@use 'functions';
+
+@font-face {
+    font-family: 'Roboto Flex';
+    src: url('../assets/fonts/roboto-flex/roboto-flex.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Caveat';
+    src: url('../assets/fonts/caveat/caveat.ttf') format('truetype');
+}
+
+// -----------------------------------------
+// Colors
+// -----------------------------------------
+$color-white                            : #fff;
+$color-ivory                            : #eaeaea;
+$color-gray-100                         : #ddd;
+$color-gray-200                         : #ccc;
+$color-gray-300                         : #bbb;
+$color-gray-400                         : #9c9c9c;
+$color-gray-500                         : #888;
+$color-gray                             : $color-gray-500;
+$color-gray-600                         : #777;
+$color-gray-700                         : #666;
+$color-gray-800                         : #555;
+$color-slate                            : #434343;
+$color-black                            : #333;
+$color-vanta-black                      : #000;
+$color-navy                             : #192639;
+$color-light-navy                       : #273343;
+$color-ocean                            : #2e4261;
+$color-red                              : #e01958;
+$color-orange                           : #e0a119;
+$color-yellow                           : #e0e019;
+$color-green                            : #19e0a1;
+$color-sky                              : #19bce0;
+$color-blue                             : #1958e0;
+$color-purple                           : #a119e0;
+
+$color-white-rgb                        : 255, 255, 255;
+$color-black-rgb                        : 51, 51, 51;
+
+$color-neutral                          : $color-blue;
+$font-color-on-neutral                  : functions.adjust-to-contrast($color-neutral, $color-neutral);
+$icon-color-on-neutral                  : functions.adjust-to-contrast($color-neutral, $color-neutral, 3);
+$color-positive                         : $color-green;
+$font-color-on-positive                 : functions.adjust-to-contrast($color-positive, $color-positive);
+$icon-color-on-positive                 : functions.adjust-to-contrast($color-positive, $color-positive, 3);
+$color-negative                         : $color-red;
+$font-color-on-negative                 : functions.adjust-to-contrast($color-negative, $color-negative);
+$icon-color-on-negative                 : functions.adjust-to-contrast($color-negative, $color-negative, 3);
+
+// Sudoku
+$color-sudoku                           : #9344d1;
+$color-sudoku-light                     : color.adjust($color-sudoku, $lightness: 25%);
+$color-sudoku-dark                      : color.adjust($color-sudoku, $lightness: -15%);
+
+// Solitaire
+$color-solitaire-green                  : #38b64a;
+$color-solitaire-dark-green             : #208a2e;
+$color-solitaire-blue                   : #48bfe5;
+
+// Warships
+$color-warships                         : #5298d6;
+
+// -----------------------------------------
+// Core settings
+// -----------------------------------------
+$base-size                              : 1rem;
+$base-z-index                           : 0;
+
+$header-height                          : $base-size * 6;
+
+// -----------------------------------------
+// Fonts
+// -----------------------------------------
+$default-font-family                    : 'Roboto Flex', sans-serif;
+$default-font-size                      : $base-size;
+$font-awesome-font-family               : 'Font Awesome 5 Free';
+$handwriting-font-family                : 'Caveat', sans-serif;
+
+// -----------------------------------------
+// Theme
+// -----------------------------------------
+$theme-accent-color-primary             : var(--theme-accent-color-primary);
+
+$theme-bg-color-primary                 : var(--theme-background-color-primary);
+$theme-bg-color-secondary               : var(--theme-background-color-secondary);
+$theme-bg-color-tertiary                : var(--theme-background-color-tertiary);
+$theme-bg-color-tooltip                 : var(--theme-background-color-tooltip);
+
+$theme-box-shadow-soft                  : var(--theme-box-shadow-soft);
+$theme-box-shadow-hard                  : var(--theme-box-shadow-hard);
+
+$theme-font-color-normal                : var(--theme-font-color-normal);
+$theme-font-color-large                 : var(--theme-font-color-large);
+$theme-font-color-neutral-on-primary    : var(--theme-font-color-neutral-on-primary);
+$theme-font-color-neutral-on-secondary  : var(--theme-font-color-neutral-on-secondary);
+$theme-font-color-positive-on-primary   : var(--theme-font-color-positive-on-primary);
+$theme-font-color-positive-on-secondary : var(--theme-font-color-positive-on-secondary);
+$theme-font-color-negative-on-primary   : var(--theme-font-color-negative-on-primary);
+$theme-font-color-negative-on-secondary : var(--theme-font-color-negative-on-secondary);
+$theme-font-color-tooltip               : var(--theme-font-color-tooltip);
+
+$theme-icon-color-primary               : var(--theme-icon-color-primary);
+$theme-icon-color-neutral-on-primary    : var(--theme-icon-color-neutral-on-primary);
+$theme-icon-color-neutral-on-secondary  : var(--theme-icon-color-neutral-on-secondary);
+$theme-icon-color-positive-on-primary   : var(--theme-icon-color-positive-on-primary);
+$theme-icon-color-positive-on-secondary : var(--theme-icon-color-positive-on-secondary);
+$theme-icon-color-negative-on-primary   : var(--theme-icon-color-negative-on-primary);
+$theme-icon-color-negative-on-secondary : var(--theme-icon-color-negative-on-secondary);
+
+// -----------------------------------------
+// Breakpoints
+// -----------------------------------------
+$breakpoint-sm                          : 576px;
+$breakpoint-md                          : 768px;
+$breakpoint-lg                          : 992px;
+$breakpoint-xl                          : 1200px;
+$breakpoint-xxl                         : 1400px; 
+
+// -----------------------------------------
+// Z-indexes
+// -----------------------------------------
+$z-index-bump                           : $base-z-index + 100;
+$z-index-header                         : 1000;
+$z-index-menu                           : 2000;
+$z-index-notification                   : 3000;
+$z-index-dialog                         : 10000;
+$z-index-tooltip                        : 100000;
+$z-index-confetti                       : 1000000;
