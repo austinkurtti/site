@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { LocalStorageService } from '@services/local-storage.service';
+import { SudokuMenuState } from './menu-screen/menu-screen.models';
 import { SudokuCell, SudokuGameInstance, SudokuGameSettings, SudokuScreenState } from './sudoku.models';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class SudokuManager {
     public readonly localStoragePrefix = 'sudoku';
 
-    public screen = SudokuScreenState.menu;
+    public screen = signal(SudokuScreenState.menu);
+    public menu = signal(SudokuMenuState.main);
     public gameSettings = new SudokuGameSettings();
     public gameInstance: SudokuGameInstance;
     public savedGame: SudokuGameInstance = null;

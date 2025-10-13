@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, Injector, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DialogSize } from '@models/dialog.model';
 import { DialogService } from '@services/dialog.service';
@@ -28,7 +28,6 @@ import { SudokuMenuState } from './menu-screen.models';
 export class SudokuMenuScreenComponent {
     public gameManager = inject(SudokuManager);
 
-    public menuState = SudokuMenuState.main;
     public difficulty = signal(SudokuDifficulty.easy);
     public hardcore = false;
     public seed = '';
@@ -40,14 +39,15 @@ export class SudokuMenuScreenComponent {
     public MenuState = SudokuMenuState;
 
     private _dialogService = inject(DialogService);
+    private _injector = inject(Injector);
 
     public resume(): void {
         this.gameManager.gameInstance = this.gameManager.savedGame;
-        this.gameManager.screen = SudokuScreenState.game;
+        this.gameManager.screen.set(SudokuScreenState.game);
     }
 
     public showSettingsDialog(): void {
-        this._dialogService.show(SettingsDialogComponent, DialogSize.small);
+        this._dialogService.show(SettingsDialogComponent, DialogSize.small, true, this._injector);
     }
 
     public randomizeSeed(): void {
@@ -65,12 +65,12 @@ export class SudokuMenuScreenComponent {
             seed: this.seed
         });
         this.gameManager.gameInstance = newInstance;
-        this.gameManager.screen = SudokuScreenState.game;
+        this.gameManager.screen.set(SudokuScreenState.game);
     }
 
     public cancel(): void {
         this._resetValues();
-        this.menuState = SudokuMenuState.main;
+        this.gameManager.menu.set(SudokuMenuState.main);
     }
 
     private _resetValues(): void {

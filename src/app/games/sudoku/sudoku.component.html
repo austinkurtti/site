@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="gameManager.screen">
+<ng-container [ngSwitch]="gameManager.screen()">
     <ak-sudoku-menu-screen *ngSwitchCase="ScreenState.menu"></ak-sudoku-menu-screen>
     <ak-sudoku-game-screen *ngSwitchCase="ScreenState.game"></ak-sudoku-game-screen>
 </ng-container>

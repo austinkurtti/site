@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
+import { Component, HostListener, inject, Injector, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from '@components/confirm/confirm.component';
 import { MenuPosition } from '@directives/menu/menu.directive';
@@ -19,6 +19,7 @@ import { DifficultyPipe } from '../../../@pipes/difficulty.pipe';
 import { HasFlagPipe } from '../../../@pipes/has-flag.pipe';
 import { FailedDialogComponent } from '../failed-dialog/failed-dialog.component';
 import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
+import { SudokuMenuState } from '../menu-screen/menu-screen.models';
 import { SettingsDialogComponent } from '../settings-dialog/settings-dialog.component';
 import { SolvedDialogComponent } from '../solved-dialog/solved-dialog.component';
 import { SudokuBoard } from '../sudoku-board';
@@ -66,6 +67,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     // #region - Private variables
     private _renderer = inject(Renderer2);
     private _dialogService = inject(DialogService);
+    private _injector = inject(Injector);
     private _notificationService = inject(NotificationService);
     private _router = inject(Router);
 
@@ -220,7 +222,8 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     }
 
     public back(): void {
-        this.gameManager.screen = SudokuScreenState.menu;
+        this.gameManager.screen.set(SudokuScreenState.menu);
+        this.gameManager.menu.set(SudokuMenuState.main);
     }
 
     public showHelpDialog(): void {
@@ -236,7 +239,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     public showSettingsDialog(): void {
         const oldDisableInputs = this.gameManager.gameSettings.disableInputs;
 
-        const componentRef = this._dialogService.show(SettingsDialogComponent, DialogSize.small);
+        const componentRef = this._dialogService.show(SettingsDialogComponent, DialogSize.small, true, this._injector);
         if (componentRef) {
             this.pauseTimer(false);
             componentRef.closeCallback = () => {
@@ -249,16 +252,10 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     }
 
     public showSolvedDialog(): void {
-        const componentRef = this._dialogService.show(SolvedDialogComponent, DialogSize.small);
+        const componentRef = this._dialogService.show(SolvedDialogComponent, DialogSize.small, true, this._injector);
         if (componentRef) {
-            componentRef.goHome = () => {
-                this._dialogService.close();
-                this._router.navigateByUrl('/games');
-            };
-            componentRef.playAgain = () => {
-                this._dialogService.close();
-                this.back();
-            };
+            componentRef.playDifferentGame = this._navigateToGamesHome;
+            componentRef.playAgain = this._playAgain;
         }
     }
 
@@ -419,6 +416,17 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     // #endregion
 
     // #region - Private methods
+    private _navigateToGamesHome = (): void => {
+        this._dialogService.close();
+        this._router.navigateByUrl('/games');
+    }
+
+    private _playAgain = (): void => {
+        this._dialogService.close();
+        this.gameManager.screen.set(SudokuScreenState.menu);
+        this.gameManager.menu.set(SudokuMenuState.new);
+    }
+
     private _getValueCode = (value: number): string => value >= 1 && value <= 9 ? `Digit${value}` : 'Delete';
 
     private _setCellValueOrCandidate = (valueCode: string): void => {
@@ -571,14 +579,8 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
                 if (componentRef) {
                     componentRef.correctValue = cellSolution;
                     componentRef.incorrectValue = this._activeCell.value;
-                    componentRef.goHome = () => {
-                        this._dialogService.close();
-                        this._router.navigateByUrl('/games');
-                    };
-                    componentRef.playAgain = () => {
-                        this._dialogService.close();
-                        this.back();
-                    };
+                    componentRef.playDifferentGame = this._navigateToGamesHome;
+                    componentRef.playAgain = this._playAgain;
                 }
             }
         }

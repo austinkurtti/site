@@ -1,4 +1,4 @@
-import { Injectable, RendererFactory2, Type, inject } from '@angular/core';
+import { Injectable, Injector, RendererFactory2, Type, inject } from '@angular/core';
 import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
 import { DialogDirective } from '@directives/dialog/dialog.directive';
 import { DialogSize } from '@models/dialog.model';
@@ -30,7 +30,7 @@ export class DialogService {
         return this._dialogEl.querySelectorAll(tabbableSelectors.join(', '));
     }
 
-    public show<T extends DialogBaseDirective>(componentType: Type<T>, size: DialogSize, allowSoftClose = true): T {
+    public show<T extends DialogBaseDirective>(componentType: Type<T>, size: DialogSize, allowSoftClose = true, injector?: Injector): T {
         // I refuse to allow more than one dialog open at once
         if (this._open) {
             return null;
@@ -39,7 +39,13 @@ export class DialogService {
         this._open = true;
         this._openSize = size;
         this._dialogEl.show();
-        this._instance = this.dialogRef.viewContainerRef.createComponent<T>(componentType).instance;
+
+        // If a custom injector is provided, use it so dialog components can resolve providers from their caller's injector
+        const createOptions: any = {};
+        if (injector) {
+            createOptions.injector = injector;
+        }
+        this._instance = this.dialogRef.viewContainerRef.createComponent<T>(componentType, createOptions).instance;
 
         if (this._instance) {
             // Style dialog
