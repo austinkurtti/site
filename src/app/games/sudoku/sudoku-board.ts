@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { getSquare } from './sudoku.functions';
-import { SudokuCell, SudokuDifficulty, SudokuGameState, sudokuValueCandidateMap } from './sudoku.models';
+import { SudokuCell, SudokuGameInstance, SudokuGameState, sudokuValueCandidateMap } from './sudoku.models';
 
 // TODO - make this an injectable and implement WorkerService
 export class SudokuBoard {
@@ -26,7 +26,7 @@ export class SudokuBoard {
         this._worker?.terminate();
     }
 
-    public build(difficulty: SudokuDifficulty, seed: string = null): Promise<void> {
+    public build(gameInstance: SudokuGameInstance): Promise<void> {
         this.cleanup();
         this.solved$.next(false);
         return new Promise<void>(resolve => {
@@ -34,11 +34,11 @@ export class SudokuBoard {
                 this._worker = new Worker(new URL('./sudoku.worker.ts', import.meta.url), { type: 'module' });
                 this._worker.onmessage = ({ data }) => {
                     this._solution = data.solution;
-                    this.cells = data.cells;
+                    this.cells = gameInstance.cells.length ? gameInstance.cells : data.cells;
                     this._resetNumEmptyCells();
                     resolve();
                 };
-                this._worker.postMessage({ difficulty, seed });
+                this._worker.postMessage({ difficulty: gameInstance.difficulty, seed: gameInstance.seed });
             } else {
                 // TODO - web workers unavailable, do something
             }

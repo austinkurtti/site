@@ -62,6 +62,7 @@ export class SudokuGameInstance {
     public hardcore = false;
     public seed: string;
     public time$ = new BehaviorSubject<string>('00:00:00');
+    public isSaved = false;
 
     constructor(partial?: Partial<SudokuGameInstance>) {
         if (partial) {

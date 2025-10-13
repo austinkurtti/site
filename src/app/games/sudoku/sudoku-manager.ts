@@ -51,5 +51,6 @@ export class SudokuManager {
 
     private _syncSavedGame(saveData: any): void {
         this.savedGame = new SudokuGameInstance(saveData);
+        this.savedGame.isSaved = true;
     }
 }

@@ -142,9 +142,6 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
 
     // #region - Public methods
     public ngOnInit(): void {
-        // ? Is this really the best way to designate a resumed game
-        const isResumedGame = this.gameManager.gameInstance.cells.length > 0;
-
         this.building$
             .pipe(
                 skip(1),
@@ -152,12 +149,12 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             )
             .subscribe(building => {
                 if (building) {
-                    if (!isResumedGame) {
+                    if (!this.gameManager.gameInstance.isSaved) {
                         this.resetTimer();
                     }
                 } else {
                     // Initialize active cell values
-                    if (isResumedGame) {
+                    if (this.gameManager.gameInstance.isSaved) {
                         this.board.cells = this.gameManager.gameInstance.cells;
                         for (let rIndex = 0; rIndex < this.board.cells.length; rIndex++) {
                             const cIndex = this.board.cells[rIndex].findIndex(cell => cell.active);
@@ -181,7 +178,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
                     document.addEventListener('visibilitychange', this._documentVisibilitychange);
 
                     // Initialize timer
-                    this.startTimer(isResumedGame);
+                    this.startTimer(this.gameManager.gameInstance.isSaved);
                 }
             });
 
@@ -198,7 +195,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             });
 
         this.building$.next(true);
-        this.board.build(this.gameManager.gameInstance.difficulty, this.gameManager.gameInstance.seed).then(() => {
+        this.board.build(this.gameManager.gameInstance).then(() => {
             this.building$.next(false);
         });
     }
