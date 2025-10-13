@@ -47,6 +47,14 @@ $sudoku-color-extra-highlight: var(--theme-background-color-sudoku-extra-highlig
                 border-top: 1px solid variables.$theme-font-color-normal;
                 font-size: variables.$default-font-size * .75;
             }
+
+            .kbd-shortcut {
+                font-size: variables.$default-font-size * .8;
+
+                kbd {
+                    font-size: math.div(variables.$default-font-size, 2);
+                }
+            }
         }
     }
 

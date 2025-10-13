@@ -138,6 +138,25 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             this._arrowFocusNextCell(this.activeCellRow, this.activeCellCol + 1);
         }
     }
+
+    @HostListener('window:keydown.alt.c', ['$event'])
+    public windowAltC(event: KeyboardEvent) {
+        if (this._activeCell && this.board.state === SudokuGameState.running) {
+            this.checkCell();
+        }
+    }
+
+    @HostListener('window:keydown.alt.r', ['$event'])
+    public windowAltR(event: KeyboardEvent) {
+        if (this._activeCell && this.board.state === SudokuGameState.running) {
+            this.revealCell();
+        }
+    }
+
+    @HostListener('window:keydown.alt.s', ['$event'])
+    public windowAltS(event: KeyboardEvent) {
+        this.share();
+    }
     // #endregion
 
     // #region - Public methods
