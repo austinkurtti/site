@@ -9,7 +9,7 @@ import { Notification } from '@models/notification.model';
 import { DialogService } from '@services/dialog.service';
 import { NotificationService } from '@services/notification.service';
 import { BehaviorSubject, Subject, Subscription, timer } from 'rxjs';
-import { skip, takeUntil } from 'rxjs/operators';
+import { skip, take, takeUntil } from 'rxjs/operators';
 import { ToggleComponent } from '../../../@components/toggle/toggle.component';
 import { MenuContentDirective } from '../../../@directives/menu/menu-content.directive';
 import { MenuItemDirective } from '../../../@directives/menu/menu-item.directive';
@@ -65,10 +65,10 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     // #endregion
 
     // #region - Private variables
-    private _renderer = inject(Renderer2);
     private _dialogService = inject(DialogService);
     private _injector = inject(Injector);
     private _notificationService = inject(NotificationService);
+    private _renderer = inject(Renderer2);
     private _router = inject(Router);
 
     private _timerIntervalId;
@@ -139,16 +139,23 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
         }
     }
 
+    @HostListener('window:keydown.alt.h', ['$event'])
+    public windowAltH(event: KeyboardEvent) {
+        if (this._activeCell && this.board.state === SudokuGameState.running && !this.gameManager.gameInstance.hardcore) {
+            this.hint();
+        }
+    }
+
     @HostListener('window:keydown.alt.c', ['$event'])
     public windowAltC(event: KeyboardEvent) {
-        if (this._activeCell && this.board.state === SudokuGameState.running) {
+        if (this._activeCell && this.board.state === SudokuGameState.running && !this.gameManager.gameInstance.hardcore) {
             this.checkCell();
         }
     }
 
     @HostListener('window:keydown.alt.r', ['$event'])
     public windowAltR(event: KeyboardEvent) {
-        if (this._activeCell && this.board.state === SudokuGameState.running) {
+        if (this._activeCell && this.board.state === SudokuGameState.running && !this.gameManager.gameInstance.hardcore) {
             this.revealCell();
         }
     }
@@ -316,6 +323,25 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
         this._pauseSum += Date.now() - this._pauseTime;
         this._startTimerInterval();
     };
+
+    public hint(): void {
+        const hint = this.board.findHintCell();
+        if (hint) {
+            const cellEls = document.querySelectorAll('.sudoku-cell');
+            const cellIndex = (hint.row * 9) + (hint.col);
+            const hintCellEl = cellEls[cellIndex];
+            // Don't re-hint an already hinted cell
+            if (!hintCellEl.classList.contains('hint')) {
+                this._renderer.addClass(hintCellEl, 'hint');
+                timer(5000).pipe(
+                    take(1),
+                    takeUntil(this._destroyed$)
+                ).subscribe(() => {
+                    this._renderer.removeClass(hintCellEl, 'hint');
+                });
+            }
+        }
+    }
 
     public checkCell(): void {
         if (this.activeCellRow !== null && this.activeCellCol !== null && this._canSetCellValue) {

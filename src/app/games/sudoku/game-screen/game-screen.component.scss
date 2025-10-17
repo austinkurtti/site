@@ -97,6 +97,7 @@ $sudoku-color-extra-highlight: var(--theme-background-color-sudoku-extra-highlig
                     display: flex;
                     flex-direction: column;
                     font-family: monospace;
+                    transition: ease-in-out outline .2s;
 
                     &:nth-child(1), &:nth-child(4), &:nth-child(7) {
                         border-left: $sudoku-border-width solid;
@@ -121,6 +122,12 @@ $sudoku-color-extra-highlight: var(--theme-background-color-sudoku-extra-highlig
 
                     &.active {
                         background-color: $sudoku-color-active;
+                    }
+
+                    &.hint {
+                        border-radius: math.div(variables.$base-size, 4);
+                        outline: math.div(variables.$base-size, 2) solid variables.$color-orange;
+                        z-index: 1;
                     }
 
                     &:not(.active).extra-highlight {
