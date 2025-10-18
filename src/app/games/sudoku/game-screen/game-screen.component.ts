@@ -76,6 +76,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     private _pauseTime: number;
     private _pauseSum: number;
     private _manualPauseActive: boolean;
+    private _spaceDisabled = false;
     private _autoPauseDebounce: Subscription;
 
     private _destroyed$ = new Subject<void>();
@@ -98,13 +99,15 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     // #region - HostListeners
     @HostListener('window:keydown.space', ['$event'])
     public windowSpace(event: KeyboardEvent) {
-        if (this.board.state === SudokuGameState.paused) {
-            this.resumeTimer(true);
-        } else if (this.board.state === SudokuGameState.running) {
-            this.pauseTimer(true);
-        }
+        if (!this._spaceDisabled) {
+            if (this.board.state === SudokuGameState.paused) {
+                this.resumeTimer(true);
+            } else if (this.board.state === SudokuGameState.running) {
+                this.pauseTimer(true);
+            }
 
-        event.preventDefault();
+            event.preventDefault();
+        }
     }
 
     @HostListener('window:keydown.arrowup', ['$event'])
@@ -253,8 +256,10 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
         const componentRef = this._dialogService.show(HelpDialogComponent, DialogSize.small);
         if (componentRef) {
             this.pauseTimer(false);
+            this._spaceDisabled = true;
             componentRef.closeCallback = () => {
                 this.resumeTimer(false);
+                this._spaceDisabled = false;
             };
         }
     }
@@ -265,8 +270,10 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
         const componentRef = this._dialogService.show(SettingsDialogComponent, DialogSize.small, true, this._injector);
         if (componentRef) {
             this.pauseTimer(false);
+            this._spaceDisabled = true;
             componentRef.closeCallback = () => {
                 this.resumeTimer(false);
+                this._spaceDisabled = false;
                 if (oldDisableInputs !== this.gameManager.gameSettings.disableInputs) {
                     this._checkAllCellValueCounts();
                 }
