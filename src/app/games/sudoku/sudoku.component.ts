@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SudokuGameScreenComponent } from './game-screen/game-screen.component';
 import { SudokuMenuScreenComponent } from './menu-screen/menu-screen.component';
@@ -14,9 +14,12 @@ import { SudokuDifficulty, SudokuGameInstance, SudokuScreenState } from './sudok
         CommonModule,
         SudokuGameScreenComponent,
         SudokuMenuScreenComponent
+    ],
+    providers: [
+        SudokuManager
     ]
 })
-export class SudokuComponent implements OnInit, OnDestroy {
+export class SudokuComponent implements OnInit {
     public gameManager = inject(SudokuManager);
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -38,12 +41,7 @@ export class SudokuComponent implements OnInit, OnDestroy {
                 seed
             });
             this.gameManager.gameInstance = linkedGame;
-            this.gameManager.screen = SudokuScreenState.game;
+            this.gameManager.screen.set(SudokuScreenState.game);
         }
-    }
-
-    public ngOnDestroy(): void {
-        // Reset screen state in case player comes back later
-        this.gameManager.screen = SudokuScreenState.menu;
     }
 }

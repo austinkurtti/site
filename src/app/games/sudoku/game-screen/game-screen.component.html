@@ -3,7 +3,7 @@
 </div>
 
 <div id="sudoku-header" class="row g-0 px-2 px-lg-4 align-items-center">
-    <div id="sudoku-nav" class="col-auto col-lg-4">
+    <div id="sudoku-nav" class="col-auto col-lg-4 d-flex">
         <button akTooltip
             class="icon-button"
             [tooltipContent]="'Back'"
@@ -55,12 +55,25 @@
             <i class="fas fa-ellipsis-h fa-2x"></i>
             <ng-template #menuContent>
                 <div akMenuContent>
-                    <div *ngIf="!gameManager.gameInstance.hardcore" akMenuItem (menuItemClick)="checkCell()">Check cell</div>
+                    <div *ngIf="!gameManager.gameInstance.hardcore" akMenuItem (menuItemClick)="hint()">
+                        <div>Hint</div>
+                        <div class="kbd-shortcut"><kbd>Alt</kbd> + <kbd>H</kbd></div>
+                    </div>
+                    <div *ngIf="!gameManager.gameInstance.hardcore" akMenuItem (menuItemClick)="checkCell()">
+                        <div>Check cell</div>
+                        <div class="kbd-shortcut"><kbd>Alt</kbd> + <kbd>C</kbd></div>
+                    </div>
                     <div *ngIf="!gameManager.gameInstance.hardcore" akMenuItem (menuItemClick)="checkAll()">Check all</div>
-                    <div *ngIf="!gameManager.gameInstance.hardcore" akMenuItem (menuItemClick)="revealCell()">Reveal cell</div>
+                    <div *ngIf="!gameManager.gameInstance.hardcore" akMenuItem (menuItemClick)="revealCell()">
+                        <div>Reveal cell</div>
+                        <div class="kbd-shortcut"><kbd>Alt</kbd> + <kbd>R</kbd></div>
+                    </div>
                     <div *ngIf="!gameManager.gameInstance.hardcore" akMenuItem (menuItemClick)="revealAll()">Reveal all</div>
                     <div akMenuItem (menuItemClick)="reset()">Reset</div>
-                    <div akMenuItem (menuItemClick)="share()">Share</div>
+                    <div akMenuItem (menuItemClick)="share()">
+                        <div>Share</div>
+                        <div class="kbd-shortcut"><kbd>Alt</kbd> + <kbd>S</kbd></div>
+                    </div>
                     <div class="d-block d-md-none" akMenuItem (menuItemClick)="showSettingsDialog()">Settings</div>
                     <div class="d-block d-md-none" akMenuItem (menuItemClick)="showHelpDialog()">Help</div>
                     <div id="game-data" class="p-3">

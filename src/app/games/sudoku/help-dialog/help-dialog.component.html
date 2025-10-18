@@ -19,26 +19,69 @@
         <div class="help-group">
             <h5 class="mb-2 text-uppercase">Tips</h5>
             <ul class="ps-4 m-0">
-                <li>Enable the <b>Pencil in</b> toggle to track candidate numbers</li>
-                <li>Click <i class="fas fa-cog"></i> to change game settings</li>
+                <li>Use the <b>Pencil in</b> toggle to help keep track of possible numbers</li>
+                <li>Click <i class="fas fa-cog"></i> to change game settings, which will persist between games</li>
                 <li>Click <i class="fas fa-ellipsis-h"></i> for more actions:
                     <ul>
-                        <li><b>Check cell</b> checks if the active cell has the correct number</li>
-                        <li><b>Check all</b> checks if all cells have the correct numbers</li>
-                        <li><b>Reveal cell</b> reveals the correct number for the active cell</li>
-                        <li><b>Reveal all</b> reveals the entire solution (and ends the game)</li>
-                        <li><b>Reset</b> clears all cells and restarts the game timer</li>
+                        <li><b>Hint</b> suggests a cell that may be worth a closer look</li>
+                        <li><b>Check cell</b> checks if the focused cell has correct number</li>
+                        <li><b>Check all</b> checks if all cells have correct numbers</li>
+                        <li><b>Reveal cell</b> reveals the correct number for the focused cell</li>
+                        <li><b>Reveal all</b> reveals entire solution (and ends game)</li>
+                        <li><b>Reset</b> clears all cells and restarts timer</li>
                         <li><b>Share</b> creates a link to a copy of this Sudoku so you can share with friends!</li>
                     </ul>
                 </li>
                 <li><div>Keyboard support:</div>
-                    <ul>
-                        <li><kbd>&larr;</kbd><kbd class="ms-1">&uarr;</kbd><kbd class="ms-1">&darr;</kbd><kbd class="ms-1">&rarr;</kbd> to change the active cell</li>
-                        <li><kbd>0</kbd>-<kbd>9</kbd> enter numbers</li>
-                        <li><kbd>Shift</kbd> + <kbd>0</kbd>-<kbd>9</kbd> enter penciled in numbers</li>
-                        <li><kbd>Backspace</kbd> or <kbd>Delete</kbd> clear the active cell</li>
-                        <li><kbd>Space</kbd> pause/resume game</li>
-                    </ul>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Key(s)</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row"><kbd>&larr;</kbd><kbd class="ms-1">&uarr;</kbd><kbd class="ms-1">&darr;</kbd><kbd class="ms-1">&rarr;</kbd></th>
+                                <td>Change the focused cell</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><kbd>0</kbd>-<kbd>9</kbd></th>
+                                <td>Enter number</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><kbd>Shift</kbd> + <kbd>0</kbd>-<kbd>9</kbd></th>
+                                <td>
+                                    <div>Enter penciled in number</div>
+                                    <div class="action-subtext" *ngIf="showNumLockWarning">This browser does not support using <kbd>Shift</kbd> + <kbd>Numpad</kbd> with Num Lock ON</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><kbd>Backspace</kbd> or <kbd>Delete</kbd></th>
+                                <td>Clear cell</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><kbd>Space</kbd></th>
+                                <td>Pause/resume game</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><kbd>Alt</kbd> + <kbd>H</kbd></th>
+                                <td>Hint</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><kbd>Alt</kbd> + <kbd>C</kbd></th>
+                                <td>Check cell</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><kbd>Alt</kbd> + <kbd>R</kbd></th>
+                                <td>Reveal cell</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><kbd>Alt</kbd> + <kbd>S</kbd></th>
+                                <td>Share</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </li>
             </ul>
         </div>

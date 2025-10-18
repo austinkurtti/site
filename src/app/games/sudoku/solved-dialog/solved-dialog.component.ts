@@ -19,7 +19,7 @@ import { SudokuManager } from '../sudoku-manager';
 export class SolvedDialogComponent extends DialogBaseDirective implements OnInit, AfterViewInit {
     public gameManager = inject(SudokuManager);
 
-    public goHome: () => void;
+    public playDifferentGame: () => void;
     public playAgain: () => void;
 
     public timeDisplay = '';

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
+import { Component, HostListener, inject, Injector, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from '@components/confirm/confirm.component';
 import { MenuPosition } from '@directives/menu/menu.directive';
@@ -9,7 +9,7 @@ import { Notification } from '@models/notification.model';
 import { DialogService } from '@services/dialog.service';
 import { NotificationService } from '@services/notification.service';
 import { BehaviorSubject, Subject, Subscription, timer } from 'rxjs';
-import { skip, takeUntil } from 'rxjs/operators';
+import { skip, take, takeUntil } from 'rxjs/operators';
 import { ToggleComponent } from '../../../@components/toggle/toggle.component';
 import { MenuContentDirective } from '../../../@directives/menu/menu-content.directive';
 import { MenuItemDirective } from '../../../@directives/menu/menu-item.directive';
@@ -19,6 +19,7 @@ import { DifficultyPipe } from '../../../@pipes/difficulty.pipe';
 import { HasFlagPipe } from '../../../@pipes/has-flag.pipe';
 import { FailedDialogComponent } from '../failed-dialog/failed-dialog.component';
 import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
+import { SudokuMenuState } from '../menu-screen/menu-screen.models';
 import { SettingsDialogComponent } from '../settings-dialog/settings-dialog.component';
 import { SolvedDialogComponent } from '../solved-dialog/solved-dialog.component';
 import { SudokuBoard } from '../sudoku-board';
@@ -64,9 +65,10 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     // #endregion
 
     // #region - Private variables
-    private _renderer = inject(Renderer2);
     private _dialogService = inject(DialogService);
+    private _injector = inject(Injector);
     private _notificationService = inject(NotificationService);
+    private _renderer = inject(Renderer2);
     private _router = inject(Router);
 
     private _timerIntervalId;
@@ -74,6 +76,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     private _pauseTime: number;
     private _pauseSum: number;
     private _manualPauseActive: boolean;
+    private _spaceDisabled = false;
     private _autoPauseDebounce: Subscription;
 
     private _destroyed$ = new Subject<void>();
@@ -96,13 +99,15 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     // #region - HostListeners
     @HostListener('window:keydown.space', ['$event'])
     public windowSpace(event: KeyboardEvent) {
-        if (this.board.state === SudokuGameState.paused) {
-            this.resumeTimer(true);
-        } else if (this.board.state === SudokuGameState.running) {
-            this.pauseTimer(true);
-        }
+        if (!this._spaceDisabled) {
+            if (this.board.state === SudokuGameState.paused) {
+                this.resumeTimer(true);
+            } else if (this.board.state === SudokuGameState.running) {
+                this.pauseTimer(true);
+            }
 
-        event.preventDefault();
+            event.preventDefault();
+        }
     }
 
     @HostListener('window:keydown.arrowup', ['$event'])
@@ -136,13 +141,36 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             this._arrowFocusNextCell(this.activeCellRow, this.activeCellCol + 1);
         }
     }
+
+    @HostListener('window:keydown.alt.h', ['$event'])
+    public windowAltH(event: KeyboardEvent) {
+        if (this._activeCell && this.board.state === SudokuGameState.running && !this.gameManager.gameInstance.hardcore) {
+            this.hint();
+        }
+    }
+
+    @HostListener('window:keydown.alt.c', ['$event'])
+    public windowAltC(event: KeyboardEvent) {
+        if (this._activeCell && this.board.state === SudokuGameState.running && !this.gameManager.gameInstance.hardcore) {
+            this.checkCell();
+        }
+    }
+
+    @HostListener('window:keydown.alt.r', ['$event'])
+    public windowAltR(event: KeyboardEvent) {
+        if (this._activeCell && this.board.state === SudokuGameState.running && !this.gameManager.gameInstance.hardcore) {
+            this.revealCell();
+        }
+    }
+
+    @HostListener('window:keydown.alt.s', ['$event'])
+    public windowAltS(event: KeyboardEvent) {
+        this.share();
+    }
     // #endregion
 
     // #region - Public methods
     public ngOnInit(): void {
-        // ? Is this really the best way to designate a resumed game
-        const isResumedGame = this.gameManager.gameInstance.cells.length > 0;
-
         this.building$
             .pipe(
                 skip(1),
@@ -150,12 +178,12 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             )
             .subscribe(building => {
                 if (building) {
-                    if (!isResumedGame) {
+                    if (!this.gameManager.gameInstance.isSaved) {
                         this.resetTimer();
                     }
                 } else {
                     // Initialize active cell values
-                    if (isResumedGame) {
+                    if (this.gameManager.gameInstance.isSaved) {
                         this.board.cells = this.gameManager.gameInstance.cells;
                         for (let rIndex = 0; rIndex < this.board.cells.length; rIndex++) {
                             const cIndex = this.board.cells[rIndex].findIndex(cell => cell.active);
@@ -179,7 +207,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
                     document.addEventListener('visibilitychange', this._documentVisibilitychange);
 
                     // Initialize timer
-                    this.startTimer(isResumedGame);
+                    this.startTimer(this.gameManager.gameInstance.isSaved);
                 }
             });
 
@@ -196,7 +224,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
             });
 
         this.building$.next(true);
-        this.board.build(this.gameManager.gameInstance.difficulty, this.gameManager.gameInstance.seed).then(() => {
+        this.board.build(this.gameManager.gameInstance).then(() => {
             this.building$.next(false);
         });
     }
@@ -220,15 +248,18 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     }
 
     public back(): void {
-        this.gameManager.screen = SudokuScreenState.menu;
+        this.gameManager.screen.set(SudokuScreenState.menu);
+        this.gameManager.menu.set(SudokuMenuState.main);
     }
 
     public showHelpDialog(): void {
         const componentRef = this._dialogService.show(HelpDialogComponent, DialogSize.small);
         if (componentRef) {
             this.pauseTimer(false);
+            this._spaceDisabled = true;
             componentRef.closeCallback = () => {
                 this.resumeTimer(false);
+                this._spaceDisabled = false;
             };
         }
     }
@@ -236,11 +267,13 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     public showSettingsDialog(): void {
         const oldDisableInputs = this.gameManager.gameSettings.disableInputs;
 
-        const componentRef = this._dialogService.show(SettingsDialogComponent, DialogSize.small);
+        const componentRef = this._dialogService.show(SettingsDialogComponent, DialogSize.small, true, this._injector);
         if (componentRef) {
             this.pauseTimer(false);
+            this._spaceDisabled = true;
             componentRef.closeCallback = () => {
                 this.resumeTimer(false);
+                this._spaceDisabled = false;
                 if (oldDisableInputs !== this.gameManager.gameSettings.disableInputs) {
                     this._checkAllCellValueCounts();
                 }
@@ -249,16 +282,10 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     }
 
     public showSolvedDialog(): void {
-        const componentRef = this._dialogService.show(SolvedDialogComponent, DialogSize.small);
+        const componentRef = this._dialogService.show(SolvedDialogComponent, DialogSize.small, true, this._injector);
         if (componentRef) {
-            componentRef.goHome = () => {
-                this._dialogService.close();
-                this._router.navigateByUrl('/games');
-            };
-            componentRef.playAgain = () => {
-                this._dialogService.close();
-                this.back();
-            };
+            componentRef.playDifferentGame = this._navigateToGamesHome;
+            componentRef.playAgain = this._playAgain;
         }
     }
 
@@ -303,6 +330,25 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
         this._pauseSum += Date.now() - this._pauseTime;
         this._startTimerInterval();
     };
+
+    public hint(): void {
+        const hint = this.board.findHintCell();
+        if (hint) {
+            const cellEls = document.querySelectorAll('.sudoku-cell');
+            const cellIndex = (hint.row * 9) + (hint.col);
+            const hintCellEl = cellEls[cellIndex];
+            // Don't re-hint an already hinted cell
+            if (!hintCellEl.classList.contains('hint')) {
+                this._renderer.addClass(hintCellEl, 'hint');
+                timer(5000).pipe(
+                    take(1),
+                    takeUntil(this._destroyed$)
+                ).subscribe(() => {
+                    this._renderer.removeClass(hintCellEl, 'hint');
+                });
+            }
+        }
+    }
 
     public checkCell(): void {
         if (this.activeCellRow !== null && this.activeCellCol !== null && this._canSetCellValue) {
@@ -409,6 +455,10 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
         }
 
         event.preventDefault();
+        if (event.code.startsWith('Numpad')) {
+            // Prevent special Numpad keys from unexpectedly moving cell focus
+            event.stopPropagation();
+        }
     }
 
     public inputClick(value: number): void {
@@ -419,10 +469,21 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     // #endregion
 
     // #region - Private methods
+    private _navigateToGamesHome = (): void => {
+        this._dialogService.close();
+        this._router.navigateByUrl('/games');
+    }
+
+    private _playAgain = (): void => {
+        this._dialogService.close();
+        this.gameManager.screen.set(SudokuScreenState.menu);
+        this.gameManager.menu.set(SudokuMenuState.new);
+    }
+
     private _getValueCode = (value: number): string => value >= 1 && value <= 9 ? `Digit${value}` : 'Delete';
 
-    private _setCellValueOrCandidate = (valueCode: string): void => {
-        switch (valueCode) {
+    private _setCellValueOrCandidate = (code: string): void => {
+        switch (code) {
             case 'Backspace':
             case 'Delete':
                 if (this._canSetCellValue) {
@@ -571,14 +632,8 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
                 if (componentRef) {
                     componentRef.correctValue = cellSolution;
                     componentRef.incorrectValue = this._activeCell.value;
-                    componentRef.goHome = () => {
-                        this._dialogService.close();
-                        this._router.navigateByUrl('/games');
-                    };
-                    componentRef.playAgain = () => {
-                        this._dialogService.close();
-                        this.back();
-                    };
+                    componentRef.playDifferentGame = this._navigateToGamesHome;
+                    componentRef.playAgain = this._playAgain;
                 }
             }
         }

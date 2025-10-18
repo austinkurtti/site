@@ -10,6 +10,6 @@ import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
 export class FailedDialogComponent extends DialogBaseDirective {
     @Input() correctValue: number;
     @Input() incorrectValue: number;
-    @Input() goHome: () => void;
+    @Input() playDifferentGame: () => void;
     @Input() playAgain: () => void;
 }
