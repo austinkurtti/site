@@ -448,6 +448,10 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
         }
 
         event.preventDefault();
+        if (event.code.startsWith('Numpad')) {
+            // Prevent special Numpad keys from unexpectedly moving cell focus
+            event.stopPropagation();
+        }
     }
 
     public inputClick(value: number): void {
@@ -471,8 +475,8 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
 
     private _getValueCode = (value: number): string => value >= 1 && value <= 9 ? `Digit${value}` : 'Delete';
 
-    private _setCellValueOrCandidate = (valueCode: string): void => {
-        switch (valueCode) {
+    private _setCellValueOrCandidate = (code: string): void => {
+        switch (code) {
             case 'Backspace':
             case 'Delete':
                 if (this._canSetCellValue) {

@@ -18,5 +18,18 @@
     table {
         text-align: left;
         border-spacing: variables.$base-size math.div(variables.$base-size, 2);
+
+        th, td {
+            vertical-align: top;
+        }
+
+        .action-subtext {
+            color: variables.$theme-font-color-negative-on-secondary;
+            font-size: variables.$default-font-size * .8;
+
+            kbd {
+                font-size: variables.$default-font-size * .6;
+            }
+        }
     }
 }
