@@ -20,15 +20,14 @@ export class GamesHomeComponent {
             route: 'sudoku'
         }),
         new GameLinkModel({
+            name: 'Warships',
+            icon: 'fas fa-anchor',
+            route: 'warships'
+        }),
+        new GameLinkModel({
             name: 'Solitaire',
             icon: 'fas fa-heart',
             route: 'solitaire',
-            disabled: true
-        }),
-        new GameLinkModel({
-            name: 'Warships',
-            icon: 'fas fa-anchor',
-            route: 'warships',
             disabled: true
         })
     ];

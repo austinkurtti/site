@@ -12,6 +12,11 @@
     src: url('../assets/fonts/caveat/caveat.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'Black Ops One';
+    src: url('../assets/fonts/black-ops-one/black-ops-one.ttf') format('truetype');
+}
+
 // -----------------------------------------
 // Colors
 // -----------------------------------------
@@ -81,6 +86,7 @@ $default-font-family                    : 'Roboto Flex', sans-serif;
 $default-font-size                      : $base-size;
 $font-awesome-font-family               : 'Font Awesome 5 Free';
 $handwriting-font-family                : 'Caveat', sans-serif;
+$industrial-font-family                 : 'Black Ops One', sans-serif;
 
 // -----------------------------------------
 // Theme

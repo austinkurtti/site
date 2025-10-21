@@ -1,0 +1,11 @@
+@use 'variables';
+
+:host {
+    display: block;
+    height: 100%;
+
+    h1 {
+        font-family: variables.$industrial-font-family;
+        font-weight: 400;
+    }
+}

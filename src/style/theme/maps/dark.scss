@@ -9,7 +9,8 @@ $map: (
         'primary': variables.$color-sky,
 
         // Games
-        'sudoku': functions.adjust-to-contrast(variables.$color-sudoku, variables.$color-navy)
+        'sudoku': functions.adjust-to-contrast(variables.$color-sudoku, variables.$color-navy),
+        'warships': variables.$color-sky
     ),
     'background-color': (
         // General

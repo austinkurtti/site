@@ -1,0 +1,4 @@
+<ng-container [ngSwitch]="gameManager.screen()">
+    <ak-warships-menu-screen *ngSwitchCase="ScreenState.menu"></ak-warships-menu-screen>
+    <ak-warships-game-screen *ngSwitchCase="ScreenState.game"></ak-warships-game-screen>
+</ng-container>

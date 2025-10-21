@@ -7,6 +7,7 @@ import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { TooltipDirective } from '../@directives/tooltip/tooltip.directive';
 import { GamesHomeComponent } from './games-home.component';
 import { SudokuComponent } from './sudoku/sudoku.component';
+import { WarshipsComponent } from './warships/warships.component';
 
 @Component({
     selector: 'ak-games',
@@ -46,6 +47,9 @@ export class GamesComponent {
         if (activatedComponent instanceof SudokuComponent) {
             (titleEl.firstChild as HTMLElement).innerHTML = 'Sudoku';
             this._renderer.setAttribute(akGamesEl, 'data-game', 'sudoku');
+        } else if (activatedComponent instanceof WarshipsComponent) {
+            (titleEl.firstChild as HTMLElement).innerHTML = 'Warships';
+            this._renderer.setAttribute(akGamesEl, 'data-game', 'warships');
         }
     }
 }

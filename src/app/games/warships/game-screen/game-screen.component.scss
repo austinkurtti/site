@@ -1,0 +1,10 @@
+@use 'variables';
+
+:host {
+    display: block;
+    height: 100%;
+
+    #sidebar {
+        border-right: solid variables.$theme-font-color-normal 1px;
+    }
+}
