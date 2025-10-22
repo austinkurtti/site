@@ -1,7 +1,23 @@
 <div class="row g-0 h-100">
     <div id="sidebar" class="col-auto p-3">
         <div class="row g-0 flex-column h-100">
-            <div class="col">Log</div>
+            <div *ngIf="gameState() === GameState.deploying; else gameLog" class="col">
+                <div class="d-flex flex-column">
+                    <div *ngFor="let ship of deployableShips"
+                        class="deployable-ship"
+                        draggable="true"
+                        [attr.data-ship]="ship.id"
+                        [attr.data-ship-length]="ship.length * 4"
+                        (dragstart)="shipDragStart($event)"
+                        (dragend)="shipDragEnd($event)"
+                    >
+                        <span>{{ ship.name }}</span>
+                    </div>
+                </div>
+            </div>
+            <ng-template #gameLog>
+                Game log
+            </ng-template>
             <div class="col-auto d-flex flex-column">
                 <button (click)="showSettingsDialog()">Settings</button>
                 <button class="cancel-button mt-3" (click)="quit()">Quit</button>
@@ -9,7 +25,22 @@
         </div>
     </div>
 
-    <div class="col p-3">
-        Grid
+    <div id="grid-container" class="col p-5">
+        <div id="grid">
+            <div id="grid-col-labels">
+                <span *ngFor="let col of [].constructor(10); let i = index" class="grid-col-label">{{ i + 1 }}</span>
+            </div>
+
+            <div id="grid-row-labels">
+                <span *ngFor="let col of [].constructor(10); let i = index" class="grid-row-label">{{ String.fromCharCode(65 + i) }}</span>
+            </div>
+
+            <div *ngFor="let n of [].constructor(100); let i = index"
+                class="sector"
+                (dragover)="sectorDragOver($event)"
+                (dragleave)="sectorDragLeave($event)"
+                (drop)="sectorDrop($event)"
+            ></div>
+        </div>
     </div>
 </div>

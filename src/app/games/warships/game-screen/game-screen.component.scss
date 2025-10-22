@@ -5,6 +5,76 @@
     height: 100%;
 
     #sidebar {
-        border-right: solid variables.$theme-font-color-normal 1px;
+        border-right: 1px solid variables.$theme-font-color-normal;
+        width: variables.$base-size * 22;
+
+        .deployable-ship {
+            height: variables.$base-size * 3;
+            width: attr(data-ship-length rem);
+        }
+    }
+
+    #grid-container {
+        box-sizing: border-box;
+        height: 100%;
+        position: relative;
+        width: 100%;
+
+        #grid {
+            aspect-ratio: 1 / 1;
+            border: 1px solid variables.$theme-font-color-normal;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            margin: auto;
+            max-height: 100%;
+            max-width: 100%;
+            position: relative;
+
+            #grid-col-labels {
+                display: grid;
+                grid-template-columns: repeat(10, 1fr);
+                height: variables.$base-size * 2;
+                position: absolute;
+                top: -(variables.$base-size * 2);
+                width: 100%;
+
+                .grid-col-label {
+                    align-self: center;
+                    font-family: variables.$industrial-font-family;
+                    font-size: variables.$default-font-size * 2;
+                    text-align: center;
+                }
+            }
+
+            #grid-row-labels {
+                display: grid;
+                grid-template-rows: repeat(10, 1fr);
+                height: 100%;
+                left: -(variables.$base-size * 2);
+                position: absolute;
+                width: variables.$base-size * 2;
+
+                .grid-row-label {
+                    align-self: center;
+                    font-family: variables.$industrial-font-family;
+                    font-size: variables.$default-font-size * 2;
+                    text-align: center;
+                }
+            }
+
+            .sector {
+                aspect-ratio: 1 / 1;
+                border: 1px solid variables.$theme-font-color-normal;
+                box-sizing: border-box;
+
+                .deployable-ship-placeholder {
+                    background-color: green;
+                    height: 100%;
+                    pointer-events: none;
+                    width: 100%;
+                }
+            }
+        }
     }
 }

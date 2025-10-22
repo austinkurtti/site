@@ -59,15 +59,15 @@
         }
 
         .difficulty-card {
-            border: solid variables.$color-gray 1px;
+            border: 1px solid variables.$color-gray;
             border-top-left-radius: math.div(variables.$base-size, 4);
             border-top-right-radius: math.div(variables.$base-size, 4);
         }
 
         .difficulty-radio-label {
-            border-bottom: solid variables.$color-gray 1px;
-            border-left: solid variables.$color-gray 1px;
-            border-right: solid variables.$color-gray 1px;
+            border-bottom: 1px solid variables.$color-gray;
+            border-left: 1px solid variables.$color-gray;
+            border-right: 1px solid variables.$color-gray;
             border-bottom-left-radius: math.div(variables.$base-size, 4);
             border-bottom-right-radius: math.div(variables.$base-size, 4);
             height: variables.$base-size * 2;
