@@ -68,6 +68,10 @@
                 border: 1px solid variables.$theme-font-color-normal;
                 box-sizing: border-box;
 
+                &.ship {
+                    background-color: blue;
+                }
+
                 .deployable-ship-placeholder {
                     background-color: green;
                     height: 100%;

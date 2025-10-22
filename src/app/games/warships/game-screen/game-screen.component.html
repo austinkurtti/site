@@ -3,11 +3,12 @@
         <div class="row g-0 flex-column h-100">
             <div *ngIf="gameState() === GameState.deploying; else gameLog" class="col">
                 <div class="d-flex flex-column">
-                    <div *ngFor="let ship of deployableShips"
+                    <div *ngFor="let ship of deployableShips()"
                         class="deployable-ship"
                         draggable="true"
-                        [attr.data-ship]="ship.id"
+                        [attr.data-ship-id]="ship.id"
                         [attr.data-ship-length]="ship.length * 4"
+                        [attr.data-ship-orientation]="ship.orientation"
                         (dragstart)="shipDragStart($event)"
                         (dragend)="shipDragEnd($event)"
                     >
@@ -37,6 +38,9 @@
 
             <div *ngFor="let n of [].constructor(100); let i = index"
                 class="sector"
+                [class.ship]="gameManager.gameInstance.playerGrid.sectors[Math.floor(i / 10)][(i % 10)].state.hasFlag(SectorState.ship)"
+                [attr.data-row]="Math.floor(i / 10)"
+                [attr.data-col]="i % 10"
                 (dragover)="sectorDragOver($event)"
                 (dragleave)="sectorDragLeave($event)"
                 (drop)="sectorDrop($event)"

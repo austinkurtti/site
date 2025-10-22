@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { WarshipsManager } from '../warships-manager';
-import { WarshipsGameState, WarshipsScreenState, WarshipsShip } from '../warships.models';
+import { WarshipsGameState, WarshipsScreenState, WarshipsSector, WarshipsSectorState, WarshipsShipOrientation } from '../warships.models';
 
 @Component({
     selector: 'ak-warships-game-screen',
@@ -11,26 +11,31 @@ import { WarshipsGameState, WarshipsScreenState, WarshipsShip } from '../warship
         CommonModule
     ]
 })
-export class WarshipsGameScreenComponent {
+export class WarshipsGameScreenComponent implements OnInit {
     public gameManager = inject(WarshipsManager);
 
     public gameState = signal(WarshipsGameState.deploying);
-    public deployableShips = [
-        new WarshipsShip('Carrier', 5),
-        new WarshipsShip('Battleship', 4),
-        new WarshipsShip('Destroyer', 3),
-        new WarshipsShip('Submarine', 3),
-        new WarshipsShip('Patrol Ship', 2)
-    ];
+    public deployableShips = computed(() => this.gameManager.gameInstance.playerGrid.ships().filter(ship => !ship.deployed));
 
-    public GameState = WarshipsGameState;
+    public Math = Math;
     public String = String;
+    public GameState = WarshipsGameState;
+    public SectorState = WarshipsSectorState;
+
+    public ngOnInit(): void {
+        this.gameManager.gameInstance.playerGrid.sectors = new Array(10).fill([]);
+        for (let i = 0; i < 10; i++) {
+            this.gameManager.gameInstance.playerGrid.sectors[i] = Array.from({ length: 10 }, () => new WarshipsSector());
+        }
+    }
 
     public shipDragStart = (event: DragEvent) => {
         const ship = event.currentTarget as HTMLElement;
         ship.id = 'dragged-ship';
         event.dataTransfer.effectAllowed = 'move';
-        event.dataTransfer.setData('ship', ship.getAttribute('data-ship'));
+        event.dataTransfer.setData('id', ship.getAttribute('data-ship-id'));
+        event.dataTransfer.setData('length', ship.getAttribute('data-ship-length'));
+        event.dataTransfer.setData('orientation', ship.getAttribute('data-ship-orientation'));
     }
 
     public shipDragEnd = (event: DragEvent) => {
@@ -39,7 +44,7 @@ export class WarshipsGameScreenComponent {
     }
 
     public sectorDragOver = (event: DragEvent) => {
-        if (event.dataTransfer.types.includes('ship')) {
+        if (event.dataTransfer.types.includes('id')) {
             const sector = event.currentTarget as HTMLElement;
             const draggedShip = document.getElementById('dragged-ship');
             const existingShip = sector.querySelector('.deployable-ship');
@@ -64,13 +69,50 @@ export class WarshipsGameScreenComponent {
     public sectorDrop = (event: DragEvent) => {
         event.preventDefault();
 
+        // Sector data
         const sector = event.currentTarget as HTMLElement;
+        const row = parseInt(sector.getAttribute('data-row'), 10);
+        const col = parseInt(sector.getAttribute('data-col'), 10);
+
+        // Ship data
+        const id = event.dataTransfer.getData('id');
+        const length = parseInt(event.dataTransfer.getData('length'), 10) / 4;
+        const orientation = parseInt(event.dataTransfer.getData('orientation'), 10);
+
+        // Remove placeholder
         const placeholder = sector.querySelector('.deployable-ship-placeholder');
         placeholder?.remove();
 
-        const draggedShip = document.getElementById('dragged-ship');
-        draggedShip.remove();
-        sector.appendChild(draggedShip);
+        // Calculate occupied sectors
+        const occupiedSectors: { r: number, c: number }[] = [];
+        for (let i = 0; i < length; i++) {
+            let r = row, c = col;
+            if (orientation === WarshipsShipOrientation.horizontal) {
+                c += i;
+            } else {
+                r += i;
+            }
+
+            if (r > 9 || c > 9 || this.gameManager.gameInstance.playerGrid.sectors[r][c].state.hasFlag(WarshipsSectorState.ship)) {
+                // Out of bounds or overlaps another deployed ship, abort
+                return;
+            }
+            occupiedSectors.push({ r, c });
+        }
+
+        // Place ship in all occupied sectors
+        occupiedSectors.forEach(s => {
+            this.gameManager.gameInstance.playerGrid.sectors[s.r][s.c].state = WarshipsSectorState.ship;
+        });
+
+        // Update player ships
+        const updatedShips = this.gameManager.gameInstance.playerGrid.ships().map(ship => {
+            if (id === ship.id) {
+                ship.deployed = true;
+            }
+            return ship;
+        });
+        this.gameManager.gameInstance.playerGrid.ships.set(updatedShips);
     }
 
     public showSettingsDialog(): void {
