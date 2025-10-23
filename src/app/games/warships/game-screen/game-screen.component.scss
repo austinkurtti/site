@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @use 'variables';
 
 :host {
@@ -9,8 +11,14 @@
         width: variables.$base-size * 22;
 
         .deployable-ship {
+            border: 1px solid variables.$theme-font-color-normal;
+            border-radius: math.div(variables.$base-size, 4);
+            cursor: grab;
             height: variables.$base-size * 3;
-            width: attr(data-ship-length rem);
+
+            &:not(:first-child) {
+                margin-top: variables.$base-size;
+            }
         }
     }
 
@@ -68,16 +76,17 @@
                 border: 1px solid variables.$theme-font-color-normal;
                 box-sizing: border-box;
 
-                &.ship {
-                    background-color: blue;
-                }
-
                 .deployable-ship-placeholder {
                     background-color: green;
                     height: 100%;
                     pointer-events: none;
                     width: 100%;
                 }
+            }
+
+            .deployed-ship {
+                border: 1px solid variables.$theme-font-color-normal;
+                cursor: grab;
             }
         }
     }

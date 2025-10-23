@@ -51,6 +51,7 @@ export class WarshipsShip {
     public length: number;
     public orientation = WarshipsShipOrientation.horizontal;
     public deployed = false;
+    public anchorSector?: { r: number, c: number } = null;
 
     constructor(name: string, length: number) {
         this.id = name.replaceAll(' ', '-').toLowerCase();

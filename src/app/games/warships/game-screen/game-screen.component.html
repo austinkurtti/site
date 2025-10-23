@@ -7,7 +7,7 @@
                         class="deployable-ship"
                         draggable="true"
                         [attr.data-ship-id]="ship.id"
-                        [attr.data-ship-length]="ship.length * 4"
+                        [attr.data-ship-length]="ship.length"
                         [attr.data-ship-orientation]="ship.orientation"
                         (dragstart)="shipDragStart($event)"
                         (dragend)="shipDragEnd($event)"
@@ -27,7 +27,9 @@
     </div>
 
     <div id="grid-container" class="col p-5">
-        <div id="grid">
+        <div id="grid"
+            (dragleave)="gridDragLeave($event)"
+        >
             <div id="grid-col-labels">
                 <span *ngFor="let col of [].constructor(10); let i = index" class="grid-col-label">{{ i + 1 }}</span>
             </div>
@@ -36,15 +38,32 @@
                 <span *ngFor="let col of [].constructor(10); let i = index" class="grid-row-label">{{ String.fromCharCode(65 + i) }}</span>
             </div>
 
-            <div *ngFor="let n of [].constructor(100); let i = index"
-                class="sector"
-                [class.ship]="gameManager.gameInstance.playerGrid.sectors[Math.floor(i / 10)][(i % 10)].state.hasFlag(SectorState.ship)"
-                [attr.data-row]="Math.floor(i / 10)"
-                [attr.data-col]="i % 10"
-                (dragover)="sectorDragOver($event)"
-                (dragleave)="sectorDragLeave($event)"
-                (drop)="sectorDrop($event)"
-            ></div>
+            <ng-container *ngFor="let n of [].constructor(100); let i = index">
+                <div *ngIf="!gameManager.gameInstance.playerGrid.sectors[Math.floor(i / 10)][(i % 10)].state.hasFlag(SectorState.ship)"
+                    class="sector"
+                    [attr.data-row]="Math.floor(i / 10)"
+                    [attr.data-col]="i % 10"
+                    (dragover)="sectorDragOver($event)"
+                    (dragleave)="sectorDragLeave($event)"
+                    (drop)="sectorDrop($event)"
+                ></div>
+            </ng-container>
+
+            <div *ngFor="let ship of deployedShips()"
+                class="deployed-ship"
+                draggable="true"
+                [attr.data-ship-id]="ship.id"
+                [attr.data-ship-length]="ship.length"
+                [attr.data-ship-orientation]="ship.orientation"
+                [style.gridRowStart]="ship.anchorSector.r + 1"
+                [style.gridRowEnd]="ship.orientation === ShipOrientation.horizontal ? 'span 1' : ('span ' + ship.length)"
+                [style.gridColumnStart]="ship.anchorSector.c + 1"
+                [style.gridColumnEnd]="ship.orientation === ShipOrientation.horizontal ? ('span ' + ship.length) : 'span 1'"
+                (dragstart)="shipDragStart($event)"
+                (dragend)="shipDragEnd($event)"
+            >
+                <span>{{ ship.name }}</span>
+            </div>
         </div>
     </div>
 </div>
