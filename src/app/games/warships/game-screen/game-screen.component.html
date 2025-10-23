@@ -64,6 +64,7 @@
                 [style.gridColumnEnd]="ship.orientation === ShipOrientation.horizontal ? ('span ' + ship.length) : 'span 1'"
                 (dragstart)="shipDragStart($event)"
                 (dragend)="shipDragEnd($event)"
+                (click)="rotateShip(ship.id)"
             >
                 <span>{{ ship.name }}</span>
             </div>

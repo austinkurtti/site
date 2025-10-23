@@ -214,6 +214,48 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         this._clearPlaceholders(event.currentTarget as HTMLElement);
     }
 
+    public rotateShip(shipId: string) {
+        const ship = this.gameManager.gameInstance.playerGrid.ships().find(s => s.id === shipId);
+
+        // Calculate new sectors (minus anchor sector)
+        const newSectors: { r: number, c: number }[] = [];
+        for (let i = 1; i < ship.length; i++) {
+            let r = ship.anchorSector.r, c = ship.anchorSector.c;
+            if (ship.orientation === WarshipsShipOrientation.horizontal) {
+                r += i;
+            } else {
+                c += i;
+            }
+
+            if (r > 9 || c > 9 || this.gameManager.gameInstance.playerGrid.sectors[r][c].state.hasFlag(WarshipsSectorState.ship)) {
+                // Out of bounds or overlaps another deployed ship, abort
+                return;
+            }
+            newSectors.push({ r, c });
+        }
+
+        // Reset old sectors to empty (minus anchor sector)
+        for (let i = 1; i < ship.length; i++) {
+            let r = ship.anchorSector.r, c = ship.anchorSector.c;
+            if (ship.orientation === WarshipsShipOrientation.horizontal) {
+                c += i;
+            } else {
+                r += i;
+            }
+
+            this.gameManager.gameInstance.playerGrid.sectors[r][c].state = WarshipsSectorState.empty;
+        }
+
+        // Update new sectors and ship data
+        newSectors.forEach(n => {
+            this.gameManager.gameInstance.playerGrid.sectors[n.r][n.c].state = WarshipsSectorState.ship;
+        });
+        ship.orientation = ship.orientation === WarshipsShipOrientation.horizontal
+            ? WarshipsShipOrientation.vertical
+            : WarshipsShipOrientation.horizontal;
+        this.gameManager.gameInstance.playerGrid.ships.set(this.gameManager.gameInstance.playerGrid.ships());
+    }
+
     public showSettingsDialog(): void {
         // TODO
     }
