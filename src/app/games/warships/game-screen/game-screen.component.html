@@ -38,16 +38,19 @@
                 <span *ngFor="let col of [].constructor(10); let i = index" class="grid-row-label">{{ String.fromCharCode(65 + i) }}</span>
             </div>
 
-            <ng-container *ngFor="let n of [].constructor(100); let i = index">
-                <div *ngIf="!gameManager.gameInstance.playerGrid.sectors[Math.floor(i / 10)][(i % 10)].state.hasFlag(SectorState.ship)"
-                    class="sector"
-                    [attr.data-row]="Math.floor(i / 10)"
-                    [attr.data-col]="i % 10"
-                    (dragover)="sectorDragOver($event)"
-                    (dragleave)="sectorDragLeave($event)"
-                    (drop)="sectorDrop($event)"
-                ></div>
+            <ng-container *ngFor="let row of this.gameManager.gameInstance.playerGrid.sectors; let r = index">
+                <ng-container *ngFor="let sector of row; let c = index">
+                    <div *ngIf="!sector.state.hasFlag(SectorState.ship)"
+                        class="sector"
+                        [attr.data-row]="r"
+                        [attr.data-col]="c"
+                        (dragover)="sectorDragOver($event)"
+                        (drop)="sectorDrop($event)"
+                    ></div>
+                </ng-container>
             </ng-container>
+
+            <div *ngIf="showPlaceholder()" id="deployable-ship-placeholder"></div>
 
             <div *ngFor="let ship of deployedShips()"
                 class="deployed-ship"

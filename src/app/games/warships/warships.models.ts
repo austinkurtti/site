@@ -14,10 +14,11 @@ export enum WarshipsGameState {
 }
 
 export enum WarshipsSectorState {
-    empty   = 1 << 0,
-    ship    = 1 << 1,
-    miss    = 1 << 2,
-    hit     = 1 << 3
+    empty       = 1 << 0,
+    ship        = 1 << 1,
+    placeholder = 1 << 2,
+    miss        = 1 << 3,
+    hit         = 1 << 4
 }
 
 export class WarshipsSector {
