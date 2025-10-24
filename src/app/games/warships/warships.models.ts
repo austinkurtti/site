@@ -29,7 +29,7 @@ export class WarshipsGrid {
     public sectors: WarshipsSector[][];
     public ships = signal([
         new WarshipsShip('Carrier', 5),
-        new WarshipsShip('Battleship', 4),
+        new WarshipsShip('Cruiser', 4),
         new WarshipsShip('Destroyer', 3),
         new WarshipsShip('Submarine', 3),
         new WarshipsShip('Patrol Ship', 2)

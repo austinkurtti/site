@@ -256,6 +256,11 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         this.gameManager.gameInstance.playerGrid.ships.set(this.gameManager.gameInstance.playerGrid.ships());
     }
 
+    public deploy(): void {
+        // TODO - set computer's ships
+        this.gameState.set(WarshipsGameState.running);
+    }
+
     public showSettingsDialog(): void {
         // TODO
     }

@@ -17,11 +17,20 @@
                 </div>
             </div>
             <ng-template #gameLog>
-                Game log
+                <div class="col">
+                    Game log
+                </div>
             </ng-template>
             <div class="col-auto d-flex flex-column">
-                <button (click)="showSettingsDialog()">Settings</button>
-                <button class="cancel-button mt-3" (click)="quit()">Quit</button>
+                <button *ngIf="gameState() === GameState.deploying"
+                    class="confirm-button mb-3"
+                    [disabled]="deployableShips().length > 0"
+                    (click)="deploy()"
+                >
+                    <span>Deploy</span>
+                </button>
+                <button class="mb-3" (click)="showSettingsDialog()">Settings</button>
+                <button class="cancel-button" (click)="quit()">Quit</button>
             </div>
         </div>
     </div>
@@ -66,7 +75,16 @@
                 (dragend)="shipDragEnd($event)"
                 (click)="rotateShip(ship.id)"
             >
-                <span>{{ ship.name }}</span>
+                <div class="ship-model h-100 w-100 d-flex align-items-center justify-content-center position-relative">
+                    <span class="position-absolute">{{ ship.name }}</span>
+                    <!-- TODO - ship art -->
+                    <!-- <img priority
+                        fill="true"
+                        [alt]="ship.name"
+                        [ngSrc]="'/assets/images/warships/' + ship.id + '.png'"
+                        [ngClass]="ship.orientation === ShipOrientation.vertical ? 'vertical' : ''"
+                    > -->
+                </div>
             </div>
         </div>
     </div>

@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use 'sass:math';
 
 @use 'variables';
@@ -23,6 +24,10 @@
     }
 
     #grid-container {
+        background: radial-gradient(
+            color.mix(variables.$color-blue, variables.$color-sky),
+            variables.$color-sky
+        );
         box-sizing: border-box;
         height: 100%;
         position: relative;
@@ -78,7 +83,7 @@
             }
 
             #deployable-ship-placeholder {
-                background-color: green;
+                background-color: variables.$color-green;
                 pointer-events: none;
                 position: absolute;
             }
@@ -86,6 +91,23 @@
             .deployed-ship {
                 border: 1px solid variables.$theme-font-color-normal;
                 cursor: grab;
+                padding: variables.$base-size;
+
+                // Vertical orientation
+                &[data-ship-orientation="2"] {
+                    .ship-model span {
+                        transform: rotate(90deg);
+                    }
+                }
+
+                .ship-model {
+                    background: white;
+                    border-radius: math.div(variables.$base-size, 2);
+
+                    span {
+                        text-wrap: nowrap;
+                    }
+                }
             }
         }
     }
