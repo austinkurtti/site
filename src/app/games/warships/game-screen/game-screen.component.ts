@@ -3,7 +3,8 @@ import { Component, computed, inject, OnDestroy, OnInit, Renderer2, signal } fro
 import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { WarshipsManager } from '../warships-manager';
-import { WarshipsGameState, WarshipsScreenState, WarshipsSector, WarshipsSectorState, WarshipsShipOrientation } from '../warships.models';
+import { tryShipDeploy } from '../warships.functions';
+import { WarshipsGameState, WarshipsGrid, WarshipsScreenState, WarshipsSector, WarshipsSectorState, WarshipsShipOrientation, WarshipsTurn } from '../warships.models';
 
 @Component({
     selector: 'ak-warships-game-screen',
@@ -18,23 +19,44 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
     public gameState = signal(WarshipsGameState.deploying);
     public showPlaceholder = signal(false);
+    public gridSectors = computed(() => {
+        return this.gameState() === WarshipsGameState.deploying || this.gameManager.gameInstance.turn() === WarshipsTurn.computer
+            ? this.gameManager.gameInstance.playerGrid.sectors
+            : this.gameManager.gameInstance.computerGrid.sectors;
+    });
     public deployableShips = computed(() => this.gameManager.gameInstance.playerGrid.ships().filter(ship => !ship.deployed));
-    public deployedShips = computed(() => this.gameManager.gameInstance.playerGrid.ships().filter(ship => ship.deployed));
+    public deployedShips = computed(() => {
+        return this.gameState() === WarshipsGameState.deploying || this.gameManager.gameInstance.turn() === WarshipsTurn.computer
+            ? this.gameManager.gameInstance.playerGrid.ships().filter(ship => ship.deployed)
+            : [];
+    });
+
+    public get playerGrid(): WarshipsGrid {
+        return this.gameManager.gameInstance.playerGrid;
+    }
+    public get computerGrid(): WarshipsGrid {
+        return this.gameManager.gameInstance.computerGrid;
+    }
 
     public Math = Math;
     public String = String;
     public GameState = WarshipsGameState;
     public SectorState = WarshipsSectorState;
     public ShipOrientation = WarshipsShipOrientation;
+    public Turn = WarshipsTurn;
 
     private _renderer = inject(Renderer2);
 
     private _unlisteners: (() => void)[] = [];
 
     public ngOnInit(): void {
-        this.gameManager.gameInstance.playerGrid.sectors = new Array(10).fill([]);
+        this.playerGrid.sectors = new Array(10).fill([]);
         for (let i = 0; i < 10; i++) {
-            this.gameManager.gameInstance.playerGrid.sectors[i] = Array.from({ length: 10 }, () => new WarshipsSector());
+            this.playerGrid.sectors[i] = Array.from({ length: 10 }, () => new WarshipsSector());
+        }
+        this.computerGrid.sectors = new Array(10).fill([]);
+        for (let i = 0; i < 10; i++) {
+            this.computerGrid.sectors[i] = Array.from({ length: 10 }, () => new WarshipsSector());
         }
     }
 
@@ -72,7 +94,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             });
 
             // Reset sectors containing deployed ship
-            const deployedShip = this.gameManager.gameInstance.playerGrid.ships().find(s => s.id === shipId);
+            const deployedShip = this.playerGrid.ships().find(s => s.id === shipId);
             for (let i = 0; i < deployedShip.length; i++) {
                 let r = deployedShip.anchorSector.r, c = deployedShip.anchorSector.c;
                 if (deployedShip.orientation === WarshipsShipOrientation.horizontal) {
@@ -81,7 +103,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
                     r += i;
                 }
 
-                this.gameManager.gameInstance.playerGrid.sectors[r][c].state = WarshipsSectorState.empty;
+                this.playerGrid.sectors[r][c].state = WarshipsSectorState.empty;
             }
         }
     }
@@ -109,21 +131,11 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             const grid = sector.parentElement;
             this._clearPlaceholders(grid);
 
-            // Calculate occupied sectors
-            const occupiedSectors: { r: number, c: number }[] = [];
-            for (let i = 0; i < length; i++) {
-                let r = row, c = col;
-                if (orientation === WarshipsShipOrientation.horizontal) {
-                    c += i;
-                } else {
-                    r += i;
-                }
-
-                if (r > 9 || c > 9 || this.gameManager.gameInstance.playerGrid.sectors[r][c].state.hasFlag(WarshipsSectorState.ship)) {
-                    // Out of bounds or overlaps another deployed ship, abort
-                    return;
-                }
-                occupiedSectors.push({ r, c });
+            // Attempt to position placeholder
+            const occupiedSectors = tryShipDeploy(row, col, length, orientation, this.playerGrid.sectors);
+            if (occupiedSectors.length === 0) {
+                // Abort - positioning failed
+                return;
             }
 
             event.preventDefault();
@@ -131,7 +143,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
             // Mark sectors as occupied with ship
             occupiedSectors.forEach(s => {
-                this.gameManager.gameInstance.playerGrid.sectors[s.r][s.c].state = WarshipsSectorState.placeholder;
+                this.playerGrid.sectors[s.r][s.c].state = WarshipsSectorState.placeholder;
             });
 
             // Move placeholder
@@ -177,37 +189,27 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         draggedShip.style.position = '';
         draggedShip.style.visibility = '';
 
-        // Calculate occupied sectors
-        const occupiedSectors: { r: number, c: number }[] = [];
-        for (let i = 0; i < length; i++) {
-            let r = row, c = col;
-            if (orientation === WarshipsShipOrientation.horizontal) {
-                c += i;
-            } else {
-                r += i;
-            }
-
-            if (r > 9 || c > 9 || this.gameManager.gameInstance.playerGrid.sectors[r][c].state.hasFlag(WarshipsSectorState.ship)) {
-                // Out of bounds or overlaps another deployed ship, abort
-                return;
-            }
-            occupiedSectors.push({ r, c });
+        // Attempt deployment
+        const occupiedSectors = tryShipDeploy(row, col, length, orientation, this.playerGrid.sectors);
+        if (occupiedSectors.length === 0) {
+            // Abort - deploy failed
+            return;
         }
 
         // Place ship in all occupied sectors
         occupiedSectors.forEach(s => {
-            this.gameManager.gameInstance.playerGrid.sectors[s.r][s.c].state = WarshipsSectorState.ship;
+            this.playerGrid.sectors[s.r][s.c].state = WarshipsSectorState.ship;
         });
 
         // Update player ships
-        const updatedShips = this.gameManager.gameInstance.playerGrid.ships().map(ship => {
+        const updatedShips = this.playerGrid.ships().map(ship => {
             if (id === ship.id) {
                 ship.deployed = true;
                 ship.anchorSector = { r: row, c: col };
             }
             return ship;
         });
-        this.gameManager.gameInstance.playerGrid.ships.set(updatedShips);
+        this.playerGrid.ships.set(updatedShips);
     }
 
     public gridDragLeave = (event: DragEvent): void => {
@@ -215,7 +217,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     }
 
     public rotateShip(shipId: string) {
-        const ship = this.gameManager.gameInstance.playerGrid.ships().find(s => s.id === shipId);
+        const ship = this.playerGrid.ships().find(s => s.id === shipId);
 
         // Calculate new sectors (minus anchor sector)
         const newSectors: { r: number, c: number }[] = [];
@@ -227,7 +229,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
                 c += i;
             }
 
-            if (r > 9 || c > 9 || this.gameManager.gameInstance.playerGrid.sectors[r][c].state.hasFlag(WarshipsSectorState.ship)) {
+            if (r > 9 || c > 9 || this.playerGrid.sectors[r][c].state.hasFlag(WarshipsSectorState.ship)) {
                 // Out of bounds or overlaps another deployed ship, abort
                 return;
             }
@@ -243,22 +245,43 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
                 r += i;
             }
 
-            this.gameManager.gameInstance.playerGrid.sectors[r][c].state = WarshipsSectorState.empty;
+            this.playerGrid.sectors[r][c].state = WarshipsSectorState.empty;
         }
 
         // Update new sectors and ship data
         newSectors.forEach(n => {
-            this.gameManager.gameInstance.playerGrid.sectors[n.r][n.c].state = WarshipsSectorState.ship;
+            this.playerGrid.sectors[n.r][n.c].state = WarshipsSectorState.ship;
         });
         ship.orientation = ship.orientation === WarshipsShipOrientation.horizontal
             ? WarshipsShipOrientation.vertical
             : WarshipsShipOrientation.horizontal;
-        this.gameManager.gameInstance.playerGrid.ships.set(this.gameManager.gameInstance.playerGrid.ships());
+        this.playerGrid.ships.set(this.playerGrid.ships());
     }
 
     public deploy(): void {
-        // TODO - set computer's ships
+        // Randomly deploy computer's ships
+        this.computerGrid.ships().forEach(ship => {
+            while (!ship.deployed) {
+                const row = Math.floor(Math.random() * 10);
+                const col = Math.floor(Math.random() * 10);
+                ship.orientation = Math.floor(Math.random() * 2) + 1;
+                const occupiedSectors = tryShipDeploy(row, col, ship.length, ship.orientation, this.computerGrid.sectors);
+
+                if (occupiedSectors.length > 0) {
+                    ship.deployed = true;
+                    ship.anchorSector = { r: row, c: col };
+
+                    // Mark sectors with ship
+                    occupiedSectors.forEach(s => {
+                        this.computerGrid.sectors[s.r][s.c].state = WarshipsSectorState.ship;
+                    });
+                }
+            }
+        });
+        this.computerGrid.ships.set(this.computerGrid.ships());
+
         this.gameState.set(WarshipsGameState.running);
+        // TODO - start game loop
     }
 
     public showSettingsDialog(): void {
@@ -277,14 +300,14 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         if (this.showPlaceholder()) {
             // Reset the dragged ship back to not deployed
             const draggedShip = event.target as HTMLElement;
-            const updatedShips = this.gameManager.gameInstance.playerGrid.ships().map(ship => {
+            const updatedShips = this.playerGrid.ships().map(ship => {
                 if (ship.id === draggedShip.getAttribute('data-ship-id')) {
                     ship.deployed = false;
                     ship.anchorSector = null;
                 }
                 return ship;
             });
-            this.gameManager.gameInstance.playerGrid.ships.set(updatedShips);
+            this.playerGrid.ships.set(updatedShips);
         }
     }
 
@@ -298,7 +321,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         }
 
         // Reset sector states
-        this.gameManager.gameInstance.playerGrid.sectors.forEach(row => {
+        this.playerGrid.sectors.forEach(row => {
             row.forEach(sector => {
                 if (sector.state.hasFlag(WarshipsSectorState.placeholder)) {
                     sector.state = WarshipsSectorState.empty;

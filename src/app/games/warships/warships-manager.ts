@@ -8,4 +8,9 @@ export class WarshipsManager {
     public screen = signal(WarshipsScreenState.menu);
 
     public gameInstance: WarshipsGameInstance;
+
+    public newGame(): void {
+        this.gameInstance = new WarshipsGameInstance();
+        this.screen.set(WarshipsScreenState.game);
+    }
 }

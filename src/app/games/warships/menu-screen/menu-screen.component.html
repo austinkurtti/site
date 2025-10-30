@@ -3,6 +3,9 @@
         <h1 class="text-center text-uppercase">Warships</h1>
     </div>
     <div class="row g-0 px-2 px-md-0">
-        <button class="fs-2 text-start px-3" (click)="start()">Start</button>
+        <button class="fs-2 text-start px-3" (click)="this.gameManager.newGame()">New</button>
+    </div>
+    <div class="row g-0 px-2 px-md-0 mt-3">
+        <button class="fs-2 text-start px-3" (click)="showSettingsDialog()">Settings</button>
     </div>
 </div>

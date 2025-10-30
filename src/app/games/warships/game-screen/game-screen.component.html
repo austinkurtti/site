@@ -1,7 +1,7 @@
 <div class="row g-0 h-100">
     <div id="sidebar" class="col-auto p-3">
         <div class="row g-0 flex-column h-100">
-            <div *ngIf="gameState() === GameState.deploying; else gameLog" class="col">
+            <div *ngIf="gameState() === GameState.deploying; else gameEvents" class="col">
                 <div class="d-flex flex-column">
                     <div *ngFor="let ship of deployableShips()"
                         class="deployable-ship"
@@ -16,9 +16,9 @@
                     </div>
                 </div>
             </div>
-            <ng-template #gameLog>
+            <ng-template #gameEvents>
                 <div class="col">
-                    Game log
+                    Game events
                 </div>
             </ng-template>
             <div class="col-auto d-flex flex-column">
@@ -47,9 +47,9 @@
                 <span *ngFor="let col of [].constructor(10); let i = index" class="grid-row-label">{{ String.fromCharCode(65 + i) }}</span>
             </div>
 
-            <ng-container *ngFor="let row of this.gameManager.gameInstance.playerGrid.sectors; let r = index">
+            <ng-container *ngFor="let row of gridSectors(); let r = index">
                 <ng-container *ngFor="let sector of row; let c = index">
-                    <div *ngIf="!sector.state.hasFlag(SectorState.ship)"
+                    <div *ngIf="(gameState() !== GameState.deploying && gameManager.gameInstance.turn() === Turn.player) || !sector.state.hasFlag(SectorState.ship)"
                         class="sector"
                         [attr.data-row]="r"
                         [attr.data-col]="c"

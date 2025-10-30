@@ -21,6 +21,17 @@ export enum WarshipsSectorState {
     hit         = 1 << 4
 }
 
+export enum WarshipsTurn {
+    player = 1,
+    computer = 2
+}
+
+export enum WarshipsEventType {
+    miss = 1,
+    hit = 2,
+    sink = 3
+}
+
 export class WarshipsSector {
     public state = WarshipsSectorState.empty;
 }
@@ -39,6 +50,8 @@ export class WarshipsGrid {
 export class WarshipsGameInstance {
     public playerGrid = new WarshipsGrid();
     public computerGrid = new WarshipsGrid();
+    public turn = signal(WarshipsTurn.player);
+    public eventLog: WarshipsEvent[];
 }
 
 export enum WarshipsShipOrientation {
@@ -50,6 +63,7 @@ export class WarshipsShip {
     public id: string;
     public name: string;
     public length: number;
+    public health: number;
     public orientation = WarshipsShipOrientation.horizontal;
     public deployed = false;
     public anchorSector?: { r: number, c: number } = null;
@@ -58,5 +72,11 @@ export class WarshipsShip {
         this.id = name.replaceAll(' ', '-').toLowerCase();
         this.name = name;
         this.length = length;
+        this.health = length;
     }
+}
+
+export class WarshipsEvent {
+    public type: WarshipsEventType;
+    public turn: WarshipsTurn;
 }
