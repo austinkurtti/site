@@ -50,7 +50,7 @@ export class WarshipsGrid {
 export class WarshipsGameInstance {
     public playerGrid = new WarshipsGrid();
     public computerGrid = new WarshipsGrid();
-    public turn = signal(WarshipsTurn.player);
+    public turn = signal<WarshipsTurn>(null);
     public eventLog: WarshipsEvent[];
 }
 

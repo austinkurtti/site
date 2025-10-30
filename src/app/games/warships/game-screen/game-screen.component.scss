@@ -44,6 +44,13 @@
             max-width: 100%;
             position: relative;
 
+            &.player-turn {
+                .sector:not(.targeted):hover {
+                    background-color: color.mix(variables.$color-white, transparent);
+                    cursor: crosshair;
+                }
+            }
+
             #grid-col-labels {
                 display: grid;
                 grid-template-columns: repeat(10, 1fr);
@@ -106,6 +113,43 @@
 
                     span {
                         text-wrap: nowrap;
+                    }
+                }
+            }
+        }
+
+        #grid-overlays-container {
+            box-sizing: border-box;
+            height: 100%;
+            left: 0;
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            width: 100%;
+
+            #grid-overlays {
+                aspect-ratio: 1 / 1;
+                border: 1px solid transparent;
+                display: grid;
+                grid-template-columns: repeat(10, 1fr);
+                grid-template-rows: repeat(10, 1fr);
+                margin: auto;
+                max-height: 100%;
+                max-width: 100%;
+
+                .sector-overlay {
+                    aspect-ratio: 1 / 1;
+                    border: 1px solid transparent;
+                    box-sizing: border-box;
+
+                    .fa-map-marker {
+                        &.miss {
+                            color: variables.$color-white;
+                        }
+
+                        &.hit {
+                            color: variables.$color-red;
+                        }
                     }
                 }
             }

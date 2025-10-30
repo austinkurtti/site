@@ -37,6 +37,10 @@
 
     <div id="grid-container" class="col p-5">
         <div id="grid"
+            [ngClass]="{
+                'player-turn': gameManager.gameInstance.turn() === Turn.player,
+                'computer-turn': gameManager.gameInstance.turn() === Turn.computer
+            }"
             (dragleave)="gridDragLeave($event)"
         >
             <div id="grid-col-labels">
@@ -49,12 +53,16 @@
 
             <ng-container *ngFor="let row of gridSectors(); let r = index">
                 <ng-container *ngFor="let sector of row; let c = index">
-                    <div *ngIf="(gameState() !== GameState.deploying && gameManager.gameInstance.turn() === Turn.player) || !sector.state.hasFlag(SectorState.ship)"
+                    <div *ngIf="gameManager.gameInstance.turn() === Turn.player || !sector.state.hasFlag(SectorState.ship)"
                         class="sector"
+                        [ngClass]="{
+                            'targeted': sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)
+                        }"
                         [attr.data-row]="r"
                         [attr.data-col]="c"
                         (dragover)="sectorDragOver($event)"
                         (drop)="sectorDrop($event)"
+                        (click)="sectorClick(r, c)"
                     ></div>
                 </ng-container>
             </ng-container>
@@ -85,6 +93,24 @@
                         [ngClass]="ship.orientation === ShipOrientation.vertical ? 'vertical' : ''"
                     > -->
                 </div>
+            </div>
+        </div>
+
+        <div id="grid-overlays-container" class="p-5">
+            <div id="grid-overlays">
+                <ng-container *ngFor="let row of gridSectors(); let r = index">
+                    <ng-container *ngFor="let sector of row; let c = index">
+                        <div class="sector-overlay d-flex align-items-center justify-content-center">
+                            <i *ngIf="sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)"
+                                class="fas fa-2x fa-map-marker"
+                                [ngClass]="{
+                                    'miss': sector.state.hasFlag(SectorState.miss),
+                                    'hit': sector.state.hasFlag(SectorState.hit)
+                                }"
+                            ></i>
+                        </div>
+                    </ng-container>
+                </ng-container>
             </div>
         </div>
     </div>
