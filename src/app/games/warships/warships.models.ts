@@ -1,5 +1,7 @@
 import { signal } from '@angular/core';
 
+export type WarshipsCoord = { row: number, col: number };
+
 export enum WarshipsScreenState {
     menu = 1,
     game = 2
@@ -9,8 +11,8 @@ export enum WarshipsGameState {
     deploying = 1,
     running = 2,
     paused = 3,
-    won = 4,
-    lost = 5
+    victory = 4,
+    defeat = 5
 }
 
 export enum WarshipsSectorState {
@@ -27,13 +29,15 @@ export enum WarshipsTurn {
 }
 
 export enum WarshipsEventType {
-    miss = 1,
-    hit = 2,
-    sink = 3
+    state = 1,
+    miss = 2,
+    hit = 3,
+    sink = 4
 }
 
 export class WarshipsSector {
     public state = WarshipsSectorState.empty;
+    public shipId?: string = null;
 }
 
 export class WarshipsGrid {
@@ -48,10 +52,11 @@ export class WarshipsGrid {
 }
 
 export class WarshipsGameInstance {
+    public gameState = signal(WarshipsGameState.deploying);
     public playerGrid = new WarshipsGrid();
     public computerGrid = new WarshipsGrid();
     public turn = signal<WarshipsTurn>(null);
-    public eventLog: WarshipsEvent[];
+    public eventLog: WarshipsEvent[] = [];
 }
 
 export enum WarshipsShipOrientation {
@@ -66,7 +71,7 @@ export class WarshipsShip {
     public health: number;
     public orientation = WarshipsShipOrientation.horizontal;
     public deployed = false;
-    public anchorSector?: { r: number, c: number } = null;
+    public anchorSector?: WarshipsCoord = null;
 
     constructor(name: string, length: number) {
         this.id = name.replaceAll(' ', '-').toLowerCase();
@@ -78,5 +83,10 @@ export class WarshipsShip {
 
 export class WarshipsEvent {
     public type: WarshipsEventType;
-    public turn: WarshipsTurn;
+    public message: string;
+
+    constructor(type: WarshipsEventType, message: string) {
+        this.type = type;
+        this.message = message;
+    }
 }

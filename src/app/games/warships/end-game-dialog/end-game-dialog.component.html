@@ -1,0 +1,68 @@
+<h3 class="dialog-header mb-0 text-center">{{ gameManager.gameInstance.gameState() === GameState.victory ? 'Victory' : 'Defeat' }}</h3>
+
+<div class="dialog-body">
+    <div class="row g-0 mb-4">
+        <div class="col text-center">
+            {{ gameManager.gameInstance.gameState() === GameState.victory ? 'The opposing fleet has been destroyed!' : 'Your fleet has been destroyed.' }}
+        </div>
+    </div>
+
+    <h4>Your fleet</h4>
+    <div class="fleet row g-0 my-2 py-3 justify-content-around"
+        [ngClass]="{
+            'destroyed' : gameManager.gameInstance.gameState() === GameState.defeat
+        }"
+    >
+        <svg *ngIf="gameManager.gameInstance.gameState() === GameState.defeat"
+            class="destroyed-overlay"
+            height="100%"
+            width="100%"
+        >
+            <line class="diagonal-line" x1="0" y1="0" x2="100%" y2="100%"></line>
+            <line class="diagonal-line" x1="0" y1="100%" x2="100%" y2="0"></line>
+        </svg>
+        <div *ngFor="let ship of gameManager.gameInstance.playerGrid.ships()" class="col-2">
+            <div class="mb-2">
+                <span>{{ ship.name }}</span>
+            </div>
+            <div class="health-bar d-flex gap-1">
+                <div *ngFor="let x of [].constructor(ship.length); let i = index"
+                    class="health-bar-piece"
+                    [attr.data-filled]="i < ship.health"
+                ></div>
+            </div>
+        </div>
+    </div>
+
+    <h4>Opponent fleet</h4>
+    <div class="fleet row g-0 mt-2 py-3 justify-content-around"
+        [ngClass]="{
+            'destroyed' : gameManager.gameInstance.gameState() === GameState.victory
+        }"
+    >
+        <svg *ngIf="gameManager.gameInstance.gameState() === GameState.victory"
+            class="destroyed-overlay"
+            height="100%"
+            width="100%"
+        >
+            <line class="diagonal-line" x1="0" y1="0" x2="100%" y2="100%"></line>
+            <line class="diagonal-line" x1="0" y1="100%" x2="100%" y2="0"></line>
+        </svg>
+        <div *ngFor="let ship of gameManager.gameInstance.computerGrid.ships()" class="col-2">
+            <div class="mb-2">
+                <span>{{ ship.name }}</span>
+            </div>
+            <div class="health-bar d-flex gap-1">
+                <div *ngFor="let x of [].constructor(ship.length); let i = index"
+                    class="health-bar-piece"
+                    [attr.data-filled]="i < ship.health"
+                ></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="dialog-actions d-flex gap-3 justify-content-end">
+    <button class="cancel-button" (click)="quit()">Quit</button>
+    <button class="confirm-button" (click)="playAgain()">Play again</button>
+</div>

@@ -1,4 +1,9 @@
-import { WarshipsSector, WarshipsSectorState, WarshipsShipOrientation } from './warships.models';
+import { WarshipsCoord, WarshipsSector, WarshipsSectorState, WarshipsShipOrientation } from './warships.models';
+
+export const getCoordinates = (row: number, col: number): string => {
+    const rows = 'ABCDEFGHIJ';
+    return `${rows.charAt(row)}, ${col + 1}`;
+}
 
 export const tryShipDeploy = (
     row: number,
@@ -6,8 +11,8 @@ export const tryShipDeploy = (
     length: number,
     orientation: WarshipsShipOrientation,
     sectors: WarshipsSector[][]
-): { r: number, c: number }[] => {
-    const occupiedSectors: { r: number, c: number }[] = [];
+): WarshipsCoord[] => {
+    const occupiedSectors: WarshipsCoord[] = [];
     for (let i = 0; i < length; i++) {
         let r = row, c = col;
         if (orientation === WarshipsShipOrientation.horizontal) {
@@ -20,7 +25,7 @@ export const tryShipDeploy = (
             // Deployment not allowed - out of bounds or overlaps another deployed ship
             return [];
         }
-        occupiedSectors.push({ r, c });
+        occupiedSectors.push({ row: r, col: c });
     }
     return occupiedSectors;
 };

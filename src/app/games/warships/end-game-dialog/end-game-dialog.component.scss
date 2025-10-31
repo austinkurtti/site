@@ -1,0 +1,51 @@
+@use 'sass:color';
+@use 'sass:math';
+
+@use 'variables';
+
+:host {
+    .dialog-header {
+        font-family: variables.$industrial-font-family;
+        font-weight: normal;
+    }
+
+    .dialog-body {
+        h4 {
+            font-family: variables.$industrial-font-family;
+            font-weight: normal;
+        }
+
+        .fleet {
+            &.destroyed {
+                background-color: color.mix(variables.$color-red, variables.$color-white, $weight: 10%);
+                border: 2px solid variables.$color-red;
+                position: relative;
+
+                .destroyed-overlay {
+                    left: 0;
+                    position: absolute;
+                    top: 0;
+
+                    .diagonal-line {
+                        stroke: variables.$color-red;
+                        stroke-width: 1px;
+                    }
+                }
+            }
+
+            .health-bar {
+                height: variables.$base-size;
+
+                .health-bar-piece {
+                    background-color: variables.$theme-bg-color-tertiary;
+                    flex-grow: 1;
+                    height: 100%;
+
+                    &[data-filled=true] {
+                        background-color: variables.$color-green;
+                    }
+                }
+            }
+        }
+    }
+}

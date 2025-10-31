@@ -1,36 +1,50 @@
 <div class="row g-0 h-100">
     <div id="sidebar" class="col-auto p-3">
-        <div class="row g-0 flex-column h-100">
-            <div *ngIf="gameState() === GameState.deploying; else gameEvents" class="col">
+        <div id="sidebar-content" class="d-flex flex-column">
+            <ng-container *ngIf="gameManager.gameInstance.gameState() === GameState.deploying; else gameEvents">
                 <div class="d-flex flex-column">
-                    <div *ngFor="let ship of deployableShips()"
-                        class="deployable-ship"
-                        draggable="true"
-                        [attr.data-ship-id]="ship.id"
-                        [attr.data-ship-length]="ship.length"
-                        [attr.data-ship-orientation]="ship.orientation"
-                        (dragstart)="shipDragStart($event)"
-                        (dragend)="shipDragEnd($event)"
-                    >
-                        <span>{{ ship.name }}</span>
+                    <button class="mb-3" (click)="deployRandomly(playerGrid)">Randomize</button>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="d-flex flex-column">
+                        <div *ngFor="let ship of deployableShips()"
+                            class="deployable-ship d-flex align-items-center justify-content-center"
+                            draggable="true"
+                            [attr.data-ship-id]="ship.id"
+                            [attr.data-ship-length]="ship.length"
+                            [attr.data-ship-orientation]="ship.orientation"
+                            (dragstart)="shipDragStart($event)"
+                            (dragend)="shipDragEnd($event)"
+                        >
+                            <span>{{ ship.name }} ({{ ship.length }})</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </ng-container>
             <ng-template #gameEvents>
-                <div class="col">
-                    Game events
+                <div id="event-log-container" class="flex-grow-1 overflow-y-auto mb-3">
+                    <ul id="event-log">
+                        <li *ngFor="let event of gameManager.gameInstance.eventLog">
+                            <ng-container [ngSwitch]="event.type">
+                                <span *ngSwitchCase="EventType.miss" class="me-1">[MISS]</span>
+                                <span *ngSwitchCase="EventType.hit" class="me-1">[HIT]</span>
+                            </ng-container>
+                            <span>{{ event.message }}</span>
+                        </li>
+                    </ul>
                 </div>
             </ng-template>
-            <div class="col-auto d-flex flex-column">
-                <button *ngIf="gameState() === GameState.deploying"
+            <div class="d-flex flex-column">
+                <button *ngIf="gameManager.gameInstance.gameState() === GameState.deploying"
                     class="confirm-button mb-3"
                     [disabled]="deployableShips().length > 0"
                     (click)="deploy()"
                 >
                     <span>Deploy</span>
                 </button>
+                <!-- <button class="mb-3" (click)="testVictory()">Victory</button> -->
                 <button class="mb-3" (click)="showSettingsDialog()">Settings</button>
-                <button class="cancel-button" (click)="quit()">Quit</button>
+                <button class="cancel-button" (click)="back()">Back</button>
             </div>
         </div>
     </div>
@@ -71,13 +85,13 @@
 
             <div *ngFor="let ship of deployedShips()"
                 class="deployed-ship"
-                draggable="true"
+                [draggable]="gameManager.gameInstance.gameState() === GameState.deploying"
                 [attr.data-ship-id]="ship.id"
                 [attr.data-ship-length]="ship.length"
                 [attr.data-ship-orientation]="ship.orientation"
-                [style.gridRowStart]="ship.anchorSector.r + 1"
+                [style.gridRowStart]="ship.anchorSector.row + 1"
                 [style.gridRowEnd]="ship.orientation === ShipOrientation.horizontal ? 'span 1' : ('span ' + ship.length)"
-                [style.gridColumnStart]="ship.anchorSector.c + 1"
+                [style.gridColumnStart]="ship.anchorSector.col + 1"
                 [style.gridColumnEnd]="ship.orientation === ShipOrientation.horizontal ? ('span ' + ship.length) : 'span 1'"
                 (dragstart)="shipDragStart($event)"
                 (dragend)="shipDragEnd($event)"

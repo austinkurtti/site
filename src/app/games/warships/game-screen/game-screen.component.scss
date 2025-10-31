@@ -11,14 +11,30 @@
         border-right: 1px solid variables.$theme-font-color-normal;
         width: variables.$base-size * 22;
 
-        .deployable-ship {
-            border: 1px solid variables.$theme-font-color-normal;
-            border-radius: math.div(variables.$base-size, 4);
-            cursor: grab;
-            height: variables.$base-size * 3;
+        #sidebar-content {
+            // Need specific non-percentage height in order for event log to overflow correctly
+            // TODO - this will need to be media-queried
+            height: calc(100vh - (variables.$base-size * 8)); // 100vh - header height(6rem) - sidebar padding(2rem)
 
-            &:not(:first-child) {
-                margin-top: variables.$base-size;
+            .deployable-ship {
+                border: 1px solid variables.$theme-font-color-normal;
+                border-radius: math.div(variables.$base-size, 4);
+                cursor: grab;
+                height: variables.$base-size * 3;
+
+                &:not(:first-child) {
+                    margin-top: variables.$base-size;
+                }
+            }
+
+            #event-log {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+
+                li:nth-child(even) {
+                    background-color: variables.$theme-bg-color-secondary;
+                }
             }
         }
     }
@@ -35,7 +51,7 @@
 
         #grid {
             aspect-ratio: 1 / 1;
-            border: 1px solid variables.$theme-font-color-normal;
+            border: 1px solid variables.$color-black;
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             grid-template-rows: repeat(10, 1fr);
@@ -52,6 +68,7 @@
             }
 
             #grid-col-labels {
+                color: variables.$color-black;
                 display: grid;
                 grid-template-columns: repeat(10, 1fr);
                 height: variables.$base-size * 2;
@@ -68,6 +85,7 @@
             }
 
             #grid-row-labels {
+                color: variables.$color-black;
                 display: grid;
                 grid-template-rows: repeat(10, 1fr);
                 height: 100%;
@@ -85,7 +103,7 @@
 
             .sector {
                 aspect-ratio: 1 / 1;
-                border: 1px solid variables.$theme-font-color-normal;
+                border: 1px solid variables.$color-black;
                 box-sizing: border-box;
             }
 
@@ -96,9 +114,12 @@
             }
 
             .deployed-ship {
-                border: 1px solid variables.$theme-font-color-normal;
-                cursor: grab;
+                border: 1px solid variables.$color-black;
                 padding: variables.$base-size;
+
+                &[draggable=true] {
+                    cursor: grab;
+                }
 
                 // Vertical orientation
                 &[data-ship-orientation="2"] {
@@ -108,8 +129,9 @@
                 }
 
                 .ship-model {
-                    background: white;
+                    background: variables.$color-white;
                     border-radius: math.div(variables.$base-size, 2);
+                    color: variables.$color-black;
 
                     span {
                         text-wrap: nowrap;
