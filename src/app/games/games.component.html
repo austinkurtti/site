@@ -7,20 +7,23 @@
             class="header-icon-button"
             [menuPosition]="MenuPosition.bottomRight"
             [tooltipContent]="'Theme'"
-            [tooltipPosition]="TooltipPosition.bottom">
-            <i class="fas fa-palette fa-2x"></i>
-            <ng-template #menuContent>
-                <div akMenuContent>
-                    <ak-theme></ak-theme>
-                </div>
-            </ng-template>
-        </button>
+            [tooltipPosition]="TooltipPosition.bottom"
+    >
+        <i class="fas fa-palette fa-2x"></i>
+        <ng-template #menuContent>
+            <div akMenuContent>
+                <ak-theme></ak-theme>
+            </div>
+        </ng-template>
+    </button>
+    <!-- TODO - consolidate Exit buttons; if in-game, exit to "/games" first, otherwise exit to "/" -->
     <button akTooltip
         id="exit-button"
         class="col-auto header-icon-button"
         routerLink="/"
         [tooltipContent]="'Exit'"
-        [tooltipPosition]="TooltipPosition.bottom">
+        [tooltipPosition]="TooltipPosition.bottom"
+    >
         <i class="fas fa-2x fa-sign-out-alt"></i>
     </button>
     <button akTooltip
@@ -28,7 +31,8 @@
         class="col-auto header-icon-button"
         routerLink="/games"
         [tooltipContent]="'Close'"
-        [tooltipPosition]="TooltipPosition.bottom">
+        [tooltipPosition]="TooltipPosition.bottom"
+    >
         <i class="fas fa-2x fa-times"></i>
     </button>
 </header>

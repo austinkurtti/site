@@ -15,8 +15,8 @@ import { WarshipsGameState } from '../warships.models';
 export class WarshipsEndGameDialogComponent extends DialogBaseDirective {
     public gameManager = inject(WarshipsManager);
 
-    public quit: () => void;
     public playAgain: () => void;
+    public exit: () => void;
 
     public GameState = WarshipsGameState;
 }

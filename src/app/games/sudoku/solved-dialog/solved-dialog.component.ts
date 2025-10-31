@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnInit, inject } from '@angular/core';
 import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
 import { DifficultyPipe } from '@pipes/difficulty.pipe';
-import { ConfettiService } from '@services/confetti.service';
+import { EffectsService } from '@services/effects.service';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { SudokuManager } from '../sudoku-manager';
@@ -24,7 +24,7 @@ export class SolvedDialogComponent extends DialogBaseDirective implements OnInit
 
     public timeDisplay = '';
 
-    private _confetti = inject(ConfettiService);
+    private _effectsService = inject(EffectsService);
     private _elementRef = inject(ElementRef);
 
     public ngOnInit(): void {
@@ -44,7 +44,7 @@ export class SolvedDialogComponent extends DialogBaseDirective implements OnInit
 
         interval(500).pipe(take(bursts.length)).subscribe(frame => {
             const burst = bursts[frame];
-            this._confetti.burst(burst[0], burst[1]);
+            this._effectsService.confettiBurst(burst[0], burst[1]);
         });
     }
 }

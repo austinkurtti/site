@@ -1,15 +1,25 @@
 @use 'variables';
 
-.confetti {
+.confetti,
+.splash,
+.explosion {
     pointer-events: none;
     position: absolute;
     transition: linear left .1s,
                 linear top .1s,
                 linear transform .1s;
-    z-index: variables.$z-index-confetti;
+    z-index: variables.$z-index-effects;
 
     @media (prefers-reduced-motion) {
         transition: none;
+    }
+
+    &.white {
+        color: variables.$color-white;
+    }
+
+    &.black {
+        color: variables.$color-black;
     }
 
     &.red {
@@ -39,4 +49,8 @@
     &.purple {
         color: variables.$color-purple;
     }
+}
+
+.splash, .explosion {
+    font-size: .4em;
 }

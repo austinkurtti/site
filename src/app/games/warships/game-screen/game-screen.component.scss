@@ -2,6 +2,9 @@
 @use 'sass:math';
 
 @use 'variables';
+@use 'functions';
+
+$red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$color-sky, 3, $prefer: 'darken');
 
 :host {
     display: block;
@@ -17,6 +20,7 @@
             height: calc(100vh - (variables.$base-size * 8)); // 100vh - header height(6rem) - sidebar padding(2rem)
 
             .deployable-ship {
+                background-color: variables.$theme-bg-color-secondary;
                 border: 1px solid variables.$theme-font-color-normal;
                 border-radius: math.div(variables.$base-size, 4);
                 cursor: grab;
@@ -25,6 +29,13 @@
                 &:not(:first-child) {
                     margin-top: variables.$base-size;
                 }
+            }
+
+            #deployable-ship-preview {
+                background-color: variables.$theme-bg-color-secondary;
+                opacity: .5;
+                position: absolute;
+                top: -2000px;
             }
 
             #event-log {
@@ -170,9 +181,13 @@
                         }
 
                         &.hit {
-                            color: variables.$color-red;
+                            color: $red-on-grid;
                         }
                     }
+                }
+
+                .fa-crosshairs {
+                    color: $red-on-grid;
                 }
             }
         }

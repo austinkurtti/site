@@ -1,4 +1,4 @@
-export class ConfettiParticle {
+export class EffectParticle {
     public angularSpeed: number;
     public color: string;
     public direction: number;
@@ -10,7 +10,7 @@ export class ConfettiParticle {
     public x: number;
     public y: number;
 
-    constructor(partial?: Partial<ConfettiParticle>) {
+    constructor(partial?: Partial<EffectParticle>) {
         if (partial) {
             Object.assign(this, partial);
         }

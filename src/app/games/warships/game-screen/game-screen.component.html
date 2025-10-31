@@ -5,6 +5,7 @@
                 <div class="d-flex flex-column">
                     <button class="mb-3" (click)="deployRandomly(playerGrid)">Randomize</button>
                 </div>
+
                 <div class="flex-grow-1">
                     <div class="d-flex flex-column">
                         <div *ngFor="let ship of deployableShips()"
@@ -20,6 +21,8 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- <div id="deployable-ship-preview" class="d-none"></div> -->
             </ng-container>
             <ng-template #gameEvents>
                 <div id="event-log-container" class="flex-grow-1 overflow-y-auto mb-3">
@@ -36,15 +39,20 @@
             </ng-template>
             <div class="d-flex flex-column">
                 <button *ngIf="gameManager.gameInstance.gameState() === GameState.deploying"
+                    akTooltip
+                    tooltipContent="All ships must be placed on the grid before deploying!"
                     class="confirm-button mb-3"
                     [disabled]="deployableShips().length > 0"
+                    [tooltipEnabled]="deployableShips().length > 0"
+                    [tooltipPosition]="TooltipPosition.right"
                     (click)="deploy()"
                 >
                     <span>Deploy</span>
                 </button>
                 <!-- <button class="mb-3" (click)="testVictory()">Victory</button> -->
                 <button class="mb-3" (click)="showSettingsDialog()">Settings</button>
-                <button class="cancel-button" (click)="back()">Back</button>
+                <button class="mb-3" (click)="showHelpDialog()">Help</button>
+                <button class="cancel-button" (click)="quit(true)">Quit</button>
             </div>
         </div>
     </div>
@@ -112,9 +120,14 @@
 
         <div id="grid-overlays-container" class="p-5">
             <div id="grid-overlays">
+                <i id="crosshairs" class="fas fa-3x fa-spin fa-crosshairs" style="display: none"></i>
+
                 <ng-container *ngFor="let row of gridSectors(); let r = index">
                     <ng-container *ngFor="let sector of row; let c = index">
-                        <div class="sector-overlay d-flex align-items-center justify-content-center">
+                        <div class="sector-overlay d-flex align-items-center justify-content-center"
+                            [attr.data-row]="r"
+                            [attr.data-col]="c"
+                        >
                             <i *ngIf="sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)"
                                 class="fas fa-2x fa-map-marker"
                                 [ngClass]="{
