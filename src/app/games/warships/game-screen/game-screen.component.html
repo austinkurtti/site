@@ -72,7 +72,7 @@
                     </button>
                     <label class="col align-content-center" for="event-log-toggle">Event log</label>
                 </div>
-                <div id="event-log-container" class="flex-grow-1 overflow-y-auto mb-3">
+                <div id="event-log-container" class="flex-grow-1 overflow-y-auto">
                     <ul *ngIf="showEventLog()" id="event-log">
                         <li *ngFor="let event of gameManager.gameInstance.eventLog">
                             <ng-container [ngSwitch]="event.type">
@@ -85,7 +85,12 @@
                 </div>
             </ng-template>
             <div class="d-flex flex-column">
-                <button class="mb-3" (click)="deployRandomly(playerGrid)">Randomize</button>
+                <button *ngIf="gameManager.gameInstance.gameState() === GameState.deploying"
+                    class="mb-3"
+                    (click)="deployRandomly(playerGrid)"
+                >
+                    <span>Randomize</span>
+                </button>
                 <button *ngIf="gameManager.gameInstance.gameState() === GameState.deploying"
                     akTooltip
                     tooltipContent="Cannot deploy until all ships are placed!"

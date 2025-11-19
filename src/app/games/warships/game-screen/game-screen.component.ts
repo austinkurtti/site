@@ -619,7 +619,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     private _hideCrosshairs(): void {
         const crosshairEl = document.querySelector('#crosshairs');
         crosshairEl.parentElement.removeChild(crosshairEl);
-        document.querySelector('#grid-overlays').appendChild(crosshairEl);
+        document.querySelector('#sector-overlays').appendChild(crosshairEl);
         this._renderer.setStyle(crosshairEl, 'display', 'none');
     }
 
