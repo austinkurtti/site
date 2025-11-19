@@ -29,6 +29,9 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
     public showPlaceholder = signal(false);
     public showEventLog = signal(true);
+    public showDragShipsMessage = computed(() => {
+        return this.gameManager.gameInstance.gameState() === WarshipsGameState.deploying && this.deployableShips().length === 5;
+    });
     public gridSectors = computed(() => {
         return this.gameManager.gameInstance.gameState() === WarshipsGameState.deploying || this.gameManager.gameInstance.turn() === WarshipsTurn.computer
             ? this.gameManager.gameInstance.playerGrid.sectors

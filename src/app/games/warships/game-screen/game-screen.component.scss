@@ -6,6 +6,39 @@
 
 $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$color-sky, 3, $prefer: 'darken');
 
+$drag-message-duration: 2s;
+$drag-message-timing: ease-in-out;
+$drag-message-hand-name: kfDragMessageHand;
+@keyframes #{$drag-message-hand-name} {
+    0% {
+        opacity: 0;
+        transform: translateX(0%);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(200%);
+    }
+}
+$drag-message-arrow-name: kfDragMessageArrow;
+@keyframes #{$drag-message-arrow-name} {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 :host {
     display: block;
     height: 100%;
@@ -21,21 +54,60 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
 
             .deployable-ship {
                 background-color: variables.$theme-bg-color-secondary;
-                border: 1px solid variables.$theme-font-color-normal;
                 border-radius: math.div(variables.$base-size, 4);
                 cursor: grab;
-                height: variables.$base-size * 3;
+                height: variables.$base-size * 6.25;
 
                 &:not(:first-child) {
                     margin-top: variables.$base-size;
                 }
+
+                &:hover {
+                    outline: 2px solid variables.$theme-accent-color-primary;
+                }
+
+                .ship-info {
+                    pointer-events: none;
+                    top: variables.$base-size;
+
+                    &.ship-name {
+                        left: variables.$base-size;
+                    }
+
+                    &.ship-length {
+                        right: variables.$base-size;
+                    }
+                }
+
+                img {
+                    // Maintain original png width:height ratios to prevent warping - 1:3.2
+                    height: variables.$base-size * 6.25;
+                    width: variables.$base-size * 20;
+                }
             }
 
-            #deployable-ship-preview {
-                background-color: variables.$theme-bg-color-secondary;
-                opacity: .5;
-                position: absolute;
-                top: -2000px;
+            #drag-ships-message {
+                .fa-hand-rock {
+                    animation-duration: $drag-message-duration;
+                    animation-name: $drag-message-hand-name;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: $drag-message-timing;
+
+                    @media (prefers-reduced-motion) {
+                        animation-duration: 0s;
+                    }
+                }
+
+                .fa-arrow-right {
+                    animation-duration: $drag-message-duration;
+                    animation-name: $drag-message-arrow-name;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: $drag-message-timing;
+
+                    @media (prefers-reduced-motion) {
+                        animation-duration: 0s;
+                    }
+                }
             }
 
             label[for="event-log-toggle"] {
@@ -170,7 +242,7 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
             top: 0;
             width: 100%;
 
-            #grid-overlays {
+            #sector-overlays {
                 aspect-ratio: 1 / 1;
                 border: 1px solid transparent;
                 display: grid;
