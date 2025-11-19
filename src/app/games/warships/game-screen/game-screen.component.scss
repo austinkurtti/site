@@ -38,6 +38,16 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
                 top: -2000px;
             }
 
+            label[for="event-log-toggle"] {
+                cursor: pointer;
+            }
+
+            #event-log-toggle {
+                .collapsed {
+                    transform: rotate(270deg);
+                }
+            }
+
             #event-log {
                 list-style: none;
                 margin: 0;

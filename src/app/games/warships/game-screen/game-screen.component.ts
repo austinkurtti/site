@@ -9,6 +9,7 @@ import { EffectsService } from '@services/effects.service';
 import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { WarshipsEndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
+import { WarshipsFleetStatusComponent } from "../fleet-status/fleet-status.component";
 import { WarshipsManager } from '../warships-manager';
 import { getCoordinates, tryShipDeploy } from '../warships.functions';
 import { WarshipsCoord, WarshipsEvent, WarshipsEventType, WarshipsGameState, WarshipsGrid, WarshipsScreenState, WarshipsSector, WarshipsSectorState, WarshipsShipOrientation, WarshipsTurn } from '../warships.models';
@@ -19,13 +20,15 @@ import { WarshipsCoord, WarshipsEvent, WarshipsEventType, WarshipsGameState, War
     templateUrl: './game-screen.component.html',
     imports: [
         CommonModule,
-        TooltipDirective
+        TooltipDirective,
+        WarshipsFleetStatusComponent
     ]
 })
 export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     public gameManager = inject(WarshipsManager);
 
     public showPlaceholder = signal(false);
+    public showEventLog = signal(true);
     public gridSectors = computed(() => {
         return this.gameManager.gameInstance.gameState() === WarshipsGameState.deploying || this.gameManager.gameInstance.turn() === WarshipsTurn.computer
             ? this.gameManager.gameInstance.playerGrid.sectors
@@ -454,7 +457,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             // Check if event log container needs to be scrolled to show latest message
             const eventLogContainer = document.querySelector('#event-log-container');
             const eventLog = document.querySelector('#event-log');
-            if (eventLog.clientHeight > eventLogContainer.clientHeight) {
+            if (eventLog && (eventLog.clientHeight > eventLogContainer.clientHeight)) {
                 eventLog.children[eventLog.children.length - 1].scrollIntoView();
             }
         });

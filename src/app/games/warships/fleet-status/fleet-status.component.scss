@@ -1,0 +1,80 @@
+@use 'sass:color';
+
+@use 'variables';
+
+:host {
+    display: block;
+
+    .fleet-status {
+        .ship {
+            &.destroyed {
+                background-color: color.mix(variables.$color-red, variables.$color-white, $weight: 10%);
+                outline: 2px solid variables.$color-red;
+                position: relative;
+
+                .destroyed-overlay {
+                    left: 0;
+                    position: absolute;
+                    top: 0;
+
+                    .diagonal-line {
+                        stroke: variables.$color-red;
+                        stroke-width: 1px;
+                    }
+                }
+            }
+
+            .health-bar {
+                height: variables.$base-size;
+
+                .health-bar-piece {
+                    background-color: variables.$theme-bg-color-tertiary;
+                    display: inline-block;
+                    height: variables.$base-size;
+                    width: variables.$base-size;
+
+                    &:not(:last-child) {
+                        margin-right: variables.$base-size;
+                    }
+
+                    &[data-filled=true] {
+                        background-color: variables.$color-green;
+                    }
+                }
+            }
+        }
+    }
+
+    .fleet-status-final {
+        &.destroyed {
+            background-color: color.mix(variables.$color-red, variables.$color-white, $weight: 10%);
+            outline: 2px solid variables.$color-red;
+            position: relative;
+
+            .destroyed-overlay {
+                left: 0;
+                position: absolute;
+                top: 0;
+
+                .diagonal-line {
+                    stroke: variables.$color-red;
+                    stroke-width: 1px;
+                }
+            }
+        }
+
+        .health-bar {
+            height: variables.$base-size;
+
+            .health-bar-piece {
+                background-color: variables.$theme-bg-color-tertiary;
+                flex-grow: 1;
+                height: 100%;
+
+                &[data-filled=true] {
+                    background-color: variables.$color-green;
+                }
+            }
+        }
+    }
+}

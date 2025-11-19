@@ -8,58 +8,16 @@
     </div>
 
     <h4>Your fleet</h4>
-    <div class="fleet row g-0 my-2 py-3 justify-content-around"
-        [ngClass]="{
-            'destroyed' : gameManager.gameInstance.gameState() === GameState.defeat
-        }"
-    >
-        <svg *ngIf="gameManager.gameInstance.gameState() === GameState.defeat"
-            class="destroyed-overlay"
-            height="100%"
-            width="100%"
-        >
-            <line class="diagonal-line" x1="0" y1="0" x2="100%" y2="100%"></line>
-            <line class="diagonal-line" x1="0" y1="100%" x2="100%" y2="0"></line>
-        </svg>
-        <div *ngFor="let ship of gameManager.gameInstance.playerGrid.ships()" class="col-2">
-            <div class="mb-2">
-                <span>{{ ship.name }}</span>
-            </div>
-            <div class="health-bar d-flex gap-1">
-                <div *ngFor="let x of [].constructor(ship.length); let i = index"
-                    class="health-bar-piece"
-                    [attr.data-filled]="i < ship.health"
-                ></div>
-            </div>
-        </div>
-    </div>
+    <ak-warships-fleet-status
+        [isPlayer]="true"
+        [isFinal]="true"
+    ></ak-warships-fleet-status>
 
     <h4>Opponent fleet</h4>
-    <div class="fleet row g-0 mt-2 py-3 justify-content-around"
-        [ngClass]="{
-            'destroyed' : gameManager.gameInstance.gameState() === GameState.victory
-        }"
-    >
-        <svg *ngIf="gameManager.gameInstance.gameState() === GameState.victory"
-            class="destroyed-overlay"
-            height="100%"
-            width="100%"
-        >
-            <line class="diagonal-line" x1="0" y1="0" x2="100%" y2="100%"></line>
-            <line class="diagonal-line" x1="0" y1="100%" x2="100%" y2="0"></line>
-        </svg>
-        <div *ngFor="let ship of gameManager.gameInstance.computerGrid.ships()" class="col-2">
-            <div class="mb-2">
-                <span>{{ ship.name }}</span>
-            </div>
-            <div class="health-bar d-flex gap-1">
-                <div *ngFor="let x of [].constructor(ship.length); let i = index"
-                    class="health-bar-piece"
-                    [attr.data-filled]="i < ship.health"
-                ></div>
-            </div>
-        </div>
-    </div>
+    <ak-warships-fleet-status
+        [isPlayer]="false"
+        [isFinal]="true"
+    ></ak-warships-fleet-status>
 </div>
 
 <div class="dialog-actions d-flex gap-3 justify-content-end">
