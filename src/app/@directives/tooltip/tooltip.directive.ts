@@ -30,6 +30,7 @@ export class TooltipDirective implements OnDestroy {
     private _hostElement = inject(ElementRef);
     private _renderer = inject(Renderer2);
 
+    private _baseTooltipUnit = baseSizePx / 2;
     private _tooltipEl: HTMLDivElement = null;
     private _unlisteners: Array<() => void> = [];
     private _debounceSubscription: Subscription;
@@ -70,28 +71,28 @@ export class TooltipDirective implements OnDestroy {
             const hostRect = this._hostElement.nativeElement.getBoundingClientRect();
             switch (this.tooltipPosition) {
                 case TooltipPosition.top:
-                    if ((hostRect.y - baseSizePx - this._tooltipEl.clientHeight) < 0) {
+                    if ((hostRect.y - this._baseTooltipUnit - this._tooltipEl.clientHeight) < 0) {
                         this._positionBottom();
                     } else {
                         this._positionTop();
                     }
                     break;
                 case TooltipPosition.right:
-                    if ((hostRect.x + hostRect.width + baseSizePx + this._tooltipEl.clientWidth) > document.body.clientWidth) {
+                    if ((hostRect.x + hostRect.width + this._baseTooltipUnit + this._tooltipEl.clientWidth) > document.body.clientWidth) {
                         this._positionLeft();
                     } else {
                         this._positionRight();
                     }
                     break;
                 case TooltipPosition.bottom:
-                    if ((hostRect.y + hostRect.height + baseSizePx + this._tooltipEl.clientHeight) > document.body.clientHeight) {
+                    if ((hostRect.y + hostRect.height + this._baseTooltipUnit + this._tooltipEl.clientHeight) > document.body.clientHeight) {
                         this._positionTop();
                     } else {
                         this._positionBottom();
                     }
                     break;
                 case TooltipPosition.left:
-                    if ((hostRect.x - baseSizePx - this._tooltipEl.clientWidth) < 0) {
+                    if ((hostRect.x - this._baseTooltipUnit - this._tooltipEl.clientWidth) < 0) {
                         this._positionRight();
                     } else {
                         this._positionLeft();
@@ -136,7 +137,7 @@ export class TooltipDirective implements OnDestroy {
     private _positionTop(): void {
         const hostRect = this._hostElement.nativeElement.getBoundingClientRect();
         this._renderer.addClass(this._tooltipEl, 'top');
-        this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y - baseSizePx - this._tooltipEl.clientHeight}px`);
+        this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y - this._baseTooltipUnit - this._tooltipEl.clientHeight}px`);
         this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x + (hostRect.width / 2) - (this._tooltipEl.clientWidth / 2)}px`);
     }
 
@@ -144,13 +145,13 @@ export class TooltipDirective implements OnDestroy {
         const hostRect = this._hostElement.nativeElement.getBoundingClientRect();
         this._renderer.addClass(this._tooltipEl, 'right');
         this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y + (hostRect.height / 2) - (this._tooltipEl.clientHeight / 2)}px`);
-        this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x + hostRect.width + baseSizePx}px`);
+        this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x + hostRect.width + this._baseTooltipUnit}px`);
     }
 
     private _positionBottom(): void {
         const hostRect = this._hostElement.nativeElement.getBoundingClientRect();
         this._renderer.addClass(this._tooltipEl, 'bottom');
-        this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y + hostRect.height + baseSizePx}px`);
+        this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y + hostRect.height + this._baseTooltipUnit}px`);
         this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x + (hostRect.width / 2) - (this._tooltipEl.clientWidth / 2)}px`);
     }
 
@@ -158,6 +159,6 @@ export class TooltipDirective implements OnDestroy {
         const hostRect = this._hostElement.nativeElement.getBoundingClientRect();
         this._renderer.addClass(this._tooltipEl, 'left');
         this._renderer.setStyle(this._tooltipEl, 'top', `${hostRect.y + (hostRect.height / 2) - (this._tooltipEl.clientHeight / 2)}px`);
-        this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x - this._tooltipEl.clientWidth - baseSizePx}px`);
+        this._renderer.setStyle(this._tooltipEl, 'left', `${hostRect.x - this._tooltipEl.clientWidth - this._baseTooltipUnit}px`);
     }
 }
