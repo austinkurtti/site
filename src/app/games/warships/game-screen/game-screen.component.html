@@ -25,7 +25,7 @@
                         >
                             <label class="ship-info ship-name position-absolute">{{ ship.name }}</label>
                             <span class="ship-info ship-length position-absolute">{{ ship.length }} units</span>
-                            <img [src]="'assets/images/warships/' + ship.id + '.png'"/>
+                            <img fill="true" [ngSrc]="'assets/images/warships/' + ship.id + '.png'"/>
                         </div>
                     </div>
 
@@ -38,8 +38,6 @@
                         <i class="fas fa-arrow-right ms-3"></i>
                     </div>
                 </div>
-
-                <!-- <div id="deployable-ship-preview" class="d-none"></div> -->
             </ng-container>
             <ng-template #postDeploymentElements>
                 <!-- Fleet Statuses -->
@@ -155,15 +153,13 @@
                 (dragend)="shipDragEnd($event)"
                 (click)="rotateShip(ship.id)"
             >
-                <div class="ship-model h-100 w-100 d-flex align-items-center justify-content-center position-relative">
-                    <span class="position-absolute">{{ ship.name }}</span>
-                    <!-- TODO - ship art -->
-                    <!-- <img priority
+                <div class="ship-model h-100 w-100 position-relative">
+                    <img class="position-absolute"
                         fill="true"
-                        [alt]="ship.name"
-                        [ngSrc]="'/assets/images/warships/' + ship.id + '.png'"
+                        [ngSrc]="'assets/images/warships/' + ship.id + '-top-down' + (ship.orientation === ShipOrientation.vertical ? '-vertical' : '') + '.png'"
                         [ngClass]="ship.orientation === ShipOrientation.vertical ? 'vertical' : ''"
-                    > -->
+                        [attr.data-ship-id]="ship.id"
+                    />
                 </div>
             </div>
         </div>

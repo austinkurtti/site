@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, Injector, OnDestroy, OnInit, Renderer2, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from '@components/confirm/confirm.component';
@@ -20,8 +20,9 @@ import { WarshipsCoord, WarshipsEvent, WarshipsEventType, WarshipsGameState, War
     templateUrl: './game-screen.component.html',
     imports: [
         CommonModule,
+        NgOptimizedImage,
         TooltipDirective,
-        WarshipsFleetStatusComponent
+        WarshipsFleetStatusComponent,
     ]
 })
 export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
@@ -211,10 +212,10 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             const grid = sector.parentElement;
             this._clearPlaceholders(grid);
 
-            // Attempt to position placeholder
+            // Snap to the closest valid position
             const occupiedSectors = tryShipDeploy(row, col, length, orientation, this.playerGrid.sectors);
             if (occupiedSectors.length === 0) {
-                // Abort - positioning failed
+                // Invalid placement, do not show placeholder
                 return;
             }
 
@@ -226,13 +227,14 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
                 this.playerGrid.sectors[s.row][s.col].state = WarshipsSectorState.placeholder;
             });
 
-            // Move placeholder
+            // Move placeholder to snapped anchor
             const deployableShipPlaceholder = grid.querySelector('#deployable-ship-placeholder') as HTMLElement;
             deployableShipPlaceholder.style.display = 'block';
             deployableShipPlaceholder.style.height = '100%';
             deployableShipPlaceholder.style.width = '100%';
-            deployableShipPlaceholder.style.gridRowStart = (row + 1).toString();
-            deployableShipPlaceholder.style.gridColumnStart = (col + 1).toString();
+            const snappedAnchor = occupiedSectors[0];
+            deployableShipPlaceholder.style.gridRowStart = (snappedAnchor.row + 1).toString();
+            deployableShipPlaceholder.style.gridColumnStart = (snappedAnchor.col + 1).toString();
             if (orientation === WarshipsShipOrientation.horizontal) {
                 deployableShipPlaceholder.style.gridRowEnd = 'span 1';
                 deployableShipPlaceholder.style.gridColumnEnd = `span ${length}`;
@@ -292,11 +294,12 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             this.playerGrid.sectors[s.row][s.col].shipId = id;
         });
 
-        // Update player ships
+        // Use snapped anchor sector for ship placement
+        const snappedAnchor = occupiedSectors[0];
         const updatedShips = this.playerGrid.ships().map(ship => {
             if (id === ship.id) {
                 ship.deployed = true;
-                ship.anchorSector = { row, col };
+                ship.anchorSector = { row: snappedAnchor.row, col: snappedAnchor.col };
             }
             return ship;
         });
@@ -377,8 +380,9 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
                 const occupiedSectors = tryShipDeploy(row, col, ship.length, ship.orientation, grid.sectors);
 
                 if (occupiedSectors.length > 0) {
+                    const snappedAnchor = occupiedSectors[0];
                     ship.deployed = true;
-                    ship.anchorSector = { row, col };
+                    ship.anchorSector = { row: snappedAnchor.row, col: snappedAnchor.col };
 
                     // Mark sectors with ship
                     occupiedSectors.forEach(s => {
