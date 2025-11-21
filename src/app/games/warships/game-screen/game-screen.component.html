@@ -13,7 +13,9 @@
 
             <ng-container *ngIf="gameManager.gameInstance.gameState() === GameState.deploying; else postDeploymentElements">
                 <div class="flex-grow-1">
-                    <div class="d-flex flex-column">
+                    <div *ngIf="deployableShips().length > 0"
+                        class="d-flex flex-column"
+                    >
                         <div *ngFor="let ship of deployableShips()"
                             class="deployable-ship d-flex position-relative"
                             draggable="true"
@@ -36,6 +38,13 @@
                         <span>Drag ships to the grid</span>
                         <i class="fas fa-hand-rock ms-3"></i>
                         <i class="fas fa-arrow-right ms-3"></i>
+                    </div>
+
+                    <div *ngIf="deployableShips().length === 0"
+                        id="all-ships-deployed-message"
+                        class="d-flex align-items-center justify-content-center"
+                    >
+                        <span>All ships have been placed</span>
                     </div>
                 </div>
             </ng-container>
@@ -111,7 +120,6 @@
                 'player-turn': gameManager.gameInstance.turn() === Turn.player,
                 'computer-turn': gameManager.gameInstance.turn() === Turn.computer
             }"
-            (dragleave)="gridDragLeave($event)"
         >
             <div id="grid-col-labels">
                 <span *ngFor="let col of [].constructor(10); let i = index" class="grid-col-label">{{ i + 1 }}</span>
@@ -130,7 +138,9 @@
                         }"
                         [attr.data-row]="r"
                         [attr.data-col]="c"
+                        (dragenter)="sectorDragEnter($event)"
                         (dragover)="sectorDragOver($event)"
+                        (dragleave)="sectorDragLeave($event)"
                         (drop)="sectorDrop($event)"
                         (click)="sectorClick(r, c)"
                     ></div>

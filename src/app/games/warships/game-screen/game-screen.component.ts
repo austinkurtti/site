@@ -26,6 +26,7 @@ import { WarshipsCoord, WarshipsEvent, WarshipsEventType, WarshipsGameState, War
     ]
 })
 export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
+        private currentDragSector: { row: number, col: number } | null = null;
     public gameManager = inject(WarshipsManager);
 
     public showPlaceholder = signal(false);
@@ -179,14 +180,6 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
                 this.playerGrid.sectors[r][c].shipId = null;
             }
         }
-
-        // TODO - come back to this later during actual ship art pass
-        // const previewElement = document.querySelector('#deployable-ship-preview');
-        // this._renderer.setStyle(previewElement, 'height', `${shipRect.height}px`);
-        // this._renderer.setStyle(previewElement, 'width', `${shipRect.width}px`);
-        // this._renderer.removeClass(previewElement, 'd-none');
-        // const shipWidthUnit = shipRect.width / +length;
-        // event.dataTransfer.setDragImage(previewElement, shipWidthUnit / 2, shipRect.height / 2);
     }
 
     public shipDragEnd = (event: DragEvent): void => {
@@ -194,23 +187,20 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         ship.removeAttribute('id');
     }
 
-    // TODO - look into splitting this between dragenter and dragleave
-    //      - it's pretty wasteful to be running this callback potentially hundreds of times within the same sector
-    public sectorDragOver = (event: DragEvent): void => {
+    public sectorDragEnter = (event: DragEvent): void => {
         if (this.gameManager.gameInstance.gameState() === WarshipsGameState.deploying && event.dataTransfer.types.includes('shipid')) {
             // Sector data
             const sector = event.currentTarget as HTMLElement;
             const row = parseInt(sector.getAttribute('data-row'), 10);
             const col = parseInt(sector.getAttribute('data-col'), 10);
 
+            // Track current hovered sector
+            this.currentDragSector = { row, col };
+
             // Ship data
             const draggedShip = document.getElementById('dragged-ship');
             const length = parseInt(draggedShip.getAttribute('data-ship-length'), 10);
             const orientation = parseInt(draggedShip.getAttribute('data-ship-orientation'), 10);
-
-            // Clear placeholders
-            const grid = sector.parentElement;
-            this._clearPlaceholders(grid);
 
             // Snap to the closest valid position
             const occupiedSectors = tryShipDeploy(row, col, length, orientation, this.playerGrid.sectors);
@@ -219,16 +209,13 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
                 return;
             }
 
-            event.preventDefault();
-            event.dataTransfer.dropEffect = 'move';
-
             // Mark sectors as occupied with ship
             occupiedSectors.forEach(s => {
                 this.playerGrid.sectors[s.row][s.col].state = WarshipsSectorState.placeholder;
             });
 
             // Move placeholder to snapped anchor
-            const deployableShipPlaceholder = grid.querySelector('#deployable-ship-placeholder') as HTMLElement;
+            const deployableShipPlaceholder = sector.parentElement.querySelector('#deployable-ship-placeholder') as HTMLElement;
             deployableShipPlaceholder.style.display = 'block';
             deployableShipPlaceholder.style.height = '100%';
             deployableShipPlaceholder.style.width = '100%';
@@ -242,6 +229,24 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
                 deployableShipPlaceholder.style.gridRowEnd = `span ${length}`;
                 deployableShipPlaceholder.style.gridColumnEnd = 'span 1';
             }
+        }
+    }
+
+    public sectorDragOver = (event: DragEvent): void => {
+        event.preventDefault();
+        // Set move as the only allowed drop effect
+        event.dataTransfer.dropEffect = 'move';
+    }
+
+    public sectorDragLeave = (event: DragEvent): void => {
+        const sector = event.currentTarget as HTMLElement;
+        const row = parseInt(sector.getAttribute('data-row'), 10);
+        const col = parseInt(sector.getAttribute('data-col'), 10);
+
+        // Only clear placeholders if currentDragSector has not been updated by dragstart, meaning the drag has left the grid entirely
+        if (this.currentDragSector && this.currentDragSector.row === row && this.currentDragSector.col === col) {
+            this._clearPlaceholders(sector.parentElement);
+            this.currentDragSector = null;
         }
     }
 
@@ -304,10 +309,6 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             return ship;
         });
         this.playerGrid.ships.set(updatedShips);
-    }
-
-    public gridDragLeave = (event: DragEvent): void => {
-        this._clearPlaceholders(event.currentTarget as HTMLElement);
     }
 
     public rotateShip(shipId: string) {
