@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
+import { DialogDirective } from '@directives/dialog/dialog.directive';
 import { WarshipsFleetStatusComponent } from '../fleet-status/fleet-status.component';
 import { WarshipsManager } from '../warships-manager';
 import { WarshipsGameState } from '../warships.models';
@@ -14,7 +14,7 @@ import { WarshipsGameState } from '../warships.models';
         WarshipsFleetStatusComponent
     ]
 })
-export class WarshipsEndGameDialogComponent extends DialogBaseDirective {
+export class WarshipsEndGameDialogComponent extends DialogDirective {
     public gameManager = inject(WarshipsManager);
 
     public playAgain: () => void;

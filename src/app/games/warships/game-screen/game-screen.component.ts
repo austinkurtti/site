@@ -6,10 +6,12 @@ import { TooltipDirective, TooltipPosition } from "@directives/tooltip/tooltip.d
 import { DialogSize } from '@models/dialog.model';
 import { DialogService } from '@services/dialog.service';
 import { EffectsService } from '@services/effects.service';
+import { NewsflashService } from '@services/newsflash.service';
 import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { WarshipsEndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
 import { WarshipsFleetStatusComponent } from "../fleet-status/fleet-status.component";
+import { ShipNewsflashComponent } from '../ship-newsflash/ship-newsflash.component';
 import { WarshipsManager } from '../warships-manager';
 import { getCoordinates, tryShipDeploy } from '../warships.functions';
 import { WarshipsCoord, WarshipsEvent, WarshipsEventType, WarshipsGameState, WarshipsGrid, WarshipsScreenState, WarshipsSector, WarshipsSectorState, WarshipsShipOrientation, WarshipsTurn } from '../warships.models';
@@ -26,7 +28,6 @@ import { WarshipsCoord, WarshipsEvent, WarshipsEventType, WarshipsGameState, War
     ]
 })
 export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
-        private currentDragSector: { row: number, col: number } | null = null;
     public gameManager = inject(WarshipsManager);
 
     public showPlaceholder = signal(false);
@@ -65,10 +66,12 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     private _dialogService = inject(DialogService);
     private _effectsService = inject(EffectsService);
     private _injector = inject(Injector);
+    private _newsflashService = inject(NewsflashService);
     private _renderer = inject(Renderer2);
     private _router = inject(Router);
 
     private _playerHasShot = true;
+    private _currentDragSector: { row: number, col: number } | null = null;
     private _unlisteners: (() => void)[] = [];
 
     private get _allPlayerShipsSunk(): boolean {
@@ -195,7 +198,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             const col = parseInt(sector.getAttribute('data-col'), 10);
 
             // Track current hovered sector
-            this.currentDragSector = { row, col };
+            this._currentDragSector = { row, col };
 
             // Ship data
             const draggedShip = document.getElementById('dragged-ship');
@@ -244,9 +247,9 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         const col = parseInt(sector.getAttribute('data-col'), 10);
 
         // Only clear placeholders if currentDragSector has not been updated by dragstart, meaning the drag has left the grid entirely
-        if (this.currentDragSector && this.currentDragSector.row === row && this.currentDragSector.col === col) {
+        if (this._currentDragSector && this._currentDragSector.row === row && this._currentDragSector.col === col) {
             this._clearPlaceholders(sector.parentElement);
-            this.currentDragSector = null;
+            this._currentDragSector = null;
         }
     }
 
@@ -311,6 +314,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         this.playerGrid.ships.set(updatedShips);
     }
 
+    // TODO - improve this so ships snap to the nearest valid spot
     public rotateShip(shipId: string) {
         if (this.gameManager.gameInstance.gameState() !== WarshipsGameState.deploying) {
             return;
@@ -584,14 +588,16 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
                 this._effectsService.explosion(sectorOverlayElBox.x + (sectorOverlayElBox.width / 2), sectorOverlayElBox.y + (sectorOverlayElBox.height / 2));
 
                 // Explosion effect plays for 1.25s
-                timer(1250).pipe(take(1)).subscribe(() => {
+                timer(1250).pipe(take(1)).subscribe(async () => {
                     targetedSector.state = targetedSector.state.toggleFlag(WarshipsSectorState.hit);
 
                     // Update ship health and check if it sank
                     const ship = grid.ships().find(s => s.id === targetedSector.shipId);
                     ship.health--;
                     if (ship.health === 0) {
-                        this._logEvent(WarshipsEventType.sink, `${actor} sank ${victim} ${ship.name}`);
+                        await this._newsflashService.show(ShipNewsflashComponent, { ship }).finally(() => {
+                            this._logEvent(WarshipsEventType.sink, `${actor} sank ${victim} ${ship.name}`);
+                        });
                     }
 
                     if (this.gameManager.gameInstance.turn() === WarshipsTurn.player) {

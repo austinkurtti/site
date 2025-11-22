@@ -1,5 +1,5 @@
 import { Injectable, Injector, RendererFactory2, Type, inject } from '@angular/core';
-import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
+import { AppDialogDirective } from '@directives/dialog/app-dialog.directive';
 import { DialogDirective } from '@directives/dialog/dialog.directive';
 import { DialogSize } from '@models/dialog.model';
 
@@ -7,7 +7,7 @@ import { DialogSize } from '@models/dialog.model';
     providedIn: 'root'
 })
 export class DialogService {
-    public dialogRef: DialogDirective;
+    public appDialogRef: AppDialogDirective;
 
     private _renderer = inject(RendererFactory2).createRenderer(null, null);
 
@@ -17,7 +17,7 @@ export class DialogService {
     private _unlisteners = new Array<() => void>();
 
     private get _dialogEl(): HTMLDialogElement {
-        return this.dialogRef.elementRef.nativeElement.parentElement;
+        return this.appDialogRef.elementRef.nativeElement.parentElement;
     }
 
     private get _tabbableEls(): any {
@@ -30,7 +30,7 @@ export class DialogService {
         return this._dialogEl.querySelectorAll(tabbableSelectors.join(', '));
     }
 
-    public show<T extends DialogBaseDirective>(componentType: Type<T>, size: DialogSize, allowSoftClose = true, injector?: Injector): T {
+    public show<T extends DialogDirective>(componentType: Type<T>, size: DialogSize, allowSoftClose = true, injector?: Injector): T {
         // I refuse to allow more than one dialog open at once
         if (this._open) {
             return null;
@@ -45,7 +45,7 @@ export class DialogService {
         if (injector) {
             createOptions.injector = injector;
         }
-        this._instance = this.dialogRef.viewContainerRef.createComponent<T>(componentType, createOptions).instance;
+        this._instance = this.appDialogRef.viewContainerRef.createComponent<T>(componentType, createOptions).instance;
 
         if (this._instance) {
             // Style dialog
@@ -71,7 +71,7 @@ export class DialogService {
         }
 
         this._instance.closeCallback?.();
-        this.dialogRef.viewContainerRef.clear();
+        this.appDialogRef.viewContainerRef.clear();
         this._unlisteners.forEach(unlisten => unlisten());
         this._unlisteners = [];
         this._renderer.removeClass(this._dialogEl, this._getSizeClass(this._openSize));
