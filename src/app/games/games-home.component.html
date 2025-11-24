@@ -1,6 +1,6 @@
 <div class="container-fluid px-0 pb-5">
     <div id="home" class="row gx-3 gx-lg-5 mx-2 mx-lg-4">
-        <div *ngFor="let game of games" class="col-6 col-lg-4 col-xl-3 pt-3 pt-lg-5">
+        <div *ngFor="let game of gamesService.games" class="col-6 col-lg-4 col-xl-3 pt-3 pt-lg-5">
             <button class="game position-relative"
                 routerLink="/games/{{ game.route }}"
                 [disabled]="game.disabled"

@@ -1,6 +1,6 @@
 <header class="row g-0 position-fixed align-items-center w-100">
     <div id="header-title" class="col ps-3 ps-lg-5">
-        <span><!-- Value set by routerOutletActivate --></span>
+        <span>{{ gamesService.activeGame() ? gamesService.activeGame().name : 'Games' }}</span>
     </div>
     <button akMenu akTooltip
             id="theme-button"
@@ -16,22 +16,12 @@
             </div>
         </ng-template>
     </button>
-    <!-- TODO - consolidate Exit buttons; if in-game, exit to "/games" first, otherwise exit to "/" -->
-    <button akTooltip
-        id="exit-button"
+    <button *ngIf="gamesService.activeGame()"
+        akTooltip
         class="col-auto header-icon-button"
-        routerLink="/"
-        [tooltipContent]="'Exit'"
+        [tooltipContent]="'Exit ' + gamesService.activeGame().name"
         [tooltipPosition]="TooltipPosition.bottom"
-    >
-        <i class="fas fa-2x fa-sign-out-alt"></i>
-    </button>
-    <button akTooltip
-        id="close-button"
-        class="col-auto header-icon-button"
-        routerLink="/games"
-        [tooltipContent]="'Close'"
-        [tooltipPosition]="TooltipPosition.bottom"
+        (click)="confirmExit()"
     >
         <i class="fas fa-2x fa-times"></i>
     </button>

@@ -1,55 +1,59 @@
-import { Component, Renderer2, inject } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { ConfirmDialogComponent } from '@components/confirm/confirm.component';
 import { ThemeComponent } from '@components/theme/theme.component';
 import { MenuContentDirective } from '@directives/menu/menu-content.directive';
 import { MenuDirective, MenuPosition } from '@directives/menu/menu.directive';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
+import { DialogSize } from '@models/dialog.model';
+import { DialogService } from '@services/dialog.service';
 import { TooltipDirective } from '../@directives/tooltip/tooltip.directive';
-import { GamesHomeComponent } from './games-home.component';
-import { SudokuComponent } from './sudoku/sudoku.component';
-import { WarshipsComponent } from './warships/warships.component';
+import { GamesService } from './games.service';
 
 @Component({
     selector: 'ak-games',
     styleUrls: ['./games.component.scss'],
     templateUrl: './games.component.html',
     imports: [
+        CommonModule,
         MenuDirective,
         MenuContentDirective,
-        RouterLink,
         RouterOutlet,
         ThemeComponent,
         TooltipDirective
+    ],
+    providers: [
+        GamesService
     ]
 })
 export class GamesComponent {
+    public gamesService = inject(GamesService);
+
     public MenuPosition = MenuPosition;
     public TooltipPosition = TooltipPosition;
 
-    private _renderer = inject(Renderer2);
+    private _dialogService = inject(DialogService);
+    private _router = inject(Router);
 
     public routerOutletActivate(activatedComponent: any) {
-        const akGamesEl = document.querySelector('ak-games');
-        const headerEl = document.querySelector('header');
-        const titleEl = headerEl.children[0] as HTMLElement;
-        const exitButtonEl = document.querySelector('#exit-button');
-        const closeButtonEl = document.querySelector('#close-button');
-        if (activatedComponent instanceof GamesHomeComponent) {
-            (titleEl.firstChild as HTMLElement).innerHTML = 'Games';
-            this._renderer.removeAttribute(akGamesEl, 'data-game');
-            this._renderer.removeClass(exitButtonEl, 'd-none');
-            this._renderer.addClass(closeButtonEl, 'd-none');
-        } else {
-            this._renderer.addClass(exitButtonEl, 'd-none');
-            this._renderer.removeClass(closeButtonEl, 'd-none');
-        }
+        this.gamesService.activeGame.set(this.gamesService.games.find(g => !g.disabled && activatedComponent instanceof g.class));
+    }
 
-        if (activatedComponent instanceof SudokuComponent) {
-            (titleEl.firstChild as HTMLElement).innerHTML = 'Sudoku';
-            this._renderer.setAttribute(akGamesEl, 'data-game', 'sudoku');
-        } else if (activatedComponent instanceof WarshipsComponent) {
-            (titleEl.firstChild as HTMLElement).innerHTML = 'Warships';
-            this._renderer.setAttribute(akGamesEl, 'data-game', 'warships');
+    public confirmExit(): void {
+        const componentRef = this._dialogService.show(ConfirmDialogComponent, DialogSize.minimal, false);
+        if (componentRef) {
+            componentRef.title = 'Confirm Exit';
+            componentRef.message = `You are about to exit ${this.gamesService.activeGame().name}. Would you like to continue?`;
+            componentRef.confirmText = 'Exit';
+            componentRef.cancelText = 'Cancel';
+            componentRef.confirm = () => {
+                this._dialogService.close();
+                this._router.navigateByUrl('/games');
+            };
+            componentRef.cancel = () => {
+                this._dialogService.close();
+            }
         }
     }
 }
