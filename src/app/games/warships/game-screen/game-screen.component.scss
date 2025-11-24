@@ -39,6 +39,13 @@ $drag-message-arrow-name: kfDragMessageArrow;
     }
 }
 
+// Custom property for Deploy button
+@property --gradient-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
 :host {
     display: block;
     height: 100%;
@@ -102,6 +109,38 @@ $drag-message-arrow-name: kfDragMessageArrow;
                     @media (prefers-reduced-motion) {
                         animation-duration: 0s;
                     }
+                }
+            }
+
+            // Fancy rotating gradient border on Deploy button when all ships are placed
+            .confirm-button:not(:disabled):not(:hover) {
+                --gradient-angle: 0deg;
+                @keyframes rotateGradient {
+                    to {
+                        --gradient-angle: 360deg;
+                    }
+                }
+
+                background-clip: padding-box;
+                border-color: transparent;
+                position: relative;
+
+                &::after {
+                    animation: rotateGradient 3s linear infinite;
+                    background: conic-gradient(from var(--gradient-angle),
+                        variables.$color-sky,
+                        variables.$color-blue,
+                        variables.$color-green,
+                        variables.$color-sky
+                    );
+                    border-radius: math.div(variables.$base-size, 4);
+                    bottom: -(math.div(variables.$base-size, 8));
+                    content: '';
+                    left: -(math.div(variables.$base-size, 8));
+                    position: absolute;
+                    right: -(math.div(variables.$base-size, 8));
+                    top: -(math.div(variables.$base-size, 8));
+                    z-index: -1;
                 }
             }
 
