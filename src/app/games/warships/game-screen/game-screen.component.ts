@@ -9,7 +9,6 @@ import { EffectsService } from '@services/effects.service';
 import { NewsflashService } from '@services/newsflash.service';
 import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { WarshipsEndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
 import { WarshipsFleetStatusComponent } from "../fleet-status/fleet-status.component";
 import { ShipNewsflashComponent } from '../ship-newsflash/ship-newsflash.component';
 import { WarshipsManager } from '../warships-manager';
@@ -97,7 +96,9 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     }
 
     public testVictory(): void {
-        this._showEndGameDialog();
+        this.gameManager.gameInstance.gameState.set(WarshipsGameState.victory);
+        this.gameManager.gameInstance.computerGrid.ships().forEach(s => s.health = 0);
+        this._showEndGameScreen();
     }
 
     public showSettingsDialog(): void {
@@ -603,14 +604,14 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
                     if (this.gameManager.gameInstance.turn() === WarshipsTurn.player) {
                         if (this._allComputerShipsSunk) {
                             this.gameManager.gameInstance.gameState.set(WarshipsGameState.victory);
-                            this._showEndGameDialog();
+                            this._showEndGameScreen();
                         } else {
                             this._playerHasShot = true;
                         }
                     } else {
                         if (this._allPlayerShipsSunk) {
                             this.gameManager.gameInstance.gameState.set(WarshipsGameState.defeat);
-                            this._showEndGameDialog();
+                            this._showEndGameScreen();
                         } else {
                             this._computerTurn();
                         }
@@ -634,22 +635,8 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         this._renderer.setStyle(crosshairEl, 'display', 'none');
     }
 
-    private _showEndGameDialog(): void {
-        const componentRef = this._dialogService.show(WarshipsEndGameDialogComponent, DialogSize.small, true, this._injector);
-        if (componentRef) {
-            componentRef.playAgain = this._playAgain;
-            componentRef.exit = this._exit;
-        }
-    }
-
-    private _playAgain = (): void => {
-        this._dialogService.close();
-        this.quit();
-    }
-
-    private _exit = (): void => {
-        this._dialogService.close();
-        this._router.navigateByUrl('/games');
+    private _showEndGameScreen(): void {
+        this.gameManager.screen.set(WarshipsScreenState.end);
     }
 
     private _unlisten = (): void => {

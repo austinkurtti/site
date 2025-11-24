@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { WarshipsManager } from '../warships-manager';
 import { WarshipsGameState } from '../warships.models';
@@ -8,7 +8,8 @@ import { WarshipsGameState } from '../warships.models';
     styleUrl: './fleet-status.component.scss',
     templateUrl: './fleet-status.component.html',
     imports: [
-        CommonModule
+        CommonModule,
+        NgOptimizedImage
     ]
 })
 export class WarshipsFleetStatusComponent {

@@ -1,0 +1,37 @@
+<div class="container g-0 h-100 d-flex flex-column justify-content-xxl-center justify-content-center">
+    <div class="row g-0 px-2 px-md-0 mb-5">
+        <h1 class="text-center text-uppercase"
+            [ngClass]="gameManager.gameInstance.gameState() === GameState.victory ? 'victory' : 'defeat'"
+        >
+            <span>{{ gameManager.gameInstance.gameState() === GameState.victory ? 'Victory' : 'Defeat' }}</span>
+        </h1>
+    </div>
+
+    <div class="row g-0 my-5">
+        <div class="col text-center">
+            {{ gameManager.gameInstance.gameState() === GameState.victory ? 'The opposing fleet has been destroyed!' : 'Your fleet has been destroyed.' }}
+        </div>
+    </div>
+
+    <h4 class="mb-3">Your fleet</h4>
+    <ak-warships-fleet-status
+        class="mb-3"
+        [isPlayer]="true"
+        [isFinal]="true"
+    ></ak-warships-fleet-status>
+
+    <h4 class="mb-3">Opponent fleet</h4>
+    <ak-warships-fleet-status
+        [isPlayer]="false"
+        [isFinal]="true"
+    ></ak-warships-fleet-status>
+
+    <div class="row g-0 mt-5 justify-content-evenly">
+        <div class="col-auto">
+            <button class="confirm-button" (click)="playAgain()">Play again</button>
+        </div>
+        <div class="col-auto">
+            <button class="cancel-button" (click)="exit()">Exit Warships</button>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,8 @@ export type WarshipsCoord = { row: number, col: number };
 
 export enum WarshipsScreenState {
     menu = 1,
-    game = 2
+    game = 2,
+    end = 3
 }
 
 export enum WarshipsGameState {

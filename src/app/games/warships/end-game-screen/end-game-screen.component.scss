@@ -1,0 +1,19 @@
+@use 'variables';
+
+:host {
+    display: block;
+    height: 100%;
+
+    h1 {
+        font-family: variables.$industrial-font-family;
+        font-weight: normal;
+
+        &.victory {
+            color: variables.$theme-font-color-positive-on-primary;
+        }
+
+        &.defeat {
+            color: variables.$theme-font-color-negative-on-primary;
+        }
+    }
+}

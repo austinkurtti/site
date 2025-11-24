@@ -1,6 +1,8 @@
 @use 'sass:color';
+@use 'sass:math';
 
 @use 'variables';
+@use 'mixins';
 
 :host {
     display: block;
@@ -8,9 +10,13 @@
     .fleet-status {
         .ship {
             &.destroyed {
-                background-color: color.mix(variables.$color-red, variables.$color-white, $weight: 10%);
+                // background-color: color.mix(variables.$color-red, variables.$color-white, $weight: 10%);
                 outline: 2px solid variables.$color-red;
                 position: relative;
+
+                span {
+                    color: variables.$color-red;
+                }
 
                 .destroyed-overlay {
                     left: 0;
@@ -47,9 +53,14 @@
 
     .fleet-status-final {
         &.destroyed {
-            background-color: color.mix(variables.$color-red, variables.$color-white, $weight: 10%);
+            // background-color: color.mix(variables.$color-red, variables.$color-white, $weight: 10%);
             outline: 2px solid variables.$color-red;
             position: relative;
+
+            .ship {
+                // background-color: color.mix(variables.$color-red, variables.$color-white, $weight: 10%);
+                opacity: .5;
+            }
 
             .destroyed-overlay {
                 left: 0;
@@ -63,16 +74,42 @@
             }
         }
 
-        .health-bar {
-            height: variables.$base-size;
+        .ship {
+            background-color: variables.$theme-bg-color-secondary;
+            border-radius: math.div(variables.$base-size, 4);
+            overflow: hidden;
 
-            .health-bar-piece {
-                background-color: variables.$theme-bg-color-tertiary;
-                flex-grow: 1;
-                height: 100%;
+            &:not(:first-child) {
+                margin-left: variables.$base-size;
+            }
 
-                &[data-filled=true] {
-                    background-color: variables.$color-green;
+            .ship-img-container {
+                // TODO - other screen sizes
+                @include mixins.for-xxl-screens {
+                    height: 78.5px; // maintains height:width ratio of image primary determined by width
+                    width: 251.2px; // (1320px (container) - 64px (4 margins)) / 5 ships
+                }
+
+                label {
+                    left: variables.$base-size;
+                    top: variables.$base-size;
+                }
+            }
+
+            .health-bar {
+                border-bottom-left-radius: math.div(variables.$base-size, 4);
+                border-bottom-right-radius: math.div(variables.$base-size, 4);
+                height: variables.$base-size;
+                overflow: hidden;
+
+                .health-bar-piece {
+                    background-color: variables.$theme-bg-color-tertiary;
+                    flex-grow: 1;
+                    height: 100%;
+
+                    &[data-filled=true] {
+                        background-color: variables.$color-green;
+                    }
                 }
             }
         }

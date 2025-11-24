@@ -1,20 +1,13 @@
 <div *ngIf="isFinal(); else inGameStatus"
-    class="fleet-status-final row g-0 my-2 py-3 justify-content-around"
+    class="fleet-status-final row g-0"
     [ngClass]="{
         'destroyed' : fleetDestroyed()
     }"
 >
-    <svg *ngIf="fleetDestroyed()"
-        class="destroyed-overlay"
-        height="100%"
-        width="100%"
-    >
-        <line class="diagonal-line" x1="0" y1="0" x2="100%" y2="100%"></line>
-        <line class="diagonal-line" x1="0" y1="100%" x2="100%" y2="0"></line>
-    </svg>
-    <div *ngFor="let ship of fleet()" class="ship col-2">
-        <div class="mb-2">
-            <span>{{ ship.name }}</span>
+    <div *ngFor="let ship of fleet()" class="ship col">
+        <div class="ship-img-container position-relative mb-1">
+            <label class="ship-info ship-name position-absolute">{{ ship.name }}</label>
+            <img fill="true" [ngSrc]="'assets/images/warships/' + ship.id + '.png'"/>
         </div>
         <div class="health-bar d-flex gap-1">
             <div *ngFor="let x of [].constructor(ship.length); let i = index"
@@ -23,6 +16,14 @@
             ></div>
         </div>
     </div>
+    <svg *ngIf="fleetDestroyed()"
+        class="destroyed-overlay"
+        height="100%"
+        width="100%"
+    >
+        <line class="diagonal-line" x1="0" y1="0" x2="100%" y2="100%"></line>
+        <line class="diagonal-line" x1="0" y1="100%" x2="100%" y2="0"></line>
+    </svg>
 </div>
 
 <ng-template #inGameStatus>
@@ -33,14 +34,6 @@
                 'destroyed': ship.health === 0
             }"
         >
-            <svg *ngIf="ship.health === 0"
-                class="destroyed-overlay"
-                height="100%"
-                width="100%"
-            >
-                <line class="diagonal-line" x1="0" y1="0" x2="100%" y2="100%"></line>
-                <line class="diagonal-line" x1="0" y1="100%" x2="100%" y2="0"></line>
-            </svg>
             <div class="col-auto">
                 <span>{{ ship.name }}</span>
             </div>
@@ -50,6 +43,14 @@
                     [attr.data-filled]="i < ship.health"
                 ></div>
             </div>
+            <svg *ngIf="ship.health === 0"
+                class="destroyed-overlay"
+                height="100%"
+                width="100%"
+            >
+                <line class="diagonal-line" x1="0" y1="0" x2="100%" y2="100%"></line>
+                <line class="diagonal-line" x1="0" y1="100%" x2="100%" y2="0"></line>
+            </svg>
         </div>
     </div>
 </ng-template>
