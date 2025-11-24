@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { WarshipsManager } from '../warships-manager';
+import { WarshipsScreenState } from '../warships.models';
 
 @Component({
     selector: 'ak-warships-menu-screen',
@@ -8,6 +9,8 @@ import { WarshipsManager } from '../warships-manager';
 })
 export class WarshipsMenuScreenComponent {
     public gameManager = inject(WarshipsManager);
+
+    public ScreenState = WarshipsScreenState;
 
     public showSettingsDialog(): void {
         // TODO

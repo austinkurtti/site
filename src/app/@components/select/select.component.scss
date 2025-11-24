@@ -30,7 +30,7 @@
         border-width: math.div(variables.$base-size, 8);
         box-sizing: border-box;
         color: variables.$theme-font-color-normal;
-        font-family: variables.$default-font-family;
+        font-family: variables.$theme-font-family-normal;
         font-size: variables.$default-font-size;
         height: variables.$base-size * 3.5;
         padding-bottom: math.div(variables.$base-size, 4);

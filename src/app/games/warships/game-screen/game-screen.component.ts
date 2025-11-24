@@ -1,6 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, Injector, OnDestroy, OnInit, Renderer2, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, computed, inject, OnDestroy, OnInit, Renderer2, signal } from '@angular/core';
 import { ConfirmDialogComponent } from '@components/confirm/confirm.component';
 import { TooltipDirective, TooltipPosition } from "@directives/tooltip/tooltip.directive";
 import { DialogSize } from '@models/dialog.model';
@@ -13,7 +12,7 @@ import { WarshipsFleetStatusComponent } from "../fleet-status/fleet-status.compo
 import { ShipNewsflashComponent } from '../ship-newsflash/ship-newsflash.component';
 import { WarshipsManager } from '../warships-manager';
 import { getCoordinates, tryShipDeploy } from '../warships.functions';
-import { WarshipsCoord, WarshipsEvent, WarshipsEventType, WarshipsGameState, WarshipsGrid, WarshipsScreenState, WarshipsSector, WarshipsSectorState, WarshipsShipOrientation, WarshipsTurn } from '../warships.models';
+import { WarshipsCoord, WarshipsEvent, WarshipsEventType, WarshipsGameState, WarshipsGrid, WarshipsScreenState, WarshipsSector, WarshipsSectorState, WarshipsShip, WarshipsShipOrientation, WarshipsTurn } from '../warships.models';
 
 @Component({
     selector: 'ak-warships-game-screen',
@@ -64,10 +63,8 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
     private _dialogService = inject(DialogService);
     private _effectsService = inject(EffectsService);
-    private _injector = inject(Injector);
     private _newsflashService = inject(NewsflashService);
     private _renderer = inject(Renderer2);
-    private _router = inject(Router);
 
     private _playerHasShot = true;
     private _currentDragSector: { row: number, col: number } | null = null;
@@ -99,6 +96,10 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         this.gameManager.gameInstance.gameState.set(WarshipsGameState.victory);
         this.gameManager.gameInstance.computerGrid.ships().forEach(s => s.health = 0);
         this._showEndGameScreen();
+    }
+
+    public testNewsflash(): void {
+        this._newsflashService.show(ShipNewsflashComponent, { ship: new WarshipsShip('Carrier', 5) });
     }
 
     public showSettingsDialog(): void {
@@ -594,6 +595,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
                     // Update ship health and check if it sank
                     const ship = grid.ships().find(s => s.id === targetedSector.shipId);
+                    // TODO - possible bug not finding ship
                     ship.health--;
                     if (ship.health === 0) {
                         await this._newsflashService.show(ShipNewsflashComponent, { ship }).finally(() => {

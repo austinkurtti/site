@@ -4,8 +4,16 @@ export type WarshipsCoord = { row: number, col: number };
 
 export enum WarshipsScreenState {
     menu = 1,
-    game = 2,
-    end = 3
+    new = 2,
+    game = 3,
+    end = 4
+}
+
+export enum WarshipsDifficulty {
+    easy = 1,
+    medium = 2,
+    hard = 3,
+    expert = 4
 }
 
 export enum WarshipsGameState {
@@ -53,6 +61,7 @@ export class WarshipsGrid {
 }
 
 export class WarshipsGameInstance {
+    public difficulty: WarshipsDifficulty = null;
     public gameState = signal(WarshipsGameState.deploying);
     public playerGrid = new WarshipsGrid();
     public computerGrid = new WarshipsGrid();

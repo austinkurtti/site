@@ -86,7 +86,7 @@ $default-font-family                    : 'Roboto Flex', sans-serif;
 $default-font-size                      : $base-size;
 $font-awesome-font-family               : 'Font Awesome 5 Free';
 $handwriting-font-family                : 'Caveat', sans-serif;
-$industrial-font-family                 : 'Black Ops One', sans-serif;
+$industrial-font-family                 : 'Black Ops One', monospace;
 
 $tooltip-font-size                      : $default-font-size * .8;
 
@@ -112,6 +112,8 @@ $theme-font-color-positive-on-secondary : var(--theme-font-color-positive-on-sec
 $theme-font-color-negative-on-primary   : var(--theme-font-color-negative-on-primary);
 $theme-font-color-negative-on-secondary : var(--theme-font-color-negative-on-secondary);
 $theme-font-color-tooltip               : var(--theme-font-color-tooltip);
+
+$theme-font-family-normal               : var(--theme-font-family-normal);
 
 $theme-icon-color-primary               : var(--theme-icon-color-primary);
 $theme-icon-color-neutral-on-primary    : var(--theme-icon-color-neutral-on-primary);

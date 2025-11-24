@@ -7,7 +7,7 @@
     <div *ngFor="let ship of fleet()" class="ship col">
         <div class="ship-img-container position-relative mb-1">
             <label class="ship-info ship-name position-absolute">{{ ship.name }}</label>
-            <img fill="true" [ngSrc]="'assets/images/warships/' + ship.id + '.png'"/>
+            <img fill="true" class="invertible" [ngSrc]="'assets/images/warships/' + ship.id + '.png'"/>
         </div>
         <div class="health-bar d-flex gap-1">
             <div *ngFor="let x of [].constructor(ship.length); let i = index"
@@ -34,10 +34,16 @@
                 'destroyed': ship.health === 0
             }"
         >
-            <div class="col-auto">
-                <span>{{ ship.name }}</span>
+            <div class="col-6 d-flex flex-column justify-content-end">
+                <div>{{ ship.name }}</div>
+                <div>{{ ship.length }} units</div>
             </div>
-            <div *ngIf="isPlayer()" class="health-bar col-auto">
+            <div class="col-6 ship-img-container position-relative">
+                <img fill="true" class="invertible" [ngSrc]="'assets/images/warships/' + ship.id + '.png'"/>
+            </div>
+            <div *ngIf="isPlayer()"
+                class="col-12 health-bar d-flex gap-1 mt-1"
+            >
                 <div *ngFor="let x of [].constructor(ship.length); let i = index"
                     class="health-bar-piece"
                     [attr.data-filled]="i < ship.health"

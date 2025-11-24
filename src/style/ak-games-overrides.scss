@@ -1,0 +1,30 @@
+@use 'variables';
+
+html {
+    &[data-game=sudoku] {
+        body {
+            --theme-accent-color-primary: var(--theme-accent-color-sudoku);
+        }
+    }
+
+    &[data-game=warships] {
+        &[data-theme=dark] {
+            img.invertible {
+                filter: invert(1);
+            }
+        }
+
+        body {
+            --theme-accent-color-primary: var(--theme-accent-color-warships);
+            --theme-font-family-normal: var(--theme-font-family-warships);
+
+            button {
+                border-radius: 0;
+            }
+
+            ak-games #header-title {
+                font-family: variables.$industrial-font-family;
+            }
+        }
+    }
+}

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { ConfirmDialogComponent } from '@components/confirm/confirm.component';
 import { ThemeComponent } from '@components/theme/theme.component';
@@ -35,11 +35,6 @@ export class GamesComponent {
 
     private _dialogService = inject(DialogService);
     private _router = inject(Router);
-
-    @HostBinding('attr.data-game')
-    public get attrDataGame() {
-        return this.gamesService.activeGame() ? this.gamesService.activeGame().name.toLowerCase().replaceAll(' ', '-') : null;
-    }
 
     public routerOutletActivate(activatedComponent: any) {
         this.gamesService.activeGame.set(this.gamesService.games.find(g => !g.disabled && activatedComponent instanceof g.class));

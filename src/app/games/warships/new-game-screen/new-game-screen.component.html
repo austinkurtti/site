@@ -1,0 +1,100 @@
+<div class="container g-0 h-100 d-flex flex-column justify-content-center">
+    <div class="row g-0 px-2 px-md-0 mb-5">
+        <h2 class="text-uppercase">New Game</h2>
+    </div>
+
+    <div class="d-flex px-2 px-md-0 mb-5">
+        <button (click)="gameManager.screen.set(ScreenState.menu)">
+            <i class="fas fa-angle-left"></i>
+            <span class="ms-2">Back</span>
+        </button>
+    </div>
+
+    <div class="row px-2 px-md-0 mb-5">
+        <div class="col-12 mb-2">
+            <label>Difficulty</label>
+        </div>
+
+        <ng-template #difficultyTemplate let-value="value" let-name="name" let-description="description" let-description2="description2">
+            <div class="difficulty"
+                [ngClass]="{
+                    'selected': difficulty() === value
+                }"
+            >
+                <input type="radio"
+                    name="difficulty"
+                    [id]="'difficulty-' + value"
+                    [value]="value"
+                    [(ngModel)]="difficulty"
+                />
+                <label
+                    tabindex="0"
+                    class="d-flex flex-column h-100"
+                    [for]="'difficulty-' + value"
+                    (keydown.enter)="difficulty.set(value)"
+                >
+                    <h3 class="my-3 fw-normal text-center">{{ name }}</h3>
+                    <div class="flex-grow-1 d-flex flex-column fw-normal d-flex align-items-center justify-content-evenly px-3">
+                        <div class="text-center">{{ description }}</div>
+                        <div class="text-center">{{ description2 }}</div>
+                    </div>
+                    <div class="my-3 text-center">
+                        <i class="far fa-2x"
+                            [ngClass]="difficulty() === value ? 'fa-check-square' : 'fa-square'"
+                        ></i>
+                    </div>
+                </label>
+            </div>
+        </ng-template>
+
+        <div class="col">
+            <ng-container
+                [ngTemplateOutlet]="difficultyTemplate"
+                [ngTemplateOutletContext]="{
+                    value: Difficulty.easy,
+                    name: 'Recruit',
+                    description: 'Still learning the ropes, your opponent has minimal naval awareness.',
+                    description2: 'Consider this more of a training exercise.'
+                }"
+            ></ng-container>
+        </div>
+
+        <div class="col">
+            <ng-container
+                [ngTemplateOutlet]="difficultyTemplate"
+                [ngTemplateOutletContext]="{
+                    value: Difficulty.medium,
+                    name: 'Midshipman',
+                    description: 'Equipped with basic strategy and knows how to sink a ship.',
+                    description2: 'This opponent will not be a pushover.'
+                }"
+            ></ng-container>
+        </div>
+
+        <div class="col">
+            <ng-container
+                [ngTemplateOutlet]="difficultyTemplate"
+                [ngTemplateOutletContext]="{
+                    value: Difficulty.hard,
+                    name: 'Captain',
+                    description: 'Square off against a hardened veteran that has commanded ships through many battles.',
+                    description2: 'Lock in, this will be a challenge.'
+                }"
+            ></ng-container>
+        </div>
+
+        <div class="col">
+            <ng-container
+                [ngTemplateOutlet]="difficultyTemplate"
+                [ngTemplateOutletContext]="{
+                    value: Difficulty.expert,
+                    name: 'Fleet Admiral',
+                    description: 'An expert in naval strategy and has developed a sixth sense for your ships\' positions.',
+                    description2: 'Do not expect to win.'
+                }"
+            ></ng-container>
+        </div>
+    </div>
+
+    <button class="confirm-button w-100" (click)="gameManager.newGame(difficulty())">Start</button>
+</div>

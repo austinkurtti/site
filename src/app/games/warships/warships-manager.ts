@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { WarshipsGameInstance, WarshipsScreenState } from './warships.models';
+import { WarshipsDifficulty, WarshipsGameInstance, WarshipsScreenState } from './warships.models';
 
 @Injectable()
 export class WarshipsManager {
@@ -9,8 +9,9 @@ export class WarshipsManager {
 
     public gameInstance: WarshipsGameInstance;
 
-    public newGame(): void {
+    public newGame(difficulty: WarshipsDifficulty): void {
         this.gameInstance = new WarshipsGameInstance();
+        this.gameInstance.difficulty = difficulty;
         this.screen.set(WarshipsScreenState.game);
     }
 }

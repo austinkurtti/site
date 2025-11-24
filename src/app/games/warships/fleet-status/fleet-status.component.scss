@@ -10,7 +10,6 @@
     .fleet-status {
         .ship {
             &.destroyed {
-                // background-color: color.mix(variables.$color-red, variables.$color-white, $weight: 10%);
                 outline: 2px solid variables.$color-red;
                 position: relative;
 
@@ -30,18 +29,17 @@
                 }
             }
 
+            .ship-img-container {
+                height: variables.$base-size * 3.125;
+            }
+
             .health-bar {
-                height: variables.$base-size;
+                height: math.div(variables.$base-size, 2);
 
                 .health-bar-piece {
                     background-color: variables.$theme-bg-color-tertiary;
-                    display: inline-block;
-                    height: variables.$base-size;
-                    width: variables.$base-size;
-
-                    &:not(:last-child) {
-                        margin-right: variables.$base-size;
-                    }
+                    flex-grow: 1;
+                    height: 100%;
 
                     &[data-filled=true] {
                         background-color: variables.$color-green;
@@ -53,12 +51,10 @@
 
     .fleet-status-final {
         &.destroyed {
-            // background-color: color.mix(variables.$color-red, variables.$color-white, $weight: 10%);
             outline: 2px solid variables.$color-red;
             position: relative;
 
             .ship {
-                // background-color: color.mix(variables.$color-red, variables.$color-white, $weight: 10%);
                 opacity: .5;
             }
 
@@ -76,7 +72,6 @@
 
         .ship {
             background-color: variables.$theme-bg-color-secondary;
-            border-radius: math.div(variables.$base-size, 4);
             overflow: hidden;
 
             &:not(:first-child) {
@@ -97,8 +92,6 @@
             }
 
             .health-bar {
-                border-bottom-left-radius: math.div(variables.$base-size, 4);
-                border-bottom-right-radius: math.div(variables.$base-size, 4);
                 height: variables.$base-size;
                 overflow: hidden;
 

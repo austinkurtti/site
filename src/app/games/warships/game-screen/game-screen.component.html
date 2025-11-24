@@ -27,7 +27,7 @@
                         >
                             <label class="ship-info ship-name position-absolute">{{ ship.name }}</label>
                             <span class="ship-info ship-length position-absolute">{{ ship.length }} units</span>
-                            <img fill="true" [ngSrc]="'assets/images/warships/' + ship.id + '.png'"/>
+                            <img fill="true" class="invertible" [ngSrc]="'assets/images/warships/' + ship.id + '.png'"/>
                         </div>
                     </div>
 
@@ -109,7 +109,8 @@
                 >
                     <span>Deploy</span>
                 </button>
-                <!-- <button class="mt-3" (click)="testVictory()">Test victory screen</button> -->
+                <!-- <button class="mt-3" (click)="testVictory()">Test victory screen</button>
+                <button class="mt-3" (click)="testNewsflash()">Test newsflash</button> -->
             </div>
         </div>
     </div>
@@ -133,6 +134,7 @@
                 <ng-container *ngFor="let sector of row; let c = index">
                     <div *ngIf="gameManager.gameInstance.turn() === Turn.player || !sector.state.hasFlag(SectorState.ship)"
                         class="sector"
+                        [tabindex]="sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit) ? -1 : 0"
                         [ngClass]="{
                             'targeted': sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)
                         }"
@@ -143,6 +145,7 @@
                         (dragleave)="sectorDragLeave($event)"
                         (drop)="sectorDrop($event)"
                         (click)="sectorClick(r, c)"
+                        (keydown.enter)="sectorClick(r, c)"
                     ></div>
                 </ng-container>
             </ng-container>

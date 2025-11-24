@@ -10,7 +10,7 @@ $map: (
 
         // Games
         'sudoku': functions.adjust-to-contrast(variables.$color-sudoku, variables.$color-navy),
-        'warships': variables.$color-sky
+        'warships': variables.$color-warships
     ),
     'background-color': (
         // General
@@ -42,6 +42,11 @@ $map: (
 
         // Controls
         'tooltip': variables.$color-black
+    ),
+    'font-family': (
+        'normal': variables.$default-font-family,
+
+        'warships': monospace
     ),
     'icon-color': (
         'primary': variables.$color-white,

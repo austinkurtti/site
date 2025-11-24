@@ -1,22 +1,9 @@
 @use 'variables';
-@use 'functions';
 
 :host {
     display: flex;
     flex-direction: column;
     height: 100%;
-
-    &[data-game=sudoku] {
-        --theme-accent-color-primary: var(--theme-accent-color-sudoku);
-    }
-
-    &[data-game=warships] {
-        --theme-accent-color-primary: var(--theme-accent-color-warships);
-
-        #header-title {
-            font-family: variables.$industrial-font-family;
-        }
-    }
 
     header {
         background-color: variables.$theme-bg-color-primary;

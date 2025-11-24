@@ -43,6 +43,11 @@ $map: (
         // Controls
         'tooltip': variables.$color-white
     ),
+    'font-family': (
+        'normal': variables.$default-font-family,
+
+        'warships': monospace
+    ),
     'icon-color': (
         'primary': variables.$color-white,
         'neutral-on-primary': variables.$color-neutral,
