@@ -1,0 +1,46 @@
+@use 'sass:color';
+@use 'sass:math';
+
+@use 'variables';
+
+:host {
+    border-bottom-style: solid;
+    border-bottom-width: math.div(variables.$base-size, 8);
+    border-top-style: solid;
+    border-top-width: math.div(variables.$base-size, 8);
+    box-sizing: border-box;
+    height: variables.$base-size * 6;
+
+    // core
+    &[data-type="1"] {
+        background-color: color.mix(variables.$color-green, transparent, $weight: 25%);
+        border-bottom-color: variables.$color-green;
+        border-top-color: variables.$color-green;
+
+        #newsflash-message {
+            color: variables.$color-green;
+        }
+    }
+
+    // shipSank
+    &[data-type="2"] {
+        background-color: color.mix(variables.$color-red, transparent, $weight: 25%);
+        border-bottom-color: variables.$color-red;
+        border-top-color: variables.$color-red;
+
+        #newsflash-message {
+            color: variables.$color-red;
+        }
+    }
+
+    .newsflash-moving-content {
+        align-items: center;
+        display: flex;
+        height: 100%;
+
+        #newsflash-message {
+            font-family: variables.$industrial-font-family;
+            font-size: variables.$default-font-size * 3;
+        }
+    }
+}

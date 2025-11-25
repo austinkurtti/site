@@ -44,7 +44,7 @@
                         id="all-ships-deployed-message"
                         class="d-flex align-items-center justify-content-center"
                     >
-                        <span>All ships have been placed</span>
+                        <span>All ships in position... ready to deploy</span>
                     </div>
                 </div>
             </ng-container>
@@ -100,7 +100,7 @@
                 </button>
                 <button *ngIf="gameManager.gameInstance.gameState() === GameState.deploying"
                     akTooltip
-                    tooltipContent="Cannot deploy until all ships are placed!"
+                    tooltipContent="Ships not in position!"
                     class="confirm-button"
                     [disabled]="deployableShips().length > 0"
                     [tooltipEnabled]="deployableShips().length > 0"

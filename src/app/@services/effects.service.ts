@@ -104,161 +104,175 @@ export class EffectsService {
         });
     }
 
-    public splash(xCenter: number = document.body.clientWidth / 2, yCenter: number = document.body.clientHeight / 2): void {
-        const particles: EffectParticle[] = [];
-        const particleEls: any[] = [];
-        const numParticles = 40;
-        const appRootEl = document.querySelector('ak-app-root');
+    public splash(xCenter: number = document.body.clientWidth / 2, yCenter: number = document.body.clientHeight / 2): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            const particles: EffectParticle[] = [];
+            const particleEls: any[] = [];
+            const numParticles = 40;
+            const appRootEl = document.querySelector('ak-app-root');
 
-        for (let i = 0; i < numParticles; i++) {
-            const particle = this._createParticle(
-                ['sky', 'blue'],
-                ['tint']
-            );
-            // Random upward direction from center
-            particle.direction = -120 + (60 * i) / (numParticles - 1);
-            particle.linearSpeed = 5 + Math.random() * 20;
-            particle.angularSpeed = Math.random() * 10 - 5;
-            particle.x = xCenter;
-            particle.y = yCenter;
-            particle.opacity = 1;
-            // Random starting rotational position
-            particle.rotation = Math.floor(Math.random() * 360);
-            // Random rotational axis
-            particle.rotationAxis = [Math.random(), Math.random(), Math.random()];
-            particles.push(particle);
-
-            const particleEl = this._createParticleEl(particle, 'splash');
-            this._renderer.setStyle(particleEl, 'left', `${particle.x}px`);
-            this._renderer.setStyle(particleEl, 'top', `${particle.y}px`);
-            this._renderer.setStyle(
-                particleEl,
-                'transform',
-                `rotate3d(${particle.rotationAxis[0]}, ${particle.rotationAxis[1]}, ${particle.rotationAxis[2]}, ${particle.rotation}deg)`
-            );
-            particleEls.push(particleEl);
-            this._renderer.appendChild(appRootEl, particleEl);
-        }
-
-        let gravity = 2.5;
-        interval(50).pipe(take(25)).subscribe({
-            next: frame => {
-                for (let i = 0; i < numParticles; i++) {
-                    const particle = particles[i];
-                    // Convert direction to radians
-                    const rad = (particle.direction * Math.PI) / 180;
-                    // Move outward
-                    particle.x += Math.cos(rad) * particle.linearSpeed;
-                    particle.y += Math.sin(rad) * particle.linearSpeed;
-                    // Clamp
-                    particle.x = particle.x.bounded(25, document.body.clientWidth - 25);
-                    particle.y = particle.y.bounded(25, document.body.clientHeight - 25);
-                    // Apply gravity (downward)
-                    particle.y += gravity * frame * .15;
-                    // Slow down horizontal speed (simulate drag)
-                    particle.linearSpeed *= .9;
-                    // Spin
-                    particle.rotation += particle.angularSpeed;
-                    // Fade out
-                    if (frame > 15) {
-                        particle.opacity -= .05;
-                    }
-
-                    // Update particle element
-                    const particleEl = particleEls[i];
-                    this._renderer.setStyle(particleEl, 'left', `${particle.x}px`);
-                    this._renderer.setStyle(particleEl, 'top', `${particle.y}px`);
-                    this._renderer.setStyle(
-                        particleEl,
-                        'transform',
-                        `rotate3d(${particle.rotationAxis[0]}, ${particle.rotationAxis[1]}, ${particle.rotationAxis[2]}, ${particle.rotation}deg)`
-                    );
-                    this._renderer.setStyle(particleEl, 'opacity', particle.opacity);
-                }
-            },
-            complete: () => {
-                particleEls.forEach(el => {
-                    this._renderer.removeChild(appRootEl, el);
-                });
+            if (!appRootEl) {
+                reject('Cannot find app root');
             }
+
+            for (let i = 0; i < numParticles; i++) {
+                const particle = this._createParticle(
+                    ['sky', 'blue'],
+                    ['tint']
+                );
+                // Random upward direction from center
+                particle.direction = -120 + (60 * i) / (numParticles - 1);
+                particle.linearSpeed = 5 + Math.random() * 20;
+                particle.angularSpeed = Math.random() * 10 - 5;
+                particle.x = xCenter;
+                particle.y = yCenter;
+                particle.opacity = 1;
+                // Random starting rotational position
+                particle.rotation = Math.floor(Math.random() * 360);
+                // Random rotational axis
+                particle.rotationAxis = [Math.random(), Math.random(), Math.random()];
+                particles.push(particle);
+
+                const particleEl = this._createParticleEl(particle, 'splash');
+                this._renderer.setStyle(particleEl, 'left', `${particle.x}px`);
+                this._renderer.setStyle(particleEl, 'top', `${particle.y}px`);
+                this._renderer.setStyle(
+                    particleEl,
+                    'transform',
+                    `rotate3d(${particle.rotationAxis[0]}, ${particle.rotationAxis[1]}, ${particle.rotationAxis[2]}, ${particle.rotation}deg)`
+                );
+                particleEls.push(particleEl);
+                this._renderer.appendChild(appRootEl, particleEl);
+            }
+
+            let gravity = 2.5;
+            interval(50).pipe(take(25)).subscribe({
+                next: frame => {
+                    for (let i = 0; i < numParticles; i++) {
+                        const particle = particles[i];
+                        // Convert direction to radians
+                        const rad = (particle.direction * Math.PI) / 180;
+                        // Move outward
+                        particle.x += Math.cos(rad) * particle.linearSpeed;
+                        particle.y += Math.sin(rad) * particle.linearSpeed;
+                        // Clamp
+                        particle.x = particle.x.bounded(25, document.body.clientWidth - 25);
+                        particle.y = particle.y.bounded(25, document.body.clientHeight - 25);
+                        // Apply gravity (downward)
+                        particle.y += gravity * frame * .15;
+                        // Slow down horizontal speed (simulate drag)
+                        particle.linearSpeed *= .9;
+                        // Spin
+                        particle.rotation += particle.angularSpeed;
+                        // Fade out
+                        if (frame > 15) {
+                            particle.opacity -= .05;
+                        }
+
+                        // Update particle element
+                        const particleEl = particleEls[i];
+                        this._renderer.setStyle(particleEl, 'left', `${particle.x}px`);
+                        this._renderer.setStyle(particleEl, 'top', `${particle.y}px`);
+                        this._renderer.setStyle(
+                            particleEl,
+                            'transform',
+                            `rotate3d(${particle.rotationAxis[0]}, ${particle.rotationAxis[1]}, ${particle.rotationAxis[2]}, ${particle.rotation}deg)`
+                        );
+                        this._renderer.setStyle(particleEl, 'opacity', particle.opacity);
+                    }
+                },
+                complete: () => {
+                    particleEls.forEach(el => {
+                        this._renderer.removeChild(appRootEl, el);
+                    });
+                    resolve();
+                }
+            });
         });
     }
 
-    public explosion(xCenter: number = document.body.clientWidth / 2, yCenter: number = document.body.clientHeight / 2): void {
-        const particles: EffectParticle[] = [];
-        const particleEls: any[] = [];
-        const numParticles = 50;
-        const appRootEl = document.querySelector('ak-app-root');
+    public explosion(xCenter: number = document.body.clientWidth / 2, yCenter: number = document.body.clientHeight / 2): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            const particles: EffectParticle[] = [];
+            const particleEls: any[] = [];
+            const numParticles = 50;
+            const appRootEl = document.querySelector('ak-app-root');
 
-        for (let i = 0; i < numParticles; i++) {
-            const particle = this._createParticle(
-                ['red', 'orange', 'yellow', 'black'],
-                ['circle', 'certificate', 'star', 'square', 'play']
-            );
-            // Full 360deg spread
-            particle.direction = Math.random() * 360;
-            // High initial speed
-            particle.linearSpeed = 20 + Math.random() * 30;
-            particle.angularSpeed = Math.random() * 20 - 10;
-            particle.x = xCenter;
-            particle.y = yCenter;
-            particle.opacity = 1;
-            // Random starting rotational position
-            particle.rotation = Math.floor(Math.random() * 360);
-            // Random rotational axis
-            particle.rotationAxis = [Math.random(), Math.random(), Math.random()];
-            particles.push(particle);
-
-            const particleEl = this._createParticleEl(particle, 'explosion');
-            this._renderer.setStyle(particleEl, 'left', `${particle.x}px`);
-            this._renderer.setStyle(particleEl, 'top', `${particle.y}px`);
-            this._renderer.setStyle(
-                particleEl,
-                'transform',
-                `rotate3d(${particle.rotationAxis[0]}, ${particle.rotationAxis[1]}, ${particle.rotationAxis[2]}, ${particle.rotation}deg)`
-            );
-            particleEls.push(particleEl);
-            this._renderer.appendChild(appRootEl, particleEl);
-        }
-
-        interval(50).pipe(take(25)).subscribe({
-            next: frame => {
-                for (let i = 0; i < numParticles; i++) {
-                    const particle = particles[i];
-                    // Convert direction to radians
-                    const rad = (particle.direction * Math.PI) / 180;
-                    // Outward movement
-                    particle.x += Math.cos(rad) * particle.linearSpeed;
-                    particle.y += Math.sin(rad) * particle.linearSpeed;
-                    // Clamp
-                    particle.x = particle.x.bounded(25, document.body.clientWidth - 25);
-                    particle.y = particle.y.bounded(25, document.body.clientHeight - 25);
-                    // Simulate drag/air resistence
-                    particle.linearSpeed *= .9;
-                    // Spin
-                    particle.rotation += particle.angularSpeed;
-                    // Fade out
-                    if (frame > 15) {
-                        particle.opacity -= .05;
-                    }
-
-                    // Update particle element
-                    const particleEl = particleEls[i];
-                    this._renderer.setStyle(particleEl, 'left', `${particle.x}px`);
-                    this._renderer.setStyle(particleEl, 'top', `${particle.y}px`);
-                    this._renderer.setStyle(
-                        particleEl,
-                        'transform',
-                        `rotate3d(${particle.rotationAxis[0]}, ${particle.rotationAxis[1]}, ${particle.rotationAxis[2]}, ${particle.rotation}deg)`
-                    );
-                    this._renderer.setStyle(particleEl, 'opacity', particle.opacity);
-                }
-            },
-            complete: () => {
-                particleEls.forEach(el => {
-                    this._renderer.removeChild(appRootEl, el);
-                });
+            if (!appRootEl) {
+                reject('Cannot find app root');
             }
+
+            for (let i = 0; i < numParticles; i++) {
+                const particle = this._createParticle(
+                    ['red', 'orange', 'yellow', 'black'],
+                    ['circle', 'certificate', 'star', 'square', 'play']
+                );
+                // Full 360deg spread
+                particle.direction = Math.random() * 360;
+                // High initial speed
+                particle.linearSpeed = 20 + Math.random() * 30;
+                particle.angularSpeed = Math.random() * 20 - 10;
+                particle.x = xCenter;
+                particle.y = yCenter;
+                particle.opacity = 1;
+                // Random starting rotational position
+                particle.rotation = Math.floor(Math.random() * 360);
+                // Random rotational axis
+                particle.rotationAxis = [Math.random(), Math.random(), Math.random()];
+                particles.push(particle);
+
+                const particleEl = this._createParticleEl(particle, 'explosion');
+                this._renderer.setStyle(particleEl, 'left', `${particle.x}px`);
+                this._renderer.setStyle(particleEl, 'top', `${particle.y}px`);
+                this._renderer.setStyle(
+                    particleEl,
+                    'transform',
+                    `rotate3d(${particle.rotationAxis[0]}, ${particle.rotationAxis[1]}, ${particle.rotationAxis[2]}, ${particle.rotation}deg)`
+                );
+                particleEls.push(particleEl);
+                this._renderer.appendChild(appRootEl, particleEl);
+            }
+
+            interval(50).pipe(take(25)).subscribe({
+                next: frame => {
+                    for (let i = 0; i < numParticles; i++) {
+                        const particle = particles[i];
+                        // Convert direction to radians
+                        const rad = (particle.direction * Math.PI) / 180;
+                        // Outward movement
+                        particle.x += Math.cos(rad) * particle.linearSpeed;
+                        particle.y += Math.sin(rad) * particle.linearSpeed;
+                        // Clamp
+                        particle.x = particle.x.bounded(25, document.body.clientWidth - 25);
+                        particle.y = particle.y.bounded(25, document.body.clientHeight - 25);
+                        // Simulate drag/air resistence
+                        particle.linearSpeed *= .9;
+                        // Spin
+                        particle.rotation += particle.angularSpeed;
+                        // Fade out
+                        if (frame > 15) {
+                            particle.opacity -= .05;
+                        }
+
+                        // Update particle element
+                        const particleEl = particleEls[i];
+                        this._renderer.setStyle(particleEl, 'left', `${particle.x}px`);
+                        this._renderer.setStyle(particleEl, 'top', `${particle.y}px`);
+                        this._renderer.setStyle(
+                            particleEl,
+                            'transform',
+                            `rotate3d(${particle.rotationAxis[0]}, ${particle.rotationAxis[1]}, ${particle.rotationAxis[2]}, ${particle.rotation}deg)`
+                        );
+                        this._renderer.setStyle(particleEl, 'opacity', particle.opacity);
+                    }
+                },
+                complete: () => {
+                    particleEls.forEach(el => {
+                        this._renderer.removeChild(appRootEl, el);
+                    });
+                    resolve();
+                }
+            });
         });
     }
 

@@ -114,15 +114,16 @@ $drag-message-arrow-name: kfDragMessageArrow;
             // Fancy rotating gradient border on Deploy button when all ships are placed
             .confirm-button:not(:disabled):not(:hover) {
                 --gradient-angle: 0deg;
+
+                background-clip: padding-box;
+                border-color: transparent;
+                position: relative;
+
                 @keyframes rotateGradient {
                     to {
                         --gradient-angle: 360deg;
                     }
                 }
-
-                background-clip: padding-box;
-                border-color: transparent;
-                position: relative;
 
                 &::after {
                     animation: rotateGradient 3s linear infinite;
