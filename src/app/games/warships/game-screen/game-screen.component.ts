@@ -214,7 +214,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
                 return;
             }
 
-            // Mark sectors as occupied with ship
+            // Mark sectors with placeholder
             occupiedSectors.forEach(s => {
                 this.playerGrid.sectors[s.row][s.col].state = WarshipsSectorState.placeholder;
             });
@@ -291,6 +291,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         draggedShip.style.position = '';
         draggedShip.style.visibility = '';
 
+        // TODO - is this even necessary? could just track the success of tryShipDeploy in sectorDragEnter
         // Attempt deployment
         const occupiedSectors = tryShipDeploy(row, col, length, orientation, this.playerGrid.sectors);
         if (occupiedSectors.length === 0) {
@@ -316,7 +317,6 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         this.playerGrid.ships.set(updatedShips);
     }
 
-    // TODO - improve this so ships snap to the nearest valid spot
     public rotateShip(shipId: string) {
         if (this.gameManager.gameInstance.gameState() !== WarshipsGameState.deploying) {
             return;
@@ -324,25 +324,8 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
         const ship = this.playerGrid.ships().find(s => s.id === shipId);
 
-        // Calculate new sectors (minus anchor sector)
-        const newSectors: WarshipsCoord[] = [];
-        for (let i = 1; i < ship.length; i++) {
-            let r = ship.anchorSector.row, c = ship.anchorSector.col;
-            if (ship.orientation === WarshipsShipOrientation.horizontal) {
-                r += i;
-            } else {
-                c += i;
-            }
-
-            if (r > 9 || c > 9 || this.playerGrid.sectors[r][c].state.hasFlag(WarshipsSectorState.ship)) {
-                // Out of bounds or overlaps another deployed ship, abort
-                return;
-            }
-            newSectors.push({ row: r, col: c });
-        }
-
-        // Reset old sectors to empty (minus anchor sector)
-        for (let i = 1; i < ship.length; i++) {
+        // Clear current sectors to empty so tryShipDeploy doesn't get confused
+        for (let i = 0; i < ship.length; i++) {
             let r = ship.anchorSector.row, c = ship.anchorSector.col;
             if (ship.orientation === WarshipsShipOrientation.horizontal) {
                 c += i;
@@ -351,16 +334,39 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             }
 
             this.playerGrid.sectors[r][c].state = WarshipsSectorState.empty;
+            this.playerGrid.sectors[r][c].shipId = null;
         }
 
-        // Update new sectors and ship data
-        newSectors.forEach(s => {
-            this.playerGrid.sectors[s.row][s.col].state = WarshipsSectorState.ship;
-        });
-        ship.orientation = ship.orientation === WarshipsShipOrientation.horizontal
+        // Attempt deployment with new orientation
+        const newOrientation = ship.orientation === WarshipsShipOrientation.horizontal
             ? WarshipsShipOrientation.vertical
             : WarshipsShipOrientation.horizontal;
-        this.playerGrid.ships.set([...this.playerGrid.ships()]);
+        const newSectors = tryShipDeploy(ship.anchorSector.row, ship.anchorSector.col, ship.length, newOrientation, this.playerGrid.sectors);
+        if (newSectors.length === 0) {
+            // About - deploy failed
+            // Restore original sectors
+            for (let i = 0; i < ship.length; i++) {
+                let r = ship.anchorSector.row, c = ship.anchorSector.col;
+                if (ship.orientation === WarshipsShipOrientation.horizontal) {
+                    c += i;
+                } else {
+                    r += i;
+                }
+
+                this.playerGrid.sectors[r][c].state = WarshipsSectorState.ship;
+                this.playerGrid.sectors[r][c].shipId = ship.id;
+            }
+        } else {
+            // Update new sectors and ship data
+            newSectors.forEach(s => {
+                this.playerGrid.sectors[s.row][s.col].state = WarshipsSectorState.ship;
+                this.playerGrid.sectors[s.row][s.col].shipId = ship.id;
+            });
+            const snappedAnchor = newSectors[0];
+            ship.anchorSector = { row: snappedAnchor.row, col: snappedAnchor.col };
+            ship.orientation = newOrientation;
+            this.playerGrid.ships.set([...this.playerGrid.ships()]);
+        }
     }
 
     public async deploy(): Promise<void> {
@@ -600,7 +606,6 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
                 // Update ship health and check if it sank
                 const ship = grid.ships().find(s => s.id === targetedSector.shipId);
-                // TODO - possible bug not finding ship
                 ship.health--;
                 if (ship.health === 0) {
                     const newsflashInputs = {
