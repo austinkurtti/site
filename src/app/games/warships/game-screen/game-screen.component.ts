@@ -12,7 +12,7 @@ import { WarshipsFleetStatusComponent } from "../fleet-status/fleet-status.compo
 import { WarshipsNewsflashComponent, WarshipsNewsflashType } from '../ship-newsflash/warships-newsflash.component';
 import { WarshipsManager } from '../warships-manager';
 import { getCoordinates, tryShipDeploy } from '../warships.functions';
-import { WarshipsCoord, WarshipsEvent, WarshipsEventType, WarshipsGameState, WarshipsGrid, WarshipsScreenState, WarshipsSector, WarshipsSectorState, WarshipsShipOrientation, WarshipsTurn } from '../warships.models';
+import { WarshipsEvent, WarshipsEventType, WarshipsGameState, WarshipsGrid, WarshipsScreenState, WarshipsSector, WarshipsSectorState, WarshipsShipOrientation, WarshipsTurn } from '../warships.models';
 
 @Component({
     selector: 'ak-warships-game-screen',
@@ -80,11 +80,11 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.playerGrid.sectors = new Array(10).fill([]);
         for (let i = 0; i < 10; i++) {
-            this.playerGrid.sectors[i] = Array.from({ length: 10 }, () => new WarshipsSector());
+            this.playerGrid.sectors[i] = Array.from({ length: 10 }, (v, j) => new WarshipsSector(`${i}-${j}`));
         }
         this.computerGrid.sectors = new Array(10).fill([]);
         for (let i = 0; i < 10; i++) {
-            this.computerGrid.sectors[i] = Array.from({ length: 10 }, () => new WarshipsSector());
+            this.computerGrid.sectors[i] = Array.from({ length: 10 }, (v, j) => new WarshipsSector(`${i}-${j}`));
         }
     }
 
@@ -492,67 +492,10 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         });
     }
 
-    private _pickNextTargetedSector(grid: WarshipsGrid): WarshipsCoord {
-        // Find hit sectors on weakened ships
-        const weakenedHits: WarshipsCoord[] = [];
-        for (let r = 0; r < grid.sectors.length; r++) {
-            for (let c = 0; c < grid.sectors[r].length; c++) {
-                const sector = grid.sectors[r][c];
-                if (sector.state.hasFlag(WarshipsSectorState.hit)) {
-                    const ship = grid.ships().find(s => s.id === sector.shipId);
-                    if (ship?.health > 0) {
-                        weakenedHits.push({ row: r, col: c });
-                    }
-                }
-            }
-        }
-
-        // Collect untargeted adjacent sectors
-        const adjacentSectors: WarshipsCoord[] = [];
-        const directions = [
-            { dr: -1, dc: 0 },  // up
-            { dr: 1, dc: 0 },   // down
-            { dr: 0, dc: -1 },  // left
-            { dr: 0, dc: 1 }    // right
-        ];
-        for (const hit of weakenedHits) {
-            for (const { dr, dc } of directions) {
-                const nr = hit.row + dr, nc = hit.col + dc;
-                if (nr >= 0 && nr < 10 && nc >= 0 && nc < 10
-                    && !grid.sectors[nr][nc].state.hasFlag(WarshipsSectorState.miss)
-                    && !grid.sectors[nr][nc].state.hasFlag(WarshipsSectorState.hit)
-                    && !adjacentSectors.some(s => s.row === nr && s.col === nc)
-                ) {
-                    adjacentSectors.push({ row: nr, col: nc });
-                }
-            }
-        }
-
-        // Target viable adjacent sectors first
-        if (adjacentSectors.length > 0) {
-            return adjacentSectors[Math.floor(Math.random() * adjacentSectors.length)];
-        }
-
-        // Fallback to a random untargeted sector
-        const untargetedSectors: WarshipsCoord[] = [];
-        for (let r = 0; r < grid.sectors.length; r++) {
-            for (let c = 0; c < grid.sectors[r].length; c++) {
-                const state = grid.sectors[r][c].state;
-                if (!state.hasFlag(WarshipsSectorState.miss) && !state.hasFlag(WarshipsSectorState.hit)) {
-                    untargetedSectors.push({ row: r, col: c });
-                }
-            }
-        }
-
-        return untargetedSectors.length > 0
-            ? untargetedSectors[Math.floor(Math.random() * untargetedSectors.length)]
-            : null;
-    }
-
     private _computerTurn(): void {
         // Delay computer's shot by 1s to avoid sudden game state changes and simulate "thinking" about where to shoot
         timer(1000).pipe(take(1)).subscribe(() => {
-            const coords = this._pickNextTargetedSector(this.playerGrid);
+            const coords = this.gameManager.computerSelectNextSector();
             this._fireAt(coords.row, coords.col);
         });
     }

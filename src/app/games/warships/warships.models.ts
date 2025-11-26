@@ -45,8 +45,13 @@ export enum WarshipsEventType {
 }
 
 export class WarshipsSector {
+    public id: string;
     public state = WarshipsSectorState.empty;
     public shipId?: string = null;
+
+    constructor(id: string) {
+        this.id = id;
+    }
 }
 
 export class WarshipsGrid {
