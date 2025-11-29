@@ -1,4 +1,4 @@
-<div class="container g-0 h-100 d-flex flex-column justify-content-xxl-center justify-content-center">
+<div class="container-fluid g-0 h-100 d-flex flex-column justify-content-xxl-center justify-content-center">
     <div class="row g-0 px-2 px-md-0 mb-5">
         <h1 class="text-center text-uppercase"
             [ngClass]="gameManager.gameInstance.gameState() === GameState.victory ? 'victory' : 'defeat'"
@@ -7,31 +7,108 @@
         </h1>
     </div>
 
-    <div class="row g-0 my-5">
+    <div class="row g-0 mb-5">
         <div class="col text-center">
             {{ gameManager.gameInstance.gameState() === GameState.victory ? 'The opposing fleet has been destroyed!' : 'Your fleet has been destroyed.' }}
         </div>
     </div>
 
-    <h4 class="mb-3">Your fleet</h4>
-    <ak-warships-fleet-status
-        class="mb-3"
-        [isPlayer]="true"
-        [isFinal]="true"
-    ></ak-warships-fleet-status>
+    <div class="row g-0 mb-3">
+        <div class="col-6 align-content-center">
+            <h4 class="text-center">Your fleet</h4>
+        </div>
+        <div class="col-6">
+            <h4 class="text-center">Opponent fleet</h4>
+        </div>
+    </div>
+    <div class="row g-0">
+        <ng-template #gridContainer let-grid="grid">
+            <div class="grid-container">
+                <div class="grid">
+                    <div id="grid-col-labels">
+                        <span *ngFor="let col of [].constructor(10); let i = index" class="grid-col-label">{{ i + 1 }}</span>
+                    </div>
 
-    <!-- TODO - add a way to see opponent's fleet position, maybe as a fullscreen dialog? -->
-    <h4 class="mb-3">Opponent fleet</h4>
-    <ak-warships-fleet-status
-        [isPlayer]="false"
-        [isFinal]="true"
-    ></ak-warships-fleet-status>
+                    <div id="grid-row-labels">
+                        <span *ngFor="let col of [].constructor(10); let i = index" class="grid-row-label">{{ String.fromCharCode(65 + i) }}</span>
+                    </div>
 
-    <div class="row g-0 mt-5 justify-content-evenly">
-        <div class="col-auto">
+                    <ng-container *ngFor="let row of grid.sectors; let r = index">
+                        <ng-container *ngFor="let sector of row; let c = index">
+                            <div *ngIf="!sector.state.hasFlag(SectorState.ship)"
+                                class="sector"
+                                [ngClass]="{
+                                    'targeted': sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)
+                                }"
+                                [attr.data-row]="r"
+                                [attr.data-col]="c"
+                            ></div>
+                        </ng-container>
+                    </ng-container>
+
+                    <div *ngFor="let ship of grid.ships()"
+                        class="deployed-ship"
+                        [attr.data-ship-id]="ship.id"
+                        [attr.data-ship-length]="ship.length"
+                        [attr.data-ship-orientation]="ship.orientation"
+                        [style.gridRowStart]="ship.anchorSector.row + 1"
+                        [style.gridRowEnd]="ship.orientation === ShipOrientation.horizontal ? 'span 1' : ('span ' + ship.length)"
+                        [style.gridColumnStart]="ship.anchorSector.col + 1"
+                        [style.gridColumnEnd]="ship.orientation === ShipOrientation.horizontal ? ('span ' + ship.length) : 'span 1'"
+                    >
+                        <div class="ship-model h-100 w-100 position-relative">
+                            <img class="position-absolute"
+                                fill="true"
+                                [ngSrc]="'assets/images/warships/' + ship.id + '-top-down' + (ship.orientation === ShipOrientation.vertical ? '-vertical' : '') + '.png'"
+                                [ngClass]="ship.orientation === ShipOrientation.vertical ? 'vertical' : ''"
+                                [attr.data-ship-id]="ship.id"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div id="grid-overlays-container">
+                    <div id="sector-overlays">
+                        <ng-container *ngFor="let row of grid.sectors; let r = index">
+                            <ng-container *ngFor="let sector of row; let c = index">
+                                <div class="sector-overlay d-flex align-items-center justify-content-center"
+                                    [attr.data-row]="r"
+                                    [attr.data-col]="c"
+                                >
+                                    <i *ngIf="sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)"
+                                        class="fas fa-map-marker"
+                                        [ngClass]="{
+                                            'miss': sector.state.hasFlag(SectorState.miss),
+                                            'hit': sector.state.hasFlag(SectorState.hit)
+                                        }"
+                                    ></i>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <div class="col-6">
+            <ng-container
+                [ngTemplateOutlet]="gridContainer"
+                [ngTemplateOutletContext]="{ grid: gameManager.gameInstance.playerGrid }"
+            ></ng-container>
+        </div>
+        <div class="col-6">
+            <ng-container
+                [ngTemplateOutlet]="gridContainer"
+                [ngTemplateOutletContext]="{ grid: gameManager.gameInstance.computerGrid }"
+            ></ng-container>
+        </div>
+    </div>
+
+    <div class="row g-3 mt-5 justify-content-center">
+        <div class="col-auto mt-0">
             <button class="confirm-button" (click)="playAgain()">Play again</button>
         </div>
-        <div class="col-auto">
+        <div class="col-auto mt-0">
             <button class="cancel-button" (click)="exit()">Exit Warships</button>
         </div>
     </div>

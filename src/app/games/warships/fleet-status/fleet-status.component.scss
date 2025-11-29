@@ -1,8 +1,6 @@
-@use 'sass:color';
 @use 'sass:math';
 
 @use 'variables';
-@use 'mixins';
 
 :host {
     display: block;
@@ -35,65 +33,6 @@
 
             .health-bar {
                 height: math.div(variables.$base-size, 2);
-
-                .health-bar-piece {
-                    background-color: variables.$theme-bg-color-tertiary;
-                    flex-grow: 1;
-                    height: 100%;
-
-                    &[data-filled=true] {
-                        background-color: variables.$color-green;
-                    }
-                }
-            }
-        }
-    }
-
-    .fleet-status-final {
-        &.destroyed {
-            outline: 2px solid variables.$color-red;
-            position: relative;
-
-            .ship {
-                opacity: .5;
-            }
-
-            .destroyed-overlay {
-                left: 0;
-                position: absolute;
-                top: 0;
-
-                .diagonal-line {
-                    stroke: variables.$color-red;
-                    stroke-width: 1px;
-                }
-            }
-        }
-
-        .ship {
-            background-color: variables.$theme-bg-color-secondary;
-            overflow: hidden;
-
-            &:not(:first-child) {
-                margin-left: variables.$base-size;
-            }
-
-            .ship-img-container {
-                // TODO - other screen sizes
-                @include mixins.for-xxl-screens {
-                    height: 78.5px; // maintains height:width ratio of image primary determined by width
-                    width: 251.2px; // (1320px (container) - 64px (4 margins)) / 5 ships
-                }
-
-                label {
-                    left: variables.$base-size;
-                    top: variables.$base-size;
-                }
-            }
-
-            .health-bar {
-                height: variables.$base-size;
-                overflow: hidden;
 
                 .health-bar-piece {
                     background-color: variables.$theme-bg-color-tertiary;

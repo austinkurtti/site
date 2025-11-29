@@ -1,62 +1,32 @@
-<div *ngIf="isFinal(); else inGameStatus"
-    class="fleet-status-final row g-0"
-    [ngClass]="{
-        'destroyed' : fleetDestroyed()
-    }"
->
-    <div *ngFor="let ship of fleet()" class="ship col">
-        <div class="ship-img-container position-relative mb-1">
-            <label class="ship-info ship-name position-absolute">{{ ship.name }}</label>
+<div class="fleet-status">
+    <div *ngFor="let ship of fleet()"
+        class="ship row my-2 g-0 justify-content-between"
+        [ngClass]="{
+            'destroyed': ship.health === 0
+        }"
+    >
+        <div class="col-6 d-flex flex-column justify-content-end">
+            <div>{{ ship.name }}</div>
+            <div>{{ ship.length }} units</div>
+        </div>
+        <div class="col-6 ship-img-container position-relative">
             <img fill="true" class="invertible" [ngSrc]="'assets/images/warships/' + ship.id + '.png'"/>
         </div>
-        <div class="health-bar d-flex gap-1">
+        <div *ngIf="isPlayer()"
+            class="col-12 health-bar d-flex gap-1 mt-1"
+        >
             <div *ngFor="let x of [].constructor(ship.length); let i = index"
                 class="health-bar-piece"
                 [attr.data-filled]="i < ship.health"
             ></div>
         </div>
-    </div>
-    <svg *ngIf="fleetDestroyed()"
-        class="destroyed-overlay"
-        height="100%"
-        width="100%"
-    >
-        <line class="diagonal-line" x1="0" y1="0" x2="100%" y2="100%"></line>
-        <line class="diagonal-line" x1="0" y1="100%" x2="100%" y2="0"></line>
-    </svg>
-</div>
-
-<ng-template #inGameStatus>
-    <div class="fleet-status">
-        <div *ngFor="let ship of fleet()"
-            class="ship row my-2 g-0 justify-content-between"
-            [ngClass]="{
-                'destroyed': ship.health === 0
-            }"
+        <svg *ngIf="ship.health === 0"
+            class="destroyed-overlay"
+            height="100%"
+            width="100%"
         >
-            <div class="col-6 d-flex flex-column justify-content-end">
-                <div>{{ ship.name }}</div>
-                <div>{{ ship.length }} units</div>
-            </div>
-            <div class="col-6 ship-img-container position-relative">
-                <img fill="true" class="invertible" [ngSrc]="'assets/images/warships/' + ship.id + '.png'"/>
-            </div>
-            <div *ngIf="isPlayer()"
-                class="col-12 health-bar d-flex gap-1 mt-1"
-            >
-                <div *ngFor="let x of [].constructor(ship.length); let i = index"
-                    class="health-bar-piece"
-                    [attr.data-filled]="i < ship.health"
-                ></div>
-            </div>
-            <svg *ngIf="ship.health === 0"
-                class="destroyed-overlay"
-                height="100%"
-                width="100%"
-            >
-                <line class="diagonal-line" x1="0" y1="0" x2="100%" y2="100%"></line>
-                <line class="diagonal-line" x1="0" y1="100%" x2="100%" y2="0"></line>
-            </svg>
-        </div>
+            <line class="diagonal-line" x1="0" y1="0" x2="100%" y2="100%"></line>
+            <line class="diagonal-line" x1="0" y1="100%" x2="100%" y2="0"></line>
+        </svg>
     </div>
-</ng-template>
+</div>

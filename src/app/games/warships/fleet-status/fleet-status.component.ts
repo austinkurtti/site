@@ -16,7 +16,6 @@ export class WarshipsFleetStatusComponent {
     public gameManager = inject(WarshipsManager);
 
     public isPlayer = input<boolean>();
-    public isFinal = input<boolean>();
     public fleet = computed(() => {
         return this.isPlayer()
             ? this.gameManager.gameInstance.playerGrid.ships()
