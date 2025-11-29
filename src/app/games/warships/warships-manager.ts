@@ -94,9 +94,12 @@ export class WarshipsManager {
 
     private _getWeakenedShipAdjacentSectorCoords(weakenedHits: WarshipsCoord[]): WarshipsCoord[] {
         const adjacentSectors: WarshipsCoord[] = [];
+        const tryPatternCheck = weakenedHits.length > 1 && this.gameInstance.difficulty !== WarshipsDifficulty.easy;
+        const untargetedSectors = this._untargetedPlayerSectors;
+        const canTarget = (r: number, c: number) => untargetedSectors.find(s => s.id === `${r}-${c}`) !== undefined;
 
         // Disallow Recruit from trying pattern check
-        if (weakenedHits.length > 1 && this.gameInstance.difficulty !== WarshipsDifficulty.easy) {
+        if (tryPatternCheck) {
             // Check for a hit pattern that should be continued in the same row or col
             const sorted = [...weakenedHits].sort((a, b) => a.row - b.row || a.col - b.col);
             const sameRow = sorted.every(hit => hit.row === sorted[0].row);
@@ -105,25 +108,28 @@ export class WarshipsManager {
             if (sameRow) {
                 const row = sorted[0].row;
                 const leftCol = sorted[0].col - 1;
-                if (leftCol >= 0) {
+                if (leftCol >= 0 && canTarget(row, leftCol)) {
                     adjacentSectors.push({ row, col: leftCol });
                 }
                 const rightCol = sorted[sorted.length - 1].col + 1;
-                if (rightCol <= 9) {
+                if (rightCol <= 9 && canTarget(row, rightCol)) {
                     adjacentSectors.push({ row, col: rightCol });
                 }
             } else if (sameCol) {
                 const col = sorted[0].col;
                 const aboveRow = sorted[0].row - 1;
-                if (aboveRow >= 0) {
+                if (aboveRow >= 0 && canTarget(aboveRow, col)) {
                     adjacentSectors.push({ row: aboveRow, col });
                 }
                 const belowRow = sorted[sorted.length - 1].row + 1;
-                if (belowRow <= 9) {
+                if (belowRow <= 9 && canTarget(belowRow, col)) {
                     adjacentSectors.push({ row: belowRow, col });
                 }
             }
-        } else {
+        }
+        
+        // Recruit always randomly selects, but non-Recruit also randomly selects if no valid pattern-matched sectors were found
+        if (!tryPatternCheck || adjacentSectors.length === 0) {
             // No hit pattern, gather all adjacent sectors
             const directions = [
                 { dr: -1, dc: 0 },  // up
