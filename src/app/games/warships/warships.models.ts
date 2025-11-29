@@ -1,6 +1,6 @@
 import { signal } from '@angular/core';
 
-export type WarshipsCoord = { row: number, col: number };
+export type WarshipsCoords = { row: number, col: number };
 
 export enum WarshipsScreenState {
     menu = 1,
@@ -10,10 +10,10 @@ export enum WarshipsScreenState {
 }
 
 export enum WarshipsDifficulty {
-    easy = 1,
-    medium = 2,
-    hard = 3,
-    expert = 4
+    recruit = 1,
+    midshipman = 2,
+    captain = 3,
+    fleetAdmiral = 4
 }
 
 export enum WarshipsGameState {
@@ -45,12 +45,12 @@ export enum WarshipsEventType {
 }
 
 export class WarshipsSector {
-    public id: string;
+    public coords: WarshipsCoords;
     public state = WarshipsSectorState.empty;
     public shipId?: string = null;
 
-    constructor(id: string) {
-        this.id = id;
+    constructor(row: number, col: number) {
+        this.coords = { row, col };
     }
 }
 
@@ -86,7 +86,7 @@ export class WarshipsShip {
     public health: number;
     public orientation = WarshipsShipOrientation.horizontal;
     public deployed = false;
-    public anchorSector?: WarshipsCoord = null;
+    public anchorSector?: WarshipsCoords = null;
 
     constructor(name: string, length: number) {
         this.id = name.replaceAll(' ', '-').toLowerCase();

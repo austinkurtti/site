@@ -16,7 +16,7 @@ import { WarshipsDifficulty, WarshipsScreenState } from '../warships.models';
 export class WarshipsNewGameScreen {
     public gameManager = inject(WarshipsManager);
 
-    public difficulty = signal(WarshipsDifficulty.easy);
+    public difficulty = signal(WarshipsDifficulty.recruit);
 
     public Difficulty = WarshipsDifficulty;
     public ScreenState = WarshipsScreenState;

@@ -51,7 +51,7 @@
             <ng-container
                 [ngTemplateOutlet]="difficultyTemplate"
                 [ngTemplateOutletContext]="{
-                    value: Difficulty.easy,
+                    value: Difficulty.recruit,
                     name: 'Recruit',
                     description: 'Still learning the ropes, your opponent has minimal naval awareness.',
                     description2: 'Consider this more of a training exercise.'
@@ -63,7 +63,7 @@
             <ng-container
                 [ngTemplateOutlet]="difficultyTemplate"
                 [ngTemplateOutletContext]="{
-                    value: Difficulty.medium,
+                    value: Difficulty.midshipman,
                     name: 'Midshipman',
                     description: 'Equipped with basic strategy and knows how to sink a ship.',
                     description2: 'This opponent will not be a pushover.'
@@ -75,7 +75,7 @@
             <ng-container
                 [ngTemplateOutlet]="difficultyTemplate"
                 [ngTemplateOutletContext]="{
-                    value: Difficulty.hard,
+                    value: Difficulty.captain,
                     name: 'Captain',
                     description: 'Square off against a hardened veteran that has commanded ships through many battles.',
                     description2: 'Lock in, this will be a challenge.'
@@ -87,7 +87,7 @@
             <ng-container
                 [ngTemplateOutlet]="difficultyTemplate"
                 [ngTemplateOutletContext]="{
-                    value: Difficulty.expert,
+                    value: Difficulty.fleetAdmiral,
                     name: 'Fleet Admiral',
                     description: 'An expert in naval strategy and has developed a sixth sense for your ships\' positions.',
                     description2: 'Do not expect to win.'

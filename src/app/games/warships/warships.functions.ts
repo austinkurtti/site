@@ -1,4 +1,4 @@
-import { WarshipsCoord, WarshipsSector, WarshipsSectorState, WarshipsShipOrientation } from './warships.models';
+import { WarshipsCoords, WarshipsSector, WarshipsSectorState, WarshipsShipOrientation } from './warships.models';
 
 export const getCoordinates = (row: number, col: number): string => {
     const rows = 'ABCDEFGHIJ';
@@ -27,9 +27,9 @@ export const tryShipDeploy = (
     length: number,
     orientation: WarshipsShipOrientation,
     sectors: WarshipsSector[][]
-): WarshipsCoord[] => {
+): WarshipsCoords[] => {
     const isHorizontal = orientation === WarshipsShipOrientation.horizontal;
-    let bestSectors: WarshipsCoord[] = [];
+    let bestSectors: WarshipsCoords[] = [];
 
     // First, test the original position
     bestSectors = tryPosition(row, col, length, orientation, sectors);
@@ -113,8 +113,8 @@ const tryPosition = (
     length: number,
     orientation: WarshipsShipOrientation,
     sectors: WarshipsSector[][]
-): WarshipsCoord[] => {
-    let candidates: WarshipsCoord[] = [];
+): WarshipsCoords[] => {
+    let candidates: WarshipsCoords[] = [];
     for (let i = 0; i < length; i++) {
         let r = row, c = col;
         if (orientation === WarshipsShipOrientation.horizontal) {
@@ -142,8 +142,8 @@ const tryPosition = (
  * @param sectors Grid sectors to search
  * @returns If a valid position is found, an array containing the valid sectors. If placement is invalid, an empty array.
  */
-const searchRow = (row: number, startCol: number, length: number, backward: boolean, sectors: WarshipsSector[][]): WarshipsCoord[] => {
-    let candidates: WarshipsCoord[] = [];
+const searchRow = (row: number, startCol: number, length: number, backward: boolean, sectors: WarshipsSector[][]): WarshipsCoords[] => {
+    let candidates: WarshipsCoords[] = [];
     while (startCol >= 0 && startCol <= 9) {
         candidates = tryPosition(row, startCol, length, WarshipsShipOrientation.horizontal, sectors);
         if (candidates.length > 0) {
@@ -164,8 +164,8 @@ const searchRow = (row: number, startCol: number, length: number, backward: bool
  * @param sectors Grid sectors to search
  * @returns If a valid position is found, an array containing the valid sectors. If placement is invalid, an empty array.
  */
-const searchCol = (startRow: number, col: number, length: number, backward: boolean, sectors: WarshipsSector[][]): WarshipsCoord[] => {
-    let candidates: WarshipsCoord[] = [];
+const searchCol = (startRow: number, col: number, length: number, backward: boolean, sectors: WarshipsSector[][]): WarshipsCoords[] => {
+    let candidates: WarshipsCoords[] = [];
     while (startRow >= 0 && startRow <= 9) {
         candidates = tryPosition(startRow, col, length, WarshipsShipOrientation.vertical, sectors);
         if (candidates.length > 0) {

@@ -80,11 +80,11 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.playerGrid.sectors = new Array(10).fill([]);
         for (let i = 0; i < 10; i++) {
-            this.playerGrid.sectors[i] = Array.from({ length: 10 }, (v, j) => new WarshipsSector(`${i}-${j}`));
+            this.playerGrid.sectors[i] = Array.from({ length: 10 }, (v, j) => new WarshipsSector(i, j));
         }
         this.computerGrid.sectors = new Array(10).fill([]);
         for (let i = 0; i < 10; i++) {
-            this.computerGrid.sectors[i] = Array.from({ length: 10 }, (v, j) => new WarshipsSector(`${i}-${j}`));
+            this.computerGrid.sectors[i] = Array.from({ length: 10 }, (v, j) => new WarshipsSector(i, j));
         }
     }
 
