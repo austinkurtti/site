@@ -526,7 +526,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             if (targetedSector.state.hasFlag(WarshipsSectorState.empty)) {
                 // Miss
                 this._logEvent(WarshipsEventType.miss, `${actor} fired at ${coords}`);
-                await this._effectsService.splash(sectorOverlayElBox.x + (sectorOverlayElBox.width / 2), sectorOverlayElBox.y + (sectorOverlayElBox.height / 2));
+                await this._effectsService.ripple(sectorOverlayElBox.x + (sectorOverlayElBox.width / 2), sectorOverlayElBox.y + (sectorOverlayElBox.height / 2));
 
                 targetedSector.state = targetedSector.state.toggleFlag(WarshipsSectorState.miss);
 

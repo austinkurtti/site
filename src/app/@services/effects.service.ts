@@ -104,6 +104,60 @@ export class EffectsService {
         });
     }
 
+    public ripple(xCenter: number = document.body.clientWidth / 2, yCenter: number = document.body.clientHeight / 2): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            const appRootEl = document.querySelector('ak-app-root');
+            if (!appRootEl) {
+                reject();
+            }
+
+            const rippleCount = 3;
+            const rippleEls: any[] = [];
+            const rippleStates = Array(rippleCount).fill(false);
+            // Create ripples
+            for (let i = 0; i < rippleCount; i++) {
+                const rippleEl = this._renderer.createElement('div');
+                this._renderer.addClass(rippleEl, 'ripple');
+                this._renderer.setStyle(rippleEl, 'left', `${xCenter - 50}px`);
+                this._renderer.setStyle(rippleEl, 'top', `${yCenter - 50}px`);
+                this._renderer.appendChild(appRootEl, rippleEl);
+                rippleEls.push(rippleEl);
+            }
+
+            const totalFrames = 24; // ~1440ms at 60ms interval
+            const rippleDelays = [0, 2, 6];
+            const scales = [.6, .8, 1];
+            const maxScale = 1.6;
+            interval(60).pipe(take(totalFrames + Math.max(...rippleDelays))).subscribe({
+                next: frame => {
+                    for (let i = 0; i < rippleCount; i++) {
+                        if (!rippleStates[i] && frame >= rippleDelays[i]) {
+                            // Start animating this ripple
+                            rippleStates[i] = true;
+                            this._renderer.setStyle(rippleEls[i], 'opacity', '1');
+                            this._renderer.setStyle(rippleEls[i], 'transform', `scale(${scales[i]})`);
+                        }
+                        // Animate scale and opacity
+                        if (rippleStates[i]) {
+                            // Progress from initial scale to maxScale
+                            const progress = Math.min(1, (frame - rippleDelays[i]) / (totalFrames - rippleDelays[i]));
+                            const scale = scales[i] + (maxScale - scales[i]) * progress;
+                            const opacity = 1 - progress;
+                            this._renderer.setStyle(rippleEls[i], 'opacity', `${opacity}`);
+                            this._renderer.setStyle(rippleEls[i], 'transform', `scale(${scale})`);
+                        }
+                    }
+                },
+                complete: () => {
+                    rippleEls.forEach(rippleEl => {
+                        this._renderer.removeChild(appRootEl, rippleEl);
+                    });
+                    resolve();
+                }
+            });
+        });
+    }
+
     public splash(xCenter: number = document.body.clientWidth / 2, yCenter: number = document.body.clientHeight / 2): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             const particles: EffectParticle[] = [];
