@@ -11,8 +11,4 @@ export class WarshipsMenuScreenComponent {
     public gameManager = inject(WarshipsManager);
 
     public ScreenState = WarshipsScreenState;
-
-    public showSettingsDialog(): void {
-        // TODO
-    }
 }

@@ -74,6 +74,10 @@ export class WarshipsGameInstance {
     public eventLog: WarshipsEvent[] = [];
 }
 
+export class WarshipsGameSettings {
+    public playEffects = true;
+}
+
 export enum WarshipsShipOrientation {
     horizontal = 1,
     vertical = 2

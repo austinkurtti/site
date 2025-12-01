@@ -1,0 +1,20 @@
+<div class="dialog-header row g-0 align-items-center">
+    <div class="col">
+        <h3 class="text-center">Settings</h3>
+    </div>
+    <div class="col-auto">
+        <button class="icon-button" (click)="dialogService.close()">
+            <i class="fas fa-times fa-2x"></i>
+        </button>
+    </div>
+</div>
+
+<div class="dialog-body">
+    <ak-toggle
+        [label]="'Play effects'"
+        [labelDescription]="'Play animated effects to mark certain game events'"
+        [expandLabelDescription]="true"
+        [(value)]="gameManager.gameSettings.playEffects"
+        (valueChange)="toggleChange('playEffects', $event)"
+    ></ak-toggle>
+</div>

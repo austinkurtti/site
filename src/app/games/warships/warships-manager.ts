@@ -1,5 +1,9 @@
-import { Injectable, signal } from '@angular/core';
-import { WarshipsCoords, WarshipsDifficulty, WarshipsEventType, WarshipsGameInstance, WarshipsScreenState, WarshipsSector, WarshipsSectorState } from './warships.models';
+import { inject, Injectable, Injector, signal } from '@angular/core';
+import { DialogSize } from '@models/dialog.model';
+import { DialogService } from '@services/dialog.service';
+import { LocalStorageService } from '@services/local-storage.service';
+import { WarshipsSettingsDialogComponent } from './settings-dialog/settings-dialog.component';
+import { WarshipsCoords, WarshipsDifficulty, WarshipsEventType, WarshipsGameInstance, WarshipsGameSettings, WarshipsScreenState, WarshipsSector, WarshipsSectorState } from './warships.models';
 
 @Injectable()
 export class WarshipsManager {
@@ -8,6 +12,10 @@ export class WarshipsManager {
     public screen = signal(WarshipsScreenState.menu);
 
     public gameInstance: WarshipsGameInstance;
+    public gameSettings = new WarshipsGameSettings();
+
+    private _dialogService = inject(DialogService);
+    private _injector = inject(Injector);
 
     private get _untargetedPlayerSectors(): WarshipsSector[] {
         const untargetedSectors: WarshipsSector[] = [];
@@ -22,10 +30,18 @@ export class WarshipsManager {
         return untargetedSectors;
     }
 
+    public initialize(): void {
+        this.gameSettings.playEffects = LocalStorageService.getItem(`${this.localStoragePrefix}_playEffects`) ?? true;
+    }
+
     public newGame(difficulty: WarshipsDifficulty): void {
         this.gameInstance = new WarshipsGameInstance();
         this.gameInstance.difficulty = difficulty;
         this.screen.set(WarshipsScreenState.game);
+    }
+
+    public showSettingsDialog(): void {
+        this._dialogService.show(WarshipsSettingsDialogComponent, DialogSize.small, true, this._injector);
     }
 
     public computerSelectNextSector(): WarshipsCoords {

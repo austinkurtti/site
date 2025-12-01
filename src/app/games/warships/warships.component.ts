@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { WarshipsEndGameScreenComponent } from "./end-game-screen/end-game-screen.component";
 import { WarshipsGameScreenComponent } from './game-screen/game-screen.component';
 import { WarshipsMenuScreenComponent } from './menu-screen/menu-screen.component';
@@ -21,8 +21,12 @@ import { WarshipsScreenState } from './warships.models';
         WarshipsManager
     ]
 })
-export class WarshipsComponent {
+export class WarshipsComponent implements OnInit {
     public gameManager = inject(WarshipsManager);
 
     public ScreenState = WarshipsScreenState;
+
+    public ngOnInit(): void {
+        this.gameManager.initialize();
+    }
 }

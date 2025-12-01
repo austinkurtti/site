@@ -102,10 +102,6 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         this._newsflashService.show(WarshipsNewsflashComponent, { type: WarshipsNewsflashType.core, message: 'This is a test' });
     }
 
-    public showSettingsDialog(): void {
-        // TODO
-    }
-
     public showHelpDialog(): void {
         // TODO
     }
@@ -378,10 +374,19 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             type: WarshipsNewsflashType.core,
             message: 'Let the battle begin!'
         };
-        await this._newsflashService.show(WarshipsNewsflashComponent, newsflashInputs).finally(() => {
+        const finishDeploy = () => {
             this._logEvent(WarshipsEventType.state, newsflashInputs.message);
             this._playerHasShot = true;
-        });
+        };
+
+        if (this.gameManager.gameSettings.playEffects) {
+            await this._newsflashService.show(WarshipsNewsflashComponent, newsflashInputs).finally(() => {
+                finishDeploy();
+            });
+        } else {
+            finishDeploy();
+        }
+
         return Promise.resolve(void 0);
     }
 
@@ -526,7 +531,9 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             if (targetedSector.state.hasFlag(WarshipsSectorState.empty)) {
                 // Miss
                 this._logEvent(WarshipsEventType.miss, `${actor} fired at ${coords}`);
-                await this._effectsService.ripple(sectorOverlayElBox.x + (sectorOverlayElBox.width / 2), sectorOverlayElBox.y + (sectorOverlayElBox.height / 2));
+                if (this.gameManager.gameSettings.playEffects) {
+                    await this._effectsService.ripple(sectorOverlayElBox.x + (sectorOverlayElBox.width / 2), sectorOverlayElBox.y + (sectorOverlayElBox.height / 2));
+                }
 
                 targetedSector.state = targetedSector.state.toggleFlag(WarshipsSectorState.miss);
 
@@ -543,7 +550,9 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             } else if (targetedSector.state.hasFlag(WarshipsSectorState.ship)) {
                 // Hit
                 this._logEvent(WarshipsEventType.hit, `${actor} fired at ${coords}`);
-                await this._effectsService.explosion(sectorOverlayElBox.x + (sectorOverlayElBox.width / 2), sectorOverlayElBox.y + (sectorOverlayElBox.height / 2));
+                if (this.gameManager.gameSettings.playEffects) {
+                    await this._effectsService.explosion(sectorOverlayElBox.x + (sectorOverlayElBox.width / 2), sectorOverlayElBox.y + (sectorOverlayElBox.height / 2));
+                }
 
                 targetedSector.state = targetedSector.state.toggleFlag(WarshipsSectorState.hit);
 
@@ -555,9 +564,14 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
                         type: WarshipsNewsflashType.shipSank,
                         message: `${ship.name} sank!`
                     };
-                    await this._newsflashService.show(WarshipsNewsflashComponent, newsflashInputs).finally(() => {
-                        this._logEvent(WarshipsEventType.sink, `${actor} sank ${victim} ${ship.name}`);
-                    });
+                    const logSink = () => this._logEvent(WarshipsEventType.sink, `${actor} sank ${victim} ${ship.name}`);
+                    if (this.gameManager.gameSettings.playEffects) {
+                        await this._newsflashService.show(WarshipsNewsflashComponent, newsflashInputs).finally(() => {
+                            logSink();
+                        });
+                    } else {
+                        logSink();
+                    }
                 }
 
                 if (this.gameManager.gameInstance.turn() === WarshipsTurn.player) {

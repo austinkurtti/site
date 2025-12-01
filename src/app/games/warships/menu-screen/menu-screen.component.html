@@ -3,9 +3,9 @@
         <h1 class="text-center text-uppercase">Warships</h1>
     </div>
     <div class="row g-0 px-2 px-md-0">
-        <button class="fs-2 text-start px-3" (click)="this.gameManager.screen.set(ScreenState.new)">New</button>
+        <button class="fs-2 text-start px-3" (click)="gameManager.screen.set(ScreenState.new)">New</button>
     </div>
     <div class="row g-0 px-2 px-md-0 mt-3">
-        <button class="fs-2 text-start px-3" (click)="showSettingsDialog()">Settings</button>
+        <button class="fs-2 text-start px-3" (click)="gameManager.showSettingsDialog()">Settings</button>
     </div>
 </div>
