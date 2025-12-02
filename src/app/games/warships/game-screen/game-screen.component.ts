@@ -102,10 +102,6 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         this._newsflashService.show(WarshipsNewsflashComponent, { type: WarshipsNewsflashType.core, message: 'This is a test' });
     }
 
-    public showHelpDialog(): void {
-        // TODO
-    }
-
     public quit(confirm = false): void {
         const doQuit = () => {
             this.gameManager.gameInstance = null;

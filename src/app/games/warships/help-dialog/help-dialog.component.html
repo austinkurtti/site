@@ -1,0 +1,75 @@
+<div class="dialog-header row g-0 align-items-center">
+    <div class="col">
+        <h3 class="text-center">Help</h3>
+    </div>
+    <div class="col-auto">
+        <button class="icon-button" (click)="dialogService.close()">
+            <i class="fas fa-times fa-2x"></i>
+        </button>
+    </div>
+</div>
+
+<div class="dialog-body">
+    <h5 class="mb-2 text-uppercase">How to Play</h5>
+    <div akAccordionGroup>
+        <div akAccordionHeader
+            #setupHeader="akAccordionHeader"
+            contentId="setup"
+            class="d-flex justify-content-between"
+            [ngClass]="{
+                'expanded': setupHeader.contentExpanded()
+            }"
+        >
+            <span>Setup</span>
+            <i class="fas"
+                [ngClass]="setupHeader.contentExpanded() ? 'fa-minus' : 'fa-plus'"
+            ></i>
+        </div>
+        <p akAccordionContent
+            contentId="setup"
+            class="mb-0"
+        >
+            <span>Before play begins, players must deploy all ships from their fleet onto the grid. Each ship occupies a number of consecutive squares on the grid, either horizontally or vertically. Ships cannot overlap or be placed diagonally. Both players will have the same fleet makeup.</span>
+        </p>
+
+        <div akAccordionHeader
+            #gameplayHeader="akAccordionHeader"
+            contentId="gameplay"
+            class="d-flex justify-content-between"
+            [ngClass]="{
+                'expanded': gameplayHeader.contentExpanded()
+            }"
+        >
+            <span>Gameplay</span>
+            <i class="fas"
+                [ngClass]="gameplayHeader.contentExpanded() ? 'fa-minus' : 'fa-plus'"
+            ></i>
+        </div>
+        <p akAccordionContent
+            contentId="gameplay"
+            class="mb-0"
+        >
+            <span>After all ships have been deployed, the game proceeds by round. Each round, players will have a turn to select a square at which to fire a shot. If that square is occupied by a ship, it is a "hit" (red marker) and the player will be rewarded with another shot. Otherwise, it is a "miss" (white marker) and the player's turn will end.</span>
+        </p>
+
+        <div akAccordionHeader
+            #winningHeader="akAccordionHeader"
+            contentId="winning"
+            class="d-flex justify-content-between"
+            [ngClass]="{
+                'expanded': winningHeader.contentExpanded()
+            }"
+        >
+            <span>Winning</span>
+            <i class="fas"
+                [ngClass]="winningHeader.contentExpanded() ? 'fa-minus' : 'fa-plus'"
+            ></i>
+        </div>
+        <p akAccordionContent
+            contentId="winning"
+            class="mb-0"
+        >
+            <span>Sink all of the ships in your opponent's fleet to win! But if your opponent sinks all of your ships first, you will lose.</span>
+        </p>
+    </div>
+</div>

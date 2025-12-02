@@ -2,6 +2,7 @@ import { inject, Injectable, Injector, signal } from '@angular/core';
 import { DialogSize } from '@models/dialog.model';
 import { DialogService } from '@services/dialog.service';
 import { LocalStorageService } from '@services/local-storage.service';
+import { WarshipsHelpDialogComponent } from './help-dialog/help-dialog.component';
 import { WarshipsSettingsDialogComponent } from './settings-dialog/settings-dialog.component';
 import { WarshipsCoords, WarshipsDifficulty, WarshipsEventType, WarshipsGameInstance, WarshipsGameSettings, WarshipsScreenState, WarshipsSector, WarshipsSectorState } from './warships.models';
 
@@ -42,6 +43,10 @@ export class WarshipsManager {
 
     public showSettingsDialog(): void {
         this._dialogService.show(WarshipsSettingsDialogComponent, DialogSize.small, true, this._injector);
+    }
+
+    public showHelpDialog(): void {
+        this._dialogService.show(WarshipsHelpDialogComponent, DialogSize.small);
     }
 
     public computerSelectNextSector(): WarshipsCoords {
