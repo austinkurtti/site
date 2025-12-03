@@ -15,6 +15,9 @@
             "@extensions/*": [
                 "src/app/@extensions/*"
             ],
+            "@functions/*": [
+                "src/app/@functions/*"
+            ],
             "@models/*": [
                 "src/app/@models/*"
             ],

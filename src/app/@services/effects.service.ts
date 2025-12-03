@@ -1,7 +1,8 @@
 import { Injectable, RendererFactory2, inject } from '@angular/core';
+import { getRandomInteger } from '@functions/rng';
 import { EffectParticle } from '@models/effect.model';
-import { interval } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { interval, timer } from 'rxjs';
+import { delay, take } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -9,11 +10,12 @@ import { take } from 'rxjs/operators';
 export class EffectsService {
     private _renderer = inject(RendererFactory2).createRenderer(null, null);
 
+    // TODO - refactor this with pure CSS
     public confettiBurst(xCenter: number = document.body.clientWidth / 2, yCenter: number = document.body.clientHeight / 2): void {
         const particles: EffectParticle[] = [];
         const particleEls: any[] = [];
         const numParticles = 40;
-        const appRootEl = document.querySelector('ak-app-root');
+        const effectsEl = document.querySelector('#ak-effects-container');
 
         for (let i = 0; i < numParticles; i++) {
             const particle = this._createParticle(
@@ -43,7 +45,7 @@ export class EffectsService {
                 `rotate3d(${particle.rotationAxis[0]}, ${particle.rotationAxis[1]}, ${particle.rotationAxis[2]}, ${particle.rotation}deg)`
             );
             particleEls.push(particleEl);
-            this._renderer.appendChild(appRootEl, particleEl);
+            this._renderer.appendChild(effectsEl, particleEl);
         }
 
         interval(50).pipe(take(18)).subscribe({
@@ -98,7 +100,7 @@ export class EffectsService {
             },
             complete: () => {
                 particleEls.forEach(el => {
-                    this._renderer.removeChild(appRootEl, el);
+                    this._renderer.removeChild(effectsEl, el);
                 });
             }
         });
@@ -106,9 +108,9 @@ export class EffectsService {
 
     public ripple(xCenter: number = document.body.clientWidth / 2, yCenter: number = document.body.clientHeight / 2): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            const appRootEl = document.querySelector('ak-app-root');
-            if (!appRootEl) {
-                reject();
+            const effectsEl = document.querySelector('#ak-effects-container');
+            if (!effectsEl) {
+                reject('Cannot find effects container');
             }
 
             const rippleCount = 3;
@@ -120,7 +122,7 @@ export class EffectsService {
                 this._renderer.addClass(rippleEl, 'ripple');
                 this._renderer.setStyle(rippleEl, 'left', `${xCenter - 50}px`);
                 this._renderer.setStyle(rippleEl, 'top', `${yCenter - 50}px`);
-                this._renderer.appendChild(appRootEl, rippleEl);
+                this._renderer.appendChild(effectsEl, rippleEl);
                 rippleEls.push(rippleEl);
             }
 
@@ -150,7 +152,7 @@ export class EffectsService {
                 },
                 complete: () => {
                     rippleEls.forEach(rippleEl => {
-                        this._renderer.removeChild(appRootEl, rippleEl);
+                        this._renderer.removeChild(effectsEl, rippleEl);
                     });
                     resolve();
                 }
@@ -158,103 +160,17 @@ export class EffectsService {
         });
     }
 
-    public splash(xCenter: number = document.body.clientWidth / 2, yCenter: number = document.body.clientHeight / 2): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            const particles: EffectParticle[] = [];
-            const particleEls: any[] = [];
-            const numParticles = 40;
-            const appRootEl = document.querySelector('ak-app-root');
-
-            if (!appRootEl) {
-                reject('Cannot find app root');
-            }
-
-            for (let i = 0; i < numParticles; i++) {
-                const particle = this._createParticle(
-                    ['sky', 'blue'],
-                    ['tint']
-                );
-                // Random upward direction from center
-                particle.direction = -120 + (60 * i) / (numParticles - 1);
-                particle.linearSpeed = 5 + Math.random() * 20;
-                particle.angularSpeed = Math.random() * 10 - 5;
-                particle.x = xCenter;
-                particle.y = yCenter;
-                particle.opacity = 1;
-                // Random starting rotational position
-                particle.rotation = Math.floor(Math.random() * 360);
-                // Random rotational axis
-                particle.rotationAxis = [Math.random(), Math.random(), Math.random()];
-                particles.push(particle);
-
-                const particleEl = this._createParticleEl(particle, 'splash');
-                this._renderer.setStyle(particleEl, 'left', `${particle.x}px`);
-                this._renderer.setStyle(particleEl, 'top', `${particle.y}px`);
-                this._renderer.setStyle(
-                    particleEl,
-                    'transform',
-                    `rotate3d(${particle.rotationAxis[0]}, ${particle.rotationAxis[1]}, ${particle.rotationAxis[2]}, ${particle.rotation}deg)`
-                );
-                particleEls.push(particleEl);
-                this._renderer.appendChild(appRootEl, particleEl);
-            }
-
-            let gravity = 2.5;
-            interval(50).pipe(take(25)).subscribe({
-                next: frame => {
-                    for (let i = 0; i < numParticles; i++) {
-                        const particle = particles[i];
-                        // Convert direction to radians
-                        const rad = (particle.direction * Math.PI) / 180;
-                        // Move outward
-                        particle.x += Math.cos(rad) * particle.linearSpeed;
-                        particle.y += Math.sin(rad) * particle.linearSpeed;
-                        // Clamp
-                        particle.x = particle.x.bounded(25, document.body.clientWidth - 25);
-                        particle.y = particle.y.bounded(25, document.body.clientHeight - 25);
-                        // Apply gravity (downward)
-                        particle.y += gravity * frame * .15;
-                        // Slow down horizontal speed (simulate drag)
-                        particle.linearSpeed *= .9;
-                        // Spin
-                        particle.rotation += particle.angularSpeed;
-                        // Fade out
-                        if (frame > 15) {
-                            particle.opacity -= .05;
-                        }
-
-                        // Update particle element
-                        const particleEl = particleEls[i];
-                        this._renderer.setStyle(particleEl, 'left', `${particle.x}px`);
-                        this._renderer.setStyle(particleEl, 'top', `${particle.y}px`);
-                        this._renderer.setStyle(
-                            particleEl,
-                            'transform',
-                            `rotate3d(${particle.rotationAxis[0]}, ${particle.rotationAxis[1]}, ${particle.rotationAxis[2]}, ${particle.rotation}deg)`
-                        );
-                        this._renderer.setStyle(particleEl, 'opacity', particle.opacity);
-                    }
-                },
-                complete: () => {
-                    particleEls.forEach(el => {
-                        this._renderer.removeChild(appRootEl, el);
-                    });
-                    resolve();
-                }
-            });
-        });
-    }
-
+    // TODO - refactor this with pure CSS
     public explosion(xCenter: number = document.body.clientWidth / 2, yCenter: number = document.body.clientHeight / 2): Promise<void> {
         return new Promise<void>((resolve, reject) => {
+            const effectsEl = document.querySelector('#ak-effects-container');
+            if (!effectsEl) {
+                reject('Cannot find effects container');
+            }
+
             const particles: EffectParticle[] = [];
             const particleEls: any[] = [];
             const numParticles = 50;
-            const appRootEl = document.querySelector('ak-app-root');
-
-            if (!appRootEl) {
-                reject('Cannot find app root');
-            }
 
             for (let i = 0; i < numParticles; i++) {
                 const particle = this._createParticle(
@@ -284,7 +200,7 @@ export class EffectsService {
                     `rotate3d(${particle.rotationAxis[0]}, ${particle.rotationAxis[1]}, ${particle.rotationAxis[2]}, ${particle.rotation}deg)`
                 );
                 particleEls.push(particleEl);
-                this._renderer.appendChild(appRootEl, particleEl);
+                this._renderer.appendChild(effectsEl, particleEl);
             }
 
             interval(50).pipe(take(25)).subscribe({
@@ -322,8 +238,73 @@ export class EffectsService {
                 },
                 complete: () => {
                     particleEls.forEach(el => {
-                        this._renderer.removeChild(appRootEl, el);
+                        this._renderer.removeChild(effectsEl, el);
                     });
+                    resolve();
+                }
+            });
+        });
+    }
+
+    public fireworks(): Promise<void> {
+        return new Promise<void>(async (resolve, reject) => {
+            const effectsEl = document.querySelector('#ak-effects-container');
+            if (!effectsEl) {
+                reject('Cannot find effects container');
+                return;
+            }
+
+            const fireworkCount = 18;
+            interval(200).pipe(take(fireworkCount)).subscribe({
+                next: () => {
+                    this._launchSingleFirework(effectsEl);
+                },
+                complete: () => resolve()
+            });
+        });
+    }
+
+    private _launchSingleFirework(effectsEl: Element): Promise<void> {
+        return new Promise<void>((resolve) => {
+            const vw = Math.random().bounded(.2, .8) * 100;
+            const duration = 2000; // 2s - sync this with .firework animation-duration
+
+            // Set randomized firework styles
+            const firework = this._renderer.createElement('div');
+            this._renderer.addClass(firework, 'firework');
+            this._renderer.addClass(firework, this._randomColor(['multi', 'red', 'green', 'blue', 'purple']));
+            this._renderer.setProperty(firework, 'style', `
+                --firework-x: ${getRandomInteger(0, 15) * (Math.floor(Math.random() * 2) === 0 ? 1 : -1)}vw;
+                --firework-y: ${getRandomInteger(0, 10) * (Math.floor(Math.random() * 2) === 0 ? 1 : -1)}vh;
+                left: ${getRandomInteger(10, 90)}%;
+                top: ${getRandomInteger(10, 35)}%;
+            `);
+            this._renderer.appendChild(effectsEl, firework);
+
+            timer(duration).subscribe(() => {
+                this._renderer.removeChild(effectsEl, firework);
+                resolve();
+            });
+        });
+    }
+
+    public typeText(element: HTMLElement): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            if (!element.innerText) {
+                reject('No text available to type out');
+            }
+
+            const originalText = element.innerText;
+            element.innerText = '█';
+            interval(150).pipe(
+                delay(250),
+                take(originalText.length)
+            ).subscribe({
+                next: frame => {
+                    element.innerText = `${originalText.slice(0, frame + 1)}█`;
+                },
+                complete: () => {
+                    element.innerText = originalText;
                     resolve();
                 }
             });

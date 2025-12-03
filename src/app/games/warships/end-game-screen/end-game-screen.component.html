@@ -57,7 +57,7 @@
                         [style.gridColumnEnd]="ship.orientation === ShipOrientation.horizontal ? ('span ' + ship.length) : 'span 1'"
                     >
                         <div class="ship-model h-100 w-100 position-relative">
-                            <img class="position-absolute"
+                            <img class="position-absolute invertible"
                                 fill="true"
                                 [ngSrc]="'assets/images/warships/' + ship.id + '-top-down' + (ship.orientation === ShipOrientation.vertical ? '-vertical' : '') + '.png'"
                                 [ngClass]="ship.orientation === ShipOrientation.vertical ? 'vertical' : ''"

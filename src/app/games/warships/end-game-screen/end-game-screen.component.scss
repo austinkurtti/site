@@ -31,11 +31,8 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
 
         .grid {
             aspect-ratio: 1 / 1;
-            background: radial-gradient(
-                color.mix(variables.$color-blue, variables.$color-sky),
-                variables.$color-sky
-            );
-            border: 1px solid variables.$color-black;
+            background-color: variables.$theme-bg-color-tertiary;
+            border: 1px solid variables.$theme-font-color-normal;
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             grid-template-rows: repeat(10, 1fr);
@@ -45,7 +42,7 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
             position: relative;
 
             #grid-col-labels {
-                color: variables.$color-black;
+                color: variables.$theme-font-color-normal;
                 display: grid;
                 grid-template-columns: repeat(10, 1fr);
                 height: variables.$base-size * 2;
@@ -62,7 +59,7 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
             }
 
             #grid-row-labels {
-                color: variables.$color-black;
+                color: variables.$theme-font-color-normal;
                 display: grid;
                 grid-template-rows: repeat(10, 1fr);
                 height: 100%;
@@ -80,12 +77,12 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
 
             .sector {
                 aspect-ratio: 1 / 1;
-                border: 1px solid variables.$color-black;
+                border: 1px solid variables.$theme-font-color-normal;
                 box-sizing: border-box;
             }
 
             .deployed-ship {
-                border: 1px solid variables.$color-black;
+                border: 1px solid variables.$theme-font-color-normal;
             }
         }
 

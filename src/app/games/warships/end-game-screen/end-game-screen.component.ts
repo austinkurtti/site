@@ -1,6 +1,7 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { EffectsService } from '@services/effects.service';
 import { WarshipsManager } from '../warships-manager';
 import { WarshipsGameState, WarshipsScreenState, WarshipsSectorState, WarshipsShipOrientation } from '../warships.models';
 
@@ -13,7 +14,7 @@ import { WarshipsGameState, WarshipsScreenState, WarshipsSectorState, WarshipsSh
         NgOptimizedImage
     ]
 })
-export class WarshipsEndGameScreenComponent {
+export class WarshipsEndGameScreenComponent implements AfterViewInit {
     public gameManager = inject(WarshipsManager);
 
     public String = String;
@@ -21,7 +22,17 @@ export class WarshipsEndGameScreenComponent {
     public SectorState = WarshipsSectorState;
     public ShipOrientation = WarshipsShipOrientation;
 
+    private _effectsService = inject(EffectsService);
     private _router = inject(Router);
+
+    public ngAfterViewInit(): void {
+        const textEl = document.querySelector('h1 span');
+        this._effectsService.typeText(textEl as HTMLElement).finally(() => {
+            if (this.gameManager.gameInstance.gameState() === WarshipsGameState.victory) {
+                this._effectsService.fireworks();
+            }
+        });
+    }
 
     public playAgain(): void {
         this.gameManager.gameInstance = null;
