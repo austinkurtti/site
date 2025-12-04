@@ -16,15 +16,6 @@
             </div>
         </ng-template>
     </button>
-    <button *ngIf="gamesService.activeGame()"
-        akTooltip
-        class="col-auto header-icon-button"
-        [tooltipContent]="'Exit ' + gamesService.activeGame().name"
-        [tooltipPosition]="TooltipPosition.bottom"
-        (click)="confirmExit()"
-    >
-        <i class="fas fa-2x fa-times"></i>
-    </button>
 </header>
 
 <main #gameContent class="w-100 overflow-hidden">

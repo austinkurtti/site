@@ -30,6 +30,9 @@
             <div class="row g-0 px-2 px-md-0 mt-3">
                 <button class="fs-2 text-start px-3" (click)="showSettingsDialog()">Settings</button>
             </div>
+            <div class="row g-0 px-2 px-md-0 mt-3">
+                <button class="fs-2 text-start px-3" (click)="gamesService.confirmExit()">Exit</button>
+            </div>
         </ng-container>
 
         <ng-container *ngSwitchCase="MenuState.new">
