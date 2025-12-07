@@ -2,6 +2,7 @@
 
 @use 'variables';
 @use 'keyframes';
+@use 'mixins';
 
 :host {
     display: block;
@@ -73,6 +74,20 @@
             &:hover > span::after {
                 transform: scaleX(1);
                 transform-origin: bottom left;
+            }
+        }
+
+        ak-theme {
+            min-width: 70vw;
+
+            @include mixins.for-md-screens {
+                min-width: 55vw;
+            }
+            @include mixins.for-lg-screens {
+                min-width: 40vw;
+            }
+            @include mixins.for-xxl-screens {
+                min-width: 25vw;
             }
         }
     }

@@ -13,14 +13,4 @@
     h5 {
         font-weight: normal;
     }
-
-    ak-toggle {
-        &:not(:last-child) {
-            margin-bottom: variables.$base-size;
-        }
-    }
-
-    .fa-skull {
-        color: variables.$theme-icon-color-negative-on-secondary;
-    }
 }

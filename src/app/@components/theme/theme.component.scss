@@ -4,17 +4,7 @@
 @use 'mixins';
 
 :host {
-    min-width: 70vw;
-
-    @include mixins.for-md-screens {
-        min-width: 55vw;
-    }
-    @include mixins.for-lg-screens {
-        min-width: 40vw;
-    }
-    @include mixins.for-xxl-screens {
-        min-width: 25vw;
-    }
+    display: block;
 
     .theme-radio {
         bottom: math.div(variables.$base-size, 1.6);

@@ -10,11 +10,19 @@
 </div>
 
 <div class="dialog-body">
-    <ak-toggle
-        [label]="'Play effects'"
-        [labelDescription]="'Play animated effects to mark certain game events'"
-        [expandLabelDescription]="true"
-        [(value)]="gameManager.gameSettings.playEffects"
-        (valueChange)="toggleChange('playEffects', $event)"
-    ></ak-toggle>
+    <div class="setting-group p-3">
+        <h5 class="text-uppercase">General</h5>
+        <ak-toggle
+            [label]="'Play effects'"
+            [labelDescription]="'Play animated effects to mark certain game events'"
+            [expandLabelDescription]="true"
+            [(value)]="gameManager.gameSettings.playEffects"
+            (valueChange)="toggleChange('playEffects', $event)"
+        ></ak-toggle>
+    </div>
+
+    <div class="setting-group p-3">
+        <h5 class="text-uppercase">Theme</h5>
+        <ak-theme></ak-theme>
+    </div>
 </div>

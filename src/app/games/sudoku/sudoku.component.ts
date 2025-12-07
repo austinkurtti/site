@@ -10,6 +10,9 @@ import { SudokuDifficulty, SudokuGameInstance, SudokuScreenState } from './sudok
     selector: 'ak-sudoku',
     styleUrls: ['./sudoku.component.scss'],
     templateUrl: './sudoku.component.html',
+    host: {
+        'class': 'w-100 overflow-hidden flex-grow-1'
+    },
     imports: [
         CommonModule,
         SudokuGameScreenComponent,

@@ -108,6 +108,7 @@
     }
 
     .theme-radio-label {
+        background-color: variables.$theme-bg-color-primary;
         border: 1px solid variables.$color-gray;
         border-top: none;
         border-bottom-left-radius: math.div(variables.$base-size, 4);

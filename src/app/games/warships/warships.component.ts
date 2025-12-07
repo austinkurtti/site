@@ -10,6 +10,9 @@ import { WarshipsScreenState } from './warships.models';
 @Component({
     selector: 'ak-warships',
     templateUrl: './warships.component.html',
+    host: {
+        'class': 'w-100 overflow-hidden flex-grow-1'
+    },
     imports: [
         CommonModule,
         WarshipsEndGameScreenComponent,
