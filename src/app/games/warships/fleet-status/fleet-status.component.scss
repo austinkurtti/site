@@ -29,6 +29,10 @@
 
             .ship-img-container {
                 height: variables.$base-size * 3.125;
+
+                img {
+                    width: variables.$base-size * 10;
+                }
             }
 
             .health-bar {

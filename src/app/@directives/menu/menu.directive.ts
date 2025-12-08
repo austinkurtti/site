@@ -1,4 +1,4 @@
-import { ContentChild, Directive, ElementRef, HostBinding, HostListener, Input, Renderer2, TemplateRef, ViewContainerRef, inject } from '@angular/core';
+import { ContentChild, Directive, ElementRef, HostListener, Input, Renderer2, TemplateRef, ViewContainerRef, computed, inject, output, signal } from '@angular/core';
 
 export enum MenuPosition {
     top             = 1 << 0,
@@ -20,28 +20,38 @@ export enum MenuWidth {
     quarter         = '25%'
 }
 
-@Directive({ selector: '[akMenu]' })
+@Directive({
+    selector: '[akMenu]',
+    exportAs: 'akMenu',
+    host: {
+        'tabindex': '0',
+        'class': 'menu-host'
+    }
+})
 export class MenuDirective {
     @Input() menuPosition: MenuPosition = MenuPosition.bottomRight;
     @Input() menuWidth: MenuWidth = MenuWidth.auto;
     @ContentChild('menuContent') menuContent: TemplateRef<any>;
 
-    @HostBinding('attr.tabindex') tabindex = 0;
-    @HostBinding('class') classes = 'menu-host';
+    public isOpenChanged = output<boolean>();
+
+    public isOpen = computed(() => this._isOpen());
 
     private _elementRef = inject(ElementRef);
     private _viewContainerRef = inject(ViewContainerRef);
     private _renderer = inject(Renderer2);
 
-    private _isOpen = false;
+    private _isOpen = signal(false);
 
-    @HostListener('click', ['$event']) hostClick(event: PointerEvent): void {
-        if (this._isOpen) {
+    @HostListener('click', ['$event'])
+    @HostListener('keydown', ['$event'])
+    hostClick(event: KeyboardEvent | PointerEvent): void {
+        if (this._isOpen()) {
             this.close();
         } else {
             // Only open the menu after the entire click event loop finishes
             // menu-content.directive attaches it's _outsideClickListener to the document, which will execute last in the event
-            // This allows any currently open menu to close first and prevents the view from jolting around as menus simultaneiously calcuate their sizes
+            // This allows any currently open menu to close first and prevents the view from jolting around as menus simultaneously calcuate their sizes
             setTimeout(() => {
                 this.open();
             }, 0);
@@ -61,54 +71,67 @@ export class MenuDirective {
         const hostRect = this._elementRef.nativeElement.getBoundingClientRect();
         if (this.menuPosition.hasFlag(MenuPosition.top)) {
             if (menuEl.clientHeight > hostRect.top) {
-                this._positionBottom(menuEl, hostRect);
+                this._positionBottom(menuEl);
             } else {
-                this._positionTop(menuEl, hostRect);
+                this._positionTop(menuEl);
             }
         } else if (this.menuPosition.hasFlag(MenuPosition.bottom)) {
             if (menuEl.clientHeight > (document.body.clientHeight - hostRect.bottom)) {
-                this._positionTop(menuEl, hostRect);
+                this._positionTop(menuEl);
             } else {
-                this._positionBottom(menuEl, hostRect);
+                this._positionBottom(menuEl);
             }
         }
         if (this.menuPosition.hasFlag(MenuPosition.right)) {
             if (menuEl.clientWidth > hostRect.right) {
-                this._positionLeft(menuEl, hostRect);
+                this._positionLeft(menuEl);
             } else {
-                this._positionRight(menuEl, hostRect);
+                this._positionRight(menuEl);
             }
         } else if (this.menuPosition.hasFlag(MenuPosition.left)) {
             if (menuEl.clientWidth > (document.body.clientWidth - hostRect.left)) {
-                this._positionRight(menuEl, hostRect);
+                this._positionRight(menuEl);
             } else {
-                this._positionLeft(menuEl, hostRect);
+                this._positionLeft(menuEl);
             }
         }
 
-        this._isOpen = true;
+        this._isOpen.set(true);
+        this.isOpenChanged.emit(this.isOpen());
     };
 
     public close = (): void => {
         this._viewContainerRef.clear();
-        this._isOpen = false;
+        this._isOpen.set(false);
+        this.isOpenChanged.emit(this.isOpen());
     };
 
     public containsEventTarget = (target: EventTarget): boolean => this._elementRef.nativeElement.contains(target);
 
-    private _positionTop(menuEl: any, hostRect: any): void {
-        this._renderer.setStyle(menuEl, 'bottom', `${document.body.clientHeight - hostRect.top}px`);
+    /**
+     * ! IMPORTANT
+     * In the below _position* methods, hostRect is retrieved right before positioning to get the
+     * most up-to-date bounding client rectangle. Otherwise, any previous positioning that has been
+     * performed may skew the viewport slightly and affect the height/width of the host element.
+     */
+
+    private _positionTop(menuEl: any): void {
+        const hostRect = this._elementRef.nativeElement.getBoundingClientRect();
+        this._renderer.setStyle(menuEl, 'top', `${hostRect.top - menuEl.clientHeight}px`);
     }
 
-    private _positionRight(menuEl: any, hostRect: any): void {
-        this._renderer.setStyle(menuEl, 'right', `${document.body.clientWidth - hostRect.right}px`);
+    private _positionRight(menuEl: any): void {
+        const hostRect = this._elementRef.nativeElement.getBoundingClientRect();
+        this._renderer.setStyle(menuEl, 'left', `${hostRect.x + hostRect.width - menuEl.clientWidth}px`);
     }
 
-    private _positionBottom(menuEl: any, hostRect: any): void {
+    private _positionBottom(menuEl: any): void {
+        const hostRect = this._elementRef.nativeElement.getBoundingClientRect();
         this._renderer.setStyle(menuEl, 'top', `${hostRect.bottom}px`);
     }
 
-    private _positionLeft(menuEl: any, hostRect: any): void {
+    private _positionLeft(menuEl: any): void {
+        const hostRect = this._elementRef.nativeElement.getBoundingClientRect();
         this._renderer.setStyle(menuEl, 'left', `${hostRect.left}px`);
     }
 }

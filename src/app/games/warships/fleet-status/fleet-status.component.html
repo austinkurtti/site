@@ -9,8 +9,8 @@
             <div>{{ ship.name }}</div>
             <div>{{ ship.length }} units</div>
         </div>
-        <div class="col-6 ship-img-container position-relative">
-            <img fill="true" class="invertible" [ngSrc]="'assets/images/warships/' + ship.id + '.png'"/>
+        <div class="col-6 ship-img-container">
+            <img class="invertible" [src]="'assets/images/warships/' + ship.id + '.png'"/>
         </div>
         <div *ngIf="isPlayer()"
             class="col-12 health-bar d-flex gap-1 mt-1"

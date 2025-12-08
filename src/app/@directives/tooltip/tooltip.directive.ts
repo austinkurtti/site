@@ -134,6 +134,13 @@ export class TooltipDirective implements OnDestroy {
         window.removeEventListener('resize', this._hideTooltip);
     }
 
+    /**
+     * ! IMPORTANT
+     * In the below _position* methods, hostRect is retrieved right before positioning to get the
+     * most up-to-date bounding client rectangle. Otherwise, any previous positioning that has been
+     * performed may skew the viewport slightly and affect the height/width of the host element.
+     */
+
     private _positionTop(): void {
         const hostRect = this._hostElement.nativeElement.getBoundingClientRect();
         this._renderer.addClass(this._tooltipEl, 'top');

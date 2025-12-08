@@ -1,6 +1,7 @@
 @use 'sass:math';
 
 @use 'variables';
+@use 'mixins';
 
 :host {
     display: block;
@@ -14,9 +15,13 @@
     .difficulty {
         $border-width: math.div(variables.$base-size, 4);
 
-        height: 40vh;
+        height: auto;
         margin: $border-width;
         position: relative;
+
+        @include mixins.for-lg-screens {
+            height: 40vh;
+        }
         
         &::after {
             background:

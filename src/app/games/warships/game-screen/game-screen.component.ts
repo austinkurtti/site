@@ -1,6 +1,8 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, OnDestroy, OnInit, Renderer2, signal } from '@angular/core';
+import { Component, computed, ElementRef, inject, OnDestroy, OnInit, Renderer2, signal, viewChildren } from '@angular/core';
 import { ConfirmDialogComponent } from '@components/confirm/confirm.component';
+import { MenuContentDirective } from '@directives/menu/menu-content.directive';
+import { MenuDirective, MenuPosition } from '@directives/menu/menu.directive';
 import { TooltipDirective, TooltipPosition } from "@directives/tooltip/tooltip.directive";
 import { DialogSize } from '@models/dialog.model';
 import { DialogService } from '@services/dialog.service';
@@ -20,6 +22,8 @@ import { WarshipsEvent, WarshipsEventType, WarshipsGameState, WarshipsGrid, Wars
     templateUrl: './game-screen.component.html',
     imports: [
         CommonModule,
+        MenuContentDirective,
+        MenuDirective,
         NgOptimizedImage,
         TooltipDirective,
         WarshipsFleetStatusComponent,
@@ -45,6 +49,8 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             : [];
     });
 
+    public scrollableEventLogs = viewChildren<ElementRef<HTMLElement>>('scrollableEventLog');
+
     public get playerGrid(): WarshipsGrid {
         return this.gameManager.gameInstance.playerGrid;
     }
@@ -56,6 +62,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     public String = String;
     public EventType = WarshipsEventType;
     public GameState = WarshipsGameState;
+    public MenuPosition = MenuPosition;
     public SectorState = WarshipsSectorState;
     public ShipOrientation = WarshipsShipOrientation;
     public TooltipPosition = TooltipPosition;
@@ -128,7 +135,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         }
     }
 
-    // #region - Public Methods
+    // #region - Drag Methods
     public shipDragStart = (event: DragEvent): void => {
         if (this.gameManager.gameInstance.gameState() !== WarshipsGameState.deploying) {
             return;
@@ -242,7 +249,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
         // Only clear placeholders if currentDragSector has not been updated by dragstart, meaning the drag has left the grid entirely
         if (this._currentDragSector && this._currentDragSector.row === row && this._currentDragSector.col === col) {
-            this._clearPlaceholders(sector.parentElement);
+            this._clearPlaceholders();
             this._currentDragSector = null;
         }
     }
@@ -257,7 +264,6 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
         // Sector data
         const sector = event.currentTarget as HTMLElement;
-        const grid = sector.parentElement as HTMLElement;
         const row = parseInt(sector.getAttribute('data-row'), 10);
         const col = parseInt(sector.getAttribute('data-col'), 10);
 
@@ -268,7 +274,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         const orientation = parseInt(event.dataTransfer.getData('orientation'), 10);
 
         // Clear placeholders
-        this._clearPlaceholders(grid);
+        this._clearPlaceholders();
 
         // Hide preivew
         const previewElement = document.querySelector('#deployable-ship-preview');
@@ -309,6 +315,11 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         this.playerGrid.ships.set(updatedShips);
     }
 
+    // #region - Touch Methods
+    // TODO
+    // #endregion
+
+    // #region - Misc. Public Methods
     public rotateShip(shipId: string) {
         if (this.gameManager.gameInstance.gameState() !== WarshipsGameState.deploying) {
             return;
@@ -361,7 +372,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         }
     }
 
-    public async deploy(): Promise<void> {
+    public async begin(): Promise<void> {
         this.deployRandomly(this.computerGrid);
         this.gameManager.gameInstance.gameState.set(WarshipsGameState.running);
         this.gameManager.gameInstance.turn.set(WarshipsTurn.player);
@@ -370,17 +381,17 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             type: WarshipsNewsflashType.core,
             message: 'Let the battle begin!'
         };
-        const finishDeploy = () => {
+        const finishDeployment = () => {
             this._logEvent(WarshipsEventType.state, newsflashInputs.message);
             this._playerHasShot = true;
         };
 
         if (this.gameManager.gameSettings.playEffects) {
             await this._newsflashService.show(WarshipsNewsflashComponent, newsflashInputs).finally(() => {
-                finishDeploy();
+                finishDeployment();
             });
         } else {
-            finishDeploy();
+            finishDeployment();
         }
 
         return Promise.resolve(void 0);
@@ -433,6 +444,13 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         this._playerHasShot = false;
         this._fireAt(row, col);
     }
+
+    public scrollEventLogs(): void {
+        const scrollableEventLogs = this.scrollableEventLogs();
+        if (scrollableEventLogs.length > 0) {
+            scrollableEventLogs.forEach(elc => elc.nativeElement.scrollTop = elc.nativeElement.scrollHeight);
+        }
+    }
     // #endregion
 
     // #region - Private Methods
@@ -460,9 +478,9 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         }
     }
 
-    private _clearPlaceholders(grid: HTMLElement) {
+    private _clearPlaceholders() {
         // Unset placeholder styles
-        const deployableShipPlaceholder = grid.querySelector('#deployable-ship-placeholder') as HTMLElement;
+        const deployableShipPlaceholder = document.querySelector('#deployable-ship-placeholder') as HTMLElement;
         if (deployableShipPlaceholder) {
             deployableShipPlaceholder.style.display = 'none';
             deployableShipPlaceholder.style.height = '';
@@ -484,12 +502,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
         // Short delay to allow event log template changes to propagate
         timer(10).pipe(take(1)).subscribe(() => {
-            // Check if event log container needs to be scrolled to show latest message
-            const eventLogContainer = document.querySelector('#event-log-container');
-            const eventLog = document.querySelector('#event-log');
-            if (eventLog && (eventLog.clientHeight > eventLogContainer.clientHeight)) {
-                eventLog.children[eventLog.children.length - 1].scrollIntoView();
-            }
+            this.scrollEventLogs();
         });
     }
 
