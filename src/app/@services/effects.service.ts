@@ -160,7 +160,6 @@ export class EffectsService {
         });
     }
 
-    // TODO - refactor this with pure CSS
     public explosion(xCenter: number = document.body.clientWidth / 2, yCenter: number = document.body.clientHeight / 2): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             const effectsEl = document.querySelector('#ak-effects-container');
@@ -168,80 +167,17 @@ export class EffectsService {
                 reject('Cannot find effects container');
             }
 
-            const particles: EffectParticle[] = [];
-            const particleEls: any[] = [];
-            const numParticles = 50;
+            const duration = 1000; // 1s - sync this with .explosion animation-duration
+            const explosion = this._renderer.createElement('div');
+            this._renderer.addClass(explosion, 'explosion');
+            this._renderer.setStyle(explosion, 'left', `${xCenter}px`);
+            this._renderer.setStyle(explosion, 'top', `${yCenter}px`);
+            this._renderer.setStyle(explosion, 'transform', `translate(-50%, -50%) rotate(${getRandomInteger(0, 360)}deg)`);
+            this._renderer.appendChild(effectsEl, explosion);
 
-            for (let i = 0; i < numParticles; i++) {
-                const particle = this._createParticle(
-                    ['red', 'orange', 'yellow', 'black'],
-                    ['circle', 'certificate', 'star', 'square', 'play']
-                );
-                // Full 360deg spread
-                particle.direction = Math.random() * 360;
-                // High initial speed
-                particle.linearSpeed = 20 + Math.random() * 30;
-                particle.angularSpeed = Math.random() * 20 - 10;
-                particle.x = xCenter;
-                particle.y = yCenter;
-                particle.opacity = 1;
-                // Random starting rotational position
-                particle.rotation = Math.floor(Math.random() * 360);
-                // Random rotational axis
-                particle.rotationAxis = [Math.random(), Math.random(), Math.random()];
-                particles.push(particle);
-
-                const particleEl = this._createParticleEl(particle, 'explosion');
-                this._renderer.setStyle(particleEl, 'left', `${particle.x}px`);
-                this._renderer.setStyle(particleEl, 'top', `${particle.y}px`);
-                this._renderer.setStyle(
-                    particleEl,
-                    'transform',
-                    `rotate3d(${particle.rotationAxis[0]}, ${particle.rotationAxis[1]}, ${particle.rotationAxis[2]}, ${particle.rotation}deg)`
-                );
-                particleEls.push(particleEl);
-                this._renderer.appendChild(effectsEl, particleEl);
-            }
-
-            interval(50).pipe(take(25)).subscribe({
-                next: frame => {
-                    for (let i = 0; i < numParticles; i++) {
-                        const particle = particles[i];
-                        // Convert direction to radians
-                        const rad = (particle.direction * Math.PI) / 180;
-                        // Outward movement
-                        particle.x += Math.cos(rad) * particle.linearSpeed;
-                        particle.y += Math.sin(rad) * particle.linearSpeed;
-                        // Clamp
-                        particle.x = particle.x.bounded(25, document.body.clientWidth - 25);
-                        particle.y = particle.y.bounded(25, document.body.clientHeight - 25);
-                        // Simulate drag/air resistence
-                        particle.linearSpeed *= .9;
-                        // Spin
-                        particle.rotation += particle.angularSpeed;
-                        // Fade out
-                        if (frame > 15) {
-                            particle.opacity -= .05;
-                        }
-
-                        // Update particle element
-                        const particleEl = particleEls[i];
-                        this._renderer.setStyle(particleEl, 'left', `${particle.x}px`);
-                        this._renderer.setStyle(particleEl, 'top', `${particle.y}px`);
-                        this._renderer.setStyle(
-                            particleEl,
-                            'transform',
-                            `rotate3d(${particle.rotationAxis[0]}, ${particle.rotationAxis[1]}, ${particle.rotationAxis[2]}, ${particle.rotation}deg)`
-                        );
-                        this._renderer.setStyle(particleEl, 'opacity', particle.opacity);
-                    }
-                },
-                complete: () => {
-                    particleEls.forEach(el => {
-                        this._renderer.removeChild(effectsEl, el);
-                    });
-                    resolve();
-                }
+            timer(duration).subscribe(() => {
+                this._renderer.removeChild(effectsEl, explosion);
+                resolve();
             });
         });
     }
@@ -251,7 +187,6 @@ export class EffectsService {
             const effectsEl = document.querySelector('#ak-effects-container');
             if (!effectsEl) {
                 reject('Cannot find effects container');
-                return;
             }
 
             const fireworkCount = 18;
@@ -260,30 +195,6 @@ export class EffectsService {
                     this._launchSingleFirework(effectsEl);
                 },
                 complete: () => resolve()
-            });
-        });
-    }
-
-    private _launchSingleFirework(effectsEl: Element): Promise<void> {
-        return new Promise<void>((resolve) => {
-            const vw = Math.random().bounded(.2, .8) * 100;
-            const duration = 2000; // 2s - sync this with .firework animation-duration
-
-            // Set randomized firework styles
-            const firework = this._renderer.createElement('div');
-            this._renderer.addClass(firework, 'firework');
-            this._renderer.addClass(firework, this._randomColor(['multi', 'red', 'green', 'blue', 'purple']));
-            this._renderer.setProperty(firework, 'style', `
-                --firework-x: ${getRandomInteger(0, 15) * (Math.floor(Math.random() * 2) === 0 ? 1 : -1)}vw;
-                --firework-y: ${getRandomInteger(0, 10) * (Math.floor(Math.random() * 2) === 0 ? 1 : -1)}vh;
-                left: ${getRandomInteger(10, 90)}%;
-                top: ${getRandomInteger(10, 35)}%;
-            `);
-            this._renderer.appendChild(effectsEl, firework);
-
-            timer(duration).subscribe(() => {
-                this._renderer.removeChild(effectsEl, firework);
-                resolve();
             });
         });
     }
@@ -336,5 +247,28 @@ export class EffectsService {
     private _randomShape(shapeOptions: string[]): string {
         const random = Math.floor(Math.random() * shapeOptions.length);
         return `fa-${shapeOptions[random]}`;
+    }
+
+    private _launchSingleFirework(effectsEl: Element): Promise<void> {
+        return new Promise<void>((resolve) => {
+            const duration = 2000; // 2s - sync this with .firework animation-duration
+
+            // Set randomized firework styles
+            const firework = this._renderer.createElement('div');
+            this._renderer.addClass(firework, 'firework');
+            this._renderer.addClass(firework, this._randomColor(['multi', 'red', 'green', 'blue', 'purple']));
+            this._renderer.setProperty(firework, 'style', `
+                --firework-x: ${getRandomInteger(0, 15) * (Math.floor(Math.random() * 2) === 0 ? 1 : -1)}vw;
+                --firework-y: ${getRandomInteger(0, 10) * (Math.floor(Math.random() * 2) === 0 ? 1 : -1)}vh;
+                left: ${getRandomInteger(10, 90)}%;
+                top: ${getRandomInteger(10, 35)}%;
+            `);
+            this._renderer.appendChild(effectsEl, firework);
+
+            timer(duration).subscribe(() => {
+                this._renderer.removeChild(effectsEl, firework);
+                resolve();
+            });
+        });
     }
 }

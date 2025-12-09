@@ -18,15 +18,18 @@ import { WarshipsEvent, WarshipsEventType, WarshipsGameState, WarshipsGrid, Wars
 
 @Component({
     selector: 'ak-warships-game-screen',
-    styleUrls: ['./game-screen.component.scss'],
+    styleUrl: './game-screen.component.scss',
     templateUrl: './game-screen.component.html',
+    host: {
+        '(window:keydown.alt.s)': 'logOpponentShipPositions()'
+    },
     imports: [
         CommonModule,
         MenuContentDirective,
         MenuDirective,
         NgOptimizedImage,
         TooltipDirective,
-        WarshipsFleetStatusComponent,
+        WarshipsFleetStatusComponent
     ]
 })
 export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
@@ -99,14 +102,21 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         this._unlisten();
     }
 
+    // TODO - remove before release
     public testVictory(): void {
         this.gameManager.gameInstance.gameState.set(WarshipsGameState.victory);
         this.gameManager.gameInstance.computerGrid.ships().forEach(s => s.health = 0);
         this._showEndGameScreen();
     }
 
+    // TODO - remove before release
     public testNewsflash(): void {
         this._newsflashService.show(WarshipsNewsflashComponent, { type: WarshipsNewsflashType.core, message: 'This is a test' });
+    }
+
+    // TODO - remove before release
+    public logOpponentShipPositions(): void {
+        this.computerGrid.ships().forEach(s => console.log(`${s.id}:${s.orientation === WarshipsShipOrientation.horizontal ? 'hor' : 'ver'}:${s.anchorSector.row}:${s.anchorSector.col}`));
     }
 
     public quit(confirm = false): void {

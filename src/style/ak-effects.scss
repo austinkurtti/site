@@ -11,9 +11,7 @@
     width: 100vw;
     z-index: variables.$z-index-effects;
 
-    .confetti,
-    .splash,
-    .explosion {
+    .confetti {
         position: absolute;
         transition: linear left .1s,
                     linear top .1s,
@@ -60,10 +58,6 @@
         }
     }
 
-    .splash, .explosion {
-        font-size: .4em;
-    }
-
     .ripple {
         background: transparent;
         border: math.div(variables.$base-size, 6) solid rgba(96, 207, 255, .45);
@@ -74,6 +68,81 @@
         transform: scale(.2);
         transition: transform 1440ms ease-out, opacity 1440ms linear;
         width: variables.$base-size * 6;
+    }
+
+    /***********************
+            EXPLOSION
+    ***********************/
+    $explosion-size: .5vmin;
+    $explosion-particle-size: .2vmin;
+
+    @keyframes explosion {
+        0% {
+            opacity: 1;
+            width: $explosion-size;
+        }
+        70% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            width: 25vmin;
+        }
+    }
+
+    .explosion,
+    .explosion::before,
+    .explosion::after {
+        --explosion-color1: #{variables.$color-red};
+        --explosion-color2: #{variables.$color-orange};
+        --explosion-color3: #{variables.$color-yellow};
+        --explosion-color4: #{variables.$color-orange};
+        --explosion-color5: #{variables.$color-yellow};
+        --explosion-color6: #{variables.$color-white};
+
+        animation-duration: 1s;
+        animation-name: explosion;
+        animation-timing-function: cubic-bezier(0.34, 0, 0.29, 1); // basically a more "intense" ease-in-out curve
+        aspect-ratio: 1;
+        background:
+            radial-gradient(circle, var(--explosion-color1) $explosion-particle-size, #0000 0) 53% 7%,
+            radial-gradient(circle, var(--explosion-color2) $explosion-particle-size * 2, #0000 0) 92% 41%,
+            radial-gradient(circle, var(--explosion-color3) $explosion-particle-size * 1.5, #0000 0) 68% 97%,
+            radial-gradient(circle, var(--explosion-color4) $explosion-particle-size * 1.25, #0000 0) 13% 62%,
+            radial-gradient(circle, var(--explosion-color5) $explosion-particle-size, #0000 0) 77% 23%,
+            radial-gradient(circle, var(--explosion-color6) $explosion-particle-size, #0000 0) 35% 85%,
+            radial-gradient(circle, var(--explosion-color1) $explosion-particle-size * 2, #0000 0) 61% 18%,
+            radial-gradient(circle, var(--explosion-color2) $explosion-particle-size, #0000 0) 25% 77%,
+            radial-gradient(circle, var(--explosion-color3) $explosion-particle-size, #0000 0) 80% 56%,
+            radial-gradient(circle, var(--explosion-color4) $explosion-particle-size, #0000 0) 44% 29%,
+            radial-gradient(circle, var(--explosion-color5) $explosion-particle-size, #0000 0) 12% 38%,
+            radial-gradient(circle, var(--explosion-color6) $explosion-particle-size * 1.5, #0000 0) 70% 66%,
+            radial-gradient(circle, var(--explosion-color1) $explosion-particle-size, #0000 0) 31% 12%,
+            radial-gradient(circle, var(--explosion-color2) $explosion-particle-size * 1.5, #0000 0) 59% 73%,
+            radial-gradient(circle, var(--explosion-color3) $explosion-particle-size, #0000 0) 88% 19%,
+            radial-gradient(circle, var(--explosion-color4) $explosion-particle-size, #0000 0) 17% 91%,
+            radial-gradient(circle, var(--explosion-color5) $explosion-particle-size * 1.25, #0000 0) 41% 53%,
+            radial-gradient(circle, var(--explosion-color6) $explosion-particle-size, #0000 0) 66% 38%,
+            radial-gradient(circle, var(--explosion-color1) $explosion-particle-size * 1.25, #0000 0) 83% 81%,
+            radial-gradient(circle, var(--explosion-color2) $explosion-particle-size, #0000 0) 28% 47%
+            ;
+        background-repeat: no-repeat;
+        background-size: $explosion-size $explosion-size;
+        border-radius: 50%;
+        content: '';
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%); // X param of -50% is important for explosion bursting on-center
+        width: $explosion-size;
+    }
+
+    .explosion::before {
+        transform: translate(-50%, -50%) rotate(43deg) !important;
+    }
+
+    .explosion::after {
+        transform: translate(-50%, -50%) rotate(-160deg) !important;
     }
 
     /***********************
@@ -114,7 +183,6 @@
 
         animation-duration: 2s;
         animation-name: firework;
-        animation-iteration-count: infinite;
         aspect-ratio: 1;
         background:
             radial-gradient(circle, var(--firework-color1) $firework-particle-size, #0000 0) 50% 0%,
