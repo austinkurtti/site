@@ -11,53 +11,9 @@
     width: 100vw;
     z-index: variables.$z-index-effects;
 
-    .confetti {
-        position: absolute;
-        transition: linear left .1s,
-                    linear top .1s,
-                    linear transform .1s;
-
-        @media (prefers-reduced-motion) {
-            transition: none;
-        }
-
-        &.white {
-            color: variables.$color-white;
-        }
-
-        &.black {
-            color: variables.$color-black;
-        }
-
-        &.red {
-            color: variables.$color-red;
-        }
-
-        &.orange {
-            color: variables.$color-orange;
-        }
-
-        &.yellow {
-            color: variables.$color-yellow;
-        }
-
-        &.green {
-            color: variables.$color-green;
-        }
-
-        &.sky {
-            color: variables.$color-sky;
-        }
-
-        &.blue {
-            color: variables.$color-blue;
-        }
-
-        &.purple {
-            color: variables.$color-purple;
-        }
-    }
-
+    /***********************
+            RIPPLE
+    ***********************/
     .ripple {
         background: transparent;
         border: math.div(variables.$base-size, 6) solid rgba(96, 207, 255, .45);
@@ -68,6 +24,10 @@
         transform: scale(.2);
         transition: transform 1440ms ease-out, opacity 1440ms linear;
         width: variables.$base-size * 6;
+
+        @media (prefers-reduced-motion) {
+            transition: none;
+        }
     }
 
     /***********************
@@ -135,6 +95,10 @@
         top: 50%;
         transform: translate(-50%, -50%); // X param of -50% is important for explosion bursting on-center
         width: $explosion-size;
+
+        @media (prefers-reduced-motion) {
+            animation-duration: 0s;
+        }
     }
 
     .explosion::before {
@@ -233,6 +197,10 @@
         top: 50%; // Randomly set by effects service (10%, 25%)
         transform: translate(-50%, var(--firework-y)); // X param of -50% is important for firework bursting on-center
         width: $firework-size;
+
+        @media (prefers-reduced-motion) {
+            animation-duration: 0s;
+        }
     }
 
     .firework {
