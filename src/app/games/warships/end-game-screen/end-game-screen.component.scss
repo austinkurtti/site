@@ -2,6 +2,7 @@
 
 @use 'variables';
 @use 'functions';
+@use 'mixins';
 
 $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$color-sky, 3, $prefer: 'darken');
 
@@ -24,10 +25,13 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
 
     // TODO - should probably componentize this
     .grid-container {
-        height: 40vh;
+        height: auto;
         padding: variables.$base-size * 2;
         position: relative;
-        width: 100%;
+
+        @include mixins.for-lg-screens {
+            height: 40vh;
+        }
 
         .grid {
             aspect-ratio: 1 / 1;
@@ -53,8 +57,16 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
                 .grid-col-label {
                     align-self: center;
                     font-family: variables.$industrial-font-family;
-                    font-size: variables.$default-font-size * 1.5;
+                    font-size: variables.$default-font-size * .75;
                     text-align: center;
+
+                    @include mixins.for-md-screens {
+                        font-size: variables.$default-font-size;
+                    }
+
+                    @include mixins.for-lg-screens {
+                        font-size: variables.$default-font-size * 1.5;
+                    }
                 }
             }
 
@@ -70,8 +82,16 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
                 .grid-row-label {
                     align-self: center;
                     font-family: variables.$industrial-font-family;
-                    font-size: variables.$default-font-size * 1.5;
+                    font-size: variables.$default-font-size * .75;
                     text-align: center;
+
+                    @include mixins.for-md-screens {
+                        font-size: variables.$default-font-size;
+                    }
+
+                    @include mixins.for-lg-screens {
+                        font-size: variables.$default-font-size * 1.5;
+                    }
                 }
             }
 

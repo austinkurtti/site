@@ -32,10 +32,10 @@ $moving-content-name: kfMovingContent;
         transform: translateX(-100vw);
     }
     20% {
-        transform: translateX(25vw);
+        transform: translateX(calc(35vw - 50%));
     }
     80% {
-        transform: translateX(55vw);
+        transform: translateX(calc(65vw - 50%));
     }
     100% {
         transform: translateX(200vw);
