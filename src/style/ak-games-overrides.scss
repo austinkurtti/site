@@ -1,3 +1,7 @@
+@use 'sass:map';
+@use 'sass:math';
+
+@use 'theme/maps/dark' as dark;
 @use 'variables';
 
 html {
@@ -7,23 +11,45 @@ html {
         }
     }
 
+    // Warships game will automatically use dark mode
     &[data-game=warships] {
-        &[data-theme=dark] {
-            img.invertible {
-                filter: invert(1);
-            }
-        }
-
         body {
-            --theme-accent-color-primary: var(--theme-accent-color-warships);
-            --theme-font-family-normal: var(--theme-font-family-warships);
+            --theme-accent-color-primary: #{variables.$color-warships};
+            --theme-font-family-normal: monospace;
 
             button {
+                background-color: variables.$theme-bg-color-primary;
+                border: none;
                 border-radius: 0;
+                font-weight: bold;
+                text-transform: uppercase;
+
+                &:not(:disabled):hover {
+                    background-color: variables.$theme-bg-color-primary;
+                    color: variables.$color-warships;
+                }
+
+                &.confirm-button:not(:disabled) {
+                    &:hover, &:focus {
+                        background-color: variables.$theme-bg-color-primary;
+                        color: variables.$color-warships-radar;
+                    }
+                }
+
+                &.cancel-button:not(:disabled) {
+                    &:hover, &:focus {
+                        background-color: variables.$theme-bg-color-primary;
+                        color: variables.$color-warships-radar-negative;
+                    }
+                }
             }
 
             ak-games #header-title {
                 font-family: variables.$industrial-font-family;
+            }
+
+            img.invertible {
+                filter: invert(1);
             }
         }
     }

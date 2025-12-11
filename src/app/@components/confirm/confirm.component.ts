@@ -11,7 +11,9 @@ export class ConfirmDialogComponent extends DialogDirective {
     @Input() title: string;
     @Input() message: string;
     @Input() confirmText: string;
+    @Input() confirmClass = 'confirm-button';
     @Input() cancelText: string;
+    @Input() cancelClass = 'cancel-button';
     @Input() confirm: () => void;
     @Input() cancel: () => void;
 }

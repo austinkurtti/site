@@ -41,7 +41,9 @@ export class GamesService {
             componentRef.title = 'Confirm Exit';
             componentRef.message = `You are about to exit ${this.activeGame().name}. Would you like to continue?`;
             componentRef.confirmText = 'Exit';
+            componentRef.confirmClass = 'cancel-button';
             componentRef.cancelText = 'Cancel';
+            componentRef.cancelClass = '';
             componentRef.confirm = () => {
                 this._dialogService.close();
                 this._router.navigateByUrl('/games');

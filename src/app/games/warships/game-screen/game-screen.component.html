@@ -1,19 +1,19 @@
 <div class="row g-0 h-100 flex-column flex-lg-row">
     <div id="topbar" class="col-auto d-flex d-lg-none p-3">
-        <button class="icon-button cancel-button me-auto" (click)="quit(true)"><i class="fas fa-2x fa-sign-out-alt fa-rotate-180"></i></button>
-        <button class="icon-button me-3" (click)="gameManager.showHelpDialog()"><i class="fas fa-2x fa-question-circle"></i></button>
-        <button class="icon-button" (click)="gameManager.showSettingsDialog()"><i class="fas fa-2x fa-cog"></i></button>
+        <button class="icon-button cancel-button me-auto" (click)="quit(true)">QUIT</button>
+        <button class="icon-button me-3" (click)="gameManager.showHelpDialog()">HELP</button>
+        <button class="icon-button" (click)="gameManager.showSettingsDialog()">SETTINGS</button>
     </div>
 
     <div id="sidebar" class="col-auto p-3 d-none d-lg-block">
         <div id="sidebar-content" class="d-flex flex-column h-100">
             <div class="row g-0 mb-3">
                 <div class="col">
-                    <button class="icon-button cancel-button" (click)="quit(true)"><i class="fas fa-sign-out-alt fa-rotate-180"></i></button>
+                    <button class="icon-button cancel-button" (click)="quit(true)">QUIT</button>
                 </div>
                 <div class="col-auto">
-                    <button class="icon-button" (click)="gameManager.showHelpDialog()"><i class="fas fa-question-circle"></i></button>
-                    <button class="icon-button" (click)="gameManager.showSettingsDialog()"><i class="fas fa-cog"></i></button>
+                    <button class="icon-button" (click)="gameManager.showHelpDialog()">HELP</button>
+                    <button class="icon-button" (click)="gameManager.showSettingsDialog()">SETTINGS</button>
                 </div>
             </div>
 

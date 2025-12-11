@@ -12,6 +12,10 @@
         font-weight: 400;
     }
 
+    #back-btn {
+        margin-left: math.div(variables.$base-size, 2) * -1;
+    }
+
     .difficulty {
         $border-width: math.div(variables.$base-size, 4);
 

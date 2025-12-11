@@ -9,8 +9,7 @@ $map: (
         'primary': variables.$color-yellow,
 
         // Games
-        'sudoku': variables.$color-yellow,
-        'warships': variables.$color-yellow
+        'sudoku': variables.$color-yellow
     ),
     'background-color': (
         // General
@@ -44,9 +43,7 @@ $map: (
         'tooltip': variables.$color-white
     ),
     'font-family': (
-        'normal': variables.$default-font-family,
-
-        'warships': monospace
+        'normal': variables.$default-font-family
     ),
     'icon-color': (
         'primary': variables.$color-white,

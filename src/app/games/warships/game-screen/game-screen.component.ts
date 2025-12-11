@@ -131,7 +131,9 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
                 componentRef.title = 'Confirm Quit';
                 componentRef.message = 'The game in progress will be lost. Are you sure you want to quit back to the menu screen?';
                 componentRef.confirmText = 'Quit';
+                componentRef.confirmClass = 'cancel-button';
                 componentRef.cancelText = 'Cancel';
+                componentRef.cancelClass = '';
                 componentRef.confirm = () => {
                     this._dialogService.close();
                     doQuit();
