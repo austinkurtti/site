@@ -122,11 +122,6 @@ $radar-animation-name: kfRadar;
                         @media (prefers-reduced-motion) {
                             animation-duration: 0s;
                         }
-
-                        line {
-                            stroke: variables.$color-warships-radar-green;
-                            stroke-width: 1px;
-                        }
                     }
                 }
             }

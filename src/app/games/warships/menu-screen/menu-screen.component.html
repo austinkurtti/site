@@ -71,8 +71,15 @@
                 <div class="radar-ring"></div>
                 <div class="radar-ring"></div>
                 <div class="radar-ring"></div>
-                <svg>
-                    <line x1="50%" y1="50%" x2="50%" y2="0%"></line>
+                <svg viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="polygonGradient" x1="0%" x2="100%" y1="50%" y2="50%">
+                            <stop offset="0%" stop-color="transparent"></stop>
+                            <stop offset="100%" stop-color="#34eb28bb"></stop>
+                        </linearGradient>
+                    </defs>
+
+                    <polygon points="50,50 50,0 45,0" fill="url('#polygonGradient')"/>
                 </svg>
             </div>
         </div>
