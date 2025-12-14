@@ -40,6 +40,12 @@ html {
                         color: variables.$color-warships-radar-red;
                     }
                 }
+
+                &.icon-button:not(:disabled) {
+                    &:hover, &:focus {
+                        background-color: variables.$theme-bg-color-secondary;
+                    }
+                }
             }
 
             ak-games #header-title {

@@ -7,7 +7,7 @@ import { AccordionGroupDirective } from "./accordion-group.directive";
     host: {
         'role': 'button',
         'class': 'ak-accordion-header',
-        '(click)': 'toggle()'
+        '(click)': 'toggle($event)'
     }
 })
 export class AccordionHeaderDirective {
@@ -19,7 +19,8 @@ export class AccordionHeaderDirective {
 
     private _group = inject(AccordionGroupDirective);
 
-    public toggle(): void {
+    public toggle(event: PointerEvent): void {
         this._group.toggle(this.contentId());
+        event.stopPropagation();
     }
 }
