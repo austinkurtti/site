@@ -104,7 +104,20 @@
         </div>
     </div>
 
-    <div id="grid-container" class="col p-5 d-flex d-lg-block">
+    <div id="grid-container" class="col d-flex d-lg-block">
+        <div id="game-info" class="position-absolute">
+            <div>DIFF</div>
+            <div class="highlight">{{ gameManager.gameInstance.difficulty }}</div>
+
+            <div>PHASE</div>
+            <div class="highlight">{{ gameManager.gameInstance.gameState() === GameState.deploying
+                ? 'DEPLOY'
+                : gameManager.gameInstance.turn() === Turn.player
+                    ? 'PLAYER'
+                    : 'OPPONENT'
+            }}</div>
+        </div>
+
         <div id="grid"
             class="flex-grow-1"
             [ngClass]="{
@@ -171,7 +184,7 @@
             </div>
         </div>
 
-        <div id="grid-overlays-container" class="p-5 d-flex d-lg-block">
+        <div id="grid-overlays-container" class="d-flex d-lg-block">
             <div id="sector-overlays" class="flex-grow-1">
                 <i id="crosshairs" class="fas fa-spin fa-crosshairs" style="display: none"></i>
 

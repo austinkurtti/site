@@ -186,11 +186,31 @@ $drag-message-arrow-name: kfDragMessageArrow;
         // This prevents the #bottombar from disappearing off-screen
         $grid-max-width-md: calc(100vmin - (variables.$base-size * 18));
         // For lg+ screens go back to only subtracting single-axis padding size of the p-5 class (6rem)
-        $grid-max-width-lg: calc(100vmin - (variables.$base-size * 6));
+        $grid-max-width-lg: calc(100vmin - (variables.$base-size * 11));
+        $grid-padding: (variables.$base-size * 8) (variables.$base-size * 3) (variables.$base-size * 3) (variables.$base-size * 3);
 
         box-sizing: border-box;
+        padding: $grid-padding;
         position: relative;
         width: 100%;
+
+        #game-info {
+            display: grid;
+            color: variables.$color-warships-radar-green;
+            grid-gap: math.div(variables.$base-size, 4);
+            grid-template-columns: 1fr 2fr;
+            left: variables.$base-size;
+            pointer-events: none;
+            top: variables.$base-size;
+
+            .highlight {
+                background-color: variables.$color-warships-radar-green;
+                color: variables.$color-navy;
+                padding-left: math.div(variables.$base-size, 8);
+                padding-right: math.div(variables.$base-size, 8);
+                text-align: end;
+            }
+        }
 
         #grid {
             aspect-ratio: 1 / 1;
@@ -299,6 +319,7 @@ $drag-message-arrow-name: kfDragMessageArrow;
             box-sizing: border-box;
             height: 100%;
             left: 0;
+            padding: $grid-padding;
             pointer-events: none;
             position: absolute;
             top: 0;
