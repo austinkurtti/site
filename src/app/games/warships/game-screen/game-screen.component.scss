@@ -136,6 +136,14 @@ $drag-message-arrow-name: kfDragMessageArrow;
     }
 
     #grid-container {
+        // Width subtraction for sm screens is the total single-axis padding size of the p-5 class (6rem)
+        $grid-max-width-sm: calc(100vmin - (variables.$base-size * 6));
+        // Need extra width subtraction for md screens, which have a higher occurence of near-1:1 height:width ratio
+        // This prevents the #bottombar from disappearing off-screen
+        $grid-max-width-md: calc(100vmin - (variables.$base-size * 18));
+        // For lg+ screens go back to only subtracting single-axis padding size of the p-5 class (6rem)
+        $grid-max-width-lg: calc(100vmin - (variables.$base-size * 6));
+
         box-sizing: border-box;
         position: relative;
         width: 100%;
@@ -151,19 +159,15 @@ $drag-message-arrow-name: kfDragMessageArrow;
             grid-template-columns: repeat(10, 1fr);
             grid-template-rows: repeat(10, 1fr);
             margin: auto;
-            // Width subtraction for sm screens is the total single-axis padding size of the p-5 class (6rem)
-            max-width: calc(100vmin - (variables.$base-size * 6));
+            max-width: $grid-max-width-sm;
             position: relative;
 
             @include mixins.for-md-screens {
-                // Need extra width subtraction for md screens, which have a higher occurence of near-1:1 height:width ratio
-                // This prevents the #bottombar from disappearing off-screen
-                max-width: calc(100vmin - (variables.$base-size * 17));
+                max-width: $grid-max-width-md;
             }
 
             @include mixins.for-lg-screens {
-                // For lg+ screens go back to only subtracting single-axis padding size of the p-5 class (6rem)
-                max-width: calc(100vmin - (variables.$base-size * 6));
+                max-width: $grid-max-width-lg;
             }
 
             &.player-turn {
@@ -263,18 +267,14 @@ $drag-message-arrow-name: kfDragMessageArrow;
                 grid-template-columns: repeat(10, 1fr);
                 grid-template-rows: repeat(10, 1fr);
                 margin: auto;
-                // Width subtraction for sm screens is the total single-axis padding size of the p-5 class (6rem)
-                max-width: calc(100vmin - (variables.$base-size * 6));
+                max-width: $grid-max-width-sm;
 
                 @include mixins.for-md-screens {
-                    // Need extra width subtraction for md screens, which have a higher occurence of near-1:1 height:width ratio
-                    // This prevents the #bottombar from disappearing off-screen
-                    max-width: calc(100vmin - (variables.$base-size * 18));
+                    max-width: $grid-max-width-md;
                 }
 
                 @include mixins.for-lg-screens {
-                    // For lg+ screens go back to only subtracting single-axis padding size of the p-5 class (6rem)
-                    max-width: calc(100vmin - (variables.$base-size * 6));
+                    max-width: $grid-max-width-lg;
                 }
 
                 .sector-overlay {
