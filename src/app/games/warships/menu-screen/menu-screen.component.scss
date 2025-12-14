@@ -11,17 +11,17 @@
     #menu-bg {
         $left-width: variables.$base-size * 12;
 
-        color: variables.$color-warships-radar;
+        color: variables.$color-warships-radar-green;
         pointer-events: none;
         z-index: -1;
 
         .highlight {
-            background-color: variables.$color-warships-radar;
+            background-color: variables.$color-warships-radar-green;
             color: variables.$color-black;
         }
 
         #menu-bg-left {
-            border-right: 2px solid variables.$color-warships-radar;
+            border-right: 2px solid variables.$color-warships-radar-green;
             height: 100%;
             width: variables.$base-size * 12;
 
@@ -31,19 +31,19 @@
             }
 
             .bg-text-grid {
-                border-bottom: 2px solid variables.$color-warships-radar;
+                border-bottom: 2px solid variables.$color-warships-radar-green;
                 display: grid;
                 grid-gap: math.div(variables.$base-size, 4);
                 grid-template-columns: 2fr 1fr 1fr;
                 padding-bottom: math.div(variables.$base-size, 2);
 
                 i {
-                    color: variables.$color-warships-radar;
+                    color: variables.$color-warships-radar-green;
                 }
             }
 
             .bg-empty-grid {
-                border-bottom: 2px solid variables.$color-warships-radar;
+                border-bottom: 2px solid variables.$color-warships-radar-green;
             }
         }
 
@@ -58,14 +58,14 @@
 
                 #radar {
                     aspect-ratio: 1;
-                    border: math.div(variables.$base-size, 8) solid variables.$color-warships-radar;
+                    border: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
                     border-radius: 50%;
                     margin: auto;
                     width: calc(100vmin - (variables.$base-size * 4));
 
                     .radar-ring {
                         aspect-ratio: 1;
-                        border: math.div(variables.$base-size, 8) dashed variables.$color-warships-radar;
+                        border: math.div(variables.$base-size, 8) dashed variables.$color-warships-radar-green;
                         border-radius: 50%;
                         position: absolute;
 
@@ -94,7 +94,7 @@
                         }
 
                         &:nth-child(5) {
-                            background-color: variables.$color-warships-radar;
+                            background-color: variables.$color-warships-radar-green;
                             border-style: solid;
                             left: 50%;
                             top: 50%;
@@ -112,7 +112,7 @@
             }
 
             .fill-bar-outer {
-                border: 2px solid variables.$color-warships-radar;
+                border: 2px solid variables.$color-warships-radar-green;
                 display: inline-block;
                 height: math.div(variables.$base-size, 2);
                 margin-left: math.div(variables.$base-size, 2);
@@ -120,7 +120,7 @@
                 width: variables.$base-size * 4;
 
                 .fill-bar-inner {
-                    background-color: variables.$color-warships-radar;
+                    background-color: variables.$color-warships-radar-green;
                     height: 100%;
                 }
             }

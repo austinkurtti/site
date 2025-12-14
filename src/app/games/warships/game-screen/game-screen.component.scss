@@ -5,8 +5,6 @@
 @use 'functions';
 @use 'mixins';
 
-$red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$color-sky, 3, $prefer: 'darken');
-
 $drag-message-duration: 2s;
 $drag-message-timing: ease-in-out;
 $drag-message-hand-name: kfDragMessageHand;
@@ -51,12 +49,21 @@ $drag-message-arrow-name: kfDragMessageArrow;
     display: block;
     height: 100%;
 
+    #topbar {
+        border-bottom: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+    }
+
     #sidebar {
+        border-right: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
         height: 100vh;
         // 22 comes from (20 to maintain width for height:width ratio of 1:3.2 for the side profile ship images) + (2 for sidebar padding)
         width: variables.$base-size * 22;
 
         #sidebar-content {
+            .sidebar-section:not(:last-child) {
+                border-bottom: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+            }
+
             .deployable-ship {
                 background-color: variables.$theme-bg-color-secondary;
                 cursor: grab;
@@ -89,11 +96,16 @@ $drag-message-arrow-name: kfDragMessageArrow;
             }
 
             #drag-ships-message {
+                left: variables.$base-size * 7;
+                pointer-events: none;
+                top: variables.$base-size * 18;
+
                 .fa-hand-rock {
                     animation-duration: $drag-message-duration;
                     animation-name: $drag-message-hand-name;
                     animation-iteration-count: infinite;
                     animation-timing-function: $drag-message-timing;
+                    color: variables.$theme-accent-color-primary;
 
                     @media (prefers-reduced-motion) {
                         animation-duration: 0s;
@@ -105,6 +117,7 @@ $drag-message-arrow-name: kfDragMessageArrow;
                     animation-name: $drag-message-arrow-name;
                     animation-iteration-count: infinite;
                     animation-timing-function: $drag-message-timing;
+                    color: variables.$theme-accent-color-primary;
 
                     @media (prefers-reduced-motion) {
                         animation-duration: 0s;
@@ -112,12 +125,8 @@ $drag-message-arrow-name: kfDragMessageArrow;
                 }
             }
 
-            label[for="event-log-toggle"] {
-                cursor: pointer;
-            }
-
             #event-log-toggle {
-                .collapsed {
+                i.collapsed {
                     transform: rotate(270deg);
                 }
             }
@@ -125,17 +134,17 @@ $drag-message-arrow-name: kfDragMessageArrow;
     }
 
     #grid-container {
-        background: radial-gradient(
-            color.mix(variables.$color-blue, variables.$color-sky),
-            variables.$color-sky
-        );
         box-sizing: border-box;
         position: relative;
         width: 100%;
 
         #grid {
             aspect-ratio: 1 / 1;
-            border: 1px solid variables.$color-black;
+            background: radial-gradient(
+                variables.$color-blue,
+                variables.$color-warships-radar-blue
+            );
+            border: 1px solid variables.$theme-font-color-normal;
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             grid-template-rows: repeat(10, 1fr);
@@ -157,13 +166,12 @@ $drag-message-arrow-name: kfDragMessageArrow;
 
             &.player-turn {
                 .sector:not(.targeted):hover {
-                    background-color: color.mix(variables.$color-white, transparent);
+                    background-color: color.mix(variables.$color-warships-radar-green, transparent);
                     cursor: crosshair;
                 }
             }
 
             #grid-col-labels {
-                color: variables.$color-black;
                 display: grid;
                 grid-template-columns: repeat(10, 1fr);
                 height: variables.$base-size * 2;
@@ -188,7 +196,6 @@ $drag-message-arrow-name: kfDragMessageArrow;
             }
 
             #grid-row-labels {
-                color: variables.$color-black;
                 display: grid;
                 grid-template-rows: repeat(10, 1fr);
                 height: 100%;
@@ -214,21 +221,26 @@ $drag-message-arrow-name: kfDragMessageArrow;
 
             .sector {
                 aspect-ratio: 1 / 1;
-                border: 1px solid variables.$color-black;
+                border: 1px solid variables.$theme-font-color-normal;
                 box-sizing: border-box;
             }
 
             #deployable-ship-placeholder {
-                background-color: variables.$color-green;
+                background-color: variables.$color-warships-radar-green;
                 pointer-events: none;
                 position: absolute;
             }
 
             .deployed-ship {
-                border: 1px solid variables.$color-black;
+                border: 1px solid variables.$theme-font-color-normal;
 
                 &[draggable=true] {
                     cursor: grab;
+                }
+
+                img {
+                    // sepia filter to add color, rotate hue to make it green, then boost saturation
+                    filter: sepia(100%) hue-rotate(90deg) saturate(300%);
                 }
             }
         }
@@ -255,7 +267,7 @@ $drag-message-arrow-name: kfDragMessageArrow;
                 @include mixins.for-md-screens {
                     // Need extra width subtraction for md screens, which have a higher occurence of near-1:1 height:width ratio
                     // This prevents the #bottombar from disappearing off-screen
-                    max-width: calc(100vmin - (variables.$base-size * 17));
+                    max-width: calc(100vmin - (variables.$base-size * 18));
                 }
 
                 @include mixins.for-lg-screens {
@@ -284,13 +296,13 @@ $drag-message-arrow-name: kfDragMessageArrow;
                         }
 
                         &.hit {
-                            color: $red-on-grid;
+                            color: variables.$color-warships-radar-red;
                         }
                     }
                 }
 
                 .fa-crosshairs {
-                    color: $red-on-grid;
+                    color: variables.$color-warships-radar-red;
                     font-size: variables.$default-font-size * 1.5;
 
                     @include mixins.for-md-screens {
@@ -306,6 +318,10 @@ $drag-message-arrow-name: kfDragMessageArrow;
     }
 
     #bottombar {
+        .bottombar-section {
+            border-top: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+        }
+
         .deployable-ship {
             background-color: variables.$theme-bg-color-secondary;
             cursor: grab;
@@ -343,9 +359,12 @@ $drag-message-arrow-name: kfDragMessageArrow;
         }
 
         .menu-host {
-            background-color: variables.$theme-bg-color-secondary;
-            height: variables.$base-size * 3;
+            height: variables.$base-size * 4;
             padding: variables.$base-size;
+
+            &:not(:first-child) {
+                border-left: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+            }
 
             span {
                 font-size: variables.$default-font-size;
@@ -355,7 +374,7 @@ $drag-message-arrow-name: kfDragMessageArrow;
                 }
             }
 
-            i.fa-angle-up {
+            i.fa-caret-up {
                 font-size: variables.$default-font-size * 1.5;
 
                 @include mixins.for-md-screens {
@@ -365,7 +384,7 @@ $drag-message-arrow-name: kfDragMessageArrow;
         }
 
         [role=menu] {
-            margin-top: variables.$base-size * -1;
+            margin-top: math.div(variables.$base-size, 8) * -1; // Nudge menus up by bottombar-section border width
             padding: variables.$base-size;
 
             ak-warships-fleet-status {
@@ -400,17 +419,19 @@ $drag-message-arrow-name: kfDragMessageArrow;
         &::after {
             animation: rotateGradient 3s linear infinite;
             background: conic-gradient(from var(--gradient-angle),
-                variables.$color-sky,
-                variables.$color-blue,
-                variables.$color-green,
-                variables.$color-sky
+                variables.$color-navy,
+                variables.$color-navy,
+                variables.$color-navy,
+                variables.$color-navy,
+                variables.$color-navy,
+                variables.$color-warships-radar-green
             );
-            bottom: -(math.div(variables.$base-size, 8));
+            bottom: -(math.div(variables.$base-size, 4));
             content: '';
-            left: -(math.div(variables.$base-size, 8));
+            left: -(math.div(variables.$base-size, 4));
             position: absolute;
-            right: -(math.div(variables.$base-size, 8));
-            top: -(math.div(variables.$base-size, 8));
+            right: -(math.div(variables.$base-size, 4));
+            top: -(math.div(variables.$base-size, 4));
             z-index: -1;
         }
     }

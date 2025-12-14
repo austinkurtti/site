@@ -5,9 +5,9 @@
         <button class="icon-button" (click)="gameManager.showSettingsDialog()">SETTINGS</button>
     </div>
 
-    <div id="sidebar" class="col-auto p-3 d-none d-lg-block">
+    <div id="sidebar" class="col-auto d-none d-lg-block">
         <div id="sidebar-content" class="d-flex flex-column h-100">
-            <div class="row g-0 mb-3">
+            <div class="sidebar-section row g-0 p-3">
                 <div class="col">
                     <button class="icon-button cancel-button" (click)="quit(true)">QUIT</button>
                 </div>
@@ -17,8 +17,27 @@
                 </div>
             </div>
 
+            <div *ngIf="gameManager.gameInstance.gameState() === GameState.deploying"
+                class="sidebar-section d-flex justify-content-between p-3"
+            >
+                <button (click)="deployRandomly(playerGrid)">
+                    <span>Randomize</span>
+                </button>
+                <button
+                    akTooltip
+                    tooltipContent="Ships not in position!"
+                    class="begin-button confirm-button"
+                    [disabled]="deployableShips().length > 0"
+                    [tooltipEnabled]="deployableShips().length > 0"
+                    [tooltipPosition]="TooltipPosition.right"
+                    (click)="begin()"
+                >
+                    <span>Begin</span>
+                </button>
+            </div>
+
             <ng-container *ngIf="gameManager.gameInstance.gameState() === GameState.deploying; else postDeploymentElements">
-                <div class="flex-grow-1">
+                <div class="sidebar-section flex-grow-1 position-relative p-3">
                     <div *ngIf="deployableShips().length > 0"
                         class="d-flex flex-column"
                     >
@@ -39,44 +58,36 @@
 
                     <div *ngIf="showDragShipsMessage()"
                         id="drag-ships-message"
-                        class="mt-3 d-flex align-items-center justify-content-center"
+                        class="d-flex align-items-center justify-content-center position-absolute"
                     >
-                        <span>Drag ships to the grid</span>
-                        <i class="fas fa-hand-rock ms-3"></i>
-                        <i class="fas fa-arrow-right ms-3"></i>
-                    </div>
-
-                    <div *ngIf="deployableShips().length === 0" class="d-flex align-items-center justify-content-center">
-                        <span>All ships in position... ready to deploy</span>
+                        <i class="fas fa-2x fa-hand-rock ms-3"></i>
+                        <i class="fas fa-2x fa-arrow-right ms-3"></i>
                     </div>
                 </div>
             </ng-container>
             <ng-template #postDeploymentElements>
                 <!-- Fleet Statuses -->
-                <div class="fleet-status mb-3">
-                    <label>Your fleet</label>
+                <div class="sidebar-section fleet-status p-3">
+                    <label>YOUR FLEET</label>
                     <ak-warships-fleet-status [isPlayer]="true"></ak-warships-fleet-status>
                 </div>
-                <div class="fleet-status mb-3">
-                    <label>Opponent fleet</label>
+                <div class="sidebar-section fleet-status p-3">
+                    <label>OPPONENT FLEET</label>
                      <ak-warships-fleet-status [isPlayer]="false"></ak-warships-fleet-status>
                 </div>
 
                 <!-- Event Log -->
-                <div class="row g-0 justify-content-between">
-                    <button id="event-log-toggle"
-                        class="icon-button col-auto px-2 mr-2"
-                        (click)="showEventLog.set(!showEventLog())"
-                    >
-                        <i class="fas fa-angle-down"
+                <div class="ps-2">
+                    <button id="event-log-toggle" class="px-2" (click)="showEventLog.set(!showEventLog())">
+                        <i class="fas fa-caret-down me-2"
                             [ngClass]="{
                                 'collapsed': !showEventLog()
                             }"
                         ></i>
+                        <span>EVENT LOG</span>
                     </button>
-                    <label class="col align-content-center" for="event-log-toggle">Event log</label>
                 </div>
-                <div id="event-log-container" class="flex-grow-1 overflow-y-auto" #scrollableEventLog>
+                <div #scrollableEventLog class="sidebar-section flex-grow-1 overflow-y-auto px-3 pb-3">
                     <ul *ngIf="showEventLog()" id="event-log">
                         <li *ngFor="let event of gameManager.gameInstance.eventLog">
                             <ng-container [ngSwitch]="event.type">
@@ -88,28 +99,6 @@
                     </ul>
                 </div>
             </ng-template>
-            <div class="d-flex flex-column">
-                <button *ngIf="gameManager.gameInstance.gameState() === GameState.deploying"
-                    class="mb-3"
-                    (click)="deployRandomly(playerGrid)"
-                >
-                    <span>Randomize</span>
-                </button>
-                <button *ngIf="gameManager.gameInstance.gameState() === GameState.deploying"
-                    akTooltip
-                    tooltipContent="Ships not in position!"
-                    class="begin-button confirm-button"
-                    [disabled]="deployableShips().length > 0"
-                    [tooltipEnabled]="deployableShips().length > 0"
-                    [tooltipPosition]="TooltipPosition.right"
-                    (click)="begin()"
-                >
-                    <span>Begin!</span>
-                </button>
-                <!-- TODO - remove these before release -->
-                <button class="mt-3" (click)="testVictory()">Test victory screen</button>
-                <button class="mt-3" (click)="testNewsflash()">Test newsflash</button>
-            </div>
         </div>
     </div>
 
@@ -200,83 +189,82 @@
         </div>
     </div>
 
-    <div id="bottombar" class="col-auto d-block d-lg-none p-3">
-        <div *ngFor="let ship of deployableShips()"
-            class="deployable-ship position-relative"
-            draggable="true"
-            [attr.data-ship-id]="ship.id"
-            [attr.data-ship-length]="ship.length"
-            [attr.data-ship-orientation]="ship.orientation"
-            (dragstart)="shipDragStart($event)"
-            (dragend)="shipDragEnd($event)"
+    <div id="bottombar" class="col-auto d-block d-lg-none">
+        <div *ngIf="deployableShips().length > 0"
+            class="bottombar-section p-3"
         >
-            <label class="ship-info ship-name">{{ ship.name }}</label>
-            <span class="ship-info ship-length">{{ ship.length }} units</span>
-            <img class="invertible" [src]="'assets/images/warships/' + ship.id + '.png'"/>
+            <div *ngFor="let ship of deployableShips()"
+                class="deployable-ship position-relative"
+                draggable="true"
+                [attr.data-ship-id]="ship.id"
+                [attr.data-ship-length]="ship.length"
+                [attr.data-ship-orientation]="ship.orientation"
+                (dragstart)="shipDragStart($event)"
+                (dragend)="shipDragEnd($event)"
+            >
+                <label class="ship-info ship-name">{{ ship.name }}</label>
+                <span class="ship-info ship-length">{{ ship.length }} units</span>
+                <img class="invertible" [src]="'assets/images/warships/' + ship.id + '.png'"/>
+            </div>
         </div>
 
         <div *ngIf="gameManager.gameInstance.gameState() === GameState.deploying"
-            class="row g-0"
-            [class.mt-3]="deployableShips().length > 0"
+            class="bottombar-section d-flex gap-3 justify-content-center p-3"
         >
-            <div class="col pe-2">
-                <button class="w-100" (click)="deployRandomly(playerGrid)">
-                    <span>Randomize</span>
-                </button>
-            </div>
-            <div class="col ps-2">
-                <button akTooltip
-                    tooltipContent="Ships not in position!"
-                    class="begin-button confirm-button w-100"
-                    [disabled]="deployableShips().length > 0"
-                    [tooltipEnabled]="deployableShips().length > 0"
-                    [tooltipPosition]="TooltipPosition.right"
-                    (click)="begin()"
-                >
-                    <span>Begin!</span>
-                </button>
-            </div>
+            <button (click)="deployRandomly(playerGrid)">
+                <span>Randomize</span>
+            </button>
+            <button akTooltip
+                tooltipContent="Ships not in position!"
+                class="begin-button confirm-button"
+                [disabled]="deployableShips().length > 0"
+                [tooltipEnabled]="deployableShips().length > 0"
+                [tooltipPosition]="TooltipPosition.right"
+                (click)="begin()"
+            >
+                <span>Begin</span>
+            </button>
         </div>
 
         <div *ngIf="gameManager.gameInstance.gameState() !== GameState.deploying"
-            class="row g-0 gap-3 w-100"
+            class="bottombar-section d-flex"
         >
-            <div akMenu
+            <button akMenu
                 class="col d-flex align-items-center justify-content-between"
                 #yourFleetMenu="akMenu"
                 [menuPosition]="MenuPosition.topLeft"
             >
                 <span class="me-3">Your fleet</span>
-                <i class="fas fa-2x fa-angle-up" [class.fa-rotate-180]="yourFleetMenu.isOpen()"></i>
+                <i class="fas fa-caret-up" [class.fa-rotate-180]="yourFleetMenu.isOpen()"></i>
                 <ng-template #menuContent>
                     <div akMenuContent>
                         <ak-warships-fleet-status [isPlayer]="true"></ak-warships-fleet-status>
                     </div>
                 </ng-template>
-            </div>
-            <div akMenu
+            </button>
+            <button akMenu
                 class="col d-flex align-items-center justify-content-between"
                 #opponentFleetMenu="akMenu"
                 [menuPosition]="MenuPosition.topLeft"
             >
                 <span class="me-3">Opponent fleet</span>
-                <i class="fas fa-2x fa-angle-up" [class.fa-rotate-180]="opponentFleetMenu.isOpen()"></i>
+                <i class="fas fa-caret-up" [class.fa-rotate-180]="opponentFleetMenu.isOpen()"></i>
                 <ng-template #menuContent>
                     <div akMenuContent>
                         <ak-warships-fleet-status [isPlayer]="false"></ak-warships-fleet-status>
                     </div>
                 </ng-template>
-            </div>
-            <div akMenu
+            </button>
+            <button akMenu
                 class="col d-flex align-items-center justify-content-between"
                 #eventLogMenu="akMenu"
                 [menuPosition]="MenuPosition.topRight"
                 (isOpenChanged)="scrollEventLogs()"
             >
                 <span class="me-3">Event log</span>
-                <i class="fas fa-angle-up" [class.fa-rotate-180]="eventLogMenu.isOpen()"></i>
+                <i class="fas fa-caret-up" [class.fa-rotate-180]="eventLogMenu.isOpen()"></i>
                 <ng-template #menuContent>
-                    <div akMenuContent id="event-log-container">
+                    <div akMenuContent>
                         <ul id="event-log" class="overflow-y-auto" #scrollableEventLog>
                             <li *ngFor="let event of gameManager.gameInstance.eventLog">
                                 <ng-container [ngSwitch]="event.type">
@@ -288,7 +276,7 @@
                         </ul>
                     </div>
                 </ng-template>
-            </div>
+            </button>
         </div>
     </div>
 </div>

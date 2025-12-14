@@ -8,12 +8,8 @@
     .fleet-status {
         .ship {
             &.destroyed {
-                outline: 2px solid variables.$color-red;
+                outline: 2px solid variables.$color-warships-radar-red;
                 position: relative;
-
-                span {
-                    color: variables.$color-red;
-                }
 
                 .destroyed-overlay {
                     left: 0;
@@ -21,7 +17,7 @@
                     top: 0;
 
                     .diagonal-line {
-                        stroke: variables.$color-red;
+                        stroke: variables.$color-warships-radar-red;
                         stroke-width: 1px;
                     }
                 }
@@ -44,7 +40,7 @@
                     height: 100%;
 
                     &[data-filled=true] {
-                        background-color: variables.$color-green;
+                        background-color: variables.$color-warships-radar-green;
                     }
                 }
             }

@@ -32,14 +32,14 @@ html {
                 &.confirm-button:not(:disabled) {
                     &:hover, &:focus {
                         background-color: variables.$theme-bg-color-primary;
-                        color: variables.$color-warships-radar;
+                        color: variables.$color-warships-radar-green;
                     }
                 }
 
                 &.cancel-button:not(:disabled) {
                     &:hover, &:focus {
                         background-color: variables.$theme-bg-color-primary;
-                        color: variables.$color-warships-radar-negative;
+                        color: variables.$color-warships-radar-red;
                     }
                 }
             }

@@ -21,6 +21,9 @@ import { WarshipsEvent, WarshipsEventType, WarshipsGameState, WarshipsGrid, Wars
     styleUrl: './game-screen.component.scss',
     templateUrl: './game-screen.component.html',
     host: {
+        '(window:keydown.alt.v)': 'testVictory()',
+        '(window:keydown.alt.n)': 'testNewsflash(1)',
+        '(window:keydown.alt.shift.n)': 'testNewsflash(2)',
         '(window:keydown.alt.s)': 'logOpponentShipPositions()'
     },
     imports: [
@@ -110,13 +113,16 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     }
 
     // TODO - remove before release
-    public testNewsflash(): void {
-        this._newsflashService.show(WarshipsNewsflashComponent, { type: WarshipsNewsflashType.core, message: 'This is a test' });
+    public testNewsflash(type: WarshipsNewsflashType): void {
+        this._newsflashService.show(WarshipsNewsflashComponent, { type, message: 'This is a test' });
     }
 
     // TODO - remove before release
     public logOpponentShipPositions(): void {
-        this.computerGrid.ships().forEach(s => console.log(`${s.id}:${s.orientation === WarshipsShipOrientation.horizontal ? 'hor' : 'ver'}:${s.anchorSector.row}:${s.anchorSector.col}`));
+        this.computerGrid.ships().forEach(s => {
+            const coords = getCoordinates(s.anchorSector.row, s.anchorSector.col);
+            console.log(`${s.id}:${s.orientation === WarshipsShipOrientation.horizontal ? 'hor' : 'ver'}:${coords}`);
+        });
     }
 
     public quit(confirm = false): void {

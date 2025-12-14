@@ -13,23 +13,23 @@
 
     // core
     &[data-type="1"] {
-        background-color: color.mix(variables.$color-green, transparent, $weight: 25%);
-        border-bottom-color: variables.$color-green;
-        border-top-color: variables.$color-green;
+        background-color: color.mix(variables.$color-warships-radar-green, variables.$color-navy, $weight: 25%);
+        border-bottom-color: variables.$color-warships-radar-green;
+        border-top-color: variables.$color-warships-radar-green;
 
         #newsflash-message {
-            color: variables.$color-green;
+            color: variables.$color-warships-radar-green;
         }
     }
 
     // shipSank
     &[data-type="2"] {
-        background-color: color.mix(variables.$color-red, transparent, $weight: 25%);
-        border-bottom-color: variables.$color-red;
-        border-top-color: variables.$color-red;
+        background-color: color.mix(variables.$color-warships-radar-red, variables.$color-navy, $weight: 25%);
+        border-bottom-color: variables.$color-warships-radar-red;
+        border-top-color: variables.$color-warships-radar-red;
 
         #newsflash-message {
-            color: variables.$color-red;
+            color: variables.$color-warships-radar-red;
         }
     }
 

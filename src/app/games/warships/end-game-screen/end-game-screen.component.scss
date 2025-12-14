@@ -1,4 +1,5 @@
 @use 'sass:color';
+@use 'sass:math';
 
 @use 'variables';
 @use 'functions';
@@ -15,11 +16,11 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
         font-weight: normal;
 
         &.victory {
-            color: variables.$theme-font-color-positive-on-primary;
+            color: variables.$color-warships-radar-green;
         }
 
         &.defeat {
-            color: variables.$theme-font-color-negative-on-primary;
+            color: variables.$color-warships-radar-red;
         }
     }
 
@@ -35,7 +36,10 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
 
         .grid {
             aspect-ratio: 1 / 1;
-            background-color: variables.$theme-bg-color-tertiary;
+            background: radial-gradient(
+                variables.$color-blue,
+                variables.$color-warships-radar-blue
+            );
             border: 1px solid variables.$theme-font-color-normal;
             display: grid;
             grid-template-columns: repeat(10, 1fr);
@@ -103,6 +107,11 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
 
             .deployed-ship {
                 border: 1px solid variables.$theme-font-color-normal;
+
+                img {
+                    // sepia filter to add color, rotate hue to make it green, then boost saturation
+                    filter: sepia(100%) hue-rotate(90deg) saturate(300%);
+                }
             }
         }
 
@@ -137,11 +146,16 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
                         }
 
                         &.hit {
-                            color: $red-on-grid;
+                            color: variables.$color-warships-radar-red;
                         }
                     }
                 }
             }
         }
+    }
+
+    #actions {
+        border-bottom: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+        border-top: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
     }
 }
