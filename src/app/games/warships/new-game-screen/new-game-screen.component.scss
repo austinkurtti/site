@@ -98,4 +98,9 @@
             cursor: pointer;
         }
     }
+
+    #actions {
+        border-bottom: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+        border-top: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+    }
 }

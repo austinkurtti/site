@@ -1,20 +1,20 @@
-<div class="container g-0 h-100 d-flex flex-column justify-content-center">
-    <div class="row g-0 px-2 px-lg-0 my-5">
+<div class="container-fluid g-0 h-100 d-flex flex-column justify-content-center">
+    <div class="row g-0 px-3 px-lg-5 my-5">
         <h2 class="text-uppercase">New Game</h2>
     </div>
 
-    <div class="d-flex px-2 px-lg-0 mb-5">
+    <div class="d-flex px-3 px-lg-5 mb-5">
         <button id="back-btn" (click)="gameManager.screen.set(ScreenState.menu)">
             <span class="fs-2">Back</span>
         </button>
     </div>
 
-    <div class="row g-0 px-2 px-lg-0 mb-2">
+    <div class="row g-0 px-3 px-lg-5 mb-2">
         <div class="col-12">
             <label>Difficulty</label>
         </div>
     </div>
-    <div class="row g-2 g-lg-3 px-2 px-lg-0 mb-5 overflow-y-auto">
+    <div class="row g-2 g-lg-3 px-2 px-lg-5 mx-0 mb-5 overflow-y-auto">
         <ng-template #difficultyTemplate let-value="value" let-name="name" let-description="description" let-description2="description2">
             <div class="difficulty"
                 [ngClass]="{
@@ -96,7 +96,7 @@
         </div>
     </div>
 
-    <div class="row g-0 px-2 pb-2 px-lg-0 pb-lg-0 justify-content-center">
+    <div id="actions" class="row g-0 py-3 justify-content-center">
         <div class="col-auto">
             <button class="confirm-button fs-2" (click)="gameManager.newGame(difficulty())">Start</button>
         </div>
