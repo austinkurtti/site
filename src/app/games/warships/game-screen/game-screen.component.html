@@ -191,7 +191,7 @@
 
     <div id="bottombar" class="col-auto d-block d-lg-none">
         <div *ngIf="deployableShips().length > 0"
-            class="bottombar-section p-3"
+            class="bottombar-section position-relative p-3"
         >
             <div *ngFor="let ship of deployableShips()"
                 class="deployable-ship position-relative"
@@ -205,6 +205,14 @@
                 <label class="ship-info ship-name">{{ ship.name }}</label>
                 <span class="ship-info ship-length">{{ ship.length }} units</span>
                 <img class="invertible" [src]="'assets/images/warships/' + ship.id + '.png'"/>
+            </div>
+
+            <div *ngIf="showDragShipsMessage()"
+                id="drag-ships-message"
+                class="d-flex align-items-center justify-content-center position-absolute"
+            >
+                <i class="fas fa-2x fa-hand-rock ms-3"></i>
+                <i class="fas fa-2x fa-arrow-right ms-3"></i>
             </div>
         </div>
 
