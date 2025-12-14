@@ -3,7 +3,7 @@ import { Component, computed, ElementRef, inject, OnDestroy, OnInit, Renderer2, 
 import { ConfirmDialogComponent } from '@components/confirm/confirm.component';
 import { MenuContentDirective } from '@directives/menu/menu-content.directive';
 import { MenuDirective, MenuPosition } from '@directives/menu/menu.directive';
-import { TooltipDirective, TooltipPosition } from "@directives/tooltip/tooltip.directive";
+import { TooltipPosition } from "@directives/tooltip/tooltip.directive";
 import { DialogSize } from '@models/dialog.model';
 import { DialogService } from '@services/dialog.service';
 import { EffectsService } from '@services/effects.service';
@@ -25,7 +25,6 @@ import { WarshipsEvent, WarshipsEventType, WarshipsGameState, WarshipsGrid, Wars
         MenuContentDirective,
         MenuDirective,
         NgOptimizedImage,
-        TooltipDirective,
         WarshipsFleetStatusComponent
     ]
 })

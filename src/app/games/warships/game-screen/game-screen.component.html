@@ -17,27 +17,25 @@
                 </div>
             </div>
 
-            <div *ngIf="gameManager.gameInstance.gameState() === GameState.deploying"
-                class="sidebar-section d-flex justify-content-between p-3"
-            >
-                <button (click)="deployRandomly(playerGrid)">
-                    <span>Randomize</span>
-                </button>
-                <button
-                    akTooltip
-                    tooltipContent="Ships not in position!"
-                    class="start-button confirm-button"
-                    [disabled]="deployableShips().length > 0"
-                    [tooltipEnabled]="deployableShips().length > 0"
-                    [tooltipPosition]="TooltipPosition.right"
-                    (click)="start()"
-                >
-                    <span>Start</span>
-                </button>
-            </div>
-
             <ng-container *ngIf="gameManager.gameInstance.gameState() === GameState.deploying; else postDeploymentElements">
                 <div class="sidebar-section flex-grow-1 position-relative overflow-y-auto p-3">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <label>DEPLOY YOUR FLEET</label>
+                        <button (click)="deployRandomly(playerGrid)">
+                            <span>Randomize</span>
+                        </button>
+                    </div>
+
+                    <div *ngIf="deployableShips().length === 0" class="d-flex justify-content-center mt-5">
+                        <button
+                            class="start-button confirm-button fs-2"
+                            [disabled]="deployableShips().length > 0"
+                            (click)="start()"
+                        >
+                            <span>Start</span>
+                        </button>
+                    </div>
+
                     <div *ngIf="deployableShips().length > 0"
                         class="d-flex flex-column"
                     >
@@ -198,9 +196,34 @@
     </div>
 
     <div id="bottombar" class="col-auto d-block d-lg-none">
-        <div *ngIf="deployableShips().length > 0"
+        <div *ngIf="gameManager.gameInstance.gameState() === GameState.deploying"
             class="bottombar-section position-relative p-3"
         >
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <label>DEPLOY YOUR FLEET</label>
+                <button (click)="deployRandomly(playerGrid)">
+                    <span>Randomize</span>
+                </button>
+            </div>
+
+            <div *ngIf="deployableShips().length === 0" class="d-flex justify-content-center mt-4">
+                <button
+                    class="start-button confirm-button fs-2"
+                    [disabled]="deployableShips().length > 0"
+                    (click)="start()"
+                >
+                    <span>Start</span>
+                </button>
+            </div>
+
+            <div *ngIf="showDragShipsMessage()"
+                id="drag-ships-message"
+                class="d-flex align-items-center justify-content-center position-absolute"
+            >
+                <i class="fas fa-2x fa-hand-rock"></i>
+                <i class="fas fa-2x fa-arrow-right ms-3"></i>
+            </div>
+
             <div *ngFor="let ship of deployableShips()"
                 class="deployable-ship position-relative"
                 draggable="true"
@@ -218,32 +241,6 @@
                 <span class="ship-info ship-length">{{ ship.length }} units</span>
                 <img class="invertible" [src]="'assets/images/warships/' + ship.id + '.png'"/>
             </div>
-
-            <div *ngIf="showDragShipsMessage()"
-                id="drag-ships-message"
-                class="d-flex align-items-center justify-content-center position-absolute"
-            >
-                <i class="fas fa-2x fa-hand-rock"></i>
-                <i class="fas fa-2x fa-arrow-right ms-3"></i>
-            </div>
-        </div>
-
-        <div *ngIf="gameManager.gameInstance.gameState() === GameState.deploying"
-            class="bottombar-section d-flex gap-5 justify-content-center p-3"
-        >
-            <button (click)="deployRandomly(playerGrid)">
-                <span>Randomize</span>
-            </button>
-            <button akTooltip
-                tooltipContent="Ships not in position!"
-                class="start-button confirm-button"
-                [disabled]="deployableShips().length > 0"
-                [tooltipEnabled]="deployableShips().length > 0"
-                [tooltipPosition]="TooltipPosition.right"
-                (click)="start()"
-            >
-                <span>Start</span>
-            </button>
         </div>
 
         <div *ngIf="gameManager.gameInstance.gameState() !== GameState.deploying"
