@@ -26,13 +26,13 @@
                 <button
                     akTooltip
                     tooltipContent="Ships not in position!"
-                    class="begin-button confirm-button"
+                    class="start-button confirm-button"
                     [disabled]="deployableShips().length > 0"
                     [tooltipEnabled]="deployableShips().length > 0"
                     [tooltipPosition]="TooltipPosition.right"
-                    (click)="begin()"
+                    (click)="start()"
                 >
-                    <span>Begin</span>
+                    <span>Start</span>
                 </button>
             </div>
 
@@ -64,7 +64,7 @@
                         id="drag-ships-message"
                         class="d-flex align-items-center justify-content-center position-absolute"
                     >
-                        <i class="fas fa-2x fa-hand-rock ms-3"></i>
+                        <i class="fas fa-2x"></i>
                         <i class="fas fa-2x fa-arrow-right ms-3"></i>
                     </div>
                 </div>
@@ -223,7 +223,7 @@
                 id="drag-ships-message"
                 class="d-flex align-items-center justify-content-center position-absolute"
             >
-                <i class="fas fa-2x fa-hand-rock ms-3"></i>
+                <i class="fas fa-2x fa-hand-rock"></i>
                 <i class="fas fa-2x fa-arrow-right ms-3"></i>
             </div>
         </div>
@@ -236,13 +236,13 @@
             </button>
             <button akTooltip
                 tooltipContent="Ships not in position!"
-                class="begin-button confirm-button"
+                class="start-button confirm-button"
                 [disabled]="deployableShips().length > 0"
                 [tooltipEnabled]="deployableShips().length > 0"
                 [tooltipPosition]="TooltipPosition.right"
-                (click)="begin()"
+                (click)="start()"
             >
-                <span>Begin</span>
+                <span>Start</span>
             </button>
         </div>
 

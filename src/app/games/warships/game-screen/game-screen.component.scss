@@ -7,8 +7,8 @@
 
 $drag-message-duration: 2s;
 $drag-message-timing: ease-in-out;
-$drag-message-hand-name: kfDragMessageHand;
-@keyframes #{$drag-message-hand-name} {
+$drag-message-hand-sidebar-name: kfDragMessageHandSidebar;
+@keyframes #{$drag-message-hand-sidebar-name} {
     0% {
         opacity: 0;
         transform: translateX(0%);
@@ -20,6 +20,37 @@ $drag-message-hand-name: kfDragMessageHand;
     100% {
         opacity: 1;
         transform: translateX(200%);
+    }
+}
+$drag-message-hand-bottombar-name: kfDragMessageHandBottombar;
+@keyframes #{$drag-message-hand-bottombar-name} {
+    0% {
+        opacity: 0;
+        transform: translateX(0%) rotate(90deg);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(0%) rotate(90deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(200%) rotate(90deg);
+    }
+}
+$drag-message-hand-content-name: kfDragMessageHandContent;
+@keyframes #{$drag-message-hand-content-name} {
+    // Animate from fa-hand-paper ('\f256') to fa-hand-rock ('\f255') to make it look like grabbing
+    0% {
+        content: '\f256';
+    }
+    34% {
+        content: '\f256';
+    }
+    35% {
+        content: '\f255';
+    }
+    100% {
+        content: '\f255';
     }
 }
 $drag-message-arrow-name: kfDragMessageArrow;
@@ -96,19 +127,32 @@ $drag-message-arrow-name: kfDragMessageArrow;
             }
 
             #drag-ships-message {
-                left: variables.$base-size * 7;
+                left: variables.$base-size * 8;
                 pointer-events: none;
                 top: variables.$base-size * 18;
 
-                .fa-hand-rock {
+                i:first-child {
                     animation-duration: $drag-message-duration;
-                    animation-name: $drag-message-hand-name;
+                    animation-name: $drag-message-hand-sidebar-name;
                     animation-iteration-count: infinite;
                     animation-timing-function: $drag-message-timing;
                     color: variables.$theme-accent-color-primary;
+                    width: variables.$base-size * 2;
 
                     @media (prefers-reduced-motion) {
                         animation-duration: 0s;
+                    }
+
+                    &::before {
+                        animation-duration: $drag-message-duration;
+                        animation-name: $drag-message-hand-content-name;
+                        animation-iteration-count: infinite;
+                        animation-timing-function: $drag-message-timing;
+                        content: '';
+
+                        @media (prefers-reduced-motion) {
+                            animation-duration: 0s;
+                        }
                     }
                 }
 
@@ -365,20 +409,33 @@ $drag-message-arrow-name: kfDragMessageArrow;
         }
 
         #drag-ships-message {
-            left: calc(50vw - (variables.$base-size * 3));
+            left: calc(50vw - (variables.$base-size * 2));
             pointer-events: none;
-            top: variables.$base-size * 1.5;
+            top: variables.$base-size;
             transform: rotate(-90deg);
 
-            .fa-hand-rock {
+            i:first-child {
                 animation-duration: $drag-message-duration;
-                animation-name: $drag-message-hand-name;
+                animation-name: $drag-message-hand-bottombar-name;
                 animation-iteration-count: infinite;
                 animation-timing-function: $drag-message-timing;
                 color: variables.$theme-accent-color-primary;
+                width: variables.$base-size * 2;
 
                 @media (prefers-reduced-motion) {
                     animation-duration: 0s;
+                }
+
+                &::before {
+                    animation-duration: $drag-message-duration;
+                    animation-name: $drag-message-hand-content-name;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: $drag-message-timing;
+                    content: '';
+
+                    @media (prefers-reduced-motion) {
+                        animation-duration: 0s;
+                    }
                 }
             }
 
@@ -439,8 +496,8 @@ $drag-message-arrow-name: kfDragMessageArrow;
         }
     }
 
-    // Fancy rotating gradient border on Begin! button when all ships are placed
-    .begin-button:not(:disabled):not(:hover) {
+    // Fancy rotating gradient border on Start button when all ships are placed
+    .start-button:not(:disabled):not(:hover) {
         --gradient-angle: 0deg;
 
         background-clip: padding-box;

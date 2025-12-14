@@ -650,7 +650,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         }
     }
 
-    public async begin(): Promise<void> {
+    public async start(): Promise<void> {
         this.deployRandomly(this.computerGrid);
         this.gameManager.gameInstance.gameState.set(WarshipsGameState.running);
         this.gameManager.gameInstance.turn.set(WarshipsTurn.player);
