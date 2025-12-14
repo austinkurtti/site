@@ -90,7 +90,7 @@ p:not(:last-child) {
 button {
     background-color: variables.$theme-bg-color-primary;
     border-color: variables.$theme-font-color-normal;
-    border-radius: math.div(variables.$base-size, 4);
+    border-radius: variables.$border-radius;
     border-style: solid;
     border-width: math.div(variables.$base-size, 8);
     color: variables.$theme-font-color-normal;

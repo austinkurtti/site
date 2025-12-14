@@ -14,13 +14,13 @@ html {
     // Warships game will automatically use dark mode
     &[data-game=warships] {
         body {
+            --border-radius: 0;
             --theme-accent-color-primary: #{variables.$color-warships};
             --theme-font-family-normal: monospace;
 
             button {
                 background-color: variables.$theme-bg-color-primary;
                 border: none;
-                border-radius: 0;
                 font-weight: bold;
                 text-transform: uppercase;
 

@@ -1,5 +1,3 @@
-@use 'sass:math';
-
 @use 'variables';
 
 .menu-host {
@@ -8,7 +6,7 @@
 
 [role=menu] {
     background-color: variables.$theme-bg-color-primary;
-    border-radius: math.div(variables.$base-size, 4);
+    border-radius: variables.$border-radius;
     box-shadow: variables.$theme-box-shadow-hard;
     position: absolute;
     z-index: variables.$z-index-menu;
@@ -23,13 +21,13 @@
         padding: variables.$base-size;
 
         &:first-child {
-            border-top-left-radius: math.div(variables.$base-size, 4);
-            border-top-right-radius: math.div(variables.$base-size, 4);
+            border-top-left-radius: variables.$border-radius;
+            border-top-right-radius: variables.$border-radius;
         }
 
         &:last-child {
-            border-bottom-left-radius: math.div(variables.$base-size, 4);
-            border-bottom-right-radius: math.div(variables.$base-size, 4);
+            border-bottom-left-radius: variables.$border-radius;
+            border-bottom-right-radius: variables.$border-radius;
         }
 
         &:hover {

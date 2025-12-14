@@ -22,6 +22,8 @@ $themes: (
 );
 
 :root {
+    --border-radius: calc(#{variables.$base-size} / 4);
+
     @each $name, $map in $themes {
         $attr-selector: '&[data-theme=#{$name}]';
 

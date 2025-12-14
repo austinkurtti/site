@@ -12,7 +12,7 @@
 
     .ak-tooltip {
         background-color: variables.$theme-bg-color-tooltip;
-        border-radius: math.div(variables.$base-size, 4);
+        border-radius: variables.$border-radius;
         color: variables.$theme-font-color-tooltip;
         min-width: variables.$base-size;
         padding: math.div(variables.$base-size, 2);

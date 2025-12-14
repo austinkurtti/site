@@ -34,7 +34,7 @@ dialog {
     .dialog-content {
         animation: keyframes.$dialog-appear-name keyframes.$dialog-appear-timing keyframes.$dialog-appear-duration;
         background-color: variables.$theme-bg-color-primary;
-        border-radius: math.div(variables.$base-size, 4);
+        border-radius: variables.$border-radius;
         box-shadow: variables.$theme-box-shadow-hard;
         margin: 0 math.div(variables.$base-size, 2);
 
