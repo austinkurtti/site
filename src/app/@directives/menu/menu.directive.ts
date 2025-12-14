@@ -122,7 +122,9 @@ export class MenuDirective {
 
     private _positionRight(menuEl: any): void {
         const hostRect = this._elementRef.nativeElement.getBoundingClientRect();
-        this._renderer.setStyle(menuEl, 'left', `${hostRect.x + hostRect.width - menuEl.clientWidth}px`);
+        let leftValue = hostRect.x + hostRect.width - menuEl.clientWidth;
+        leftValue = leftValue < 0 ? 0 : leftValue;
+        this._renderer.setStyle(menuEl, 'left', `${leftValue}px`);
     }
 
     private _positionBottom(menuEl: any): void {
