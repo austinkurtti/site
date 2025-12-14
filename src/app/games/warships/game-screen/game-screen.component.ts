@@ -8,8 +8,8 @@ import { DialogSize } from '@models/dialog.model';
 import { DialogService } from '@services/dialog.service';
 import { EffectsService } from '@services/effects.service';
 import { NewsflashService } from '@services/newsflash.service';
-import { timer } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { BehaviorSubject, timer } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 import { WarshipsFleetStatusComponent } from "../fleet-status/fleet-status.component";
 import { WarshipsNewsflashComponent, WarshipsNewsflashType } from '../ship-newsflash/warships-newsflash.component';
 import { WarshipsManager } from '../warships-manager';
@@ -83,6 +83,18 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     private _currentDragSector: { row: number, col: number } | null = null;
     private _unlisteners: (() => void)[] = [];
 
+    // Touch drag state
+    private _touchDraggingShip: HTMLElement | null = null;
+    private _touchDraggingShipId: string | null = null;
+    private _touchDraggingShipLength: number | null = null;
+    private _touchDraggingShipOrientation: number | null = null;
+    private _touchLastSector: { row: number, col: number } | null = null;
+    private _touchStartX: number | null = null;
+    private _touchStartY: number | null = null;
+    private _touchMoved: boolean = false;
+    private _touchRotateWindowOpen = false;
+    private _touchRotateExpired = new BehaviorSubject<boolean>(false);
+
     private get _allPlayerShipsSunk(): boolean {
         return this.playerGrid.ships().every(ship => ship.health === 0);
     }
@@ -103,6 +115,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         this._unlisten();
+        this._expireTouchRotateTimer();
     }
 
     // TODO - remove before release
@@ -334,7 +347,254 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     }
 
     // #region - Touch Methods
-    // TODO
+    public shipTouchStart = (event: TouchEvent): void => {
+        if (this.gameManager.gameInstance.gameState() !== WarshipsGameState.deploying) {
+            return;
+        }
+
+        event.preventDefault();
+
+        const shipEl = event.currentTarget as HTMLElement;
+        shipEl.id = 'dragged-ship';
+        this._touchDraggingShip = shipEl;
+        this._touchDraggingShipId = shipEl.getAttribute('data-ship-id');
+        this._touchDraggingShipLength = parseInt(shipEl.getAttribute('data-ship-length'), 10);
+        this._touchDraggingShipOrientation = parseInt(shipEl.getAttribute('data-ship-orientation'), 10);
+        this._touchMoved = false;
+
+        const touch = event.touches[0];
+        this._touchStartX = touch.clientX;
+        this._touchStartY = touch.clientY;
+
+        // Set a short timeout to allow for tap-to-rotate (if no move occurs)
+        this._touchRotateWindowOpen = true;
+        this._touchRotateExpired.next(false);
+        timer(250).pipe(takeUntil(this._touchRotateExpired)).subscribe(() => this._touchRotateWindowOpen = false);
+    }
+
+    public shipTouchMove = (event: TouchEvent): void => {
+        if (!this._touchDraggingShip) {
+            return;
+        }
+
+        const touch = event.touches[0];
+        // Only start drag if moved enough (threshold: 10px)
+        if (!this._touchMoved && this._touchStartX !== null && this._touchStartY !== null) {
+            const dx = touch.clientX - this._touchStartX;
+            const dy = touch.clientY - this._touchStartY;
+            if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
+                this._touchMoved = true;
+                // Expire rotate timer if user starts dragging
+                if (this._touchRotateWindowOpen) {
+                    this._expireTouchRotateTimer();
+                }
+
+                this.showPlaceholder.set(true);
+
+                if (this._touchDraggingShip.classList.contains('deployed-ship')) {
+                    const shipRect = this._touchDraggingShip.getBoundingClientRect();
+
+                    // Set temporary styles for deployed ship to prevent it from blocking dragover events
+                    this._touchDraggingShip.style.border = 'none';
+                    this._touchDraggingShip.style.height = `${shipRect.height}px`;
+                    this._touchDraggingShip.style.width = `${shipRect.width}px`;
+                    this._touchDraggingShip.style.position = 'absolute';
+                    this._touchDraggingShip.style.pointerEvents = 'none';
+
+                    // Short delay for invisibility to allow browser to capture the element for dragging before it disappears
+                    timer(10).pipe(take(1)).subscribe(() => {
+                        this._touchDraggingShip.style.visibility = 'hidden';
+                    });
+
+                    // Reset sectors containing deployed ship
+                    const deployedShip = this.playerGrid.ships().find(s => s.id === this._touchDraggingShipId);
+                    for (let i = 0; i < deployedShip.length; i++) {
+                        let r = deployedShip.anchorSector.row, c = deployedShip.anchorSector.col;
+                        if (deployedShip.orientation === WarshipsShipOrientation.horizontal) {
+                            c += i;
+                        } else {
+                            r += i;
+                        }
+
+                        this.playerGrid.sectors[r][c].state = WarshipsSectorState.empty;
+                        this.playerGrid.sectors[r][c].shipId = null;
+                    }
+                }
+            }
+        }
+
+        if (!this._touchMoved) {
+            return;
+        }
+
+        // Look for a sector under the touch point
+        const elementsAtPoint = document.elementsFromPoint(touch.clientX, touch.clientY);
+        const sectorEl = elementsAtPoint.find(el => el.classList.contains('sector'));
+
+        if (sectorEl) {
+            const row = parseInt(sectorEl.getAttribute('data-row'), 10);
+            const col = parseInt(sectorEl.getAttribute('data-col'), 10);
+
+            // Only update if sector changed
+            if (!this._touchLastSector || this._touchLastSector.row !== row || this._touchLastSector.col !== col) {
+                this._touchLastSector = { row, col };
+                // Clear previous placeholders
+                this._clearPlaceholders();
+
+                // Snap to closest valid position
+                const occupiedSectors = tryShipDeploy(
+                    row,
+                    col,
+                    this._touchDraggingShipLength,
+                    this._touchDraggingShipOrientation,
+                    this.playerGrid.sectors
+                );
+                if (occupiedSectors.length === 0) {
+                    // Invalid placement, do not show placeholder
+                    return;
+                }
+
+                // Mark sectors with placeholder
+                occupiedSectors.forEach(s => {
+                    this.playerGrid.sectors[s.row][s.col].state = WarshipsSectorState.placeholder;
+                });
+
+                // Move placeholder to snapped anchor
+                const deployableShipPlaceholder = document.querySelector('#deployable-ship-placeholder') as HTMLElement;
+                if (deployableShipPlaceholder) {
+                    deployableShipPlaceholder.style.display = 'block';
+                    deployableShipPlaceholder.style.height = '100%';
+                    deployableShipPlaceholder.style.width = '100%';
+                    const snappedAnchor = occupiedSectors[0];
+                    deployableShipPlaceholder.style.gridRowStart = (snappedAnchor.row + 1).toString();
+                    deployableShipPlaceholder.style.gridColumnStart = (snappedAnchor.col + 1).toString();
+                    if (this._touchDraggingShipOrientation === WarshipsShipOrientation.horizontal) {
+                        deployableShipPlaceholder.style.gridRowEnd = 'span 1';
+                        deployableShipPlaceholder.style.gridColumnEnd = `span ${this._touchDraggingShipLength}`;
+                    } else {
+                        deployableShipPlaceholder.style.gridRowEnd = `span ${this._touchDraggingShipLength}`;
+                        deployableShipPlaceholder.style.gridColumnEnd = 'span 1';
+                    }
+                }
+            }
+        } else {
+            // Not over a sector, clear placeholders
+            this._clearPlaceholders();
+            this._touchLastSector = null;
+        }
+    }
+
+    public shipTouchEnd = (event: TouchEvent): void => {
+        if (!this._touchDraggingShip) {
+            return;
+        }
+
+        // If user did NOT move, treat as tap-to-rotate for deployed ships
+        if (!this._touchMoved && this._touchDraggingShip.classList.contains('deployed-ship')) {
+            // Cancel drag state
+            if (this._touchRotateWindowOpen) {
+                this._expireTouchRotateTimer();
+            }
+
+            // Rotate the ship
+            this.rotateShip(this._touchDraggingShipId);
+
+            // Reset state
+            this._touchDraggingShip.removeAttribute('id');
+            this._touchDraggingShip = null;
+            this._touchDraggingShipId = null;
+            this._touchDraggingShipLength = null;
+            this._touchDraggingShipOrientation = null;
+            this._touchLastSector = null;
+            this._touchStartX = null;
+            this._touchStartY = null;
+            this._touchMoved = false;
+            return;
+        }
+
+        // Look for a sector under the last touch point
+        let touch: Touch | null = null;
+        if (event.changedTouches && event.changedTouches.length > 0) {
+            touch = event.changedTouches[0];
+        } else if (event.touches && event.touches.length > 0) {
+            touch = event.touches[0];
+        }
+        const elementsAtPoint = document.elementsFromPoint(touch.clientX, touch.clientY);
+        const sectorEl = elementsAtPoint.find(el => el.classList.contains('sector'));
+
+        if (
+            sectorEl &&
+            this._touchDraggingShipId &&
+            this._touchDraggingShipLength &&
+            this._touchDraggingShipOrientation !== null
+        ) {
+            const row = parseInt(sectorEl.getAttribute('data-row'), 10);
+            const col = parseInt(sectorEl.getAttribute('data-col'), 10);
+
+            // Attempt deployment
+            const occupiedSectors = tryShipDeploy(
+                row,
+                col,
+                this._touchDraggingShipLength,
+                this._touchDraggingShipOrientation,
+                this.playerGrid.sectors
+            );
+            if (occupiedSectors.length > 0) {
+                // Place ship in all occupied sectors
+                occupiedSectors.forEach(s => {
+                    this.playerGrid.sectors[s.row][s.col].state = WarshipsSectorState.ship;
+                    this.playerGrid.sectors[s.row][s.col].shipId = this._touchDraggingShipId;
+                });
+
+                // Use snapped anchor sector for ship placement
+                const snappedAnchor = occupiedSectors[0];
+                const updatedShips = this.playerGrid.ships().map(ship => {
+                    if (this._touchDraggingShipId === ship.id) {
+                        ship.deployed = true;
+                        ship.anchorSector = { row: snappedAnchor.row, col: snappedAnchor.col };
+                    }
+                    return ship;
+                });
+                this.playerGrid.ships.set(updatedShips);
+            }
+        } else if (this._touchDraggingShipId) {
+            // Not dropped on a sector, reset ship to undeployed
+            const updatedShips = this.playerGrid.ships().map(ship => {
+                if (ship.id === this._touchDraggingShipId) {
+                    ship.deployed = false;
+                    ship.anchorSector = null;
+                }
+                return ship;
+            });
+            this.playerGrid.ships.set(updatedShips);
+        }
+
+        // Unset temporary styles
+        const draggedShip = document.getElementById('dragged-ship');
+        if (draggedShip) {
+            draggedShip.style.border = '';
+            draggedShip.style.height = '';
+            draggedShip.style.width = '';
+            draggedShip.style.position = '';
+            draggedShip.style.visibility = '';
+            draggedShip.style.pointerEvents = '';
+            draggedShip.removeAttribute('id');
+        }
+
+        this.showPlaceholder.set(false);
+        this._clearPlaceholders();
+        this._touchDraggingShip = null;
+        this._touchDraggingShipId = null;
+        this._touchDraggingShipLength = null;
+        this._touchDraggingShipOrientation = null;
+        this._touchLastSector = null;
+        this._touchStartX = null;
+        this._touchStartY = null;
+        this._touchMoved = false;
+        if (this._touchRotateWindowOpen) {
+            this._expireTouchRotateTimer();
+        }
+    }
     // #endregion
 
     // #region - Misc. Public Methods
@@ -641,6 +901,10 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     private _unlisten = (): void => {
         this._unlisteners.forEach(x => x());
         this._unlisteners = [];
+    }
+
+    private _expireTouchRotateTimer(): void {
+        this._touchRotateExpired.next(false);
     }
     // #endregion
 }

@@ -37,7 +37,7 @@
             </div>
 
             <ng-container *ngIf="gameManager.gameInstance.gameState() === GameState.deploying; else postDeploymentElements">
-                <div class="sidebar-section flex-grow-1 position-relative p-3">
+                <div class="sidebar-section flex-grow-1 position-relative overflow-y-auto p-3">
                     <div *ngIf="deployableShips().length > 0"
                         class="d-flex flex-column"
                     >
@@ -49,6 +49,10 @@
                             [attr.data-ship-orientation]="ship.orientation"
                             (dragstart)="shipDragStart($event)"
                             (dragend)="shipDragEnd($event)"
+                            (touchstart)="shipTouchStart($event)"
+                            (touchmove)="shipTouchMove($event)"
+                            (touchend)="shipTouchEnd($event)"
+                            (touchcancel)="shipTouchEnd($event)"
                         >
                             <label class="ship-info ship-name position-absolute">{{ ship.name }}</label>
                             <span class="ship-info ship-length position-absolute">{{ ship.length }} units</span>
@@ -67,11 +71,11 @@
             </ng-container>
             <ng-template #postDeploymentElements>
                 <!-- Fleet Statuses -->
-                <div class="sidebar-section fleet-status p-3">
+                <div class="sidebar-section share-height fleet-status overflow-y-auto p-3" style="flex: 0 1 auto;">
                     <label>YOUR FLEET</label>
                     <ak-warships-fleet-status [isPlayer]="true"></ak-warships-fleet-status>
                 </div>
-                <div class="sidebar-section fleet-status p-3">
+                <div class="sidebar-section share-height fleet-status overflow-y-auto p-3" style="flex: 0 1 auto;">
                     <label>OPPONENT FLEET</label>
                      <ak-warships-fleet-status [isPlayer]="false"></ak-warships-fleet-status>
                 </div>
@@ -87,7 +91,7 @@
                         <span>EVENT LOG</span>
                     </button>
                 </div>
-                <div #scrollableEventLog class="sidebar-section flex-grow-1 overflow-y-auto px-3 pb-3">
+                <div #scrollableEventLog class="sidebar-section share-height overflow-y-auto px-3 pb-3" style="flex: 1 1 20vh;">
                     <ul *ngIf="showEventLog()" id="event-log">
                         <li *ngFor="let event of gameManager.gameInstance.eventLog">
                             <ng-container [ngSwitch]="event.type">
@@ -153,6 +157,10 @@
                 (dragstart)="shipDragStart($event)"
                 (dragend)="shipDragEnd($event)"
                 (click)="rotateShip(ship.id)"
+                (touchstart)="shipTouchStart($event)"
+                (touchmove)="shipTouchMove($event)"
+                (touchend)="shipTouchEnd($event)"
+                (touchcancel)="shipTouchEnd($event)"
             >
                 <div class="ship-model h-100 w-100 position-relative">
                     <img class="position-absolute"
@@ -201,6 +209,10 @@
                 [attr.data-ship-orientation]="ship.orientation"
                 (dragstart)="shipDragStart($event)"
                 (dragend)="shipDragEnd($event)"
+                (touchstart)="shipTouchStart($event)"
+                (touchmove)="shipTouchMove($event)"
+                (touchend)="shipTouchEnd($event)"
+                (touchcancel)="shipTouchEnd($event)"
             >
                 <label class="ship-info ship-name">{{ ship.name }}</label>
                 <span class="ship-info ship-length">{{ ship.length }} units</span>

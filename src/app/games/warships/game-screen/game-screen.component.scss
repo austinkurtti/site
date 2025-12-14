@@ -283,10 +283,10 @@ $drag-message-arrow-name: kfDragMessageArrow;
                     box-sizing: border-box;
 
                     .fa-map-marker {
-                        font-size: variables.$default-font-size * 1.5;
+                        font-size: variables.$default-font-size * 1.25;
 
                         @include mixins.for-md-screens {
-                            font-size: variables.$default-font-size * 1.75;
+                            font-size: variables.$default-font-size * 1.5;
                         }
 
                         @include mixins.for-lg-screens {
