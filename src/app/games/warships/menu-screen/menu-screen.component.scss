@@ -3,6 +3,17 @@
 @use 'variables';
 @use 'mixins';
 
+$radar-animation-name: kfRadar;
+@keyframes #{$radar-animation-name} {
+    0% {
+        // Timing of pings appearing on radar line seems to work better with -3 -> 357 than 0 -> 360
+        transform: rotate(-3deg);
+    }
+    100% {
+        transform: rotate(357deg);
+    }
+}
+
 :host {
     display: block;
     height: 100%;
@@ -99,6 +110,22 @@
                             left: 50%;
                             top: 50%;
                             width: .1%;
+                        }
+                    }
+
+                    svg {
+                        animation: $radar-animation-name linear 10s infinite;
+                        aspect-ratio: 1;
+                        position: absolute;
+                        width: calc(100% + math.div(variables.$base-size, 4)); // 100% + (outer radar border width * 2)
+
+                        @media (prefers-reduced-motion) {
+                            animation-duration: 0s;
+                        }
+
+                        line {
+                            stroke: variables.$color-warships-radar-green;
+                            stroke-width: 1px;
                         }
                     }
                 }

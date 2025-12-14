@@ -17,6 +17,10 @@ export class ThemeService {
 
     private _themeOverride = false;
 
+    public get prefersReducedMotion(): boolean {
+        return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
     constructor() {
         this._syncThemeSettingsWithLocalStorage();
 

@@ -75,6 +75,7 @@ export class WarshipsManager {
             let untargetedSectors = this._untargetedPlayerSectors;
             const mostRecentEventIsSink = this.gameInstance.eventLog[this.gameInstance.eventLog.length - 1].type === WarshipsEventType.sink;
 
+            // TODO - these need some more balancing
             switch (this.gameInstance.difficulty) {
                 case WarshipsDifficulty.recruit:
                     // Disallow chained ship hits
