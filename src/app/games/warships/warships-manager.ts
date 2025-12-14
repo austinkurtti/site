@@ -1,4 +1,5 @@
 import { inject, Injectable, Injector, signal } from '@angular/core';
+import { getRandomInteger } from '@functions/rng';
 import { DialogSize } from '@models/dialog.model';
 import { DialogService } from '@services/dialog.service';
 import { LocalStorageService } from '@services/local-storage.service';
@@ -74,25 +75,28 @@ export class WarshipsManager {
         } else {
             let untargetedSectors = this._untargetedPlayerSectors;
             const mostRecentEventIsSink = this.gameInstance.eventLog[this.gameInstance.eventLog.length - 1].type === WarshipsEventType.sink;
+            const hasFewerShips = this.gameInstance.computerGrid.ships().filter(s => s.health === 0) > this.gameInstance.playerGrid.ships().filter(s => s.health === 0);
 
-            // TODO - these need some more balancing
+            // Balancing will likely be an ongoing effort...
             switch (this.gameInstance.difficulty) {
                 case WarshipsDifficulty.recruit:
                     // Disallow chained ship hits
                     if (mostRecentEventIsSink) {
                         console.log('chaining disallowed');
-                        untargetedSectors = this._filterOccupiedSectors(untargetedSectors);
-                    } else if (Math.floor(Math.random() * 2) < 1) {
-                        // 50% chance to auto-miss
-                        console.log('50% chance succeeded');
-                        untargetedSectors = this._filterOccupiedSectors(untargetedSectors);
+                        untargetedSectors = this._filterOutOccupiedSectors(untargetedSectors);
+                    } else if (hasFewerShips
+                        ? Math.floor(Math.random() * 2) < 1 // ~50% chance to auto-miss when tied with or behind player
+                        : Math.floor(Math.random() * 10) < 7 // ~70% chance to auto-miss when leading player
+                    ) {
+                        console.log('auto-miss');
+                        untargetedSectors = this._filterOutOccupiedSectors(untargetedSectors);
                     }
                     break;
                 case WarshipsDifficulty.midshipman:
                     // Disallow chained ship hits
                     if (mostRecentEventIsSink) {
                         console.log('chaining disallowed');
-                        untargetedSectors = this._filterOccupiedSectors(untargetedSectors);
+                        untargetedSectors = this._filterOutOccupiedSectors(untargetedSectors);
                     }
                     break;
                 case WarshipsDifficulty.captain:
@@ -100,18 +104,35 @@ export class WarshipsManager {
                     untargetedSectors = untargetedSectors.filter(s => this._canAnyShipFitAt(s.coords.row, s.coords.col));
                     break;
                 case WarshipsDifficulty.fleetAdmiral:
-                    // 50% chance of retribution if Fleet Admiral is falling behind
-                    const hasFewerShips = this.gameInstance.computerGrid.ships().filter(s => s.health === 0) > this.gameInstance.playerGrid.ships().filter(s => s.health === 0);
-                    if (hasFewerShips && Math.floor(Math.random() * 2) < 1) {
-                        console.log('retribution');
-                        untargetedSectors = untargetedSectors.filter(s => s.state.hasFlag(WarshipsSectorState.ship));
+                    // Fleet Admiral does not like falling behind
+                    if (hasFewerShips) {
+                        // ~80% desperation attempt to catch up when on last ship
+                        if (this.gameInstance.computerGrid.ships().filter(s => s.health === 0).length === 4 && getRandomInteger(1, 10) < 8) {
+                            console.log('desperation');
+                            untargetedSectors = this._filterOutUnoccupiedSectors(untargetedSectors);
+                            break;
+                        }
+
+                        // ~50% chance of retribution if not on last ship
+                        if (Math.floor(Math.random() * 2) < 1) {
+                            console.log('retribution');
+                            untargetedSectors = this._filterOutUnoccupiedSectors(untargetedSectors);
+                            break;
+                        }
+                    }
+
+                    // ~30% chance to chain another hit after sinking a ship
+                    if (mostRecentEventIsSink && getRandomInteger(1, 10) < 4) {
+                        console.log('30% chain hit');
+                        untargetedSectors = this._filterOutUnoccupiedSectors(untargetedSectors);
                         break;
                     }
                     
                     // Only shoot at sectors that could possibly contain a ship
                     untargetedSectors = untargetedSectors.filter(s => this._canAnyShipFitAt(s.coords.row, s.coords.col));
-                    // Remove the farthest 10% of sectors from any ship
-                    if (untargetedSectors.length > 5) {
+
+                    // Remove the farthest sectors from any ship
+                    if (untargetedSectors.length > 10) {
                         const occupiedSectors: WarshipsCoords[] = [];
                         for (let r = 0; r < this.gameInstance.playerGrid.sectors.length; r++) {
                             for (let c = 0; c < this.gameInstance.playerGrid.sectors[r].length; c++) {
@@ -121,19 +142,24 @@ export class WarshipsManager {
                                 }
                             }
                         }
+
                         // Compute min Manhattan distance to any ship sector for each untargeted sector
-                        const sorted = untargetedSectors.map(s => {
-                            let minDist = Infinity;
-                            for (const sector of occupiedSectors) {
-                                const dist = Math.abs(s.coords.row - sector.row) + Math.abs(s.coords.col - sector.col);
-                                if (dist < minDist) {
-                                    minDist = dist;
+                        const sorted = untargetedSectors
+                            .map(s => {
+                                let minDist = Infinity;
+                                for (const sector of occupiedSectors) {
+                                    const dist = Math.abs(s.coords.row - sector.row) + Math.abs(s.coords.col - sector.col);
+                                    if (dist < minDist) {
+                                        minDist = dist;
+                                    }
                                 }
-                            }
-                            return { sector: s, minDist };
-                        })
+                                return { sector: s, minDist };
+                            })
                             .sort((a, b) => a.minDist - b.minDist);
-                        untargetedSectors = sorted.slice(0, Math.ceil(untargetedSectors.length * .9)) // keep closest 90%
+
+                        // Keep closest 80%
+                        untargetedSectors = sorted
+                            .slice(0, Math.ceil(untargetedSectors.length * .8))
                             .map(obj => obj.sector);
                     }
                     break;
@@ -219,8 +245,12 @@ export class WarshipsManager {
         return adjacentSectors;
     }
 
-    private _filterOccupiedSectors(untargetedSectors: WarshipsSector[]): WarshipsSector[] {
+    private _filterOutOccupiedSectors(untargetedSectors: WarshipsSector[]): WarshipsSector[] {
         return untargetedSectors.filter(s => !s.state.hasFlag(WarshipsSectorState.ship));
+    }
+
+    private _filterOutUnoccupiedSectors(untargetedSectors: WarshipsSector[]): WarshipsSector[] {
+        return untargetedSectors.filter(s => s.state.hasFlag(WarshipsSectorState.ship));
     }
 
     private _canAnyShipFitAt(row: number, col: number): boolean {
