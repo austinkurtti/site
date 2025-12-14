@@ -1,6 +1,8 @@
+@use 'sass:map';
 @use 'sass:math';
 @use 'sass:color';
 
+@use 'theme/maps/dark' as dark;
 @use 'variables';
 @use 'functions';
 
@@ -66,15 +68,16 @@
     }
 
     &.warships {
-        background-color: variables.$color-warships;
+        background-color: map.get(dark.$map, 'background-color', 'secondary');
 
         .game-icon i {
-            color: functions.adjust-to-contrast(variables.$color-warships, variables.$color-warships, 3);
+            color: variables.$color-warships-radar-green;
         }
 
         .game-name {
-            background-color: functions.adjust-to-contrast(variables.$color-warships, variables.$color-warships);
-            color: variables.$color-warships;
+            background-color: map.get(dark.$map, 'background-color', 'secondary');
+            border-top: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+            color: variables.$color-warships-radar-green;
         }
     }
 }
