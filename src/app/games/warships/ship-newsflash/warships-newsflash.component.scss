@@ -2,6 +2,7 @@
 @use 'sass:math';
 
 @use 'variables';
+@use 'mixins';
 
 :host {
     border-bottom-style: solid;
@@ -40,7 +41,15 @@
 
         #newsflash-message {
             font-family: variables.$industrial-font-family;
-            font-size: variables.$default-font-size * 3;
+            font-size: variables.$default-font-size * 2;
+
+            @include mixins.for-md-screens {
+                font-size: variables.$default-font-size * 2.5;
+            }
+
+            @include mixins.for-lg-screens {
+                font-size: variables.$default-font-size * 3;
+            }
         }
     }
 }
