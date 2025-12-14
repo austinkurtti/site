@@ -20,12 +20,6 @@ import { WarshipsEvent, WarshipsEventType, WarshipsGameState, WarshipsGrid, Wars
     selector: 'ak-warships-game-screen',
     styleUrl: './game-screen.component.scss',
     templateUrl: './game-screen.component.html',
-    host: {
-        '(window:keydown.alt.v)': 'testVictory()',
-        '(window:keydown.alt.n)': 'testNewsflash(1)',
-        '(window:keydown.alt.shift.n)': 'testNewsflash(2)',
-        '(window:keydown.alt.s)': 'logOpponentShipPositions()'
-    },
     imports: [
         CommonModule,
         MenuContentDirective,
@@ -116,26 +110,6 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     public ngOnDestroy(): void {
         this._unlisten();
         this._expireTouchRotateTimer();
-    }
-
-    // TODO - remove before release
-    public testVictory(): void {
-        this.gameManager.gameInstance.gameState.set(WarshipsGameState.victory);
-        this.gameManager.gameInstance.computerGrid.ships().forEach(s => s.health = 0);
-        this._showEndGameScreen();
-    }
-
-    // TODO - remove before release
-    public testNewsflash(type: WarshipsNewsflashType): void {
-        this._newsflashService.show(WarshipsNewsflashComponent, { type, message: 'This is a test' });
-    }
-
-    // TODO - remove before release
-    public logOpponentShipPositions(): void {
-        this.computerGrid.ships().forEach(s => {
-            const coords = getCoordinates(s.anchorSector.row, s.anchorSector.col);
-            console.log(`${s.id}:${s.orientation === WarshipsShipOrientation.horizontal ? 'hor' : 'ver'}:${coords}`);
-        });
     }
 
     public quit(confirm = false): void {

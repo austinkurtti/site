@@ -82,20 +82,17 @@ export class WarshipsManager {
                 case WarshipsDifficulty.recruit:
                     // Disallow chained ship hits
                     if (mostRecentEventIsSink) {
-                        console.log('chaining disallowed');
                         untargetedSectors = this._filterOutOccupiedSectors(untargetedSectors);
                     } else if (hasFewerShips
                         ? Math.floor(Math.random() * 2) < 1 // ~50% chance to auto-miss when tied with or behind player
                         : Math.floor(Math.random() * 10) < 7 // ~70% chance to auto-miss when leading player
                     ) {
-                        console.log('auto-miss');
                         untargetedSectors = this._filterOutOccupiedSectors(untargetedSectors);
                     }
                     break;
                 case WarshipsDifficulty.midshipman:
                     // Disallow chained ship hits
                     if (mostRecentEventIsSink) {
-                        console.log('chaining disallowed');
                         untargetedSectors = this._filterOutOccupiedSectors(untargetedSectors);
                     }
                     break;
@@ -108,14 +105,12 @@ export class WarshipsManager {
                     if (hasFewerShips) {
                         // ~80% desperation attempt to catch up when on last ship
                         if (this.gameInstance.computerGrid.ships().filter(s => s.health === 0).length === 4 && getRandomInteger(1, 10) < 8) {
-                            console.log('desperation');
                             untargetedSectors = this._filterOutUnoccupiedSectors(untargetedSectors);
                             break;
                         }
 
                         // ~50% chance of retribution if not on last ship
                         if (Math.floor(Math.random() * 2) < 1) {
-                            console.log('retribution');
                             untargetedSectors = this._filterOutUnoccupiedSectors(untargetedSectors);
                             break;
                         }
@@ -123,7 +118,6 @@ export class WarshipsManager {
 
                     // ~30% chance to chain another hit after sinking a ship
                     if (mostRecentEventIsSink && getRandomInteger(1, 10) < 4) {
-                        console.log('30% chain hit');
                         untargetedSectors = this._filterOutUnoccupiedSectors(untargetedSectors);
                         break;
                     }
