@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { GamesHomeComponent } from '../games/games-home.component';
 import { GamesComponent } from '../games/games.component';
 import { SudokuComponent } from '../games/sudoku/sudoku.component';
+import { WarshipsComponent } from '../games/warships/warships.component';
 import { HomeComponent } from '../home/home.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
@@ -25,6 +26,11 @@ export const appRoutes: Routes = [
                 path: 'sudoku',
                 title: 'Sudoku',
                 component: SudokuComponent
+            },
+            {
+                path: 'warships',
+                title: 'Warships',
+                component: WarshipsComponent
             }
         ]
     },

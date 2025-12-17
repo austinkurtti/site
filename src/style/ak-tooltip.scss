@@ -12,10 +12,10 @@
 
     .ak-tooltip {
         background-color: variables.$theme-bg-color-tooltip;
-        border-radius: math.div(variables.$base-size, 4);
+        border-radius: variables.$border-radius;
         color: variables.$theme-font-color-tooltip;
         min-width: variables.$base-size;
-        padding: variables.$base-size;
+        padding: math.div(variables.$base-size, 2);
         position: absolute;
 
         @media (prefers-contrast: more) {
@@ -25,7 +25,7 @@
         // For tooltip arrow
         &:after {
             border-style: solid;
-            border-width: variables.$base-size;
+            border-width: math.div(variables.$base-size, 2);
             content: "";
             position: absolute;
 
@@ -43,7 +43,7 @@
 
         &.right:after {
             border-color: transparent variables.$theme-bg-color-tooltip transparent transparent;
-            left: -(variables.$base-size * 2);
+            right: 100%;
             top: 50%;
             transform: translateY(-50%);
         }
@@ -51,7 +51,7 @@
         &.bottom:after {
             border-color: transparent transparent variables.$theme-bg-color-tooltip transparent;
             left: 50%;
-            top: -50%;
+            bottom: 100%;
             transform: translateX(-50%);
         }
 

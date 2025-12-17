@@ -1,0 +1,49 @@
+@use 'sass:math';
+
+@use 'variables';
+
+:host {
+    display: block;
+
+    .fleet-status {
+        .ship {
+            &.destroyed {
+                outline: 2px solid variables.$color-warships-radar-red;
+                position: relative;
+
+                .destroyed-overlay {
+                    left: 0;
+                    position: absolute;
+                    top: 0;
+
+                    .diagonal-line {
+                        stroke: variables.$color-warships-radar-red;
+                        stroke-width: 1px;
+                    }
+                }
+            }
+
+            .ship-img-container {
+                height: variables.$base-size * 3.125;
+
+                img {
+                    width: variables.$base-size * 10;
+                }
+            }
+
+            .health-bar {
+                height: math.div(variables.$base-size, 2);
+
+                .health-bar-piece {
+                    background-color: variables.$theme-bg-color-tertiary;
+                    flex-grow: 1;
+                    height: 100%;
+
+                    &[data-filled=true] {
+                        background-color: variables.$color-warships-radar-green;
+                    }
+                }
+            }
+        }
+    }
+}

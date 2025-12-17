@@ -1,0 +1,104 @@
+<div class="container g-0 d-flex flex-column justify-content-center">
+    <div class="row g-0 px-2 p-md-0 my-3 my-lg-5">
+        <h2 class="text-uppercase">New Game</h2>
+    </div>
+
+    <div class="d-flex px-2 p-md-0 mb-3 mb-lg-5">
+        <button id="back-btn" (click)="gameManager.screen.set(ScreenState.menu)">
+            <span class="fs-2">Back</span>
+        </button>
+    </div>
+
+    <div class="row g-0 px-2 p-md-0 mb-2 mb-lg-3">
+        <div class="col-12">
+            <label>DIFFICULTY</label>
+        </div>
+    </div>
+    <div id="difficulties" class="row g-2 g-lg-3 px-2 p-md-0 mb-5 overflow-y-auto">
+        <ng-template #difficultyTemplate let-value="value" let-name="name" let-description="description" let-description2="description2">
+            <div class="difficulty"
+                [ngClass]="{
+                    'selected': difficulty() === value
+                }"
+            >
+                <input type="radio"
+                    name="difficulty"
+                    [id]="'difficulty-' + value"
+                    [value]="value"
+                    [(ngModel)]="difficulty"
+                />
+                <label
+                    tabindex="0"
+                    class="d-flex flex-column h-100"
+                    [for]="'difficulty-' + value"
+                    (keydown.enter)="difficulty.set(value)"
+                >
+                    <h3 class="my-3 fw-normal text-center">{{ name }}</h3>
+                    <div class="flex-grow-1 d-flex flex-column fw-normal d-flex align-items-center justify-content-evenly px-3">
+                        <div class="text-center">{{ description }}</div>
+                        <div class="text-center">{{ description2 }}</div>
+                    </div>
+                    <div class="my-3 text-center">
+                        <i class="far fa-2x"
+                            [ngClass]="difficulty() === value ? 'fa-check-square' : 'fa-square'"
+                        ></i>
+                    </div>
+                </label>
+            </div>
+        </ng-template>
+
+        <div class="col-12 col-lg-3">
+            <ng-container
+                [ngTemplateOutlet]="difficultyTemplate"
+                [ngTemplateOutletContext]="{
+                    value: Difficulty.recruit,
+                    name: 'Recruit',
+                    description: 'Still learning the ropes, your opponent has minimal naval awareness.',
+                    description2: 'Consider this more of a training exercise.'
+                }"
+            ></ng-container>
+        </div>
+
+        <div class="col-12 col-lg-3">
+            <ng-container
+                [ngTemplateOutlet]="difficultyTemplate"
+                [ngTemplateOutletContext]="{
+                    value: Difficulty.midshipman,
+                    name: 'Midshipman',
+                    description: 'Equipped with basic strategy and knows how to sink a ship.',
+                    description2: 'This opponent will not be a pushover.'
+                }"
+            ></ng-container>
+        </div>
+
+        <div class="col-12 col-lg-3">
+            <ng-container
+                [ngTemplateOutlet]="difficultyTemplate"
+                [ngTemplateOutletContext]="{
+                    value: Difficulty.captain,
+                    name: 'Captain',
+                    description: 'Square off against a hardened veteran that has commanded ships through many battles.',
+                    description2: 'Lock in, this will be a challenge.'
+                }"
+            ></ng-container>
+        </div>
+
+        <div class="col-12 col-lg-3">
+            <ng-container
+                [ngTemplateOutlet]="difficultyTemplate"
+                [ngTemplateOutletContext]="{
+                    value: Difficulty.fleetAdmiral,
+                    name: 'Fleet Admiral',
+                    description: 'An expert in naval strategy and has developed a sixth sense for your ships\' positions.',
+                    description2: 'Do not expect to win.'
+                }"
+            ></ng-container>
+        </div>
+    </div>
+</div>
+
+<div id="actions" class="row g-0 py-3 justify-content-center">
+    <div class="col-auto">
+        <button class="confirm-button fs-2" (click)="gameManager.newGame(difficulty())">Start</button>
+    </div>
+</div>

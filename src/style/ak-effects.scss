@@ -1,0 +1,276 @@
+@use 'sass:math';
+
+@use 'variables';
+
+#ak-effects-container {
+    background: transparent;
+    height: 100vh;
+    overflow: hidden;
+    pointer-events: none;
+    position: fixed;
+    width: 100vw;
+    z-index: variables.$z-index-effects;
+
+    /***********************
+            RIPPLE
+    ***********************/
+    .ripple {
+        background: transparent;
+        border: math.div(variables.$base-size, 6) solid rgba(96, 207, 255, .45);
+        border-radius: 50%;
+        box-shadow: 0 0 math.div(variables.$base-size, 2) math.div(variables.$base-size, 8) rgba(0, 180, 255, .2);
+        height: variables.$base-size * 6;
+        position: absolute;
+        transform: scale(.2);
+        transition: transform 1440ms ease-out, opacity 1440ms linear;
+        width: variables.$base-size * 6;
+
+        @media (prefers-reduced-motion) {
+            transition: none;
+        }
+    }
+
+    /***********************
+            EXPLOSION
+    ***********************/
+    $explosion-size: .5vmin;
+    $explosion-particle-size: .2vmin;
+
+    @keyframes explosion {
+        0% {
+            opacity: 1;
+            width: $explosion-size;
+        }
+        70% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            width: 25vmin;
+        }
+    }
+
+    .explosion,
+    .explosion::before,
+    .explosion::after {
+        --explosion-color1: #{variables.$color-red};
+        --explosion-color2: #{variables.$color-orange};
+        --explosion-color3: #{variables.$color-yellow};
+        --explosion-color4: #{variables.$color-orange};
+        --explosion-color5: #{variables.$color-yellow};
+        --explosion-color6: #{variables.$color-white};
+
+        animation-duration: 1s;
+        animation-name: explosion;
+        animation-timing-function: cubic-bezier(0.34, 0, 0.29, 1); // basically a more "intense" ease-in-out curve
+        aspect-ratio: 1;
+        background:
+            radial-gradient(circle, var(--explosion-color1) $explosion-particle-size, #0000 0) 53% 7%,
+            radial-gradient(circle, var(--explosion-color2) $explosion-particle-size * 2, #0000 0) 92% 41%,
+            radial-gradient(circle, var(--explosion-color3) $explosion-particle-size * 1.5, #0000 0) 68% 97%,
+            radial-gradient(circle, var(--explosion-color4) $explosion-particle-size * 1.25, #0000 0) 13% 62%,
+            radial-gradient(circle, var(--explosion-color5) $explosion-particle-size, #0000 0) 77% 23%,
+            radial-gradient(circle, var(--explosion-color6) $explosion-particle-size, #0000 0) 35% 85%,
+            radial-gradient(circle, var(--explosion-color1) $explosion-particle-size * 2, #0000 0) 61% 18%,
+            radial-gradient(circle, var(--explosion-color2) $explosion-particle-size, #0000 0) 25% 77%,
+            radial-gradient(circle, var(--explosion-color3) $explosion-particle-size, #0000 0) 80% 56%,
+            radial-gradient(circle, var(--explosion-color4) $explosion-particle-size, #0000 0) 44% 29%,
+            radial-gradient(circle, var(--explosion-color5) $explosion-particle-size, #0000 0) 12% 38%,
+            radial-gradient(circle, var(--explosion-color6) $explosion-particle-size * 1.5, #0000 0) 70% 66%,
+            radial-gradient(circle, var(--explosion-color1) $explosion-particle-size, #0000 0) 31% 12%,
+            radial-gradient(circle, var(--explosion-color2) $explosion-particle-size * 1.5, #0000 0) 59% 73%,
+            radial-gradient(circle, var(--explosion-color3) $explosion-particle-size, #0000 0) 88% 19%,
+            radial-gradient(circle, var(--explosion-color4) $explosion-particle-size, #0000 0) 17% 91%,
+            radial-gradient(circle, var(--explosion-color5) $explosion-particle-size * 1.25, #0000 0) 41% 53%,
+            radial-gradient(circle, var(--explosion-color6) $explosion-particle-size, #0000 0) 66% 38%,
+            radial-gradient(circle, var(--explosion-color1) $explosion-particle-size * 1.25, #0000 0) 83% 81%,
+            radial-gradient(circle, var(--explosion-color2) $explosion-particle-size, #0000 0) 28% 47%
+            ;
+        background-repeat: no-repeat;
+        background-size: $explosion-size $explosion-size;
+        border-radius: 50%;
+        content: '';
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%); // X param of -50% is important for explosion bursting on-center
+        width: $explosion-size;
+
+        @media (prefers-reduced-motion) {
+            animation-duration: 0s;
+        }
+    }
+
+    .explosion::before {
+        transform: translate(-50%, -50%) rotate(43deg) !important;
+    }
+
+    .explosion::after {
+        transform: translate(-50%, -50%) rotate(-160deg) !important;
+    }
+
+    /***********************
+            FIREWORKS
+    ***********************/
+    $firework-size: .5vmin;
+    $firework-particle-size: .2vmin;
+
+    @keyframes firework {
+        0% {
+            // Launch start
+            opacity: 1;
+            // Over the course of the animation, transform will change between this starting position and the one defined in .firework
+            transform: translate(var(--firework-x), var(--firework-launch-y));
+            width: $firework-size;
+        }
+        50% {
+            // Launch end, burst start
+            opacity: 1;
+            width: $firework-size;
+        }
+        100% {
+            // Burst end
+            opacity: 0;
+            width: 45vmin;
+        }
+    }
+
+    .firework,
+    .firework::before,
+    .firework::after {
+        // left & top styles determine firework burst location
+        // --firework-x & --firework-y vars determine launch direction before burst
+
+        --firework-launch-y: 100vh; // Always launch from bottom of screen
+        --firework-x: -50%; // Randomly set by effects service (-15vw, 15vw)
+        --firework-y: 0vh; // Randomly set by effects service (-10vh, 10vh)
+
+        animation-duration: 2s;
+        animation-name: firework;
+        aspect-ratio: 1;
+        background:
+            radial-gradient(circle, var(--firework-color1) $firework-particle-size, #0000 0) 50% 0%,
+            radial-gradient(circle, var(--firework-color2) $firework-particle-size, #0000 0) 100% 50%,
+            radial-gradient(circle, var(--firework-color3) $firework-particle-size, #0000 0) 50% 100%,
+            radial-gradient(circle, var(--firework-color4) $firework-particle-size, #0000 0) 0% 50%,
+
+            // Bottom right
+            radial-gradient(circle, var(--firework-color5) $firework-particle-size, #0000 0) 80% 90%,
+            radial-gradient(circle, var(--firework-color6) $firework-particle-size, #0000 0) 95% 90%,
+            radial-gradient(circle, var(--firework-color1) $firework-particle-size, #0000 0) 90% 70%,
+            radial-gradient(circle, var(--firework-color2) $firework-particle-size, #0000 0) 100% 60%,
+            radial-gradient(circle, var(--firework-color3) $firework-particle-size, #0000 0) 55% 80%,
+            radial-gradient(circle, var(--firework-color4) $firework-particle-size, #0000 0) 70% 77%,
+
+            // Bottom left
+            radial-gradient(circle, var(--firework-color5) $firework-particle-size, #0000 0) 22% 90%,
+            radial-gradient(circle, var(--firework-color6) $firework-particle-size, #0000 0) 45% 90%,
+            radial-gradient(circle, var(--firework-color1) $firework-particle-size, #0000 0) 33% 70%,
+            radial-gradient(circle, var(--firework-color2) $firework-particle-size, #0000 0) 10% 60%,
+            radial-gradient(circle, var(--firework-color3) $firework-particle-size, #0000 0) 31% 80%,
+            radial-gradient(circle, var(--firework-color4) $firework-particle-size, #0000 0) 28% 77%,
+            radial-gradient(circle, var(--firework-color5) $firework-particle-size, #0000 0) 13% 72%,
+
+            // Top left
+            radial-gradient(circle, var(--firework-color6) $firework-particle-size, #0000 0) 80% 10%,
+            radial-gradient(circle, var(--firework-color1) $firework-particle-size, #0000 0) 95% 14%,
+            radial-gradient(circle, var(--firework-color2) $firework-particle-size, #0000 0) 90% 23%,
+            radial-gradient(circle, var(--firework-color3) $firework-particle-size, #0000 0) 100% 43%,
+            radial-gradient(circle, var(--firework-color4) $firework-particle-size, #0000 0) 85% 27%,
+            radial-gradient(circle, var(--firework-color5) $firework-particle-size, #0000 0) 77% 37%,
+            radial-gradient(circle, var(--firework-color6) $firework-particle-size, #0000 0) 60% 7%,
+
+            // Top right
+            radial-gradient(circle, var(--firework-color1) $firework-particle-size, #0000 0) 22% 14%,
+            radial-gradient(circle, var(--firework-color1) $firework-particle-size, #0000 0) 45% 20%,
+            radial-gradient(circle, var(--firework-color1) $firework-particle-size, #0000 0) 33% 34%,
+            radial-gradient(circle, var(--firework-color1) $firework-particle-size, #0000 0) 10% 29%,
+            radial-gradient(circle, var(--firework-color1) $firework-particle-size, #0000 0) 31% 37%,
+            radial-gradient(circle, var(--firework-color1) $firework-particle-size, #0000 0) 28% 7%,
+            radial-gradient(circle, var(--firework-color1) $firework-particle-size, #0000 0) 13% 42%;
+        background-repeat: no-repeat;
+        background-size: $firework-size $firework-size;
+        border-radius: 50%;
+        content: '';
+        left: 50%; // Randomly set by effects service (10%, 90%)
+        position: absolute;
+        top: 50%; // Randomly set by effects service (10%, 25%)
+        transform: translate(-50%, var(--firework-y)); // X param of -50% is important for firework bursting on-center
+        width: $firework-size;
+
+        @media (prefers-reduced-motion) {
+            animation-duration: 0s;
+        }
+    }
+
+    .firework {
+        &.multi,
+        &.multi::before,
+        &.multi::after {
+            --firework-color1: #{variables.$color-red};
+            --firework-color2: #{variables.$color-orange};
+            --firework-color3: #{variables.$color-yellow};
+            --firework-color4: #{variables.$color-green};
+            --firework-color5: #{variables.$color-blue};
+            --firework-color6: #{variables.$color-purple};
+        }
+
+        &.red,
+        &.red::before,
+        &.red::after {
+            --firework-color1: #{variables.$color-red};
+            --firework-color2: #{variables.$color-orange};
+            --firework-color3: #{variables.$color-yellow};
+            --firework-color4: #{variables.$color-red};
+            --firework-color5: #{variables.$color-red};
+            --firework-color6: #{variables.$color-orange};
+        }
+
+        &.green,
+        &.green::before,
+        &.green::after {
+            --firework-color1: #{variables.$color-green};
+            --firework-color2: #{variables.$color-green};
+            --firework-color3: #{variables.$color-ocean};
+            --firework-color4: #{variables.$color-sky};
+            --firework-color5: #{variables.$color-green};
+            --firework-color6: #{variables.$color-green};
+        }
+
+        &.blue,
+        &.blue::before,
+        &.blue::after {
+            --firework-color1: #{variables.$color-blue};
+            --firework-color2: #{variables.$color-sky};
+            --firework-color3: #{variables.$color-ocean};
+            --firework-color4: #{variables.$color-blue};
+            --firework-color5: #{variables.$color-blue};
+            --firework-color6: #{variables.$color-ocean};
+        }
+
+        &.purple,
+        &.purple::before,
+        &.purple::after {
+            --firework-color1: #{variables.$color-purple};
+            --firework-color2: #{variables.$color-ocean};
+            --firework-color3: #{variables.$color-purple};
+            --firework-color4: #{variables.$color-ocean};
+            --firework-color5: #{variables.$color-purple};
+            --firework-color6: #{variables.$color-purple};
+        }
+    }
+
+    .firework::before {
+        --firework-x: -50%;
+        --firework-y: -50%;
+        --firework-launch-y: -50%;
+        transform: translate(-50%, -50%) rotate(43deg) !important;
+    }
+
+    .firework::after {
+        --firework-x: -50%;
+        --firework-y: -50%;
+        --firework-launch-y: -50%;
+        transform: translate(-50%, -50%) rotate(-28deg) !important;
+    }
+}

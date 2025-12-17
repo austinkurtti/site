@@ -1,0 +1,149 @@
+<div id="menu-bg" class="d-flex h-100 w-100 position-absolute">
+    <div id="menu-bg-left" class="d-none d-lg-flex flex-column ps-2 pt-2">
+        <div class="bg-text-top mb-2">
+            <div class="ms-2">INPUTS LOG</div>
+            <div>NT</div>
+        </div>
+        <div class="bg-text-grid">
+            <div>GYRO</div>
+            <div class="highlight">0.0</div>
+            <div>deg</div>
+            
+            <div>SPEED<i class="fas fa-caret-up ms-2"></i></div>
+            <div>0.00</div>
+            <div>kt</div>
+
+            <div>DRIFT</div>
+            <div>0.00</div>
+            <div>kt</div>
+
+            <div>SET</div>
+            <div>0.0</div>
+            <div>deg</div>
+        </div>
+
+        <div class="my-2">DATA MADE GOOD</div>
+        <div class="bg-text-grid">
+            <div>COURSE</div>
+            <div class="highlight">0.0</div>
+            <div>deg</div>
+            
+            <div>SPEED</div>
+            <div class="highlight">0.00</div>
+            <div>kt</div>
+        </div>
+
+        <div class="my-2">PRESENTATION</div>
+        <div class="bg-text-grid">
+            <div>TRACK</div>
+            <div class="highlight">3.0</div>
+            <div>min</div>
+            
+            <div>VECTOR</div>
+            <div class="highlight">6</div>
+            <div>min</div>
+
+            <div>TRAIL</div>
+            <div class="highlight">1</div>
+        </div>
+
+        <div class="my-2">LIMITS</div>
+        <div class="bg-text-grid">
+            <div>TCPA</div>
+            <div class="highlight">10</div>
+            <div>min</div>
+            
+            <div>CPA</div>
+            <div class="highlight">0.5</div>
+            <div>nm</div>
+        </div>
+
+        <div class="bg-empty-grid py-5"></div>
+        <div class="bg-empty-grid py-4"></div>
+        <div class="bg-empty-grid py-3"></div>
+    </div>
+
+    <div id="menu-bg-main" class="d-flex flex-grow-1 justify-content-between position-relative">
+        <div id="radar-container" class="d-flex position-absolute">
+            <div id="radar" class="position-relative">
+                <div class="radar-ring"></div>
+                <div class="radar-ring"></div>
+                <div class="radar-ring"></div>
+                <div class="radar-ring"></div>
+                <div class="radar-ring"></div>
+                <svg viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="polygonGradient" x1="0%" x2="100%" y1="50%" y2="50%">
+                            <stop offset="0%" stop-color="transparent"></stop>
+                            <stop offset="100%" stop-color="#34eb28bb"></stop>
+                        </linearGradient>
+                    </defs>
+
+                    <polygon points="50,50 50,0 45,0" fill="url('#polygonGradient')"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column justify-content-between ps-2 py-2">
+            <div>
+                <div class="bg-main-row mb-1">
+                    <div>RANGE</div>
+                    <div class="highlight">1.5</div>
+                    <div>nm</div>
+                </div>
+                <div class="bg-main-row mb-2">
+                    <div>RINGS</div>
+                    <div class="highlight">0.25</div>
+                    <div>nm</div>
+                </div>
+                <div class="mb-2">LONG PULSE</div>
+                <div class="mb-1">NORTH UP</div>
+                <div class="mb-2">RM CENT</div>
+                <div class="mb-1">X-BAND</div>
+                <div>TRM 2</div>
+            </div>
+            <div>
+                <div class="mb-5">VRM OFF</div>
+                <div>EBM<span class="ms-5">OFF</span></div>
+            </div>
+        </div>
+        <div class="d-flex flex-column justify-content-between pe-2 py-2">
+            <div class="pt-5">
+                <div class="d-flex justify-content-between mb-1">FTC<div class="fill-bar-outer"><div class="fill-bar-inner" style="width: 30%"></div></div></div>
+                <div class="d-flex justify-content-between mb-2">STC<div class="fill-bar-outer"><div class="fill-bar-inner" style="width: 40%"></div></div></div>
+                <div class="d-flex justify-content-between">TUNE<div class="fill-bar-outer"><div class="fill-bar-inner" style="width: 60%"></div></div></div>
+            </div>
+            <div class="pb-5">
+                <div class="text-end">MARKER OFF</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container g-0 h-100 d-flex flex-column justify-content-center">
+    <div class="row g-0 px-2 px-md-0 my-5 justify-content-center">
+        <div class="col-auto">
+            <h1 class="text-center text-uppercase px-3">Warships</h1>
+        </div>
+    </div>
+    <div class="row g-0 px-2 px-md-0 justify-content-end">
+        <div class="col-auto">
+            <button class="fs-2 text-start px-3" (click)="gameManager.screen.set(ScreenState.new)">New</button>
+        </div>
+    </div>
+    <div class="row g-0 px-2 px-md-0 mt-3 justify-content-end">
+        <div class="col-auto">
+            <button class="fs-2 text-start px-3" (click)="gameManager.showSettingsDialog()">Settings</button>
+        </div>
+    </div>
+    <div class="row g-0 px-2 px-md-0 mt-3 justify-content-end">
+        <div class="col-auto">
+            <button class="fs-2 text-start px-3" (click)="gameManager.showHelpDialog()">Help</button>
+        </div>
+    </div>
+    <div class="row g-0 px-2 px-md-0 mt-3 justify-content-end">
+        <div class="col-auto">
+            <button class="cancel-button fs-2 text-start px-3" (click)="gamesService.confirmExit()">Exit</button>
+        </div>
+    </div>
+</div>

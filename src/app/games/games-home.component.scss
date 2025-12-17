@@ -1,80 +1,135 @@
+@use 'sass:map';
 @use 'sass:math';
 @use 'sass:color';
 
+@use 'theme/maps/dark' as dark;
 @use 'variables';
 @use 'functions';
+@use 'mixins';
 
-.game {
-    border: none;
-    border-radius: math.div(variables.$base-size, 2);
-    overflow: hidden;
-    padding: 0;
-    transition: ease-in box-shadow .1s;
-    width: 100%;
+:host {
+    header {
+        background: linear-gradient(45deg, variables.$color-blue, variables.$color-sky, variables.$color-green);
+        box-shadow: variables.$theme-box-shadow-soft;
+        z-index: variables.$z-index-header;
 
-    @media (prefers-reduced-motion) {
-        transition: none;
+        h1 {
+            color: variables.$color-white;
+            font-size: variables.$default-font-size * 2;
+        }
+
+        button {
+            background-color: transparent;
+
+            &:hover {
+                background-color: color.mix(variables.$color-white, transparent);
+            }
+
+            i {
+                color: variables.$color-black;
+            }
+        }
+
+        ak-theme {
+            min-width: 70vw;
+
+            @include mixins.for-md-screens {
+                min-width: 55vw;
+            }
+            @include mixins.for-lg-screens {
+                min-width: 40vw;
+            }
+            @include mixins.for-xxl-screens {
+                min-width: 25vw;
+            }
+        }
     }
 
-    &:not(:disabled):hover {
-        box-shadow: variables.$theme-box-shadow-hard;
+    .container-fluid {
+        margin-top: variables.$base-size * 4;
+
+        @include mixins.for-md-screens {
+            margin-top: variables.$base-size * 4.5;
+        }
+
+        @include mixins.for-lg-screens {
+            margin-top: variables.$header-height;
+        }
     }
 
-    .game-icon {
-        font-size: variables.$default-font-size * 4;
-        padding: variables.$base-size;
-    }
+    .game {
+        border: none;
+        border-radius: math.div(variables.$base-size, 2);
+        overflow: hidden;
+        padding: 0;
+        transition: ease-in box-shadow .1s;
+        width: 100%;
 
-    .game-name {
-        font-size: variables.$default-font-size * 2;
-        padding: variables.$base-size;
-    }
+        @media (prefers-reduced-motion) {
+            transition: none;
+        }
 
-    .coming-soon {
-        color: variables.$color-white;
-        cursor: not-allowed;
-        font-size: variables.$default-font-size * 3;
-        left: 0;
-        top: 0;
-        z-index: variables.$z-index-bump;
-    }
+        &:not(:disabled):hover {
+            box-shadow: variables.$theme-box-shadow-hard;
+        }
 
-    &.sudoku {
-        background-color: variables.$color-sudoku;
-
-        .game-icon i {
-            color: functions.adjust-to-contrast(variables.$color-sudoku, variables.$color-sudoku, 3);
+        .game-icon {
+            font-size: variables.$default-font-size * 4;
+            padding: variables.$base-size;
         }
 
         .game-name {
-            background-color: functions.adjust-to-contrast(variables.$color-sudoku, variables.$color-sudoku);
-            color: variables.$color-sudoku;
-        }
-    }
-
-    &.solitaire {
-        background-color: variables.$color-solitaire-green;
-
-        .game-icon i {
-            color: functions.adjust-to-contrast(variables.$color-solitaire-green, variables.$color-solitaire-green, 3);
+            font-size: variables.$default-font-size * 2;
+            padding: variables.$base-size;
         }
 
-        .game-name {
-            background-color: functions.adjust-to-contrast(variables.$color-solitaire-green, variables.$color-solitaire-green);
-            color: variables.$color-solitaire-green;
-        }
-    }
-
-    &.warships {
-        background-color: variables.$color-warships;
-
-        .game-icon i {
-            color: functions.adjust-to-contrast(variables.$color-warships, variables.$color-warships, 3);
+        .coming-soon {
+            color: variables.$color-white;
+            cursor: not-allowed;
+            font-size: variables.$default-font-size * 3;
+            left: 0;
+            top: 0;
+            z-index: variables.$z-index-bump;
         }
 
-        .game-name {
-            background-color: functions.adjust-to-contrast(variables.$color-warships, variables.$color-warships);
-            color: variables.$color-warships;
+        &.sudoku {
+            background-color: variables.$color-sudoku;
+
+            .game-icon i {
+                color: functions.adjust-to-contrast(variables.$color-sudoku, variables.$color-sudoku, 3);
+            }
+
+            .game-name {
+                background-color: functions.adjust-to-contrast(variables.$color-sudoku, variables.$color-sudoku);
+                color: variables.$color-sudoku;
+            }
+        }
+
+        &.solitaire {
+            background-color: variables.$color-solitaire-green;
+
+            .game-icon i {
+                color: functions.adjust-to-contrast(variables.$color-solitaire-green, variables.$color-solitaire-green, 3);
+            }
+
+            .game-name {
+                background-color: functions.adjust-to-contrast(variables.$color-solitaire-green, variables.$color-solitaire-green);
+                color: variables.$color-solitaire-green;
+            }
+        }
+
+        &.warships {
+            background-color: map.get(dark.$map, 'background-color', 'secondary');
+
+            .game-icon i {
+                color: variables.$color-warships-radar-green;
+            }
+
+            .game-name {
+                background-color: map.get(dark.$map, 'background-color', 'secondary');
+                border-top: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+                color: variables.$color-warships-radar-green;
+            }
         }
     }
 }

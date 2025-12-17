@@ -1,6 +1,23 @@
-<div class="container-fluid px-0 pb-5">
-    <div id="home" class="row gx-3 gx-lg-5 mx-2 mx-lg-4">
-        <div *ngFor="let game of games" class="col-6 col-lg-4 col-xl-3 pt-3 pt-lg-5">
+<header class="d-flex align-items-center justify-content-between position-fixed w-100">
+    <h1 class="ps-3 ps-lg-5">Game Library</h1>
+    <div class="pe-3 pe-lg-5">
+        <button akMenu
+            class="icon-button"
+            [menuPosition]="MenuPosition.bottomRight"
+        >
+            <i class="fas fa-2x fa-palette"></i>
+            <ng-template #menuContent>
+                <div akMenuContent>
+                    <ak-theme class="p-3"></ak-theme>
+                </div>
+            </ng-template>
+        </button>
+    </div>
+</header>
+
+<div class="container-fluid px-0">
+    <div class="row gx-3 gx-lg-5 mx-2 mx-lg-4">
+        <div *ngFor="let game of gamesService.games" class="col-6 col-lg-4 col-xl-3 pt-3 pt-lg-5">
             <button class="game position-relative"
                 routerLink="/games/{{ game.route }}"
                 [disabled]="game.disabled"

@@ -11,7 +11,7 @@
     </div>
 
     <div class="dialog-body">
-        <div class="setting-group">
+        <div class="setting-group p-3">
             <h5 class="text-uppercase">General</h5>
             <ak-toggle
                 [label]="'Show timer'"
@@ -20,7 +20,7 @@
             ></ak-toggle>
         </div>
         
-        <div class="setting-group">
+        <div class="setting-group p-3">
             <h5>
                 <span class="text-uppercase">Assistive</span>
                 <ng-container *ngIf="gameManager.gameInstance?.hardcore">
@@ -60,7 +60,7 @@
             ></ak-toggle>
         </div>
 
-        <div class="setting-group">
+        <div class="setting-group p-3">
             <h5 class="text-uppercase">Game Saves</h5>
             <ak-toggle
                 [label]="'Exit save'"
@@ -70,5 +70,10 @@
                 (valueChange)="toggleChange('exitSave', $event)"
             ></ak-toggle>
         </div>
-    </div>
+
+        <div class="setting-group p-3">
+            <h5 class="text-uppercase">Theme</h5>
+                <ak-theme></ak-theme>
+            </div>
+        </div>
 </div>

@@ -15,6 +15,16 @@ $opacity-timing             : ease-in;
     }
 }
 
+$fade-name                  : kfFade;
+@keyframes #{$fade-name} {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
 $shrink-name                : kfShrink;
 $shrink-duration            : .25s;
 $shrink-timing              : ease-in;

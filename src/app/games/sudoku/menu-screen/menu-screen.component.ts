@@ -7,6 +7,7 @@ import { TextComponent } from '../../../@components/text/text.component';
 import { ToggleComponent } from '../../../@components/toggle/toggle.component';
 import { TooltipDirective } from '../../../@directives/tooltip/tooltip.directive';
 import { DifficultyPipe } from '../../../@pipes/difficulty.pipe';
+import { GamesService } from '../../games.service';
 import { SettingsDialogComponent } from '../settings-dialog/settings-dialog.component';
 import { SudokuManager } from '../sudoku-manager';
 import { SudokuDifficulty, SudokuGameInstance, SudokuScreenState } from '../sudoku.models';
@@ -27,6 +28,7 @@ import { SudokuMenuState } from './menu-screen.models';
 })
 export class SudokuMenuScreenComponent {
     public gameManager = inject(SudokuManager);
+    public gamesService = inject(GamesService);
 
     public difficulty = signal(SudokuDifficulty.easy);
     public hardcore = false;

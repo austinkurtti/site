@@ -42,6 +42,9 @@ $map: (
         // Controls
         'tooltip': variables.$color-black
     ),
+    'font-family': (
+        'normal': variables.$default-font-family
+    ),
     'icon-color': (
         'primary': variables.$color-white,
         'neutral-on-primary': functions.adjust-to-contrast(variables.$color-neutral, variables.$color-navy, 3),

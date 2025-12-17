@@ -18,7 +18,7 @@ html {
 body {
     background-color: variables.$theme-bg-color-primary;
     color: variables.$theme-font-color-normal;
-    font-family: variables.$default-font-family;
+    font-family: variables.$theme-font-family-normal;
     font-size: variables.$default-font-size;
     height: 100%;
     line-height: 1;
@@ -90,11 +90,11 @@ p:not(:last-child) {
 button {
     background-color: variables.$theme-bg-color-primary;
     border-color: variables.$theme-font-color-normal;
-    border-radius: math.div(variables.$base-size, 4);
+    border-radius: variables.$border-radius;
     border-style: solid;
     border-width: math.div(variables.$base-size, 8);
     color: variables.$theme-font-color-normal;
-    font-family: variables.$default-font-family;
+    font-family: variables.$theme-font-family-normal;
     font-size: variables.$default-font-size;
     padding: math.div(variables.$base-size, 2);
 

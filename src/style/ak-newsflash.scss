@@ -1,0 +1,70 @@
+@use 'sass:color';
+
+@use 'variables';
+
+$moving-content-duration: 5s; // ? Dynamically set by service
+$newsflash-content-name: kfNewsflashContent;
+@keyframes #{$newsflash-content-name} {
+    0% {
+        max-height: 0;
+        opacity: 0;
+    }
+    2% {
+        opacity: 1;
+    }
+    20% {
+        max-height: 100%;
+    }
+    80% {
+        max-height: 100%;
+    }
+    98% {
+        opacity: 1;
+    }
+    100% {
+        max-height: 0;
+        opacity: 0;
+    }
+}
+$moving-content-name: kfMovingContent;
+@keyframes #{$moving-content-name} {
+    0% {
+        transform: translateX(-100vw);
+    }
+    20% {
+        transform: translateX(calc(35vw - 50%));
+    }
+    80% {
+        transform: translateX(calc(65vw - 50%));
+    }
+    100% {
+        transform: translateX(200vw);
+    }
+}
+
+#ak-newsflash-container {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    z-index: variables.$z-index-newsflash;
+
+    .newsflash-content {
+        animation-duration: $moving-content-duration;
+        animation-fill-mode: forwards;
+        animation-name: $newsflash-content-name;
+        animation-timing-function: linear;
+        position: relative;
+        width: 100%;
+
+        .newsflash-moving-content {
+            animation-duration: $moving-content-duration;
+            animation-fill-mode: forwards;
+            animation-name: $moving-content-name;
+            animation-timing-function: linear;
+            position: absolute;
+            top: 0;
+        }
+    }
+}

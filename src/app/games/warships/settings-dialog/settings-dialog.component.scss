@@ -1,0 +1,16 @@
+@use 'sass:math';
+
+@use 'variables';
+
+.setting-group {
+    background-color: variables.$theme-bg-color-secondary;
+    border-radius: math.div(variables.$base-size, 4);
+
+    &:not(:first-child) {
+        margin-top: variables.$base-size;
+    }
+
+    h5 {
+        font-weight: normal;
+    }
+}

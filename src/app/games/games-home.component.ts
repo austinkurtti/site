@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { GameLinkModel } from './games.models';
+import { ThemeComponent } from '@components/theme/theme.component';
+import { MenuContentDirective } from '@directives/menu/menu-content.directive';
+import { MenuDirective, MenuPosition } from '@directives/menu/menu.directive';
+import { GamesService } from './games.service';
 
 @Component({
     selector: 'ak-games-home',
@@ -9,27 +12,14 @@ import { GameLinkModel } from './games.models';
     templateUrl: './games-home.component.html',
     imports: [
         CommonModule,
-        RouterLink
+        MenuDirective,
+        MenuContentDirective,
+        RouterLink,
+        ThemeComponent
     ]
 })
 export class GamesHomeComponent {
-    public games: GameLinkModel[] = [
-        new GameLinkModel({
-            name: 'Sudoku',
-            icon: 'fas fa-border-all',
-            route: 'sudoku'
-        }),
-        new GameLinkModel({
-            name: 'Solitaire',
-            icon: 'fas fa-heart',
-            route: 'solitaire',
-            disabled: true
-        }),
-        new GameLinkModel({
-            name: 'Warships',
-            icon: 'fas fa-anchor',
-            route: 'warships',
-            disabled: true
-        })
-    ];
+    public gamesService = inject(GamesService);
+
+    public MenuPosition = MenuPosition;
 }

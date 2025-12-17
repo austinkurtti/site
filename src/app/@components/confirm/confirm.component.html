@@ -7,10 +7,10 @@
 
     <div class="dialog-actions row g-0 align-items-center justify-content-end">
         <div class="col-auto me-3">
-            <button class="confirm-button" (click)="confirm()">{{ confirmText }}</button>
+            <button [class]="confirmClass" (click)="confirm()">{{ confirmText }}</button>
         </div>
         <div class="col-auto">
-            <button class="cancel-button" (click)="cancel()">{{ cancelText }}</button>
+            <button [class]="cancelClass" (click)="cancel()">{{ cancelText }}</button>
         </div>
     </div>
 </div>

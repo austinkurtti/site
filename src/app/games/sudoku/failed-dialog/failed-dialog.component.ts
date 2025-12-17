@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
+import { DialogDirective } from '@directives/dialog/dialog.directive';
 
 @Component({
     standalone: true,
@@ -7,7 +7,7 @@ import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
     styleUrls: ['./failed-dialog.component.scss'],
     templateUrl: './failed-dialog.component.html'
 })
-export class FailedDialogComponent extends DialogBaseDirective {
+export class FailedDialogComponent extends DialogDirective {
     @Input() correctValue: number;
     @Input() incorrectValue: number;
     @Input() playDifferentGame: () => void;

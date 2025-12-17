@@ -1,0 +1,171 @@
+@use 'sass:color';
+@use 'sass:math';
+
+@use 'variables';
+@use 'functions';
+@use 'mixins';
+
+$red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$color-sky, 3, $prefer: 'darken');
+
+:host {
+    display: block;
+    height: 100%;
+
+    h1 {
+        font-family: variables.$industrial-font-family;
+        font-weight: normal;
+
+        &.victory {
+            color: variables.$color-warships-radar-green;
+        }
+
+        &.defeat {
+            color: variables.$color-warships-radar-red;
+        }
+    }
+
+    // TODO - should probably componentize this
+    .grid-container {
+        height: auto;
+        padding: variables.$base-size * 2;
+        position: relative;
+
+        @include mixins.for-lg-screens {
+            height: 40vh;
+        }
+
+        .grid {
+            aspect-ratio: 1 / 1;
+            background: radial-gradient(
+                variables.$color-blue,
+                variables.$color-warships-radar-blue
+            );
+            border: 1px solid variables.$theme-font-color-normal;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            margin: auto;
+            max-height: 100%;
+            max-width: 100%;
+            position: relative;
+
+            #grid-col-labels {
+                color: variables.$theme-font-color-normal;
+                display: grid;
+                grid-template-columns: repeat(10, 1fr);
+                height: variables.$base-size * 2;
+                position: absolute;
+                top: -(variables.$base-size * 2);
+                width: 100%;
+
+                .grid-col-label {
+                    align-self: center;
+                    font-family: variables.$industrial-font-family;
+                    font-size: variables.$default-font-size * .75;
+                    text-align: center;
+
+                    @include mixins.for-md-screens {
+                        font-size: variables.$default-font-size;
+                    }
+
+                    @include mixins.for-lg-screens {
+                        font-size: variables.$default-font-size * 1.5;
+                    }
+                }
+            }
+
+            #grid-row-labels {
+                color: variables.$theme-font-color-normal;
+                display: grid;
+                grid-template-rows: repeat(10, 1fr);
+                height: 100%;
+                left: -(variables.$base-size * 2);
+                position: absolute;
+                width: variables.$base-size * 2;
+
+                .grid-row-label {
+                    align-self: center;
+                    font-family: variables.$industrial-font-family;
+                    font-size: variables.$default-font-size * .75;
+                    text-align: center;
+
+                    @include mixins.for-md-screens {
+                        font-size: variables.$default-font-size;
+                    }
+
+                    @include mixins.for-lg-screens {
+                        font-size: variables.$default-font-size * 1.5;
+                    }
+                }
+            }
+
+            .sector {
+                aspect-ratio: 1 / 1;
+                border: 1px solid variables.$theme-font-color-normal;
+                box-sizing: border-box;
+            }
+
+            .deployed-ship {
+                border: 1px solid variables.$theme-font-color-normal;
+
+                img {
+                    // sepia filter to add color, rotate hue to make it green, then boost saturation
+                    filter: sepia(100%) hue-rotate(90deg) saturate(300%);
+                }
+            }
+        }
+
+        #grid-overlays-container {
+            box-sizing: border-box;
+            height: 100%;
+            left: 0;
+            padding: variables.$base-size * 2;
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            width: 100%;
+
+            #sector-overlays {
+                aspect-ratio: 1 / 1;
+                border: 1px solid transparent;
+                display: grid;
+                grid-template-columns: repeat(10, 1fr);
+                grid-template-rows: repeat(10, 1fr);
+                margin: auto;
+                max-height: 100%;
+                max-width: 100%;
+
+                .sector-overlay {
+                    aspect-ratio: 1 / 1;
+                    border: 1px solid transparent;
+                    box-sizing: border-box;
+
+                    .fa-map-marker {
+                        font-size: variables.$default-font-size * .6;
+
+                        &.miss {
+                            color: variables.$color-white;
+                        }
+
+                        &.hit {
+                            color: variables.$color-warships-radar-red;
+                        }
+
+                        @include mixins.for-md-screens {
+                            font-size: variables.$default-font-size * .8;
+                        }
+
+                        @include mixins.for-lg-screens {
+                            font-size: variables.$default-font-size;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #actions {
+        border-bottom: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+        border-top: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+    }
+}

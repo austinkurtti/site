@@ -67,7 +67,7 @@
     }
 
     .theme-colors {
-        border: solid variables.$color-gray 1px;
+        border: 1px solid variables.$color-gray;
         border-top-left-radius: math.div(variables.$base-size, 4);
         border-top-right-radius: math.div(variables.$base-size, 4);
 
@@ -108,7 +108,8 @@
     }
 
     .theme-radio-label {
-        border: solid variables.$color-gray 1px;
+        background-color: variables.$theme-bg-color-primary;
+        border: 1px solid variables.$color-gray;
         border-top: none;
         border-bottom-left-radius: math.div(variables.$base-size, 4);
         border-bottom-right-radius: math.div(variables.$base-size, 4);

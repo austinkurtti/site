@@ -1,0 +1,564 @@
+@use 'sass:color';
+@use 'sass:math';
+
+@use 'variables';
+@use 'functions';
+@use 'mixins';
+
+$drag-message-duration: 2s;
+$drag-message-timing: ease-in-out;
+$drag-message-hand-sidebar-name: kfDragMessageHandSidebar;
+@keyframes #{$drag-message-hand-sidebar-name} {
+    0% {
+        opacity: 0;
+        transform: translateX(0%);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(200%);
+    }
+}
+$drag-message-hand-bottombar-name: kfDragMessageHandBottombar;
+@keyframes #{$drag-message-hand-bottombar-name} {
+    0% {
+        opacity: 0;
+        transform: translateX(0%) rotate(90deg);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(0%) rotate(90deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(200%) rotate(90deg);
+    }
+}
+$drag-message-hand-content-name: kfDragMessageHandContent;
+@keyframes #{$drag-message-hand-content-name} {
+    // Animate from fa-hand-paper ('\f256') to fa-hand-rock ('\f255') to make it look like grabbing
+    0% {
+        content: '\f256';
+    }
+    34% {
+        content: '\f256';
+    }
+    35% {
+        content: '\f255';
+    }
+    100% {
+        content: '\f255';
+    }
+}
+$drag-message-arrow-name: kfDragMessageArrow;
+@keyframes #{$drag-message-arrow-name} {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+// Custom property for Deploy button
+@property --gradient-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+:host {
+    display: block;
+    height: 100%;
+
+    #topbar {
+        border-bottom: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+    }
+
+    #sidebar {
+        border-right: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+        height: 100vh;
+        // 22 comes from (20 to maintain width for height:width ratio of 1:3.2 for the side profile ship images) + (2 for sidebar padding)
+        width: variables.$base-size * 22;
+
+        #sidebar-content {
+            .sidebar-section:not(:last-child) {
+                border-bottom: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+            }
+
+            .deployable-ship {
+                background-color: variables.$theme-bg-color-secondary;
+                cursor: grab;
+
+                &:not(:first-child) {
+                    margin-top: variables.$base-size;
+                }
+
+                &:hover {
+                    outline: math.div(variables.$base-size, 8) solid variables.$theme-accent-color-primary;
+                }
+
+                .ship-info {
+                    pointer-events: none;
+                    top: variables.$base-size;
+
+                    &.ship-name {
+                        left: variables.$base-size;
+                    }
+
+                    &.ship-length {
+                        right: variables.$base-size;
+                    }
+                }
+
+                img {
+                    height: variables.$base-size * 6.25;
+                    width: variables.$base-size * 20;
+                }
+            }
+
+            #drag-ships-message {
+                left: variables.$base-size * 8;
+                pointer-events: none;
+                top: variables.$base-size * 21;
+
+                i:first-child {
+                    animation-duration: $drag-message-duration;
+                    animation-name: $drag-message-hand-sidebar-name;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: $drag-message-timing;
+                    color: variables.$theme-accent-color-primary;
+                    width: variables.$base-size * 2;
+
+                    @media (prefers-reduced-motion) {
+                        animation-duration: 0s;
+                    }
+
+                    &::before {
+                        animation-duration: $drag-message-duration;
+                        animation-name: $drag-message-hand-content-name;
+                        animation-iteration-count: infinite;
+                        animation-timing-function: $drag-message-timing;
+                        content: '';
+
+                        @media (prefers-reduced-motion) {
+                            animation-duration: 0s;
+                        }
+                    }
+                }
+
+                .fa-arrow-right {
+                    animation-duration: $drag-message-duration;
+                    animation-name: $drag-message-arrow-name;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: $drag-message-timing;
+                    color: variables.$theme-accent-color-primary;
+
+                    @media (prefers-reduced-motion) {
+                        animation-duration: 0s;
+                    }
+                }
+            }
+
+            #event-log-toggle {
+                height: variables.$base-size * 3;
+
+                i.collapsed {
+                    transform: rotate(270deg);
+                }
+            }
+        }
+    }
+
+    #grid-container {
+        // Width subtraction for sm screens is the total single-axis padding size of the p-5 class (6rem)
+        $grid-max-width-sm: calc(100vmin - (variables.$base-size * 6));
+        // Need extra width subtraction for md screens, which have a higher occurence of near-1:1 height:width ratio
+        // This prevents the #bottombar from disappearing off-screen
+        $grid-max-width-md: calc(100vmin - (variables.$base-size * 18));
+        // For lg+ screens go back to only subtracting single-axis padding size of the p-5 class (6rem)
+        $grid-max-width-lg: calc(100vmin - (variables.$base-size * 11));
+        $grid-padding: (variables.$base-size * 8) (variables.$base-size * 3) (variables.$base-size * 3) (variables.$base-size * 3);
+
+        box-sizing: border-box;
+        padding: $grid-padding;
+        position: relative;
+        width: 100%;
+
+        #game-info {
+            display: grid;
+            color: variables.$color-warships-radar-green;
+            grid-gap: math.div(variables.$base-size, 4);
+            grid-template-columns: 1fr 2fr;
+            left: variables.$base-size;
+            pointer-events: none;
+            top: variables.$base-size;
+
+            .highlight {
+                background-color: variables.$color-warships-radar-green;
+                color: variables.$color-navy;
+                padding-left: math.div(variables.$base-size, 8);
+                padding-right: math.div(variables.$base-size, 8);
+                text-align: end;
+            }
+        }
+
+        #grid {
+            aspect-ratio: 1 / 1;
+            background: radial-gradient(
+                variables.$color-blue,
+                variables.$color-warships-radar-blue
+            );
+            border: 1px solid variables.$theme-font-color-normal;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            margin: auto;
+            max-width: $grid-max-width-sm;
+            position: relative;
+
+            @include mixins.for-md-screens {
+                max-width: $grid-max-width-md;
+            }
+
+            @include mixins.for-lg-screens {
+                max-width: $grid-max-width-lg;
+            }
+
+            &.player-turn {
+                .sector:not(.targeted):hover {
+                    background-color: color.mix(variables.$color-warships-radar-green, transparent);
+                    cursor: crosshair;
+                }
+            }
+
+            #grid-col-labels {
+                display: grid;
+                grid-template-columns: repeat(10, 1fr);
+                height: variables.$base-size * 2;
+                position: absolute;
+                top: -(variables.$base-size * 2);
+                width: 100%;
+
+                .grid-col-label {
+                    align-self: center;
+                    font-family: variables.$industrial-font-family;
+                    font-size: variables.$default-font-size;
+                    text-align: center;
+
+                    @include mixins.for-md-screens {
+                        font-size: variables.$default-font-size * 1.5;
+                    }
+
+                    @include mixins.for-lg-screens {
+                        font-size: variables.$default-font-size * 2;
+                    }
+                }
+            }
+
+            #grid-row-labels {
+                display: grid;
+                grid-template-rows: repeat(10, 1fr);
+                height: 100%;
+                left: -(variables.$base-size * 2);
+                position: absolute;
+                width: variables.$base-size * 2;
+
+                .grid-row-label {
+                    align-self: center;
+                    font-family: variables.$industrial-font-family;
+                    font-size: variables.$default-font-size;
+                    text-align: center;
+
+                    @include mixins.for-md-screens {
+                        font-size: variables.$default-font-size * 1.5;
+                    }
+
+                    @include mixins.for-lg-screens {
+                        font-size: variables.$default-font-size * 2;
+                    }
+                }
+            }
+
+            .sector {
+                aspect-ratio: 1 / 1;
+                border: 1px solid variables.$theme-font-color-normal;
+                box-sizing: border-box;
+            }
+
+            #deployable-ship-placeholder {
+                background-color: variables.$color-warships-radar-green;
+                pointer-events: none;
+                position: absolute;
+            }
+
+            .deployed-ship {
+                border: 1px solid variables.$theme-font-color-normal;
+
+                &[draggable=true] {
+                    cursor: grab;
+                }
+
+                img {
+                    // sepia filter to add color, rotate hue to make it green, then boost saturation
+                    filter: sepia(100%) hue-rotate(90deg) saturate(300%);
+                }
+            }
+        }
+
+        #grid-overlays-container {
+            box-sizing: border-box;
+            height: 100%;
+            left: 0;
+            padding: $grid-padding;
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            width: 100%;
+
+            #sector-overlays {
+                aspect-ratio: 1 / 1;
+                border: 1px solid transparent;
+                display: grid;
+                grid-template-columns: repeat(10, 1fr);
+                grid-template-rows: repeat(10, 1fr);
+                margin: auto;
+                max-width: $grid-max-width-sm;
+
+                @include mixins.for-md-screens {
+                    max-width: $grid-max-width-md;
+                }
+
+                @include mixins.for-lg-screens {
+                    max-width: $grid-max-width-lg;
+                }
+
+                .sector-overlay {
+                    aspect-ratio: 1 / 1;
+                    border: 1px solid transparent;
+                    box-sizing: border-box;
+
+                    .fa-map-marker {
+                        font-size: variables.$default-font-size * 1.25;
+
+                        @include mixins.for-md-screens {
+                            font-size: variables.$default-font-size * 1.5;
+                        }
+
+                        @include mixins.for-lg-screens {
+                            font-size: variables.$default-font-size * 2;
+                        }
+
+                        &.miss {
+                            color: variables.$color-white;
+                        }
+
+                        &.hit {
+                            color: variables.$color-warships-radar-red;
+                        }
+                    }
+                }
+
+                .fa-crosshairs {
+                    color: variables.$color-warships-radar-red;
+                    font-size: variables.$default-font-size * 1.5;
+
+                    @include mixins.for-md-screens {
+                        font-size: variables.$default-font-size * 2;
+                    }
+
+                    @include mixins.for-lg-screens {
+                        font-size: variables.$default-font-size * 3;
+                    }
+                }
+            }
+        }
+    }
+
+    #bottombar {
+        .bottombar-section {
+            border-top: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+        }
+
+        #drag-ships-message {
+            left: calc(50vw - (variables.$base-size * 2));
+            pointer-events: none;
+            top: variables.$base-size * 4;
+            transform: rotate(-90deg);
+            z-index: variables.$z-index-bump;
+
+            i:first-child {
+                animation-duration: $drag-message-duration;
+                animation-name: $drag-message-hand-bottombar-name;
+                animation-iteration-count: infinite;
+                animation-timing-function: $drag-message-timing;
+                color: variables.$theme-accent-color-primary;
+                width: variables.$base-size * 2;
+
+                @media (prefers-reduced-motion) {
+                    animation-duration: 0s;
+                }
+
+                &::before {
+                    animation-duration: $drag-message-duration;
+                    animation-name: $drag-message-hand-content-name;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: $drag-message-timing;
+                    content: '';
+
+                    @media (prefers-reduced-motion) {
+                        animation-duration: 0s;
+                    }
+                }
+            }
+
+            .fa-arrow-right {
+                animation-duration: $drag-message-duration;
+                animation-name: $drag-message-arrow-name;
+                animation-iteration-count: infinite;
+                animation-timing-function: $drag-message-timing;
+                color: variables.$theme-accent-color-primary;
+
+                @media (prefers-reduced-motion) {
+                    animation-duration: 0s;
+                }
+            }
+        }
+
+        .deployable-ship {
+            background-color: variables.$theme-bg-color-secondary;
+            cursor: grab;
+            display: inline-block;
+
+            &:not(:last-child) {
+                margin-right: variables.$base-size;
+            }
+
+            &:hover {
+                outline: math.div(variables.$base-size, 8) solid variables.$theme-accent-color-primary;
+            }
+
+            .ship-info {
+                font-size: variables.$default-font-size * .65;
+                left: math.div(variables.$base-size, 2);
+                pointer-events: none;
+                position: absolute;
+
+                &.ship-name {
+                    top: math.div(variables.$base-size, 4);
+                }
+
+                &.ship-length {
+                    top: variables.$base-size;
+                }
+
+                @include mixins.for-md-screens {
+                    font-size: variables.$default-font-size * .8;
+                }
+            }
+
+            img {
+                // Scale img proportionally to scren width while maintaining original height:width ratio of 1:3.2
+                height: calc(((100vw - 6rem) / 5) / 3.2);
+                padding-top: variables.$base-size * 1.5;
+                width: calc((100vw - 6rem) / 5);
+            }
+        }
+
+        .menu-host {
+            height: variables.$base-size * 4;
+            padding: variables.$base-size;
+
+            &:not(:first-child) {
+                border-left: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+            }
+
+            span {
+                font-size: variables.$default-font-size;
+
+                @include mixins.for-md-screens {
+                    font-size: variables.$default-font-size * 1.25;
+                }
+            }
+
+            i.fa-caret-up {
+                font-size: variables.$default-font-size * 1.5;
+
+                @include mixins.for-md-screens {
+                    font-size: variables.$default-font-size * 2;
+                }
+            }
+        }
+
+        [role=menu] {
+            margin-top: math.div(variables.$base-size, 8) * -1; // Nudge menus up by bottombar-section border width
+            padding: variables.$base-size;
+
+            ak-warships-fleet-status {
+                width: variables.$base-size * 20;
+            }
+
+            #event-log {
+                height: 25vh;
+                width: 60vw;
+
+                @include mixins.for-md-screens {
+                    width: 50vw;
+                }
+            }
+        }
+    }
+
+    // Fancy rotating gradient border on Start button when all ships are placed
+    .start-button:not(:disabled):not(:hover) {
+        --gradient-angle: 0deg;
+
+        background-clip: padding-box;
+        border-color: transparent;
+        position: relative;
+
+        @keyframes rotateGradient {
+            to {
+                --gradient-angle: 360deg;
+            }
+        }
+
+        &::after {
+            animation: rotateGradient 3s linear infinite;
+            background: conic-gradient(from var(--gradient-angle),
+                variables.$color-navy,
+                variables.$color-navy,
+                variables.$color-navy,
+                variables.$color-navy,
+                variables.$color-navy,
+                variables.$color-warships-radar-green
+            );
+            bottom: -(math.div(variables.$base-size, 4));
+            content: '';
+            left: -(math.div(variables.$base-size, 4));
+            position: absolute;
+            right: -(math.div(variables.$base-size, 4));
+            top: -(math.div(variables.$base-size, 4));
+            z-index: -1;
+        }
+    }
+
+    #event-log {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li:nth-child(even) {
+            background-color: variables.$theme-bg-color-secondary;
+        }
+    }
+}

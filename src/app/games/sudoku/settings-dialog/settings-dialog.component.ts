@@ -1,20 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { ThemeComponent } from '@components/theme/theme.component';
 import { ToggleComponent } from '@components/toggle/toggle.component';
-import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
+import { DialogDirective } from '@directives/dialog/dialog.directive';
 import { LocalStorageService } from '@services/local-storage.service';
 import { SudokuManager } from '../sudoku-manager';
 
 @Component({
-    imports: [
-        CommonModule,
-        ToggleComponent
-    ],
     selector: 'ak-settings-dialog',
     styleUrls: ['./settings-dialog.component.scss'],
-    templateUrl: './settings-dialog.component.html'
+    templateUrl: './settings-dialog.component.html',
+    imports: [
+        CommonModule,
+        ThemeComponent,
+        ToggleComponent
+    ],
 })
-export class SettingsDialogComponent extends DialogBaseDirective {
+export class SettingsDialogComponent extends DialogDirective {
     public gameManager = inject(SudokuManager);
 
     public toggleChange(setting: string, value: boolean): void {

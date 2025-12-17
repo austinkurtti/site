@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
+import { DialogDirective } from '@directives/dialog/dialog.directive';
 
 @Component({
     standalone: true,
@@ -11,7 +11,7 @@ import { DialogBaseDirective } from '@directives/dialog/dialog-base.directive';
         CommonModule
     ]
 })
-export class HelpDialogComponent extends DialogBaseDirective implements OnInit {
+export class HelpDialogComponent extends DialogDirective implements OnInit {
     public showNumLockWarning = false;
 
     public ngOnInit(): void {

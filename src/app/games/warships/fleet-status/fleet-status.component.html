@@ -1,0 +1,32 @@
+<div class="fleet-status">
+    <div *ngFor="let ship of fleet()"
+        class="ship row my-2 g-0 justify-content-between"
+        [ngClass]="{
+            'destroyed': ship.health === 0
+        }"
+    >
+        <div class="col-6 d-flex flex-column justify-content-end">
+            <div>{{ ship.name }}</div>
+            <div>{{ ship.length }} units</div>
+        </div>
+        <div class="col-6 ship-img-container">
+            <img class="invertible" [src]="'assets/images/warships/' + ship.id + '.png'"/>
+        </div>
+        <div *ngIf="isPlayer()"
+            class="col-12 health-bar d-flex gap-1 mt-1"
+        >
+            <div *ngFor="let x of [].constructor(ship.length); let i = index"
+                class="health-bar-piece"
+                [attr.data-filled]="i < ship.health"
+            ></div>
+        </div>
+        <svg *ngIf="ship.health === 0"
+            class="destroyed-overlay"
+            height="100%"
+            width="100%"
+        >
+            <line class="diagonal-line" x1="0" y1="0" x2="100%" y2="100%"></line>
+            <line class="diagonal-line" x1="0" y1="100%" x2="100%" y2="0"></line>
+        </svg>
+    </div>
+</div>

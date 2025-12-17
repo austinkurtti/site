@@ -12,6 +12,11 @@
     src: url('../assets/fonts/caveat/caveat.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'Black Ops One';
+    src: url('../assets/fonts/black-ops-one/black-ops-one.ttf') format('truetype');
+}
+
 // -----------------------------------------
 // Colors
 // -----------------------------------------
@@ -65,6 +70,10 @@ $color-solitaire-blue                   : #48bfe5;
 
 // Warships
 $color-warships                         : #5298d6;
+$color-warships-radar-green             : #34eb28;
+$color-warships-radar-red               : #eb2835;
+$color-warships-radar-blue              : #0c1077;
+$color-warships-radar-yellow            : #ebde28;
 
 // -----------------------------------------
 // Core settings
@@ -74,6 +83,8 @@ $base-z-index                           : 0;
 
 $header-height                          : $base-size * 6;
 
+$border-radius                          : var(--border-radius);
+
 // -----------------------------------------
 // Fonts
 // -----------------------------------------
@@ -81,6 +92,9 @@ $default-font-family                    : 'Roboto Flex', sans-serif;
 $default-font-size                      : $base-size;
 $font-awesome-font-family               : 'Font Awesome 5 Free';
 $handwriting-font-family                : 'Caveat', sans-serif;
+$industrial-font-family                 : 'Black Ops One', monospace;
+
+$tooltip-font-size                      : $default-font-size * .8;
 
 // -----------------------------------------
 // Theme
@@ -104,6 +118,8 @@ $theme-font-color-positive-on-secondary : var(--theme-font-color-positive-on-sec
 $theme-font-color-negative-on-primary   : var(--theme-font-color-negative-on-primary);
 $theme-font-color-negative-on-secondary : var(--theme-font-color-negative-on-secondary);
 $theme-font-color-tooltip               : var(--theme-font-color-tooltip);
+
+$theme-font-family-normal               : var(--theme-font-family-normal);
 
 $theme-icon-color-primary               : var(--theme-icon-color-primary);
 $theme-icon-color-neutral-on-primary    : var(--theme-icon-color-neutral-on-primary);
@@ -130,5 +146,6 @@ $z-index-header                         : 1000;
 $z-index-menu                           : 2000;
 $z-index-notification                   : 3000;
 $z-index-dialog                         : 10000;
-$z-index-tooltip                        : 100000;
-$z-index-confetti                       : 1000000;
+$z-index-newsflash                      : 100000;
+$z-index-tooltip                        : 1000000;
+$z-index-effects                        : 10000000;

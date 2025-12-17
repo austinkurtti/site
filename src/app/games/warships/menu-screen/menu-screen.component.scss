@@ -1,0 +1,162 @@
+@use 'sass:math';
+
+@use 'variables';
+@use 'mixins';
+
+$radar-animation-name: kfRadar;
+@keyframes #{$radar-animation-name} {
+    0% {
+        // Timing of pings appearing on radar line seems to work better with -3 -> 357 than 0 -> 360
+        transform: rotate(-3deg);
+    }
+    100% {
+        transform: rotate(357deg);
+    }
+}
+
+:host {
+    display: block;
+    height: 100%;
+    position: relative;
+
+    #menu-bg {
+        $left-width: variables.$base-size * 12;
+
+        color: variables.$color-warships-radar-green;
+        pointer-events: none;
+        z-index: -1;
+
+        .highlight {
+            background-color: variables.$color-warships-radar-green;
+            color: variables.$color-navy;
+        }
+
+        #menu-bg-left {
+            border-right: 2px solid variables.$color-warships-radar-green;
+            height: 100%;
+            width: variables.$base-size * 12;
+
+            .bg-text-top {
+                display: grid;
+                grid-template-columns: 3fr 1fr;
+            }
+
+            .bg-text-grid {
+                border-bottom: 2px solid variables.$color-warships-radar-green;
+                display: grid;
+                grid-gap: math.div(variables.$base-size, 4);
+                grid-template-columns: 2fr 1fr 1fr;
+                padding-bottom: math.div(variables.$base-size, 2);
+
+                i {
+                    color: variables.$color-warships-radar-green;
+                }
+            }
+
+            .bg-empty-grid {
+                border-bottom: 2px solid variables.$color-warships-radar-green;
+            }
+        }
+
+        #menu-bg-main {
+            height: 100%;
+            width: calc(100vw - #{$left-width});
+
+            #radar-container {
+                height: calc(100% - (variables.$base-size * 4));
+                padding: variables.$base-size * 2;
+                width: calc(100% - (variables.$base-size * 4));
+
+                #radar {
+                    aspect-ratio: 1;
+                    border: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+                    border-radius: 50%;
+                    margin: auto;
+                    width: calc(100vmin - (variables.$base-size * 4));
+
+                    .radar-ring {
+                        aspect-ratio: 1;
+                        border: math.div(variables.$base-size, 8) dashed variables.$color-warships-radar-green;
+                        border-radius: 50%;
+                        position: absolute;
+
+                        &:nth-child(1) {
+                            left: 10%;
+                            top: 10%;
+                            width: 80%;
+                        }
+
+                        &:nth-child(2) {
+                            left: 20%;
+                            top: 20%;
+                            width: 60%;
+                        }
+
+                        &:nth-child(3) {
+                            left: 30%;
+                            top: 30%;
+                            width: 40%;
+                        }
+
+                        &:nth-child(4) {
+                            left: 40%;
+                            top: 40%;
+                            width: 20%;
+                        }
+
+                        &:nth-child(5) {
+                            background-color: variables.$color-warships-radar-green;
+                            border-style: solid;
+                            left: 50%;
+                            top: 50%;
+                            width: .1%;
+                        }
+                    }
+
+                    svg {
+                        animation: $radar-animation-name linear 10s infinite;
+                        aspect-ratio: 1;
+                        position: absolute;
+                        width: calc(100% + math.div(variables.$base-size, 4)); // 100% + (outer radar border width * 2)
+
+                        @media (prefers-reduced-motion) {
+                            animation-duration: 0s;
+                        }
+                    }
+                }
+            }
+
+            .bg-main-row {
+                display: grid;
+                grid-gap: math.div(variables.$base-size, 4);
+                grid-template-columns: 1fr 1fr 1fr;
+                width: variables.$base-size * 10;
+            }
+
+            .fill-bar-outer {
+                border: 2px solid variables.$color-warships-radar-green;
+                display: inline-block;
+                height: math.div(variables.$base-size, 2);
+                margin-left: math.div(variables.$base-size, 2);
+                padding: 1px;
+                width: variables.$base-size * 4;
+
+                .fill-bar-inner {
+                    background-color: variables.$color-warships-radar-green;
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    h1 {
+        background-color: variables.$theme-bg-color-primary;
+        font-family: variables.$industrial-font-family;
+        font-weight: 400;
+        margin-left: 0;
+
+        @include mixins.for-lg-screens{
+            margin-left: variables.$base-size * 13; // 12 (#menu-bg-left width) + 1 (px-3 start width)
+        }
+    }
+}

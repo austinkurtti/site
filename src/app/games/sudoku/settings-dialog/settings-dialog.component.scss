@@ -5,7 +5,6 @@
 .setting-group {
     background-color: variables.$theme-bg-color-secondary;
     border-radius: math.div(variables.$base-size, 4);
-    padding: math.div(variables.$base-size, 2);
 
     &:not(:first-child) {
         margin-top: variables.$base-size;
