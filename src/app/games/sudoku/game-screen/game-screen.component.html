@@ -57,22 +57,22 @@
                 <div akMenuContent>
                     <div *ngIf="!gameManager.gameInstance.hardcore" akMenuItem (menuItemClick)="hint()">
                         <div>Hint</div>
-                        <div class="kbd-shortcut"><kbd>Alt</kbd> + <kbd>H</kbd></div>
+                        <div class="kbd-shortcut d-touchscreen-none"><kbd>Alt</kbd> + <kbd>H</kbd></div>
                     </div>
                     <div *ngIf="!gameManager.gameInstance.hardcore" akMenuItem (menuItemClick)="checkCell()">
                         <div>Check cell</div>
-                        <div class="kbd-shortcut"><kbd>Alt</kbd> + <kbd>C</kbd></div>
+                        <div class="kbd-shortcut d-touchscreen-none"><kbd>Alt</kbd> + <kbd>C</kbd></div>
                     </div>
                     <div *ngIf="!gameManager.gameInstance.hardcore" akMenuItem (menuItemClick)="checkAll()">Check all</div>
                     <div *ngIf="!gameManager.gameInstance.hardcore" akMenuItem (menuItemClick)="revealCell()">
                         <div>Reveal cell</div>
-                        <div class="kbd-shortcut"><kbd>Alt</kbd> + <kbd>R</kbd></div>
+                        <div class="kbd-shortcut d-touchscreen-none"><kbd>Alt</kbd> + <kbd>R</kbd></div>
                     </div>
                     <div *ngIf="!gameManager.gameInstance.hardcore" akMenuItem (menuItemClick)="revealAll()">Reveal all</div>
                     <div akMenuItem (menuItemClick)="reset()">Reset</div>
                     <div akMenuItem (menuItemClick)="share()">
                         <div>Share</div>
-                        <div class="kbd-shortcut"><kbd>Alt</kbd> + <kbd>S</kbd></div>
+                        <div class="kbd-shortcut d-touchscreen-none"><kbd>Alt</kbd> + <kbd>S</kbd></div>
                     </div>
                     <div class="d-block d-md-none" akMenuItem (menuItemClick)="showSettingsDialog()">Settings</div>
                     <div class="d-block d-md-none" akMenuItem (menuItemClick)="showHelpDialog()">Help</div>

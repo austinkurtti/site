@@ -205,6 +205,10 @@ kbd {
     line-height: 1;
     padding: math.div(variables.$base-size, 8) math.div(variables.$base-size, 4);
     white-space: nowrap;
+
+    @media (pointer: coarse) {
+        display: none;
+    }
 }
 
 i[class*="fas"], i[class*="fab"], i[class*="far"], i[class*="devicon"] {
