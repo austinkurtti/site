@@ -802,7 +802,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
     };
 
     private _documentVisibilitychange = (event: Event): void => {
-        if (document.visibilityState === 'hidden' && this.board.state !== SudokuGameState.paused) {
+        if (document.visibilityState === 'hidden' && this.board.state === SudokuGameState.running) {
             if (this._autoPauseDebounce) {
                 return;
             }
