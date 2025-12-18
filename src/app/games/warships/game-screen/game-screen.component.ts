@@ -342,7 +342,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         // Set a short timeout to allow for tap-to-rotate (if no move occurs)
         this._touchRotateWindowOpen = true;
         this._touchRotateExpired.next(false);
-        timer(250).pipe(takeUntil(this._touchRotateExpired)).subscribe(() => this._touchRotateWindowOpen = false);
+        timer(500).pipe(takeUntil(this._touchRotateExpired)).subscribe(() => this._touchRotateWindowOpen = false);
     }
 
     public shipTouchMove = (event: TouchEvent): void => {
