@@ -104,9 +104,11 @@ $drag-message-arrow-name: kfDragMessageArrow;
             }
 
             #grid-overlays-container {
+                display: flex;
                 flex-grow: 1;
 
                 #sector-overlays {
+                    flex-grow: 1;
                     max-width: $grid-max-width;
                 }
             }
