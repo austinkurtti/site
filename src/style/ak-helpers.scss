@@ -1,6 +1,6 @@
 @use 'variables';
 
-// Text/font classes
+// Text/font
 .font-family-handwriting {
     font-family: variables.$handwriting-font-family;
 }
@@ -11,4 +11,12 @@
 
 .text-transform-none {
     text-transform: none;
+}
+
+// Display
+@media (pointer: coarse) {
+    // pointer: coarse can be used as a rouch estimation for users being on a mobile touchscreen device
+    .d-touchscreen-none {
+        display: none;
+    }
 }

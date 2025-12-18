@@ -14,8 +14,10 @@
         }
     }
 
-    label {
-        cursor: pointer;
+    &:not(.disabled) {
+        label {
+            cursor: pointer;
+        }
     }
 
     p {

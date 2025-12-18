@@ -77,8 +77,78 @@ $drag-message-arrow-name: kfDragMessageArrow;
 }
 
 :host {
-    display: block;
+    display: flex;
     height: 100%;
+
+    @media (orientation: portrait) {
+        // Restrict grid max-width based on view height (fwr width restriction works better with flex parent and aspect-ratio)
+        $grid-max-width: calc(100vh - variables.$base-size * 27); // 27 = 5 (#topbar height rounded up) + 11 (#bottombar height rounded up) + 8 (#grid-container top padding) + 3 (#grid-container bottom padding)
+
+        flex-direction: column;
+
+        #topbar {
+            display: flex;
+        }
+
+        #sidebar {
+            display: none;
+        }
+
+        #grid-container {
+            display: flex;
+            flex-grow: 1;
+
+            #grid {
+                flex-grow: 1;
+                max-width: $grid-max-width;
+            }
+
+            #grid-overlays-container {
+                flex-grow: 1;
+
+                #sector-overlays {
+                    max-width: $grid-max-width;
+                }
+            }
+        }
+
+        #bottombar {
+            display: block;
+        }
+    }
+
+    @media (orientation: landscape) {
+        $grid-max-height: calc(100vh - variables.$base-size * 11); // 11 = 8 (#grid-container top padding) + 3 (#grid-container bottom padding)
+        $grid-max-width: calc(100vw - variables.$base-size * 28); // 28 = 22 (#sidebar width) + 3 (#grid-container start padding) + 3 (#grid-container end padding)
+
+        flex-direction: row;
+
+        #topbar {
+            display: none;
+        }
+
+        #sidebar {
+            display: block;
+        }
+
+        #grid-container {
+            display: block;
+
+            #grid {
+                max-height: calc(100vh - 11rem);
+                max-width: calc(100vw - 22rem);
+            }
+
+            #sector-overlays {
+                max-height: calc(100vh - 11rem);
+                max-width: calc(100vw - 22rem);
+            }
+        }
+
+        #bottombar {
+            display: none;
+        }
+    }
 
     #topbar {
         border-bottom: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
@@ -180,13 +250,6 @@ $drag-message-arrow-name: kfDragMessageArrow;
     }
 
     #grid-container {
-        // Width subtraction for sm screens is the total single-axis padding size of the p-5 class (6rem)
-        $grid-max-width-sm: calc(100vmin - (variables.$base-size * 6));
-        // Need extra width subtraction for md screens, which have a higher occurence of near-1:1 height:width ratio
-        // This prevents the #bottombar from disappearing off-screen
-        $grid-max-width-md: calc(100vmin - (variables.$base-size * 18));
-        // For lg+ screens go back to only subtracting single-axis padding size of the p-5 class (6rem)
-        $grid-max-width-lg: calc(100vmin - (variables.$base-size * 11));
         $grid-padding: (variables.$base-size * 8) (variables.$base-size * 3) (variables.$base-size * 3) (variables.$base-size * 3);
 
         box-sizing: border-box;
@@ -223,16 +286,7 @@ $drag-message-arrow-name: kfDragMessageArrow;
             grid-template-columns: repeat(10, 1fr);
             grid-template-rows: repeat(10, 1fr);
             margin: auto;
-            max-width: $grid-max-width-sm;
             position: relative;
-
-            @include mixins.for-md-screens {
-                max-width: $grid-max-width-md;
-            }
-
-            @include mixins.for-lg-screens {
-                max-width: $grid-max-width-lg;
-            }
 
             &.player-turn {
                 .sector:not(.targeted):hover {
@@ -332,15 +386,6 @@ $drag-message-arrow-name: kfDragMessageArrow;
                 grid-template-columns: repeat(10, 1fr);
                 grid-template-rows: repeat(10, 1fr);
                 margin: auto;
-                max-width: $grid-max-width-sm;
-
-                @include mixins.for-md-screens {
-                    max-width: $grid-max-width-md;
-                }
-
-                @include mixins.for-lg-screens {
-                    max-width: $grid-max-width-lg;
-                }
 
                 .sector-overlay {
                     aspect-ratio: 1 / 1;

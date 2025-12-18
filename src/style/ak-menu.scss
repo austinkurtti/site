@@ -16,9 +16,20 @@
     }
 
     [role=menuitem] {
-        cursor: pointer;
         display: block;
         padding: variables.$base-size;
+
+        &.disabled {
+            opacity: .5;
+        }
+
+        &:not(.disabled) {
+            cursor: pointer;
+
+            &:hover {
+                background-color: variables.$theme-bg-color-secondary;
+            }
+        }
 
         &:first-child {
             border-top-left-radius: variables.$border-radius;
@@ -28,10 +39,6 @@
         &:last-child {
             border-bottom-left-radius: variables.$border-radius;
             border-bottom-right-radius: variables.$border-radius;
-        }
-
-        &:hover {
-            background-color: variables.$theme-bg-color-secondary;
         }
     }
 }
