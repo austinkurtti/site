@@ -437,11 +437,19 @@ $drag-message-arrow-name: kfDragMessageArrow;
         }
 
         #drag-ships-message {
-            left: calc(50vw - (variables.$base-size * 2));
+            left: calc(50vw - (variables.$base-size * 2.25));
             pointer-events: none;
-            top: variables.$base-size * 4;
+            top: variables.$base-size * 3;
             transform: rotate(-90deg);
             z-index: variables.$z-index-bump;
+
+            @include mixins.for-md-screens {
+                top: variables.$base-size * 3.5;
+            }
+
+            @include mixins.for-lg-screens {
+                top: variables.$base-size * 4;
+            }
 
             i:first-child {
                 animation-duration: $drag-message-duration;
@@ -487,7 +495,15 @@ $drag-message-arrow-name: kfDragMessageArrow;
             display: inline-block;
 
             &:not(:last-child) {
-                margin-right: variables.$base-size;
+                margin-right: variables.$base-size * .5;
+
+                @include mixins.for-md-screens {
+                    margin-right: variables.$base-size * .75;
+                }
+
+                @include mixins.for-lg-screens {
+                    margin-right: variables.$base-size;
+                }
             }
 
             &:hover {
@@ -496,11 +512,20 @@ $drag-message-arrow-name: kfDragMessageArrow;
 
             .ship-info {
                 font-size: variables.$default-font-size * .65;
-                left: math.div(variables.$base-size, 2);
+                left: math.div(variables.$base-size, 4);
                 pointer-events: none;
                 position: absolute;
 
+                @include mixins.for-md-screens {
+                    left: math.div(variables.$base-size, 3);
+                }
+
+                @include mixins.for-lg-screens {
+                    left: math.div(variables.$base-size, 2);
+                }
+
                 &.ship-name {
+                    text-wrap: nowrap;
                     top: math.div(variables.$base-size, 4);
                 }
 
@@ -515,9 +540,19 @@ $drag-message-arrow-name: kfDragMessageArrow;
 
             img {
                 // Scale img proportionally to scren width while maintaining original height:width ratio of 1:3.2
-                height: calc(((100vw - 6rem) / 5) / 3.2);
+                height: calc(((100vw - variables.$base-size * 4) / 5) / 3.2);
                 padding-top: variables.$base-size * 1.5;
-                width: calc((100vw - 6rem) / 5);
+                width: calc((100vw - variables.$base-size * 4) / 5);
+
+                @include mixins.for-md-screens {
+                    height: calc(((100vw - variables.$base-size * 5) / 5) / 3.2);
+                    width: calc((100vw - variables.$base-size * 5) / 5);
+                }
+
+                @include mixins.for-lg-screens {
+                    height: calc(((100vw - variables.$base-size * 6) / 5) / 3.2);
+                    width: calc((100vw - variables.$base-size * 6) / 5);
+                }
             }
         }
 
