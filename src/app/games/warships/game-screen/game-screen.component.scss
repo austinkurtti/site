@@ -37,6 +37,24 @@ $drag-message-hand-bottombar-name: kfDragMessageHandBottombar;
         transform: translateX(200%) rotate(90deg);
     }
 }
+$drag-message-hand-bottombar-touch-name: kfDragMessageHandBottombarTouch;
+@keyframes #{$drag-message-hand-bottombar-touch-name} {
+    0% {
+        opacity: 0;
+        transform: translateX(0%) rotate(90deg);
+    }
+    35% {
+        transform: translateX(0%) rotate(90deg);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(0%) rotate(60deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(200%) rotate(60deg);
+    }
+}
 $drag-message-hand-content-name: kfDragMessageHandContent;
 @keyframes #{$drag-message-hand-content-name} {
     // Animate from fa-hand-paper ('\f256') to fa-hand-rock ('\f255') to make it look like grabbing
@@ -453,7 +471,6 @@ $drag-message-arrow-name: kfDragMessageArrow;
 
             i:first-child {
                 animation-duration: $drag-message-duration;
-                animation-name: $drag-message-hand-bottombar-name;
                 animation-iteration-count: infinite;
                 animation-timing-function: $drag-message-timing;
                 color: variables.$theme-accent-color-primary;
@@ -463,15 +480,29 @@ $drag-message-arrow-name: kfDragMessageArrow;
                     animation-duration: 0s;
                 }
 
-                &::before {
-                    animation-duration: $drag-message-duration;
-                    animation-name: $drag-message-hand-content-name;
-                    animation-iteration-count: infinite;
-                    animation-timing-function: $drag-message-timing;
-                    content: '';
+                @media (pointer: coarse) {
+                    // Animate the pointer like it's tilting to touch the screen and then dragging
+                    animation-name: $drag-message-hand-bottombar-touch-name;
 
-                    @media (prefers-reduced-motion) {
-                        animation-duration: 0s;
+                    &::before {
+                        content: '\f25a';
+                    }
+                }
+
+                @media (pointer: fine) {
+                    // Animate the hand grabbing and dragging
+                    animation-name: $drag-message-hand-bottombar-name;
+
+                    &::before {
+                        animation-duration: $drag-message-duration;
+                        animation-name: $drag-message-hand-content-name;
+                        animation-iteration-count: infinite;
+                        animation-timing-function: $drag-message-timing;
+                        content: '';
+
+                        @media (prefers-reduced-motion) {
+                            animation-duration: 0s;
+                        }
                     }
                 }
             }
