@@ -121,29 +121,29 @@
 </div>
 
 <div class="container g-0 h-100 d-flex flex-column justify-content-center">
-    <div class="row g-0 px-2 px-md-0 my-5 justify-content-center">
+    <div class="row g-0 px-2 px-md-0 my-3 my-lg-5 justify-content-center">
         <div class="col-auto">
             <h1 class="text-center text-uppercase px-3">Warships</h1>
         </div>
     </div>
     <div class="row g-0 px-2 px-md-0 justify-content-end">
         <div class="col-auto">
-            <button class="fs-2 text-start px-3" (click)="gameManager.screen.set(ScreenState.new)">New</button>
+            <button class="text-start px-3" (click)="gameManager.screen.set(ScreenState.new)">New</button>
         </div>
     </div>
-    <div class="row g-0 px-2 px-md-0 mt-3 justify-content-end">
+    <div class="row g-0 px-2 px-md-0 mt-2 mt-lg-3 justify-content-end">
         <div class="col-auto">
-            <button class="fs-2 text-start px-3" (click)="gameManager.showSettingsDialog()">Settings</button>
+            <button class="text-start px-3" (click)="gameManager.showSettingsDialog()">Settings</button>
         </div>
     </div>
-    <div class="row g-0 px-2 px-md-0 mt-3 justify-content-end">
+    <div class="row g-0 px-2 px-md-0 mt-2 mt-lg-3 justify-content-end">
         <div class="col-auto">
-            <button class="fs-2 text-start px-3" (click)="gameManager.showHelpDialog()">Help</button>
+            <button class="text-start px-3" (click)="gameManager.showHelpDialog()">Help</button>
         </div>
     </div>
-    <div class="row g-0 px-2 px-md-0 mt-3 justify-content-end">
+    <div class="row g-0 px-2 px-md-0 mt-2 mt-lg-3 justify-content-end">
         <div class="col-auto">
-            <button class="cancel-button fs-2 text-start px-3" (click)="gamesService.confirmExit()">Exit</button>
+            <button class="cancel-button text-start px-3" (click)="gamesService.confirmExit()">Exit</button>
         </div>
     </div>
 </div>

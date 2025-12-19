@@ -159,4 +159,16 @@ $radar-animation-name: kfRadar;
             margin-left: variables.$base-size * 13; // 12 (#menu-bg-left width) + 1 (px-3 start width)
         }
     }
+
+    button {
+        font-size: variables.$default-font-size * 1.25;
+
+        @include mixins.for-md-screens {
+            font-size: variables.$default-font-size * 1.5;
+        }
+
+        @include mixins.for-lg-screens {
+            font-size: variables.$default-font-size * 2;
+        }
+    }
 }
