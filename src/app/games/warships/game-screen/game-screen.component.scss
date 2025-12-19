@@ -22,6 +22,24 @@ $drag-message-hand-sidebar-name: kfDragMessageHandSidebar;
         transform: translateX(200%);
     }
 }
+$drag-message-hand-sidebar-touch-name: kfDragMessageHandSidebarTouch;
+@keyframes #{$drag-message-hand-sidebar-touch-name} {
+    0% {
+        opacity: 0;
+        transform: translateX(0%) rotate(0deg);
+    }
+    35% {
+        transform: translateX(0%) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(0%) rotate(-30deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(200%) rotate(-30deg);
+    }
+}
 $drag-message-hand-bottombar-name: kfDragMessageHandBottombar;
 @keyframes #{$drag-message-hand-bottombar-name} {
     0% {
@@ -233,15 +251,27 @@ $drag-message-arrow-name: kfDragMessageArrow;
                         animation-duration: 0s;
                     }
 
-                    &::before {
-                        animation-duration: $drag-message-duration;
-                        animation-name: $drag-message-hand-content-name;
-                        animation-iteration-count: infinite;
-                        animation-timing-function: $drag-message-timing;
-                        content: '';
+                    @media (pointer: coarse) {
+                        // Animate the pointer like it's tilting to touch the screen and then dragging
+                        animation-name: $drag-message-hand-sidebar-touch-name;
 
-                        @media (prefers-reduced-motion) {
-                            animation-duration: 0s;
+                        &::before {
+                            content: '\f25a';
+                        }
+                    }
+
+                    @media (pointer: fine) {
+                        // Animate the hand grabbing and dragging
+                        &::before {
+                            animation-duration: $drag-message-duration;
+                            animation-name: $drag-message-hand-content-name;
+                            animation-iteration-count: infinite;
+                            animation-timing-function: $drag-message-timing;
+                            content: '';
+
+                            @media (prefers-reduced-motion) {
+                                animation-duration: 0s;
+                            }
                         }
                     }
                 }
