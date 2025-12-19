@@ -11,6 +11,12 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
     display: block;
     height: 100%;
 
+    @media (orientation: landscape) {
+        .grid-container {
+            max-width: 35vh;
+        }
+    }
+
     h1 {
         font-family: variables.$industrial-font-family;
         font-weight: normal;
@@ -26,12 +32,18 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
 
     // TODO - should probably componentize this
     .grid-container {
+        flex-grow: 1;
         height: auto;
-        padding: variables.$base-size * 2;
+        margin: auto;
+        padding: variables.$base-size;
         position: relative;
 
+        @include mixins.for-md-screens {
+            padding: variables.$base-size * 1.5;
+        }
+
         @include mixins.for-lg-screens {
-            height: 40vh;
+            padding: variables.$base-size * 2;
         }
 
         .grid {
@@ -53,23 +65,36 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
                 color: variables.$theme-font-color-normal;
                 display: grid;
                 grid-template-columns: repeat(10, 1fr);
-                height: variables.$base-size * 2;
+                height: variables.$base-size;
                 position: absolute;
-                top: -(variables.$base-size * 2);
+                top: -(variables.$base-size);
                 width: 100%;
+
+                @include mixins.for-md-screens {
+                    height: variables.$base-size * 1.5;
+                    top: -(variables.$base-size * 1.5);
+                }
+
+                @include mixins.for-lg-screens {
+                    height: variables.$base-size * 2;
+                    top: -(variables.$base-size * 2);
+                }
 
                 .grid-col-label {
                     align-self: center;
                     font-family: variables.$industrial-font-family;
-                    font-size: variables.$default-font-size * .75;
+                    font-size: variables.$default-font-size * .7;
+                    line-height: variables.$default-font-size * .7;
                     text-align: center;
 
                     @include mixins.for-md-screens {
-                        font-size: variables.$default-font-size;
+                        font-size: variables.$default-font-size * .9;
+                        line-height: variables.$default-font-size * .9;
                     }
 
                     @include mixins.for-lg-screens {
                         font-size: variables.$default-font-size * 1.5;
+                        line-height: variables.$default-font-size * 1.5;
                     }
                 }
             }
@@ -79,22 +104,35 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
                 display: grid;
                 grid-template-rows: repeat(10, 1fr);
                 height: 100%;
-                left: -(variables.$base-size * 2);
+                left: -(variables.$base-size);
                 position: absolute;
-                width: variables.$base-size * 2;
+                width: variables.$base-size;
+
+                @include mixins.for-md-screens {
+                    left: -(variables.$base-size * 1.5);
+                    width: variables.$base-size * 1.5;
+                }
+
+                @include mixins.for-lg-screens {
+                    left: -(variables.$base-size * 2);
+                    width: variables.$base-size * 2;
+                }
 
                 .grid-row-label {
                     align-self: center;
                     font-family: variables.$industrial-font-family;
-                    font-size: variables.$default-font-size * .75;
+                    font-size: variables.$default-font-size * .7;
+                    line-height: variables.$default-font-size * .7;
                     text-align: center;
 
                     @include mixins.for-md-screens {
-                        font-size: variables.$default-font-size;
+                        font-size: variables.$default-font-size * .9;
+                        line-height: variables.$default-font-size * .9;
                     }
 
                     @include mixins.for-lg-screens {
                         font-size: variables.$default-font-size * 1.5;
+                        line-height: variables.$default-font-size * 1.5;
                     }
                 }
             }
@@ -119,11 +157,19 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
             box-sizing: border-box;
             height: 100%;
             left: 0;
-            padding: variables.$base-size * 2;
+            padding: variables.$base-size;
             pointer-events: none;
             position: absolute;
             top: 0;
             width: 100%;
+
+            @include mixins.for-md-screens {
+                padding: variables.$base-size * 1.5;
+            }
+
+            @include mixins.for-lg-screens {
+                padding: variables.$base-size * 2;
+            }
 
             #sector-overlays {
                 aspect-ratio: 1 / 1;
@@ -167,5 +213,17 @@ $red-on-grid: functions.adjust-to-contrast(variables.$color-red, variables.$colo
     #actions {
         border-bottom: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
         border-top: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+
+        button {
+            font-size: variables.$default-font-size * 1.25;
+
+            @include mixins.for-md-screens {
+                font-size: variables.$default-font-size * 1.5;
+            }
+
+            @include mixins.for-lg-screens {
+                font-size: variables.$default-font-size * 2;
+            }
+        }
     }
 }

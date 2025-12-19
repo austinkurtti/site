@@ -17,6 +17,18 @@
 @media (pointer: coarse) {
     // pointer: coarse can be used as a rouch estimation for users being on a mobile touchscreen device
     .d-touchscreen-none {
-        display: none;
+        display: none !important;
+    }
+}
+
+@media (orientation: portrait) {
+    .d-portrait-none {
+        display: none !important;
+    }
+}
+
+@media (orientation: landscape) {
+    .d-landscape-none {
+        display: none !important;
     }
 }

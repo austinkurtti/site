@@ -3,102 +3,214 @@
         <h2 class="text-uppercase">New Game</h2>
     </div>
 
-    <div class="d-flex px-2 p-md-0 mb-3 mb-lg-5">
-        <button id="back-btn" (click)="gameManager.screen.set(ScreenState.menu)">
-            <span class="fs-2">Back</span>
-        </button>
-    </div>
-
     <div class="row g-0 px-2 p-md-0 mb-2 mb-lg-3">
         <div class="col-12">
             <label>DIFFICULTY</label>
         </div>
     </div>
-    <div id="difficulties" class="row g-2 g-lg-3 px-2 p-md-0 mb-5 overflow-y-auto">
-        <ng-template #difficultyTemplate let-value="value" let-name="name" let-description="description" let-description2="description2">
-            <div class="difficulty"
+
+    <!-- TODO - this layout works much better, but it would probably be worth figuring out a DRYer way to write these out -->
+    <div id="difficulties" class="mb-3 mb-lg-5">
+        <div akAccordionGroup class="d-landscape-none" [fullCollapsible]="false">
+            <div akAccordionHeader
+                #recruitHeader="akAccordionHeader"
+                contentId="recruit"
+                class="d-flex justify-content-between"
                 [ngClass]="{
-                    'selected': difficulty() === value
+                    'expanded': recruitHeader.contentExpanded()
                 }"
             >
-                <input type="radio"
-                    name="difficulty"
-                    [id]="'difficulty-' + value"
-                    [value]="value"
-                    [(ngModel)]="difficulty"
-                />
-                <label
-                    tabindex="0"
-                    class="d-flex flex-column h-100"
-                    [for]="'difficulty-' + value"
-                    (keydown.enter)="difficulty.set(value)"
-                >
-                    <h3 class="my-3 fw-normal text-center">{{ name }}</h3>
-                    <div class="flex-grow-1 d-flex flex-column fw-normal d-flex align-items-center justify-content-evenly px-3">
-                        <div class="text-center">{{ description }}</div>
-                        <div class="text-center">{{ description2 }}</div>
-                    </div>
-                    <div class="my-3 text-center">
-                        <i class="far fa-2x"
-                            [ngClass]="difficulty() === value ? 'fa-check-square' : 'fa-square'"
-                        ></i>
-                    </div>
-                </label>
+                <span>Recruit</span>
+                <i class="far"
+                    [ngClass]="recruitHeader.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                ></i>
             </div>
-        </ng-template>
+            <p akAccordionContent
+                contentId="recruit"
+                class="mb-0"
+                [expanded]="true"
+                (expandedChange)="difficulty.set(Difficulty.recruit)"
+            >
+                <span>Still learning the ropes, your opponent has minimal naval awareness.</span>
+                <br><br>
+                <span>Consider this more of a training exercise.</span>
+            </p>
 
-        <div class="col-12 col-lg-3">
-            <ng-container
-                [ngTemplateOutlet]="difficultyTemplate"
-                [ngTemplateOutletContext]="{
-                    value: Difficulty.recruit,
-                    name: 'Recruit',
-                    description: 'Still learning the ropes, your opponent has minimal naval awareness.',
-                    description2: 'Consider this more of a training exercise.'
+            <div akAccordionHeader
+                #midshipmanHeader="akAccordionHeader"
+                contentId="midshipman"
+                class="d-flex justify-content-between"
+                [ngClass]="{
+                    'expanded': midshipmanHeader.contentExpanded()
                 }"
-            ></ng-container>
+            >
+                <span>Midshipman</span>
+                <i class="far"
+                    [ngClass]="midshipmanHeader.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                ></i>
+            </div>
+            <p akAccordionContent
+                contentId="midshipman"
+                class="mb-0"
+                (expandedChange)="difficulty.set(Difficulty.midshipman)"
+            >
+                <span>Equipped with basic strategy and knows how to sink a ship.</span>
+                <br><br>
+                <span>This opponent will not be a pushover.</span>
+            </p>
+
+            <div akAccordionHeader
+                #captainHeader="akAccordionHeader"
+                contentId="captain"
+                class="d-flex justify-content-between"
+                [ngClass]="{
+                    'expanded': captainHeader.contentExpanded()
+                }"
+            >
+                <span>Captain</span>
+                <i class="far"
+                    [ngClass]="captainHeader.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                ></i>
+            </div>
+            <p akAccordionContent
+                contentId="captain"
+                class="mb-0"
+                (expandedChange)="difficulty.set(Difficulty.captain)"
+            >
+                <span>Square off against a hardened veteran that has commanded ships through many battles.</span>
+                <br><br>
+                <span>Lock in, this will be a challenge.</span>
+            </p>
+
+            <div akAccordionHeader
+                #fleetAdmiralHeader="akAccordionHeader"
+                contentId="fleet-admiral"
+                class="d-flex justify-content-between"
+                [ngClass]="{
+                    'expanded': fleetAdmiralHeader.contentExpanded()
+                }"
+            >
+                <span>Fleet Admiral</span>
+                <i class="far"
+                    [ngClass]="fleetAdmiralHeader.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                ></i>
+            </div>
+            <p akAccordionContent
+                contentId="fleet-admiral"
+                class="mb-0"
+                (expandedChange)="difficulty.set(Difficulty.fleetAdmiral)"
+            >
+                <span>An expert in naval strategy and has developed a sixth sense for your ships' positions.</span>
+                <br><br>
+                <span>Do not expect to win.</span>
+            </p>
         </div>
 
-        <div class="col-12 col-lg-3">
-            <ng-container
-                [ngTemplateOutlet]="difficultyTemplate"
-                [ngTemplateOutletContext]="{
-                    value: Difficulty.midshipman,
-                    name: 'Midshipman',
-                    description: 'Equipped with basic strategy and knows how to sink a ship.',
-                    description2: 'This opponent will not be a pushover.'
-                }"
-            ></ng-container>
-        </div>
+        <div akAccordionGroup class="d-portrait-none" [fullCollapsible]="false">
+            <div class="d-flex flex-column">
+                <div akAccordionHeader
+                    #recruitHeader2="akAccordionHeader"
+                    contentId="recruit2"
+                    class="d-flex justify-content-between"
+                    [ngClass]="{
+                        'expanded': recruitHeader2.contentExpanded()
+                    }"
+                >
+                    <span>Recruit</span>
+                    <i class="far ms-3"
+                        [ngClass]="recruitHeader2.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                    ></i>
+                </div>
 
-        <div class="col-12 col-lg-3">
-            <ng-container
-                [ngTemplateOutlet]="difficultyTemplate"
-                [ngTemplateOutletContext]="{
-                    value: Difficulty.captain,
-                    name: 'Captain',
-                    description: 'Square off against a hardened veteran that has commanded ships through many battles.',
-                    description2: 'Lock in, this will be a challenge.'
-                }"
-            ></ng-container>
-        </div>
+                <div akAccordionHeader
+                    #midshipmanHeader2="akAccordionHeader"
+                    contentId="midshipman2"
+                    class="d-flex justify-content-between"
+                    [ngClass]="{
+                        'expanded': midshipmanHeader2.contentExpanded()
+                    }"
+                >
+                    <span>Midshipman</span>
+                    <i class="far ms-3"
+                        [ngClass]="midshipmanHeader2.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                    ></i>
+                </div>
 
-        <div class="col-12 col-lg-3">
-            <ng-container
-                [ngTemplateOutlet]="difficultyTemplate"
-                [ngTemplateOutletContext]="{
-                    value: Difficulty.fleetAdmiral,
-                    name: 'Fleet Admiral',
-                    description: 'An expert in naval strategy and has developed a sixth sense for your ships\' positions.',
-                    description2: 'Do not expect to win.'
-                }"
-            ></ng-container>
+                <div akAccordionHeader
+                    #captainHeader2="akAccordionHeader"
+                    contentId="captain2"
+                    class="d-flex justify-content-between"
+                    [ngClass]="{
+                        'expanded': captainHeader2.contentExpanded()
+                    }"
+                >
+                    <span>Captain</span>
+                    <i class="far ms-3"
+                        [ngClass]="captainHeader2.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                    ></i>
+                </div>
+
+                <div akAccordionHeader
+                    #fleetAdmiralHeader2="akAccordionHeader"
+                    contentId="fleet-admiral2"
+                    class="d-flex justify-content-between"
+                    [ngClass]="{
+                        'expanded': fleetAdmiralHeader2.contentExpanded()
+                    }"
+                >
+                    <span>Fleet Admiral</span>
+                    <i class="far ms-3"
+                        [ngClass]="fleetAdmiralHeader2.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                    ></i>
+                </div>
+            </div>
+            <div id="difficulty-description">
+                <p akAccordionContent
+                    contentId="recruit2"
+                    class="mb-0"
+                    [expanded]="true"
+                    (expandedChange)="difficulty.set(Difficulty.recruit)"
+                >
+                    <span>Still learning the ropes, your opponent has minimal naval awareness.</span>
+                    <br><br>
+                    <span>Consider this more of a training exercise.</span>
+                </p>
+
+                <p akAccordionContent
+                    contentId="midshipman2"
+                    class="mb-0"
+                    (expandedChange)="difficulty.set(Difficulty.midshipman)"
+                >
+                    <span>Equipped with basic strategy and knows how to sink a ship.</span>
+                    <br><br>
+                    <span>This opponent will not be a pushover.</span>
+                </p>
+
+                <p akAccordionContent
+                    contentId="captain2"
+                    class="mb-0"
+                    (expandedChange)="difficulty.set(Difficulty.captain)"
+                >
+                    <span>Square off against a hardened veteran that has commanded ships through many battles.</span>
+                    <br><br>
+                    <span>Lock in, this will be a challenge.</span>
+                </p>
+
+                <p akAccordionContent
+                    contentId="fleet-admiral2"
+                    class="mb-0"
+                    (expandedChange)="difficulty.set(Difficulty.fleetAdmiral)"
+                >
+                    <span>An expert in naval strategy and has developed a sixth sense for your ships' positions.</span>
+                    <br><br>
+                    <span>Do not expect to win.</span>
+                </p>
+            </div>
         </div>
     </div>
 </div>
 
-<div id="actions" class="row g-0 py-3 justify-content-center">
-    <div class="col-auto">
-        <button class="confirm-button fs-2" (click)="gameManager.newGame(difficulty())">Start</button>
-    </div>
+<div id="actions" class="d-flex gap-5 py-2 py-lg-3 justify-content-center">
+    <button class="confirm-button" (click)="gameManager.newGame(difficulty())">Start</button>
+    <button class="cancel-button" (click)="gameManager.screen.set(ScreenState.menu)">Cancel</button>
 </div>
