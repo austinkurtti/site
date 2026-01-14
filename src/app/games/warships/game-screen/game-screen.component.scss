@@ -416,6 +416,8 @@ $drag-message-arrow-name: kfDragMessageArrow;
                 img {
                     // sepia filter to add color, rotate hue to make it green, then boost saturation
                     filter: sepia(100%) hue-rotate(90deg) saturate(300%);
+                    height: 100%;
+                    width: 100%;
                 }
             }
         }

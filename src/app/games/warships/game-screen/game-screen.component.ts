@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, computed, ElementRef, inject, OnDestroy, OnInit, Renderer2, signal, viewChildren } from '@angular/core';
 import { ConfirmDialogComponent } from '@components/confirm/confirm.component';
 import { MenuContentDirective } from '@directives/menu/menu-content.directive';
@@ -24,7 +24,6 @@ import { WarshipsEvent, WarshipsEventType, WarshipsGameState, WarshipsGrid, Wars
         CommonModule,
         MenuContentDirective,
         MenuDirective,
-        NgOptimizedImage,
         WarshipsFleetStatusComponent
     ]
 })
