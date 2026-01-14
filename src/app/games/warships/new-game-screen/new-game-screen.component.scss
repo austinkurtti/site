@@ -111,4 +111,26 @@
             }
         }
     }
+
+    #preload-progress {
+        margin: auto;
+        width: 50vw;
+
+        #progress-text {
+            color: variables.$color-warships-radar-green;
+            margin-bottom: math.div(variables.$base-size, 4);
+        }
+
+        #progress-outer {
+            border: 2px solid variables.$color-warships-radar-green;
+            height: math.div(variables.$base-size, 2);
+            padding: 1px;
+            width: 100%;
+
+            #progress-inner {
+                background-color: variables.$color-warships-radar-green;
+                height: 100%;
+            }
+        }
+    }
 }

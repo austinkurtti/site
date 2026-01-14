@@ -173,8 +173,7 @@
         >
             <div class="ship-model h-100 w-100 position-relative">
                 <img class="position-absolute"
-                    fill="true"
-                    [ngSrc]="'assets/images/warships/' + ship.id + '-top-down' + (ship.orientation === ShipOrientation.vertical ? '-vertical' : '') + '.png'"
+                    [src]="'assets/images/warships/' + ship.id + '-top-down' + (ship.orientation === ShipOrientation.vertical ? '-vertical' : '') + '.png'"
                     [ngClass]="ship.orientation === ShipOrientation.vertical ? 'vertical' : ''"
                     [attr.data-ship-id]="ship.id"
                 />

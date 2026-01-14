@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { EffectsService } from '@services/effects.service';
@@ -10,8 +10,7 @@ import { WarshipsGameState, WarshipsScreenState, WarshipsSectorState, WarshipsSh
     styleUrl: './end-game-screen.component.scss',
     templateUrl: './end-game-screen.component.html',
     imports: [
-        CommonModule,
-        NgOptimizedImage
+        CommonModule
     ]
 })
 export class WarshipsEndGameScreenComponent implements AfterViewInit {
