@@ -57,6 +57,7 @@ $moving-content-name: kfMovingContent;
         animation-timing-function: linear;
         position: relative;
         width: 100%;
+        will-change: max-height, opacity;
 
         .newsflash-moving-content {
             animation-duration: $moving-content-duration;
@@ -65,6 +66,7 @@ $moving-content-name: kfMovingContent;
             animation-timing-function: linear;
             position: absolute;
             top: 0;
+            will-change: transform;
         }
     }
 }

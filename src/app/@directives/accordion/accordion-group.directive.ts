@@ -21,7 +21,7 @@ export class AccordionGroupDirective {
         const content = this.contents().find(c => c.contentId() === contentId);
 
         // Check if this content cannot be collapsed
-        if (content.expanded() && (!this.multiExpandable() || this.contents().filter(c => c.expanded()).length === 1)) {
+        if (content.expanded() && !this.fullCollapsible() && (!this.multiExpandable() || this.contents().filter(c => c.expanded()).length === 1)) {
             return;
         }
 

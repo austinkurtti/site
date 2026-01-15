@@ -95,6 +95,7 @@
         top: 50%;
         transform: translate(-50%, -50%); // X param of -50% is important for explosion bursting on-center
         width: $explosion-size;
+        will-change: opacity, width;
 
         @media (prefers-reduced-motion) {
             animation-duration: 0s;
@@ -197,6 +198,7 @@
         top: 50%; // Randomly set by effects service (10%, 25%)
         transform: translate(-50%, var(--firework-y)); // X param of -50% is important for firework bursting on-center
         width: $firework-size;
+        will-change: opacity, transform, width;
 
         @media (prefers-reduced-motion) {
             animation-duration: 0s;
