@@ -156,9 +156,6 @@ $drag-message-arrow-name: kfDragMessageArrow;
     }
 
     @media (orientation: landscape) {
-        $grid-max-height: calc(100vh - variables.$base-size * 11); // 11 = 8 (#grid-container top padding) + 3 (#grid-container bottom padding)
-        $grid-max-width: calc(100vw - variables.$base-size * 28); // 28 = 22 (#sidebar width) + 3 (#grid-container start padding) + 3 (#grid-container end padding)
-
         flex-direction: row;
 
         #topbar {
@@ -167,19 +164,55 @@ $drag-message-arrow-name: kfDragMessageArrow;
 
         #sidebar {
             display: block;
+
+            #sidebar-content {
+                width: variables.$base-size * 18; // 18 = 16 (.deployable-ship img width) + 2 (.sidebar-section x padding)
+
+                @include mixins.for-lg-screens {
+                    width: variables.$base-size * 22; // 22 = 20 (.deployable-ship img width) + 2 (.sidebar-section x padding)
+                }
+
+                .deployable-ship {
+                    // Ship images should maintain height:width ratio of 1:3.2
+                    img {
+                        height: variables.$base-size * 5;
+                        width: variables.$base-size * 16;
+
+                        @include mixins.for-lg-screens {
+                            height: variables.$base-size * 6.25;
+                            width: variables.$base-size * 20;
+                        }
+                    }
+                }
+            }
         }
 
         #grid-container {
+            $grid-max-height: calc(100vh - variables.$base-size * 8); // 8 = 6 (#grid-container top padding) + 2 (#grid-container bottom padding)
+            $grid-max-height-lg: calc(100vh - variables.$base-size * 11); // 11 = 8 (#grid-container lg top padding) + 3 (#grid-container lg bottom padding)
+            $grid-max-width: calc(100vw - variables.$base-size * 26); // 26 = 22 (#sidebar width) + 2 (#grid-container start padding) + 2 (#grid-container end padding)
+            $grid-max-width-lg: calc(100vw - variables.$base-size * 28); // 28 = 22 (#sidebar width) + 3 (#grid-container lg start padding) + 3 (#grid-container lg end padding)
+
             display: block;
 
             #grid {
-                max-height: calc(100vh - 11rem);
-                max-width: calc(100vw - 22rem);
+                max-height: $grid-max-height;
+                max-width: $grid-max-width;
+
+                @include mixins.for-lg-screens {
+                    max-height: $grid-max-height-lg;
+                    max-width: $grid-max-width-lg;
+                }
             }
 
             #sector-overlays {
-                max-height: calc(100vh - 11rem);
-                max-width: calc(100vw - 22rem);
+                max-height: $grid-max-height;
+                max-width: $grid-max-width;
+
+                @include mixins.for-lg-screens {
+                    max-height: $grid-max-height-lg;
+                    max-width: $grid-max-width-lg;
+                }
             }
         }
 
@@ -197,9 +230,6 @@ $drag-message-arrow-name: kfDragMessageArrow;
         height: 100vh;
 
         #sidebar-content {
-            // 22 comes from (20 to maintain width for height:width ratio of 1:3.2 for the side profile ship images) + (2 for sidebar padding)
-            width: variables.$base-size * 22;
-
             .sidebar-section:not(:last-child) {
                 border-bottom: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
             }
@@ -228,17 +258,12 @@ $drag-message-arrow-name: kfDragMessageArrow;
                         right: variables.$base-size;
                     }
                 }
-
-                img {
-                    height: variables.$base-size * 6.25;
-                    width: variables.$base-size * 20;
-                }
             }
 
             #drag-ships-message {
                 left: variables.$base-size * 8;
                 pointer-events: none;
-                top: variables.$base-size * 21;
+                top: variables.$base-size * 6;
 
                 i:first-child {
                     animation-duration: $drag-message-duration;
@@ -301,12 +326,17 @@ $drag-message-arrow-name: kfDragMessageArrow;
     }
 
     #grid-container {
-        $grid-padding: (variables.$base-size * 8) (variables.$base-size * 3) (variables.$base-size * 3) (variables.$base-size * 3);
+        $grid-padding: (variables.$base-size * 6) (variables.$base-size * 2) (variables.$base-size * 2) (variables.$base-size * 2);
+        $grid-padding-lg: (variables.$base-size * 8) (variables.$base-size * 3) (variables.$base-size * 3) (variables.$base-size * 3);
 
         box-sizing: border-box;
         padding: $grid-padding;
         position: relative;
         width: 100%;
+
+        @include mixins.for-lg-screens {
+            padding: $grid-padding-lg;
+        }
 
         #game-info {
             display: grid;
@@ -431,6 +461,10 @@ $drag-message-arrow-name: kfDragMessageArrow;
             position: absolute;
             top: 0;
             width: 100%;
+
+            @include mixins.for-lg-screens {
+                padding: $grid-padding-lg;
+            }
 
             #sector-overlays {
                 aspect-ratio: 1 / 1;
