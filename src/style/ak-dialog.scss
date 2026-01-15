@@ -37,6 +37,7 @@ dialog {
         border-radius: variables.$border-radius;
         box-shadow: variables.$theme-box-shadow-hard;
         margin: 0 math.div(variables.$base-size, 2);
+        will-change: opacity, transform;
 
         @media (prefers-contrast: more) {
             border: 1px solid variables.$theme-accent-color-primary;

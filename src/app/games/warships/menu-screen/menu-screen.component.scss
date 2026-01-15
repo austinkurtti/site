@@ -118,6 +118,7 @@ $radar-animation-name: kfRadar;
                         aspect-ratio: 1;
                         position: absolute;
                         width: calc(100% + math.div(variables.$base-size, 4)); // 100% + (outer radar border width * 2)
+                        will-change: transform;
 
                         @media (prefers-reduced-motion) {
                             animation-duration: 0s;

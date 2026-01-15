@@ -272,6 +272,7 @@ $drag-message-arrow-name: kfDragMessageArrow;
                     animation-timing-function: $drag-message-timing;
                     color: variables.$theme-accent-color-primary;
                     width: variables.$base-size * 2;
+                    will-change: opacity, transform;
 
                     @media (prefers-reduced-motion) {
                         animation-duration: 0s;
@@ -294,6 +295,7 @@ $drag-message-arrow-name: kfDragMessageArrow;
                             animation-iteration-count: infinite;
                             animation-timing-function: $drag-message-timing;
                             content: '';
+                            will-change: content;
 
                             @media (prefers-reduced-motion) {
                                 animation-duration: 0s;
@@ -308,6 +310,7 @@ $drag-message-arrow-name: kfDragMessageArrow;
                     animation-iteration-count: infinite;
                     animation-timing-function: $drag-message-timing;
                     color: variables.$theme-accent-color-primary;
+                    will-change: opacity;
 
                     @media (prefers-reduced-motion) {
                         animation-duration: 0s;
@@ -542,6 +545,7 @@ $drag-message-arrow-name: kfDragMessageArrow;
                 animation-timing-function: $drag-message-timing;
                 color: variables.$theme-accent-color-primary;
                 width: variables.$base-size * 2;
+                will-change: opacity, transform;
 
                 @media (prefers-reduced-motion) {
                     animation-duration: 0s;
@@ -566,6 +570,7 @@ $drag-message-arrow-name: kfDragMessageArrow;
                         animation-iteration-count: infinite;
                         animation-timing-function: $drag-message-timing;
                         content: '';
+                        will-change: content;
 
                         @media (prefers-reduced-motion) {
                             animation-duration: 0s;
@@ -580,6 +585,7 @@ $drag-message-arrow-name: kfDragMessageArrow;
                 animation-iteration-count: infinite;
                 animation-timing-function: $drag-message-timing;
                 color: variables.$theme-accent-color-primary;
+                will-change: opacity;
 
                 @media (prefers-reduced-motion) {
                     animation-duration: 0s;
