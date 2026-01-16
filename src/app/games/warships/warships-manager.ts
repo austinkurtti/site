@@ -94,11 +94,16 @@ export class WarshipsManager {
                     // Disallow chained ship hits
                     if (mostRecentEventIsSink) {
                         untargetedSectors = this._filterOutOccupiedSectors(untargetedSectors);
+                    } else {
+                        // Only shoot at sectors that could possibly contain a ship
+                        untargetedSectors = untargetedSectors.filter(s => this._canAnyShipFitAt(s.coords.row, s.coords.col));
                     }
                     break;
                 case WarshipsDifficulty.captain:
-                    // Only shoot at sectors that could possibly contain a ship
-                    untargetedSectors = untargetedSectors.filter(s => this._canAnyShipFitAt(s.coords.row, s.coords.col));
+                    // Select from top ~50% of sectors with the highest possible ship count
+                    untargetedSectors = this._orderSectorsByMostPossibleShips(untargetedSectors);
+                    const fiftyPercentLength = Math.ceil(untargetedSectors.length / 2);
+                    untargetedSectors = untargetedSectors.splice(0, fiftyPercentLength);
                     break;
                 case WarshipsDifficulty.fleetAdmiral:
                     // Fleet Admiral does not like falling behind
@@ -116,46 +121,46 @@ export class WarshipsManager {
                         }
                     }
 
-                    // ~30% chance to chain another hit after sinking a ship
-                    if (mostRecentEventIsSink && getRandomInteger(1, 10) < 4) {
+                    // ~20% chance to chain another hit after sinking a ship
+                    if (mostRecentEventIsSink && getRandomInteger(1, 10) < 3) {
                         untargetedSectors = this._filterOutUnoccupiedSectors(untargetedSectors);
                         break;
                     }
-                    
-                    // Only shoot at sectors that could possibly contain a ship
-                    untargetedSectors = untargetedSectors.filter(s => this._canAnyShipFitAt(s.coords.row, s.coords.col));
 
-                    // Remove the farthest sectors from any ship
-                    if (untargetedSectors.length > 10) {
-                        const occupiedSectors: WarshipsCoords[] = [];
-                        for (let r = 0; r < this.gameInstance.playerGrid.sectors.length; r++) {
-                            for (let c = 0; c < this.gameInstance.playerGrid.sectors[r].length; c++) {
-                                const sector = this.gameInstance.playerGrid.sectors[r][c];
-                                if (sector.state.hasFlag(WarshipsSectorState.ship) && !sector.state.hasFlag(WarshipsSectorState.hit)) {
-                                    occupiedSectors.push({ row: r, col: c });
-                                }
+                    // Gather all occupied sectors
+                    const occupiedSectors: WarshipsCoords[] = [];
+                    for (let r = 0; r < this.gameInstance.playerGrid.sectors.length; r++) {
+                        for (let c = 0; c < this.gameInstance.playerGrid.sectors[r].length; c++) {
+                            const sector = this.gameInstance.playerGrid.sectors[r][c];
+                            if (sector.state.hasFlag(WarshipsSectorState.ship) && !sector.state.hasFlag(WarshipsSectorState.hit)) {
+                                occupiedSectors.push({ row: r, col: c });
                             }
                         }
-
-                        // Compute min Manhattan distance to any ship sector for each untargeted sector
-                        const sorted = untargetedSectors
-                            .map(s => {
-                                let minDist = Infinity;
-                                for (const sector of occupiedSectors) {
-                                    const dist = Math.abs(s.coords.row - sector.row) + Math.abs(s.coords.col - sector.col);
-                                    if (dist < minDist) {
-                                        minDist = dist;
-                                    }
-                                }
-                                return { sector: s, minDist };
-                            })
-                            .sort((a, b) => a.minDist - b.minDist);
-
-                        // Keep closest 80%
-                        untargetedSectors = sorted
-                            .slice(0, Math.ceil(untargetedSectors.length * .8))
-                            .map(obj => obj.sector);
                     }
+
+                    // Compute min Manhattan distance of all untargeted ship sectors
+                    const sorted = untargetedSectors
+                        .map(s => {
+                            let minDist = Infinity;
+                            for (const sector of occupiedSectors) {
+                                const dist = Math.abs(s.coords.row - sector.row) + Math.abs(s.coords.col - sector.col);
+                                if (dist < minDist) {
+                                    minDist = dist;
+                                }
+                            }
+                            return { sector: s, minDist };
+                        })
+                        .sort((a, b) => a.minDist - b.minDist);
+
+                    // Keep closest ~70% of sectors (sixth sense)
+                    untargetedSectors = sorted
+                        .slice(0, Math.ceil(untargetedSectors.length * .7))
+                        .map(obj => obj.sector);
+
+                    // Select from top ~10% of sectors with the highest possible ship count
+                    untargetedSectors = this._orderSectorsByMostPossibleShips(untargetedSectors);
+                    const tenPercentLength = Math.ceil(untargetedSectors.length * .1);
+                    untargetedSectors = untargetedSectors.splice(0, tenPercentLength);
                     break;
             }
 
@@ -293,5 +298,64 @@ export class WarshipsManager {
         }
 
         return false;
+    }
+
+    /**
+     * Returns the input array of sectors in order by highest number of possible ship fits.
+     * For each sector, counts how many remaining ships could possibly fit (horizontally or vertically) at that position.
+     */
+    private _orderSectorsByMostPossibleShips(untargetedSectors: WarshipsSector[]): WarshipsSector[] {
+        if (!untargetedSectors.length) {
+            return untargetedSectors;
+        }
+
+        const remainingShips = this.gameInstance.playerGrid.ships().filter(s => s.health > 0);
+        const sectorFits: { sector: WarshipsSector, fits: number }[] = untargetedSectors.map(sector => {
+            let fits = 0;
+            for (const ship of remainingShips) {
+                // Check all possible horizontal anchor positions for this sector
+                for (let anchorOffset = 0; anchorOffset < ship.length; anchorOffset++) {
+                    const anchorCol = sector.coords.col - anchorOffset;
+                    if (anchorCol < 0 || anchorCol + ship.length > 10) {
+                        continue;
+                    }
+                    let canFit = true;
+                    for (let j = 0; j < ship.length; j++) {
+                        const s = this.gameInstance.playerGrid.sectors[sector.coords.row][anchorCol + j];
+                        if (s.state.hasFlag(WarshipsSectorState.miss) || s.state.hasFlag(WarshipsSectorState.hit)) {
+                            canFit = false;
+                            break;
+                        }
+                    }
+                    if (canFit) {
+                        fits++;
+                    }
+                }
+
+                // Check all possible vertical anchor positions for this sector
+                for (let anchorOffset = 0; anchorOffset < ship.length; anchorOffset++) {
+                    const anchorRow = sector.coords.row - anchorOffset;
+                    if (anchorRow < 0 || anchorRow + ship.length > 10) {
+                        continue;
+                    }
+                    let canFit = true;
+                    for (let j = 0; j < ship.length; j++) {
+                        const s = this.gameInstance.playerGrid.sectors[anchorRow + j][sector.coords.col];
+                        if (s.state.hasFlag(WarshipsSectorState.miss) || s.state.hasFlag(WarshipsSectorState.hit)) {
+                            canFit = false;
+                            break;
+                        }
+                    }
+                    if (canFit) {
+                        fits++;
+                    }
+                }
+            }
+
+            return { sector, fits };
+        });
+
+        // Return the sectors ordered by descending fits
+        return sectorFits.sort((a, b) => b.fits - a.fits).map(obj => obj.sector);
     }
 }
