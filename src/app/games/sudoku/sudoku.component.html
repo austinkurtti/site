@@ -1,4 +1,8 @@
-<ng-container [ngSwitch]="gameManager.screen()">
-    <ak-sudoku-menu-screen *ngSwitchCase="ScreenState.menu"></ak-sudoku-menu-screen>
-    <ak-sudoku-game-screen *ngSwitchCase="ScreenState.game"></ak-sudoku-game-screen>
-</ng-container>
+@switch (gameManager.screen()) {
+    @case (ScreenState.menu) {
+        <ak-sudoku-menu-screen></ak-sudoku-menu-screen>
+    }
+    @case (ScreenState.game) {
+        <ak-sudoku-game-screen></ak-sudoku-game-screen>
+    }
+}

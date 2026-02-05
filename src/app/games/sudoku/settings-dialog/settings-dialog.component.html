@@ -19,14 +19,14 @@
                 (valueChange)="toggleChange('showTimer', $event)"
             ></ak-toggle>
         </div>
-        
+
         <div class="setting-group p-3">
             <h5>
                 <span class="text-uppercase">Assistive</span>
-                <ng-container *ngIf="gameManager.gameInstance?.hardcore">
+                @if (gameManager.gameInstance?.hardcore) {
                     <i class="fas fa-skull ms-4 me-2"></i>
                     <span class="text-transform-none">Disabled in hardcore mode!</span>
-                </ng-container>
+                }
             </h5>
             <ak-toggle
                 [label]="'Show conflicts'"
@@ -73,7 +73,7 @@
 
         <div class="setting-group p-3">
             <h5 class="text-uppercase">Theme</h5>
-                <ak-theme></ak-theme>
-            </div>
+            <ak-theme></ak-theme>
         </div>
+    </div>
 </div>

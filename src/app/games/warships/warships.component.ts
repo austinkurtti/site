@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ThemeService } from '@services/theme.service';
 import { WarshipsEndGameScreenComponent } from "./end-game-screen/end-game-screen.component";
@@ -15,7 +14,6 @@ import { WarshipsScreenState } from './warships.models';
         'class': 'w-100 overflow-hidden flex-grow-1'
     },
     imports: [
-        CommonModule,
         WarshipsEndGameScreenComponent,
         WarshipsGameScreenComponent,
         WarshipsMenuScreenComponent,

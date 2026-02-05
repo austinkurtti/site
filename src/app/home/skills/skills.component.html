@@ -2,7 +2,8 @@
     <div akDeferLoad
         class="content"
         [threshold]="deferThreshold"
-        (deferLoad)="deferLoad()">
+        (deferLoad)="deferLoad()"
+    >
         <div class="row g-0 px-4 px-xxl-0 mb-3">
             <div class="col-12 offset-xxl-2 col-xxl-8">
                 <ak-section-title [text]="title"></ak-section-title>
@@ -12,14 +13,15 @@
             id="skills-carousel"
             class="py-3"
             (mouseover)="mouseover()"
-            (mouseout)="mouseout()">
-            <ng-container *ngFor="let skill of skills">
+            (mouseout)="mouseout()"
+        >
+            @for (skill of skills; track skill) {
                 <ak-skill
                     [name]="skill.name"
                     [icon]="skill.icon"
                     [type]="skill.type"
                 ></ak-skill>
-            </ng-container>
+            }
         </div>
     </div>
 </section>

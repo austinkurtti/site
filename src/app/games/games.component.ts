@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { GamesService } from './games.service';
@@ -10,7 +9,6 @@ import { GamesService } from './games.service';
         'class': 'd-flex flex-column h-100'
     },
     imports: [
-        CommonModule,
         RouterOutlet
     ],
     providers: [

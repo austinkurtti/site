@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ThemeComponent } from '@components/theme/theme.component';
 import { ToggleComponent } from '@components/toggle/toggle.component';
@@ -11,7 +10,6 @@ import { SudokuManager } from '../sudoku-manager';
     styleUrls: ['./settings-dialog.component.scss'],
     templateUrl: './settings-dialog.component.html',
     imports: [
-        CommonModule,
         ThemeComponent,
         ToggleComponent
     ],

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { skillsId, skillsText } from '@constants/strings';
 import { Subscription, timer } from 'rxjs';
@@ -13,7 +12,6 @@ import { skills, SkillType } from './skills.models';
     styleUrls: ['./skills.component.scss'],
     templateUrl: './skills.component.html',
     imports: [
-        CommonModule,
         DeferLoadDirective,
         SectionTitleComponent,
         SkillComponent

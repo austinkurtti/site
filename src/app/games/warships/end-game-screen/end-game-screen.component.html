@@ -26,64 +26,70 @@
             <div class="grid-container">
                 <div class="grid">
                     <div id="grid-col-labels">
-                        <span *ngFor="let col of [].constructor(10); let i = index" class="grid-col-label">{{ i + 1 }}</span>
+                        @for (col of [].constructor(10); track col; let i = $index) {
+                            <span class="grid-col-label">{{ i + 1 }}</span>
+                        }
                     </div>
 
                     <div id="grid-row-labels">
-                        <span *ngFor="let col of [].constructor(10); let i = index" class="grid-row-label">{{ String.fromCharCode(65 + i) }}</span>
+                        @for (col of [].constructor(10); track col; let i = $index) {
+                            <span class="grid-row-label">{{ String.fromCharCode(65 + i) }}</span>
+                        }
                     </div>
 
-                    <ng-container *ngFor="let row of grid.sectors; let r = index">
-                        <ng-container *ngFor="let sector of row; let c = index">
-                            <div *ngIf="!sector.state.hasFlag(SectorState.ship)"
-                                class="sector"
-                                [ngClass]="{
-                                    'targeted': sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)
-                                }"
-                                [attr.data-row]="r"
-                                [attr.data-col]="c"
-                            ></div>
-                        </ng-container>
-                    </ng-container>
+                    @for (row of grid.sectors; track row; let r = $index) {
+                        @for (sector of row; track sector; let c = $index) {
+                            @if (!sector.state.hasFlag(SectorState.ship)) {
+                                <div class="sector"
+                                    [ngClass]="{
+                                        'targeted': sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)
+                                    }"
+                                    [attr.data-row]="r"
+                                    [attr.data-col]="c">
+                                </div>
+                            }
+                        }
+                    }
 
-                    <div *ngFor="let ship of grid.ships()"
-                        class="deployed-ship"
-                        [attr.data-ship-id]="ship.id"
-                        [attr.data-ship-length]="ship.length"
-                        [attr.data-ship-orientation]="ship.orientation"
-                        [style.gridRowStart]="ship.anchorSector.row + 1"
-                        [style.gridRowEnd]="ship.orientation === ShipOrientation.horizontal ? 'span 1' : ('span ' + ship.length)"
-                        [style.gridColumnStart]="ship.anchorSector.col + 1"
-                        [style.gridColumnEnd]="ship.orientation === ShipOrientation.horizontal ? ('span ' + ship.length) : 'span 1'"
-                    >
-                        <div class="ship-model h-100 w-100 position-relative">
-                            <img class="position-absolute"
-                                [src]="'assets/images/warships/' + ship.id + '-top-down' + (ship.orientation === ShipOrientation.vertical ? '-vertical' : '') + '.png'"
-                                [ngClass]="ship.orientation === ShipOrientation.vertical ? 'vertical' : ''"
-                                [attr.data-ship-id]="ship.id"
-                            />
+                    @for (ship of grid.ships(); track ship) {
+                        <div class="deployed-ship"
+                            [attr.data-ship-id]="ship.id"
+                            [attr.data-ship-length]="ship.length"
+                            [attr.data-ship-orientation]="ship.orientation"
+                            [style.gridRowStart]="ship.anchorSector.row + 1"
+                            [style.gridRowEnd]="ship.orientation === ShipOrientation.horizontal ? 'span 1' : ('span ' + ship.length)"
+                            [style.gridColumnStart]="ship.anchorSector.col + 1"
+                            [style.gridColumnEnd]="ship.orientation === ShipOrientation.horizontal ? ('span ' + ship.length) : 'span 1'">
+                            <div class="ship-model h-100 w-100 position-relative">
+                                <img class="position-absolute"
+                                    [src]="'assets/images/warships/' + ship.id + '-top-down' + (ship.orientation === ShipOrientation.vertical ? '-vertical' : '') + '.png'"
+                                    [ngClass]="ship.orientation === ShipOrientation.vertical ? 'vertical' : ''"
+                                    [attr.data-ship-id]="ship.id"
+                                />
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
 
                 <div id="grid-overlays-container">
                     <div id="sector-overlays">
-                        <ng-container *ngFor="let row of grid.sectors; let r = index">
-                            <ng-container *ngFor="let sector of row; let c = index">
+                        @for (row of grid.sectors; track row; let r = $index) {
+                            @for (sector of row; track sector; let c = $index) {
                                 <div class="sector-overlay d-flex align-items-center justify-content-center"
                                     [attr.data-row]="r"
                                     [attr.data-col]="c"
                                 >
-                                    <i *ngIf="sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)"
-                                        class="fas fa-map-marker"
-                                        [ngClass]="{
-                                            'miss': sector.state.hasFlag(SectorState.miss),
-                                            'hit': sector.state.hasFlag(SectorState.hit)
-                                        }"
-                                    ></i>
+                                    @if (sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)) {
+                                        <i class="fas fa-map-marker"
+                                            [ngClass]="{
+                                                'miss': sector.state.hasFlag(SectorState.miss),
+                                                'hit': sector.state.hasFlag(SectorState.hit)
+                                            }"
+                                        ></i>
+                                    }
                                 </div>
-                            </ng-container>
-                        </ng-container>
+                            }
+                        }
                     </div>
                 </div>
             </div>

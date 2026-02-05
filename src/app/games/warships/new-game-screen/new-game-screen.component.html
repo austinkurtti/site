@@ -1,11 +1,13 @@
-<div *ngIf="preloading()" id="preload-progress">
-    <div id="progress-text">LOADING...</div>
-    <div id="progress-outer">
-        <div id="progress-inner" [style.width]="preloadProgress() + '%'"></div>
+@if (preloading()) {
+    <div id="preload-progress">
+        <div id="progress-text">LOADING...</div>
+        <div id="progress-outer">
+            <div id="progress-inner" [style.width]="preloadProgress() + '%'"></div>
+        </div>
     </div>
-</div>
+}
 
-<ng-container *ngIf="!preloading()">
+@if (!preloading()) {
     <div class="container g-0 d-flex flex-column justify-content-center">
         <div class="row g-0 px-2 p-md-0 my-3 my-lg-5">
             <h2 class="text-uppercase">New Game</h2>
@@ -222,4 +224,4 @@
         <button class="confirm-button" (click)="start()">Start</button>
         <button class="cancel-button" (click)="gameManager.screen.set(ScreenState.menu)">Cancel</button>
     </div>
-</ng-container>
+}

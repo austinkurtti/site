@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SudokuGameScreenComponent } from './game-screen/game-screen.component';
@@ -14,7 +13,6 @@ import { SudokuDifficulty, SudokuGameInstance, SudokuScreenState } from './sudok
         'class': 'w-100 overflow-hidden flex-grow-1'
     },
     imports: [
-        CommonModule,
         SudokuGameScreenComponent,
         SudokuMenuScreenComponent
     ],
