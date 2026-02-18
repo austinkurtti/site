@@ -19,21 +19,24 @@
         </div>
     </div>
     <div class="col d-flex justify-content-around h-100">
-        <div *ngFor="let tableau of tableaus"
-            class="tableau">
-            <div *ngFor="let card of tableau; let i = index;"
-                class="solitaire-card"
-                [ngClass]="{'facedown': card.facedown}"
-                [ngStyle]="{'transform': 'translateY(' + ((i * 4 * baseSizePx) - (i * 12 * baseSizePx)) + 'px)'}">
-                <ng-container *ngIf="!card.facedown">
-                    {{ Suit[card.suit] + ' ' + Rank[card.rank] }}
-                </ng-container>
+        @for (tableau of tableaus; track tableau) {
+            <div class="tableau">
+                @for (card of tableau; track card; let i = $index) {
+                    <div class="solitaire-card"
+                        [ngClass]="{'facedown': card.facedown}"
+                        [ngStyle]="{'transform': 'translateY(' + ((i * 4 * baseSizePx) - (i * 12 * baseSizePx)) + 'px)'}">
+                        @if (!card.facedown) {
+                            {{ Suit[card.suit] + ' ' + Rank[card.rank] }}
+                        }
+                    </div>
+                }
             </div>
-        </div>
+        }
     </div>
     <div id="foundation-col" class="col-auto h-100">
-        <div *ngFor="let foundation of foundations"
-            class="foundation">
-        </div>
+        @for (foundation of foundations; track foundation) {
+            <div class="foundation">
+            </div>
+        }
     </div>
 </main>

@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <ng-container *ngIf="gameManager.gameInstance.gameState() === GameState.deploying; else postDeploymentElements">
+        @if (gameManager.gameInstance.gameState() === GameState.deploying) {
             <div class="sidebar-section flex-grow-1 position-relative overflow-y-auto p-3">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <label>DEPLOY YOUR FLEET</label>
@@ -25,48 +25,43 @@
                     </button>
                 </div>
 
-                <div *ngIf="deployableShips().length === 0" class="d-flex justify-content-center mt-5">
-                    <button
-                        class="start-button confirm-button fs-2"
-                        [disabled]="deployableShips().length > 0"
-                        (click)="start()"
-                    >
-                        <span>Start</span>
-                    </button>
-                </div>
-
-                <div *ngIf="deployableShips().length > 0"
-                    class="d-flex flex-column"
-                >
-                    <div *ngFor="let ship of deployableShips()"
-                        class="deployable-ship d-flex position-relative"
-                        draggable="true"
-                        [attr.data-ship-id]="ship.id"
-                        [attr.data-ship-length]="ship.length"
-                        [attr.data-ship-orientation]="ship.orientation"
-                        (dragstart)="shipDragStart($event)"
-                        (dragend)="shipDragEnd($event)"
-                        (touchstart)="shipTouchStart($event)"
-                        (touchmove)="shipTouchMove($event)"
-                        (touchend)="shipTouchEnd($event)"
-                        (touchcancel)="shipTouchEnd($event)"
-                    >
-                        <label class="ship-info ship-name position-absolute">{{ ship.name }}</label>
-                        <span class="ship-info ship-length position-absolute">{{ ship.length }} units</span>
-                        <img class="invertible" [src]="'assets/images/warships/' + ship.id + '.png'"/>
+                @if (deployableShips().length === 0) {
+                    <div class="d-flex justify-content-center mt-5">
+                        <button class="start-button confirm-button fs-2" (click)="start()">
+                            <span>Start</span>
+                        </button>
                     </div>
-                </div>
+                } @else if (deployableShips().length > 0) {
+                    <div class="d-flex flex-column">
+                        @for (ship of deployableShips(); track ship) {
+                            <div class="deployable-ship d-flex position-relative"
+                                draggable="true"
+                                [attr.data-ship-id]="ship.id"
+                                [attr.data-ship-length]="ship.length"
+                                [attr.data-ship-orientation]="ship.orientation"
+                                (dragstart)="shipDragStart($event)"
+                                (dragend)="shipDragEnd($event)"
+                                (touchstart)="shipTouchStart($event)"
+                                (touchmove)="shipTouchMove($event)"
+                                (touchend)="shipTouchEnd($event)"
+                                (touchcancel)="shipTouchEnd($event)"
+                            >
+                                <label class="ship-info ship-name position-absolute">{{ ship.name }}</label>
+                                <span class="ship-info ship-length position-absolute">{{ ship.length }} units</span>
+                                <img class="invertible" [src]="'assets/images/warships/' + ship.id + '.png'"/>
+                            </div>
+                        }
+                    </div>
+                }
 
-                <div *ngIf="showDragShipsMessage()"
-                    id="drag-ships-message"
-                    class="d-flex align-items-center justify-content-center position-absolute"
-                >
-                    <i class="fas fa-2x"></i>
-                    <i class="fas fa-2x fa-arrow-right ms-3"></i>
-                </div>
+                @if (showDragShipsMessage()) {
+                    <div id="drag-ships-message" class="d-flex align-items-center justify-content-center position-absolute">
+                        <i class="fas fa-2x"></i>
+                        <i class="fas fa-2x fa-arrow-right ms-3"></i>
+                    </div>
+                }
             </div>
-        </ng-container>
-        <ng-template #postDeploymentElements>
+        } @else {
             <!-- Fleet Statuses -->
             <div class="sidebar-section share-height fleet-status overflow-y-auto p-3" style="flex: 0 1 auto;">
                 <label>YOUR FLEET</label>
@@ -89,17 +84,25 @@
                 </button>
             </div>
             <div #scrollableEventLog class="sidebar-section share-height overflow-y-auto px-3 pb-3" style="flex: 1 1 20vh;">
-                <ul *ngIf="showEventLog()" id="event-log">
-                    <li *ngFor="let event of gameManager.gameInstance.eventLog">
-                        <ng-container [ngSwitch]="event.type">
-                            <span *ngSwitchCase="EventType.miss" class="me-1">[MISS]</span>
-                            <span *ngSwitchCase="EventType.hit" class="me-1">[HIT]</span>
-                        </ng-container>
-                        <span>{{ event.message }}</span>
-                    </li>
-                </ul>
+                @if (showEventLog()) {
+                    <ul id="event-log">
+                        @for (event of gameManager.gameInstance.eventLog; track event) {
+                            <li>
+                                @switch (event.type) {
+                                    @case (EventType.miss) {
+                                        <span class="me-1">[MISS]</span>
+                                    }
+                                    @case (EventType.hit) {
+                                        <span class="me-1">[HIT]</span>
+                                    }
+                                }
+                                <span>{{ event.message }}</span>
+                            </li>
+                        }
+                    </ul>
+                }
             </div>
-        </ng-template>
+        }
     </div>
 </div>
 
@@ -124,185 +127,200 @@
         }"
     >
         <div id="grid-col-labels">
-            <span *ngFor="let col of [].constructor(10); let i = index" class="grid-col-label">{{ i + 1 }}</span>
+            @for (col of [].constructor(10); track col; let i = $index) {
+                <span class="grid-col-label">{{ i + 1 }}</span>
+            }
         </div>
 
         <div id="grid-row-labels">
-            <span *ngFor="let col of [].constructor(10); let i = index" class="grid-row-label">{{ String.fromCharCode(65 + i) }}</span>
+            @for (row of [].constructor(10); track row; let i = $index) {
+                <span class="grid-row-label">{{ String.fromCharCode(65 + i) }}</span>
+            }
         </div>
 
-        <ng-container *ngFor="let row of gridSectors(); let r = index">
-            <ng-container *ngFor="let sector of row; let c = index">
-                <div *ngIf="gameManager.gameInstance.turn() === Turn.player || !sector.state.hasFlag(SectorState.ship)"
-                    class="sector"
-                    [tabindex]="sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit) ? -1 : 0"
-                    [ngClass]="{
-                        'targeted': sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)
-                    }"
-                    [attr.data-row]="r"
-                    [attr.data-col]="c"
-                    (dragenter)="sectorDragEnter($event)"
-                    (dragover)="sectorDragOver($event)"
-                    (dragleave)="sectorDragLeave($event)"
-                    (drop)="sectorDrop($event)"
-                    (click)="sectorClick(r, c)"
-                    (keydown.enter)="sectorClick(r, c)"
-                ></div>
-            </ng-container>
-        </ng-container>
+        @for (row of gridSectors(); track row; let r = $index) {
+            @for (sector of row; track sector; let c = $index) {
+                @if (gameManager.gameInstance.turn() === Turn.player || !sector.state.hasFlag(SectorState.ship)) {
+                    <div class="sector"
+                        [tabindex]="sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit) ? -1 : 0"
+                        [ngClass]="{
+                            'targeted': sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)
+                        }"
+                        [attr.data-row]="r"
+                        [attr.data-col]="c"
+                        (dragenter)="sectorDragEnter($event)"
+                        (dragover)="sectorDragOver($event)"
+                        (dragleave)="sectorDragLeave($event)"
+                        (drop)="sectorDrop($event)"
+                        (click)="sectorClick(r, c)"
+                        (keydown.enter)="sectorClick(r, c)"
+                    ></div>
+                }
+            }
+        }
 
-        <div *ngIf="showPlaceholder()" id="deployable-ship-placeholder"></div>
+        @if (showPlaceholder()) {
+            <div id="deployable-ship-placeholder"></div>
+        }
 
-        <div *ngFor="let ship of deployedShips()"
-            class="deployed-ship"
-            [draggable]="gameManager.gameInstance.gameState() === GameState.deploying"
-            [attr.data-ship-id]="ship.id"
-            [attr.data-ship-length]="ship.length"
-            [attr.data-ship-orientation]="ship.orientation"
-            [style.gridRowStart]="ship.anchorSector.row + 1"
-            [style.gridRowEnd]="ship.orientation === ShipOrientation.horizontal ? 'span 1' : ('span ' + ship.length)"
-            [style.gridColumnStart]="ship.anchorSector.col + 1"
-            [style.gridColumnEnd]="ship.orientation === ShipOrientation.horizontal ? ('span ' + ship.length) : 'span 1'"
-            (dragstart)="shipDragStart($event)"
-            (dragend)="shipDragEnd($event)"
-            (click)="rotateShip(ship.id)"
-            (touchstart)="shipTouchStart($event)"
-            (touchmove)="shipTouchMove($event)"
-            (touchend)="shipTouchEnd($event)"
-            (touchcancel)="shipTouchEnd($event)"
-        >
-            <div class="ship-model h-100 w-100 position-relative">
-                <img class="position-absolute"
-                    [src]="'assets/images/warships/' + ship.id + '-top-down' + (ship.orientation === ShipOrientation.vertical ? '-vertical' : '') + '.png'"
-                    [ngClass]="ship.orientation === ShipOrientation.vertical ? 'vertical' : ''"
-                    [attr.data-ship-id]="ship.id"
-                />
+        @for (ship of deployedShips(); track ship) {
+            <div class="deployed-ship"
+                [draggable]="gameManager.gameInstance.gameState() === GameState.deploying"
+                [attr.data-ship-id]="ship.id"
+                [attr.data-ship-length]="ship.length"
+                [attr.data-ship-orientation]="ship.orientation"
+                [style.gridRowStart]="ship.anchorSector.row + 1"
+                [style.gridRowEnd]="ship.orientation === ShipOrientation.horizontal ? 'span 1' : ('span ' + ship.length)"
+                [style.gridColumnStart]="ship.anchorSector.col + 1"
+                [style.gridColumnEnd]="ship.orientation === ShipOrientation.horizontal ? ('span ' + ship.length) : 'span 1'"
+                (dragstart)="shipDragStart($event)"
+                (dragend)="shipDragEnd($event)"
+                (click)="rotateShip(ship.id)"
+                (touchstart)="shipTouchStart($event)"
+                (touchmove)="shipTouchMove($event)"
+                (touchend)="shipTouchEnd($event)"
+                (touchcancel)="shipTouchEnd($event)"
+            >
+                <div class="ship-model h-100 w-100 position-relative">
+                    <img class="position-absolute"
+                        [src]="'assets/images/warships/' + ship.id + '-top-down' + (ship.orientation === ShipOrientation.vertical ? '-vertical' : '') + '.png'"
+                        [ngClass]="ship.orientation === ShipOrientation.vertical ? 'vertical' : ''"
+                        [attr.data-ship-id]="ship.id"
+                    />
+                </div>
             </div>
-        </div>
+        }
     </div>
 
     <div id="grid-overlays-container">
         <div id="sector-overlays">
             <i id="crosshairs" class="fas fa-spin fa-crosshairs" style="display: none"></i>
 
-            <ng-container *ngFor="let row of gridSectors(); let r = index">
-                <ng-container *ngFor="let sector of row; let c = index">
+            @for (row of gridSectors(); track row; let r = $index) {
+                @for (sector of row; track sector; let c = $index) {
                     <div class="sector-overlay d-flex align-items-center justify-content-center"
                         [attr.data-row]="r"
                         [attr.data-col]="c"
                     >
-                        <i *ngIf="sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)"
-                            class="fas fa-map-marker"
-                            [ngClass]="{
-                                'miss': sector.state.hasFlag(SectorState.miss),
-                                'hit': sector.state.hasFlag(SectorState.hit)
-                            }"
-                        ></i>
+                        @if (sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)) {
+                            <i class="fas fa-map-marker"
+                                [ngClass]="{
+                                    'miss': sector.state.hasFlag(SectorState.miss),
+                                    'hit': sector.state.hasFlag(SectorState.hit)
+                                }"
+                            ></i>
+                        }
                     </div>
-                </ng-container>
-            </ng-container>
+                }
+            }
         </div>
     </div>
 </div>
 
 <div id="bottombar">
-    <div *ngIf="gameManager.gameInstance.gameState() === GameState.deploying"
-        class="bottombar-section position-relative p-3"
-    >
-        <div class="d-flex align-items-center justify-content-between mb-3">
-            <label>DEPLOY YOUR FLEET</label>
-            <button (click)="deployRandomly(playerGrid)">
-                <span>Randomize</span>
-            </button>
-        </div>
+    @if (gameManager.gameInstance.gameState() === GameState.deploying) {
+        <div class="bottombar-section position-relative p-3">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <label>DEPLOY YOUR FLEET</label>
+                <button (click)="deployRandomly(playerGrid)">
+                    <span>Randomize</span>
+                </button>
+            </div>
 
-        <div *ngIf="deployableShips().length === 0" class="d-flex justify-content-center mt-4">
-            <button
-                class="start-button confirm-button fs-2"
-                [disabled]="deployableShips().length > 0"
-                (click)="start()"
+            @if (deployableShips().length === 0) {
+                <div class="d-flex justify-content-center mt-4">
+                    <button
+                        class="start-button confirm-button fs-2"
+                        [disabled]="deployableShips().length > 0"
+                        (click)="start()"
+                    >
+                        <span>Start</span>
+                    </button>
+                </div>
+            }
+
+            @if (showDragShipsMessage()) {
+                <div id="drag-ships-message" class="d-flex align-items-center justify-content-center position-absolute">
+                    <i class="fas fa-2x"></i>
+                    <i class="fas fa-2x fa-arrow-right ms-3"></i>
+                </div>
+            }
+
+            @for (ship of deployableShips(); track ship) {
+                <div class="deployable-ship position-relative"
+                    draggable="true"
+                    [attr.data-ship-id]="ship.id"
+                    [attr.data-ship-length]="ship.length"
+                    [attr.data-ship-orientation]="ship.orientation"
+                    (dragstart)="shipDragStart($event)"
+                    (dragend)="shipDragEnd($event)"
+                    (touchstart)="shipTouchStart($event)"
+                    (touchmove)="shipTouchMove($event)"
+                    (touchend)="shipTouchEnd($event)"
+                    (touchcancel)="shipTouchEnd($event)"
+                >
+                    <label class="ship-info ship-name">{{ ship.name }}</label>
+                    <span class="ship-info ship-length">{{ ship.length }} units</span>
+                    <img class="invertible" [src]="'assets/images/warships/' + ship.id + '.png'"/>
+                </div>
+            }
+        </div>
+    } @else {
+        <div class="bottombar-section d-flex">
+            <button akMenu
+                class="col d-flex align-items-center justify-content-between"
+                #yourFleetMenu="akMenu"
+                [menuPosition]="MenuPosition.topLeft"
             >
-                <span>Start</span>
+                <span class="me-3">Your fleet</span>
+                <i class="fas fa-caret-up" [class.fa-rotate-180]="yourFleetMenu.isOpen()"></i>
+                <ng-template #menuContent>
+                    <div akMenuContent>
+                        <ak-warships-fleet-status [isPlayer]="true"></ak-warships-fleet-status>
+                    </div>
+                </ng-template>
+            </button>
+            <button akMenu
+                class="col d-flex align-items-center justify-content-between"
+                #opponentFleetMenu="akMenu"
+                [menuPosition]="MenuPosition.topLeft"
+            >
+                <span class="me-3">Opponent fleet</span>
+                <i class="fas fa-caret-up" [class.fa-rotate-180]="opponentFleetMenu.isOpen()"></i>
+                <ng-template #menuContent>
+                    <div akMenuContent>
+                        <ak-warships-fleet-status [isPlayer]="false"></ak-warships-fleet-status>
+                    </div>
+                </ng-template>
+            </button>
+            <button akMenu
+                class="col d-flex align-items-center justify-content-between"
+                #eventLogMenu="akMenu"
+                [menuPosition]="MenuPosition.topRight"
+                (isOpenChanged)="scrollEventLogs()"
+            >
+                <span class="me-3">Event log</span>
+                <i class="fas fa-caret-up" [class.fa-rotate-180]="eventLogMenu.isOpen()"></i>
+                <ng-template #menuContent>
+                    <div akMenuContent>
+                        <ul id="event-log" class="overflow-y-auto" #scrollableEventLog>
+                            @for (event of gameManager.gameInstance.eventLog; track event) {
+                                <li>
+                                    @switch (event.type) {
+                                        @case (EventType.miss) {
+                                            <span class="me-1">[MISS]</span>
+                                        }
+                                        @case (EventType.hit) {
+                                            <span class="me-1">[HIT]</span>
+                                        }
+                                    }
+                                    <span>{{ event.message }}</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </ng-template>
             </button>
         </div>
-
-        <div *ngIf="showDragShipsMessage()"
-            id="drag-ships-message"
-            class="d-flex align-items-center justify-content-center position-absolute"
-        >
-            <i class="fas fa-2x"></i>
-            <i class="fas fa-2x fa-arrow-right ms-3"></i>
-        </div>
-
-        <div *ngFor="let ship of deployableShips()"
-            class="deployable-ship position-relative"
-            draggable="true"
-            [attr.data-ship-id]="ship.id"
-            [attr.data-ship-length]="ship.length"
-            [attr.data-ship-orientation]="ship.orientation"
-            (dragstart)="shipDragStart($event)"
-            (dragend)="shipDragEnd($event)"
-            (touchstart)="shipTouchStart($event)"
-            (touchmove)="shipTouchMove($event)"
-            (touchend)="shipTouchEnd($event)"
-            (touchcancel)="shipTouchEnd($event)"
-        >
-            <label class="ship-info ship-name">{{ ship.name }}</label>
-            <span class="ship-info ship-length">{{ ship.length }} units</span>
-            <img class="invertible" [src]="'assets/images/warships/' + ship.id + '.png'"/>
-        </div>
-    </div>
-
-    <div *ngIf="gameManager.gameInstance.gameState() !== GameState.deploying"
-        class="bottombar-section d-flex"
-    >
-        <button akMenu
-            class="col d-flex align-items-center justify-content-between"
-            #yourFleetMenu="akMenu"
-            [menuPosition]="MenuPosition.topLeft"
-        >
-            <span class="me-3">Your fleet</span>
-            <i class="fas fa-caret-up" [class.fa-rotate-180]="yourFleetMenu.isOpen()"></i>
-            <ng-template #menuContent>
-                <div akMenuContent>
-                    <ak-warships-fleet-status [isPlayer]="true"></ak-warships-fleet-status>
-                </div>
-            </ng-template>
-        </button>
-        <button akMenu
-            class="col d-flex align-items-center justify-content-between"
-            #opponentFleetMenu="akMenu"
-            [menuPosition]="MenuPosition.topLeft"
-        >
-            <span class="me-3">Opponent fleet</span>
-            <i class="fas fa-caret-up" [class.fa-rotate-180]="opponentFleetMenu.isOpen()"></i>
-            <ng-template #menuContent>
-                <div akMenuContent>
-                    <ak-warships-fleet-status [isPlayer]="false"></ak-warships-fleet-status>
-                </div>
-            </ng-template>
-        </button>
-        <button akMenu
-            class="col d-flex align-items-center justify-content-between"
-            #eventLogMenu="akMenu"
-            [menuPosition]="MenuPosition.topRight"
-            (isOpenChanged)="scrollEventLogs()"
-        >
-            <span class="me-3">Event log</span>
-            <i class="fas fa-caret-up" [class.fa-rotate-180]="eventLogMenu.isOpen()"></i>
-            <ng-template #menuContent>
-                <div akMenuContent>
-                    <ul id="event-log" class="overflow-y-auto" #scrollableEventLog>
-                        <li *ngFor="let event of gameManager.gameInstance.eventLog">
-                            <ng-container [ngSwitch]="event.type">
-                                <span *ngSwitchCase="EventType.miss" class="me-1">[MISS]</span>
-                                <span *ngSwitchCase="EventType.hit" class="me-1">[HIT]</span>
-                            </ng-container>
-                            <span>{{ event.message }}</span>
-                        </li>
-                    </ul>
-                </div>
-            </ng-template>
-        </button>
-    </div>
+    }
 </div>
