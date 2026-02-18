@@ -51,7 +51,7 @@
                         }
                     }
 
-                    @for (ship of grid.ships(); track ship) {
+                    @for (ship of grid.ships(); track ship.id) {
                         <div class="deployed-ship"
                             [attr.data-ship-id]="ship.id"
                             [attr.data-ship-length]="ship.length"

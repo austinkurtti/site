@@ -33,7 +33,7 @@
                     </div>
                 } @else if (deployableShips().length > 0) {
                     <div class="d-flex flex-column">
-                        @for (ship of deployableShips(); track ship) {
+                        @for (ship of deployableShips(); track ship.id) {
                             <div class="deployable-ship d-flex position-relative"
                                 draggable="true"
                                 [attr.data-ship-id]="ship.id"
@@ -163,7 +163,7 @@
             <div id="deployable-ship-placeholder"></div>
         }
 
-        @for (ship of deployedShips(); track ship) {
+        @for (ship of deployedShips(); track ship.id) {
             <div class="deployed-ship"
                 [draggable]="gameManager.gameInstance.gameState() === GameState.deploying"
                 [attr.data-ship-id]="ship.id"
@@ -246,7 +246,7 @@
                 </div>
             }
 
-            @for (ship of deployableShips(); track ship) {
+            @for (ship of deployableShips(); track ship.id) {
                 <div class="deployable-ship position-relative"
                     draggable="true"
                     [attr.data-ship-id]="ship.id"

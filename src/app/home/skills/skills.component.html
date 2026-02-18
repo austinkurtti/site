@@ -15,7 +15,7 @@
             (mouseover)="mouseover()"
             (mouseout)="mouseout()"
         >
-            @for (skill of skills; track skill) {
+            @for (skill of skills; track skill.icon) {
                 <ak-skill
                     [name]="skill.name"
                     [icon]="skill.icon"

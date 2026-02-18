@@ -17,7 +17,7 @@
 
 <div class="container-fluid px-0">
     <div class="row gx-3 gx-lg-5 mx-2 mx-lg-4">
-        @for (game of gamesService.games; track game) {
+        @for (game of gamesService.games; track game.route) {
             <div class="col-6 col-lg-4 col-xl-3 pt-3 pt-lg-5">
                 <button
                     class="game position-relative"
