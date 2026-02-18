@@ -1,4 +1,7 @@
-<div id="building" class="d-flex align-items-center justify-content-center h-100 w-100 position-absolute" [ngClass]="{ 'd-none': (building$ | async) === false }">
+<div id="building"
+    class="d-flex align-items-center justify-content-center h-100 w-100 position-absolute"
+    [class.d-none]="(building$ | async) === false"
+>
     <i class="fas fa-2x fa-circle-notch fa-spin"></i><span class="ms-2">Building puzzle...</span>
 </div>
 
@@ -22,11 +25,9 @@
             >
                 <i
                     class="fas"
-                    [ngClass]="{
-                        'fa-play': board.state === GameState.paused,
-                        'fa-pause': board.state === GameState.running,
-                        'fa-flag-checkered': board.state === GameState.solved
-                    }"
+                    [class.fa-play]="board.state === GameState.paused"
+                    [class.fa-pause]="board.state === GameState.running"
+                    [class.fa-flag-checkered]="board.state === GameState.solved"
                 ></i>
             </button>
             <span id="sudoku-time" class="ms-3">{{ gameManager.gameInstance.time$ | async }}</span>
@@ -142,16 +143,18 @@
                             tabindex="0"
                             class="sudoku-cell col align-items-center justify-content-center"
                             [id]="'cell-' + rowIndex + '-' + colIndex"
-                                    [ngClass]="{
-                                        'given': cell.given,
-                                        'active': cell.active,
-                                        'extra-highlight': !this.gameManager.gameInstance.hardcore && this.gameManager.gameSettings.extraHighlights && (rowIndex === activeCellRow || colIndex === activeCellCol),
-                                        'conflicted': !this.gameManager.gameInstance.hardcore && this.gameManager.gameSettings.showConflicts && cell.numConflicts > 0
-                                    }"
+                            [class.given]="cell.given"
+                            [class.active]="cell.active"
+                            [class.extra-highlight]="!this.gameManager.gameInstance.hardcore && this.gameManager.gameSettings.extraHighlights && (rowIndex === activeCellRow || colIndex === activeCellCol)"
+                            [class.conflicted]="!this.gameManager.gameInstance.hardcore && this.gameManager.gameSettings.showConflicts && cell.numConflicts > 0"
                             (click)="focusCell(rowIndex, colIndex)"
                             (keydown)="cellKeydown(rowIndex, colIndex, $event)"
                         >
-                            <span class="normal position-absolute" [ngClass]="{ 'revealed': cell.revealed === true, 'valid': cell.valid === true, 'invalid': cell.valid === false }">
+                            <span class="normal position-absolute"
+                                [class.revealed]="cell.revealed === true"
+                                [class.valid]="cell.valid === true"
+                                [class.invalid]="cell.valid === false"
+                            >
                                 {{ cell.value }}
                             </span>
                             <div class="candidate-row row g-0 align-items-center text-center w-100">

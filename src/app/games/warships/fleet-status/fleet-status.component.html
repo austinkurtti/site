@@ -1,9 +1,7 @@
 <div class="fleet-status">
     @for (ship of fleet(); track ship.id) {
         <div class="ship row my-2 g-0 justify-content-between"
-            [ngClass]="{
-                'destroyed': ship.health === 0
-            }"
+            [class.destroyed]="ship.health === 0"
         >
             <div class="col-6 d-flex flex-column justify-content-end">
                 <div>{{ ship.name }}</div>

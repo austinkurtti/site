@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { WarshipsManager } from '../warships-manager';
 import { WarshipsGameState } from '../warships.models';
@@ -6,10 +5,7 @@ import { WarshipsGameState } from '../warships.models';
 @Component({
     selector: 'ak-warships-fleet-status',
     styleUrl: './fleet-status.component.scss',
-    templateUrl: './fleet-status.component.html',
-    imports: [
-        CommonModule
-    ]
+    templateUrl: './fleet-status.component.html'
 })
 export class WarshipsFleetStatusComponent {
     public gameManager = inject(WarshipsManager);

@@ -24,13 +24,12 @@
                     #recruitHeader="akAccordionHeader"
                     contentId="recruit"
                     class="d-flex justify-content-between"
-                    [ngClass]="{
-                        'expanded': recruitHeader.contentExpanded()
-                    }"
+                    [class.expanded]="recruitHeader.contentExpanded()"
                 >
                     <span>Recruit</span>
                     <i class="far"
-                        [ngClass]="recruitHeader.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                        [class.fa-check-square]="recruitHeader.contentExpanded()"
+                        [class.fa-square]="!recruitHeader.contentExpanded()"
                     ></i>
                 </div>
                 <p akAccordionContent
@@ -48,13 +47,12 @@
                     #midshipmanHeader="akAccordionHeader"
                     contentId="midshipman"
                     class="d-flex justify-content-between"
-                    [ngClass]="{
-                        'expanded': midshipmanHeader.contentExpanded()
-                    }"
+                    [class.expanded]="midshipmanHeader.contentExpanded()"
                 >
                     <span>Midshipman</span>
                     <i class="far"
-                        [ngClass]="midshipmanHeader.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                        [class.fa-check-square]="midshipmanHeader.contentExpanded()"
+                        [class.fa-square]="!midshipmanHeader.contentExpanded()"
                     ></i>
                 </div>
                 <p akAccordionContent
@@ -71,13 +69,12 @@
                     #captainHeader="akAccordionHeader"
                     contentId="captain"
                     class="d-flex justify-content-between"
-                    [ngClass]="{
-                        'expanded': captainHeader.contentExpanded()
-                    }"
+                    [class.expanded]="captainHeader.contentExpanded()"
                 >
                     <span>Captain</span>
                     <i class="far"
-                        [ngClass]="captainHeader.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                        [class.fa-check-square]="captainHeader.contentExpanded()"
+                        [class.fa-square]="!captainHeader.contentExpanded()"
                     ></i>
                 </div>
                 <p akAccordionContent
@@ -94,13 +91,12 @@
                     #fleetAdmiralHeader="akAccordionHeader"
                     contentId="fleet-admiral"
                     class="d-flex justify-content-between"
-                    [ngClass]="{
-                        'expanded': fleetAdmiralHeader.contentExpanded()
-                    }"
+                    [class.expanded]="fleetAdmiralHeader.contentExpanded()"
                 >
                     <span>Fleet Admiral</span>
                     <i class="far"
-                        [ngClass]="fleetAdmiralHeader.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                        [class.fa-check-square]="fleetAdmiralHeader.contentExpanded()"
+                        [class.fa-square]="!fleetAdmiralHeader.contentExpanded()"
                     ></i>
                 </div>
                 <p akAccordionContent
@@ -120,13 +116,12 @@
                         #recruitHeader2="akAccordionHeader"
                         contentId="recruit2"
                         class="d-flex justify-content-between"
-                        [ngClass]="{
-                            'expanded': recruitHeader2.contentExpanded()
-                        }"
+                        [class.expanded]="recruitHeader2.contentExpanded()"
                     >
                         <span>Recruit</span>
                         <i class="far ms-3"
-                            [ngClass]="recruitHeader2.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                            [class.fa-check-square]="recruitHeader2.contentExpanded()"
+                            [class.fa-square]="!recruitHeader2.contentExpanded()"
                         ></i>
                     </div>
 
@@ -134,13 +129,12 @@
                         #midshipmanHeader2="akAccordionHeader"
                         contentId="midshipman2"
                         class="d-flex justify-content-between"
-                        [ngClass]="{
-                            'expanded': midshipmanHeader2.contentExpanded()
-                        }"
+                        [class.expanded]="midshipmanHeader2.contentExpanded()"
                     >
                         <span>Midshipman</span>
                         <i class="far ms-3"
-                            [ngClass]="midshipmanHeader2.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                            [class.fa-check-square]="midshipmanHeader2.contentExpanded()"
+                            [class.fa-square]="!midshipmanHeader2.contentExpanded()"
                         ></i>
                     </div>
 
@@ -148,13 +142,12 @@
                         #captainHeader2="akAccordionHeader"
                         contentId="captain2"
                         class="d-flex justify-content-between"
-                        [ngClass]="{
-                            'expanded': captainHeader2.contentExpanded()
-                        }"
+                        [class.expanded]="captainHeader2.contentExpanded()"
                     >
                         <span>Captain</span>
                         <i class="far ms-3"
-                            [ngClass]="captainHeader2.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                            [class.fa-check-square]="captainHeader2.contentExpanded()"
+                            [class.fa-square]="!captainHeader2.contentExpanded()"
                         ></i>
                     </div>
 
@@ -162,13 +155,12 @@
                         #fleetAdmiralHeader2="akAccordionHeader"
                         contentId="fleet-admiral2"
                         class="d-flex justify-content-between"
-                        [ngClass]="{
-                            'expanded': fleetAdmiralHeader2.contentExpanded()
-                        }"
+                        [class.expanded]="fleetAdmiralHeader2.contentExpanded()"
                     >
                         <span>Fleet Admiral</span>
                         <i class="far ms-3"
-                            [ngClass]="fleetAdmiralHeader2.contentExpanded() ? 'fa-check-square' : 'fa-square'"
+                            [class.fa-check-square]="fleetAdmiralHeader2.contentExpanded()"
+                            [class.fa-square]="!fleetAdmiralHeader2.contentExpanded()"
                         ></i>
                     </div>
                 </div>

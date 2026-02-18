@@ -1,5 +1,5 @@
 <div class="position-relative w-100">
-    <label [for]="id" [ngClass]="focusing || value ? 'float' : ''">{{ label }}</label>
+    <label [for]="id" [class.float]="focusing || value">{{ label }}</label>
     <select #selectEl
         class="w-100"
         [id]="id"

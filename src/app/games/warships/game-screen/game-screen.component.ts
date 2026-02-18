@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, computed, ElementRef, inject, OnDestroy, OnInit, Renderer2, signal, viewChildren } from '@angular/core';
 import { ConfirmDialogComponent } from '@components/confirm/confirm.component';
 import { MenuContentDirective } from '@directives/menu/menu-content.directive';
@@ -21,7 +20,6 @@ import { WarshipsEvent, WarshipsEventType, WarshipsGameState, WarshipsGrid, Wars
     styleUrl: './game-screen.component.scss',
     templateUrl: './game-screen.component.html',
     imports: [
-        CommonModule,
         MenuContentDirective,
         MenuDirective,
         WarshipsFleetStatusComponent

@@ -1,7 +1,8 @@
 <div class="container-fluid g-0 h-100 d-flex flex-column justify-content-xxl-center justify-content-center">
     <div class="row g-0 px-2 px-md-0 my-3 mb-lg-5">
         <h1 class="text-center text-uppercase"
-            [ngClass]="gameManager.gameInstance.gameState() === GameState.victory ? 'victory' : 'defeat'"
+            [class.victory]="gameManager.gameInstance.gameState() === GameState.victory"
+            [class.defeat]="gameManager.gameInstance.gameState() === GameState.defeat"
         >
             <span>{{ gameManager.gameInstance.gameState() === GameState.victory ? 'Victory' : 'Defeat' }}</span>
         </h1>
@@ -41,9 +42,7 @@
                         @for (sector of row; track sector; let c = $index) {
                             @if (!sector.state.hasFlag(SectorState.ship)) {
                                 <div class="sector"
-                                    [ngClass]="{
-                                        'targeted': sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)
-                                    }"
+                                    [class.targeted]="sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)"
                                     [attr.data-row]="r"
                                     [attr.data-col]="c">
                                 </div>
@@ -63,7 +62,7 @@
                             <div class="ship-model h-100 w-100 position-relative">
                                 <img class="position-absolute"
                                     [src]="'assets/images/warships/' + ship.id + '-top-down' + (ship.orientation === ShipOrientation.vertical ? '-vertical' : '') + '.png'"
-                                    [ngClass]="ship.orientation === ShipOrientation.vertical ? 'vertical' : ''"
+                                    [class.vertical]="ship.orientation === ShipOrientation.vertical"
                                     [attr.data-ship-id]="ship.id"
                                 />
                             </div>
@@ -81,10 +80,8 @@
                                 >
                                     @if (sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)) {
                                         <i class="fas fa-map-marker"
-                                            [ngClass]="{
-                                                'miss': sector.state.hasFlag(SectorState.miss),
-                                                'hit': sector.state.hasFlag(SectorState.hit)
-                                            }"
+                                            [class.miss]="sector.state.hasFlag(SectorState.miss)"
+                                            [class.hit]="sector.state.hasFlag(SectorState.hit)"
                                         ></i>
                                     }
                                 </div>

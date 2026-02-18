@@ -76,9 +76,7 @@
             <div class="ps-2">
                 <button id="event-log-toggle" class="px-2" (click)="showEventLog.set(!showEventLog())">
                     <i class="fas fa-caret-down me-2"
-                        [ngClass]="{
-                            'collapsed': !showEventLog()
-                        }"
+                        [class.collapsed]="!showEventLog()"
                     ></i>
                     <span>EVENT LOG</span>
                 </button>
@@ -121,10 +119,8 @@
     </div>
 
     <div id="grid"
-        [ngClass]="{
-            'player-turn': gameManager.gameInstance.turn() === Turn.player,
-            'computer-turn': gameManager.gameInstance.turn() === Turn.computer
-        }"
+        [class.player-turn]="gameManager.gameInstance.turn() === Turn.player"
+        [class.computer-turn]="gameManager.gameInstance.turn() === Turn.computer"
     >
         <div id="grid-col-labels">
             @for (col of [].constructor(10); track col; let i = $index) {
@@ -143,9 +139,7 @@
                 @if (gameManager.gameInstance.turn() === Turn.player || !sector.state.hasFlag(SectorState.ship)) {
                     <div class="sector"
                         [tabindex]="sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit) ? -1 : 0"
-                        [ngClass]="{
-                            'targeted': sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)
-                        }"
+                        [class.targeted]="sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)"
                         [attr.data-row]="r"
                         [attr.data-col]="c"
                         (dragenter)="sectorDragEnter($event)"
@@ -184,7 +178,7 @@
                 <div class="ship-model h-100 w-100 position-relative">
                     <img class="position-absolute"
                         [src]="'assets/images/warships/' + ship.id + '-top-down' + (ship.orientation === ShipOrientation.vertical ? '-vertical' : '') + '.png'"
-                        [ngClass]="ship.orientation === ShipOrientation.vertical ? 'vertical' : ''"
+                        [class.vertical]="ship.orientation === ShipOrientation.vertical"
                         [attr.data-ship-id]="ship.id"
                     />
                 </div>
@@ -204,10 +198,8 @@
                     >
                         @if (sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)) {
                             <i class="fas fa-map-marker"
-                                [ngClass]="{
-                                    'miss': sector.state.hasFlag(SectorState.miss),
-                                    'hit': sector.state.hasFlag(SectorState.hit)
-                                }"
+                                [class.miss]="sector.state.hasFlag(SectorState.miss)"
+                                [class.hit]="sector.state.hasFlag(SectorState.hit)"
                             ></i>
                         }
                     </div>

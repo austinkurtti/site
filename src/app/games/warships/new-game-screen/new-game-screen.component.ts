@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccordionContentDirective } from "@directives/accordion/accordion-content.directive";
@@ -18,7 +17,6 @@ import { WarshipsDifficulty, WarshipsScreenState } from '../warships.models';
         AccordionContentDirective,
         AccordionGroupDirective,
         AccordionHeaderDirective,
-        CommonModule,
         FormsModule
     ]
 })

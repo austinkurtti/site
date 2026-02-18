@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, ElementRef, forwardRef, inject, Input, Renderer2, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -14,7 +13,6 @@ export class SelectOption<T> {
 
 @Component({
     imports: [
-        CommonModule,
         FormsModule
     ],
     selector: 'ak-select',

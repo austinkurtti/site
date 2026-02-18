@@ -23,10 +23,10 @@
                     class="game position-relative"
                     routerLink="/games/{{ game.route }}"
                     [disabled]="game.disabled"
-                    [ngClass]="game.route"
+                    [class]="game.route"
                 >
                     <div class="game-icon">
-                        <i [ngClass]="game.icon"></i>
+                        <i [class]="game.icon"></i>
                     </div>
                     <div class="game-name">{{ game.name }}</div>
                     @if (game.disabled) {

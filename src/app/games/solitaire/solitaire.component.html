@@ -15,7 +15,7 @@
 
 <main class="row g-0 position-static h-100">
     <div id="stock-col" class="col-auto h-100">
-        <div id="stock" [ngClass]="{'empty': !stock.length}">
+        <div id="stock" [class.empty]="!stock.length">
         </div>
     </div>
     <div class="col d-flex justify-content-around h-100">
@@ -23,8 +23,9 @@
             <div class="tableau">
                 @for (card of tableau; track card; let i = $index) {
                     <div class="solitaire-card"
-                        [ngClass]="{'facedown': card.facedown}"
-                        [ngStyle]="{'transform': 'translateY(' + ((i * 4 * baseSizePx) - (i * 12 * baseSizePx)) + 'px)'}">
+                        [class.facedown]="card.facedown"
+                        [style.transform]="'translateY(' + ((i * 4 * baseSizePx) - (i * 12 * baseSizePx)) + 'px)'"
+                    >
                         @if (!card.facedown) {
                             {{ Suit[card.suit] + ' ' + Rank[card.rank] }}
                         }

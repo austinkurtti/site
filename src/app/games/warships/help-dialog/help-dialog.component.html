@@ -16,13 +16,12 @@
             #setupHeader="akAccordionHeader"
             contentId="setup"
             class="d-flex justify-content-between"
-            [ngClass]="{
-                'expanded': setupHeader.contentExpanded()
-            }"
+            [class.expanded]="setupHeader.contentExpanded()"
         >
             <span>Setup</span>
             <i class="fas"
-                [ngClass]="setupHeader.contentExpanded() ? 'fa-minus' : 'fa-plus'"
+                [class.fa-minus]="setupHeader.contentExpanded()"
+                [class.fa-plus]="!setupHeader.contentExpanded()"
             ></i>
         </div>
         <p akAccordionContent
@@ -38,13 +37,12 @@
             #gameplayHeader="akAccordionHeader"
             contentId="gameplay"
             class="d-flex justify-content-between"
-            [ngClass]="{
-                'expanded': gameplayHeader.contentExpanded()
-            }"
+            [class.expanded]="gameplayHeader.contentExpanded()"
         >
             <span>Gameplay</span>
             <i class="fas"
-                [ngClass]="gameplayHeader.contentExpanded() ? 'fa-minus' : 'fa-plus'"
+                [class.fa-minus]="gameplayHeader.contentExpanded()"
+                [class.fa-plus]="!gameplayHeader.contentExpanded()"
             ></i>
         </div>
         <p akAccordionContent
@@ -60,13 +58,12 @@
             #winningHeader="akAccordionHeader"
             contentId="winning"
             class="d-flex justify-content-between"
-            [ngClass]="{
-                'expanded': winningHeader.contentExpanded()
-            }"
+            [class.expanded]="winningHeader.contentExpanded()"
         >
             <span>Winning</span>
             <i class="fas"
-                [ngClass]="winningHeader.contentExpanded() ? 'fa-minus' : 'fa-plus'"
+                [class.fa-minus]="winningHeader.contentExpanded()"
+                [class.fa-plus]="!winningHeader.contentExpanded()"
             ></i>
         </div>
         <p akAccordionContent
