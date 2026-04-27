@@ -27,13 +27,13 @@
             <div class="grid-container">
                 <div class="grid">
                     <div id="grid-col-labels">
-                        @for (col of [].constructor(10); track col; let i = $index) {
+                        @for (col of [].constructor(10); let i = $index; track i;) {
                             <span class="grid-col-label">{{ i + 1 }}</span>
                         }
                     </div>
 
                     <div id="grid-row-labels">
-                        @for (col of [].constructor(10); track col; let i = $index) {
+                        @for (col of [].constructor(10); let i = $index; track i;) {
                             <span class="grid-row-label">{{ String.fromCharCode(65 + i) }}</span>
                         }
                     </div>

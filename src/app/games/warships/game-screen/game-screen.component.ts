@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, OnDestroy, OnInit, Renderer2, signal, viewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, ElementRef, inject, OnDestroy, OnInit, Renderer2, signal, viewChildren } from '@angular/core';
 import { ConfirmDialogComponent } from '@components/confirm/confirm.component';
 import { MenuContentDirective } from '@directives/menu/menu-content.directive';
 import { MenuDirective, MenuPosition } from '@directives/menu/menu.directive';
@@ -31,27 +31,27 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     public showPlaceholder = signal(false);
     public showEventLog = signal(true);
     public showDragShipsMessage = computed(() => {
-        return this.gameManager.gameInstance.gameState() === WarshipsGameState.deploying && this.deployableShips().length === 5;
+        return this.gameManager.gameInstance!.gameState() === WarshipsGameState.deploying && this.deployableShips().length === 5;
     });
     public gridSectors = computed(() => {
-        return this.gameManager.gameInstance.gameState() === WarshipsGameState.deploying || this.gameManager.gameInstance.turn() === WarshipsTurn.computer
-            ? this.gameManager.gameInstance.playerGrid.sectors
-            : this.gameManager.gameInstance.computerGrid.sectors;
+        return this.gameManager.gameInstance!.gameState() === WarshipsGameState.deploying || this.gameManager.gameInstance!.turn() === WarshipsTurn.computer
+            ? this.gameManager.gameInstance!.playerGrid.sectors
+            : this.gameManager.gameInstance!.computerGrid.sectors;
     });
-    public deployableShips = computed(() => this.gameManager.gameInstance.playerGrid.ships().filter(ship => !ship.deployed));
+    public deployableShips = computed(() => this.gameManager.gameInstance!.playerGrid.ships().filter(ship => !ship.deployed));
     public deployedShips = computed(() => {
-        return this.gameManager.gameInstance.gameState() === WarshipsGameState.deploying || this.gameManager.gameInstance.turn() === WarshipsTurn.computer
-            ? this.gameManager.gameInstance.playerGrid.ships().filter(ship => ship.deployed)
+        return this.gameManager.gameInstance!.gameState() === WarshipsGameState.deploying || this.gameManager.gameInstance!.turn() === WarshipsTurn.computer
+            ? this.gameManager.gameInstance!.playerGrid.ships().filter(ship => ship.deployed)
             : [];
     });
 
     public scrollableEventLogs = viewChildren<ElementRef<HTMLElement>>('scrollableEventLog');
 
     public get playerGrid(): WarshipsGrid {
-        return this.gameManager.gameInstance.playerGrid;
+        return this.gameManager.gameInstance!.playerGrid;
     }
     public get computerGrid(): WarshipsGrid {
-        return this.gameManager.gameInstance.computerGrid;
+        return this.gameManager.gameInstance!.computerGrid;
     }
 
     public Math = Math;
@@ -64,6 +64,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     public TooltipPosition = TooltipPosition;
     public Turn = WarshipsTurn;
 
+    private _changeDetectorRef = inject(ChangeDetectorRef);
     private _dialogService = inject(DialogService);
     private _effectsService = inject(EffectsService);
     private _newsflashService = inject(NewsflashService);
@@ -138,7 +139,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
     // #region - Drag Methods
     public shipDragStart = (event: DragEvent): void => {
-        if (this.gameManager.gameInstance.gameState() !== WarshipsGameState.deploying) {
+        if (this.gameManager.gameInstance!.gameState() !== WarshipsGameState.deploying) {
             return;
         }
 
@@ -154,10 +155,10 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
         // Set ship data
         const shipId = ship.getAttribute('data-ship-id');
-        event.dataTransfer.effectAllowed = 'move';
-        event.dataTransfer.setData('shipid', shipId);
-        event.dataTransfer.setData('length', length);
-        event.dataTransfer.setData('orientation', ship.getAttribute('data-ship-orientation'));
+        event.dataTransfer!.effectAllowed = 'move';
+        event.dataTransfer!.setData('shipid', shipId!);
+        event.dataTransfer!.setData('length', length!);
+        event.dataTransfer!.setData('orientation', ship.getAttribute('data-ship-orientation')!);
 
         if (ship.classList.contains('deployed-ship')) {
             // Set temporary styles for deployed ship to prevent it from blocking dragover events
@@ -173,9 +174,9 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
             // Reset sectors containing deployed ship
             const deployedShip = this.playerGrid.ships().find(s => s.id === shipId);
-            for (let i = 0; i < deployedShip.length; i++) {
-                let r = deployedShip.anchorSector.row, c = deployedShip.anchorSector.col;
-                if (deployedShip.orientation === WarshipsShipOrientation.horizontal) {
+            for (let i = 0; i < deployedShip!.length; i++) {
+                let r = deployedShip!.anchorSector!.row, c = deployedShip!.anchorSector!.col;
+                if (deployedShip!.orientation === WarshipsShipOrientation.horizontal) {
                     c += i;
                 } else {
                     r += i;
@@ -193,19 +194,19 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     }
 
     public sectorDragEnter = (event: DragEvent): void => {
-        if (this.gameManager.gameInstance.gameState() === WarshipsGameState.deploying && event.dataTransfer.types.includes('shipid')) {
+        if (this.gameManager.gameInstance!.gameState() === WarshipsGameState.deploying && event.dataTransfer!.types.includes('shipid')) {
             // Sector data
             const sector = event.currentTarget as HTMLElement;
-            const row = parseInt(sector.getAttribute('data-row'), 10);
-            const col = parseInt(sector.getAttribute('data-col'), 10);
+            const row = parseInt(sector.getAttribute('data-row')!, 10);
+            const col = parseInt(sector.getAttribute('data-col')!, 10);
 
             // Track current hovered sector
             this._currentDragSector = { row, col };
 
             // Ship data
             const draggedShip = document.getElementById('dragged-ship');
-            const length = parseInt(draggedShip.getAttribute('data-ship-length'), 10);
-            const orientation = parseInt(draggedShip.getAttribute('data-ship-orientation'), 10);
+            const length = parseInt(draggedShip!.getAttribute('data-ship-length')!, 10);
+            const orientation = parseInt(draggedShip!.getAttribute('data-ship-orientation')!, 10);
 
             // Snap to the closest valid position
             const occupiedSectors = tryShipDeploy(row, col, length, orientation, this.playerGrid.sectors);
@@ -220,7 +221,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             });
 
             // Move placeholder to snapped anchor
-            const deployableShipPlaceholder = sector.parentElement.querySelector('#deployable-ship-placeholder') as HTMLElement;
+            const deployableShipPlaceholder = sector.parentElement!.querySelector('#deployable-ship-placeholder') as HTMLElement;
             deployableShipPlaceholder.style.display = 'block';
             deployableShipPlaceholder.style.height = '100%';
             deployableShipPlaceholder.style.width = '100%';
@@ -240,13 +241,13 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     public sectorDragOver = (event: DragEvent): void => {
         event.preventDefault();
         // Set move as the only allowed drop effect
-        event.dataTransfer.dropEffect = 'move';
+        event.dataTransfer!.dropEffect = 'move';
     }
 
     public sectorDragLeave = (event: DragEvent): void => {
         const sector = event.currentTarget as HTMLElement;
-        const row = parseInt(sector.getAttribute('data-row'), 10);
-        const col = parseInt(sector.getAttribute('data-col'), 10);
+        const row = parseInt(sector.getAttribute('data-row')!, 10);
+        const col = parseInt(sector.getAttribute('data-col')!, 10);
 
         // Only clear placeholders if currentDragSector has not been updated by dragstart, meaning the drag has left the grid entirely
         if (this._currentDragSector && this._currentDragSector.row === row && this._currentDragSector.col === col) {
@@ -256,7 +257,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     }
 
     public sectorDrop = (event: DragEvent): void => {
-        if (this.gameManager.gameInstance.gameState() !== WarshipsGameState.deploying) {
+        if (this.gameManager.gameInstance!.gameState() !== WarshipsGameState.deploying) {
             return;
         }
 
@@ -265,14 +266,14 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
         // Sector data
         const sector = event.currentTarget as HTMLElement;
-        const row = parseInt(sector.getAttribute('data-row'), 10);
-        const col = parseInt(sector.getAttribute('data-col'), 10);
+        const row = parseInt(sector.getAttribute('data-row')!, 10);
+        const col = parseInt(sector.getAttribute('data-col')!, 10);
 
         // Ship data
         const draggedShip = document.getElementById('dragged-ship');
-        const id = event.dataTransfer.getData('shipid');
-        const length = parseInt(event.dataTransfer.getData('length'), 10);
-        const orientation = parseInt(event.dataTransfer.getData('orientation'), 10);
+        const id = event.dataTransfer!.getData('shipid');
+        const length = parseInt(event.dataTransfer!.getData('length'), 10);
+        const orientation = parseInt(event.dataTransfer!.getData('orientation'), 10);
 
         // Clear placeholders
         this._clearPlaceholders();
@@ -284,11 +285,11 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         }
 
         // Unset temporary styles
-        draggedShip.style.border = '';
-        draggedShip.style.height = '';
-        draggedShip.style.width = '';
-        draggedShip.style.position = '';
-        draggedShip.style.visibility = '';
+        draggedShip!.style.border = '';
+        draggedShip!.style.height = '';
+        draggedShip!.style.width = '';
+        draggedShip!.style.position = '';
+        draggedShip!.style.visibility = '';
 
         // TODO - is this even necessary? could just track the success of tryShipDeploy in sectorDragEnter
         // Attempt deployment
@@ -318,7 +319,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
     // #region - Touch Methods
     public shipTouchStart = (event: TouchEvent): void => {
-        if (this.gameManager.gameInstance.gameState() !== WarshipsGameState.deploying) {
+        if (this.gameManager.gameInstance!.gameState() !== WarshipsGameState.deploying) {
             return;
         }
 
@@ -328,8 +329,8 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         shipEl.id = 'dragged-ship';
         this._touchDraggingShip = shipEl;
         this._touchDraggingShipId = shipEl.getAttribute('data-ship-id');
-        this._touchDraggingShipLength = parseInt(shipEl.getAttribute('data-ship-length'), 10);
-        this._touchDraggingShipOrientation = parseInt(shipEl.getAttribute('data-ship-orientation'), 10);
+        this._touchDraggingShipLength = parseInt(shipEl.getAttribute('data-ship-length')!, 10);
+        this._touchDraggingShipOrientation = parseInt(shipEl.getAttribute('data-ship-orientation')!, 10);
         this._touchMoved = false;
 
         const touch = event.touches[0];
@@ -373,14 +374,14 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
                     // Short delay for invisibility to allow browser to capture the element for dragging before it disappears
                     timer(10).pipe(take(1)).subscribe(() => {
-                        this._touchDraggingShip.style.visibility = 'hidden';
+                        this._touchDraggingShip!.style.visibility = 'hidden';
                     });
 
                     // Reset sectors containing deployed ship
                     const deployedShip = this.playerGrid.ships().find(s => s.id === this._touchDraggingShipId);
-                    for (let i = 0; i < deployedShip.length; i++) {
-                        let r = deployedShip.anchorSector.row, c = deployedShip.anchorSector.col;
-                        if (deployedShip.orientation === WarshipsShipOrientation.horizontal) {
+                    for (let i = 0; i < deployedShip!.length; i++) {
+                        let r = deployedShip!.anchorSector!.row, c = deployedShip!.anchorSector!.col;
+                        if (deployedShip!.orientation === WarshipsShipOrientation.horizontal) {
                             c += i;
                         } else {
                             r += i;
@@ -402,8 +403,8 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         const sectorEl = elementsAtPoint.find(el => el.classList.contains('sector'));
 
         if (sectorEl) {
-            const row = parseInt(sectorEl.getAttribute('data-row'), 10);
-            const col = parseInt(sectorEl.getAttribute('data-col'), 10);
+            const row = parseInt(sectorEl.getAttribute('data-row')!, 10);
+            const col = parseInt(sectorEl.getAttribute('data-col')!, 10);
 
             // Only update if sector changed
             if (!this._touchLastSector || this._touchLastSector.row !== row || this._touchLastSector.col !== col) {
@@ -415,8 +416,8 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
                 const occupiedSectors = tryShipDeploy(
                     row,
                     col,
-                    this._touchDraggingShipLength,
-                    this._touchDraggingShipOrientation,
+                    this._touchDraggingShipLength!,
+                    this._touchDraggingShipOrientation!,
                     this.playerGrid.sectors
                 );
                 if (occupiedSectors.length === 0) {
@@ -467,7 +468,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             }
 
             // Rotate the ship
-            this.rotateShip(this._touchDraggingShipId);
+            this.rotateShip(this._touchDraggingShipId!);
 
             // Reset state
             this._touchDraggingShip.removeAttribute('id');
@@ -489,8 +490,12 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         } else if (event.touches && event.touches.length > 0) {
             touch = event.touches[0];
         }
-        const elementsAtPoint = document.elementsFromPoint(touch.clientX, touch.clientY);
-        const sectorEl = elementsAtPoint.find(el => el.classList.contains('sector'));
+
+        let sectorEl;
+        if (touch !== null) {
+            const elementsAtPoint = document.elementsFromPoint(touch.clientX, touch.clientY);
+            sectorEl = elementsAtPoint.find(el => el.classList.contains('sector'));
+        }
 
         if (
             sectorEl &&
@@ -498,8 +503,8 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
             this._touchDraggingShipLength &&
             this._touchDraggingShipOrientation !== null
         ) {
-            const row = parseInt(sectorEl.getAttribute('data-row'), 10);
-            const col = parseInt(sectorEl.getAttribute('data-col'), 10);
+            const row = parseInt(sectorEl.getAttribute('data-row')!, 10);
+            const col = parseInt(sectorEl.getAttribute('data-col')!, 10);
 
             // Attempt deployment
             const occupiedSectors = tryShipDeploy(
@@ -569,16 +574,16 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
     // #region - Misc. Public Methods
     public rotateShip(shipId: string) {
-        if (this.gameManager.gameInstance.gameState() !== WarshipsGameState.deploying) {
+        if (this.gameManager.gameInstance!.gameState() !== WarshipsGameState.deploying) {
             return;
         }
 
         const ship = this.playerGrid.ships().find(s => s.id === shipId);
 
         // Clear current sectors to empty so tryShipDeploy doesn't get confused
-        for (let i = 0; i < ship.length; i++) {
-            let r = ship.anchorSector.row, c = ship.anchorSector.col;
-            if (ship.orientation === WarshipsShipOrientation.horizontal) {
+        for (let i = 0; i < ship!.length; i++) {
+            let r = ship!.anchorSector!.row, c = ship!.anchorSector!.col;
+            if (ship!.orientation === WarshipsShipOrientation.horizontal) {
                 c += i;
             } else {
                 r += i;
@@ -589,41 +594,41 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         }
 
         // Attempt deployment with new orientation
-        const newOrientation = ship.orientation === WarshipsShipOrientation.horizontal
+        const newOrientation = ship!.orientation === WarshipsShipOrientation.horizontal
             ? WarshipsShipOrientation.vertical
             : WarshipsShipOrientation.horizontal;
-        const newSectors = tryShipDeploy(ship.anchorSector.row, ship.anchorSector.col, ship.length, newOrientation, this.playerGrid.sectors);
+        const newSectors = tryShipDeploy(ship!.anchorSector!.row, ship!.anchorSector!.col, ship!.length, newOrientation, this.playerGrid.sectors);
         if (newSectors.length === 0) {
             // About - deploy failed
             // Restore original sectors
-            for (let i = 0; i < ship.length; i++) {
-                let r = ship.anchorSector.row, c = ship.anchorSector.col;
-                if (ship.orientation === WarshipsShipOrientation.horizontal) {
+            for (let i = 0; i < ship!.length; i++) {
+                let r = ship!.anchorSector!.row, c = ship!.anchorSector!.col;
+                if (ship!.orientation === WarshipsShipOrientation.horizontal) {
                     c += i;
                 } else {
                     r += i;
                 }
 
                 this.playerGrid.sectors[r][c].state = WarshipsSectorState.ship;
-                this.playerGrid.sectors[r][c].shipId = ship.id;
+                this.playerGrid.sectors[r][c].shipId = ship!.id;
             }
         } else {
             // Update new sectors and ship data
             newSectors.forEach(s => {
                 this.playerGrid.sectors[s.row][s.col].state = WarshipsSectorState.ship;
-                this.playerGrid.sectors[s.row][s.col].shipId = ship.id;
+                this.playerGrid.sectors[s.row][s.col].shipId = ship!.id;
             });
             const snappedAnchor = newSectors[0];
-            ship.anchorSector = { row: snappedAnchor.row, col: snappedAnchor.col };
-            ship.orientation = newOrientation;
+            ship!.anchorSector = { row: snappedAnchor.row, col: snappedAnchor.col };
+            ship!.orientation = newOrientation;
             this.playerGrid.ships.set([...this.playerGrid.ships()]);
         }
     }
 
     public async start(): Promise<void> {
         this.deployRandomly(this.computerGrid);
-        this.gameManager.gameInstance.gameState.set(WarshipsGameState.running);
-        this.gameManager.gameInstance.turn.set(WarshipsTurn.player);
+        this.gameManager.gameInstance!.gameState.set(WarshipsGameState.running);
+        this.gameManager.gameInstance!.turn.set(WarshipsTurn.player);
 
         const newsflashInputs = {
             type: WarshipsNewsflashType.core,
@@ -637,6 +642,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
         if (this.gameManager.gameSettings.playEffects) {
             await this._newsflashService.show(WarshipsNewsflashComponent, newsflashInputs).finally(() => {
                 finishDeployment();
+                this._changeDetectorRef.markForCheck();
             });
         } else {
             finishDeployment();
@@ -680,8 +686,8 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     public sectorClick(row: number, col: number): void {
         const sector = this.computerGrid.sectors[row][col];
 
-        if (this.gameManager.gameInstance.gameState() === WarshipsGameState.deploying
-            || this.gameManager.gameInstance.turn() === WarshipsTurn.computer
+        if (this.gameManager.gameInstance!.gameState() === WarshipsGameState.deploying
+            || this.gameManager.gameInstance!.turn() === WarshipsTurn.computer
             || sector.state.hasFlag(WarshipsSectorState.miss)
             || sector.state.hasFlag(WarshipsSectorState.hit)
             || !this._playerHasShot
@@ -746,7 +752,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
     }
 
     private _logEvent(type: WarshipsEventType, message: string): void {
-        this.gameManager.gameInstance.eventLog.push(new WarshipsEvent(type, message));
+        this.gameManager.gameInstance!.eventLog.push(new WarshipsEvent(type, message));
 
         // Short delay to allow event log template changes to propagate
         timer(10).pipe(take(1)).subscribe(() => {
@@ -764,7 +770,7 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
     private _fireAt(row: number, col: number): void {
         let grid: WarshipsGrid, actor: string, victim: string;
-        if (this.gameManager.gameInstance.turn() === WarshipsTurn.player) {
+        if (this.gameManager.gameInstance!.turn() === WarshipsTurn.player) {
             grid = this.computerGrid;
             actor = 'You';
             victim = 'the opponent';
@@ -778,8 +784,8 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
         // Show crosshairs over targeted sector
         const sectorOverlayEl = document.querySelector(`.sector-overlay[data-row="${row}"][data-col="${col}"]`);
-        const sectorOverlayElBox = sectorOverlayEl.getBoundingClientRect();
-        this._showCrosshairs(sectorOverlayEl);
+        const sectorOverlayElBox = sectorOverlayEl!.getBoundingClientRect();
+        this._showCrosshairs(sectorOverlayEl!);
 
         // Spin crosshairs for 1s
         timer(1000).pipe(take(1)).subscribe(async () => {
@@ -796,12 +802,12 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
                 // Let player see miss marker for 1s, then continue to next turn
                 timer(1000).pipe(take(1)).subscribe(() => {
-                    if (this.gameManager.gameInstance.turn() === WarshipsTurn.player) {
-                        this.gameManager.gameInstance.turn.set(WarshipsTurn.computer);
+                    if (this.gameManager.gameInstance!.turn() === WarshipsTurn.player) {
+                        this.gameManager.gameInstance!.turn.set(WarshipsTurn.computer);
                         this._computerTurn();
                     } else {
                         this._playerHasShot = true;
-                        this.gameManager.gameInstance.turn.set(WarshipsTurn.player);
+                        this.gameManager.gameInstance!.turn.set(WarshipsTurn.player);
                     }
                 });
             } else if (targetedSector.state.hasFlag(WarshipsSectorState.ship)) {
@@ -815,13 +821,13 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
 
                 // Update ship health and check if it sank
                 const ship = grid.ships().find(s => s.id === targetedSector.shipId);
-                ship.health--;
-                if (ship.health === 0) {
+                ship!.health--;
+                if (ship!.health === 0) {
                     const newsflashInputs = {
                         type: WarshipsNewsflashType.shipSank,
-                        message: `${ship.name} sank!`
+                        message: `${ship!.name} sank!`
                     };
-                    const logSink = () => this._logEvent(WarshipsEventType.sink, `${actor} sank ${victim} ${ship.name}`);
+                    const logSink = () => this._logEvent(WarshipsEventType.sink, `${actor} sank ${victim} ${ship!.name}`);
                     if (this.gameManager.gameSettings.playEffects) {
                         await this._newsflashService.show(WarshipsNewsflashComponent, newsflashInputs).finally(() => {
                             logSink();
@@ -831,36 +837,38 @@ export class WarshipsGameScreenComponent implements OnInit, OnDestroy {
                     }
                 }
 
-                if (this.gameManager.gameInstance.turn() === WarshipsTurn.player) {
+                if (this.gameManager.gameInstance!.turn() === WarshipsTurn.player) {
                     if (this._allComputerShipsSunk) {
-                        this.gameManager.gameInstance.gameState.set(WarshipsGameState.victory);
+                        this.gameManager.gameInstance!.gameState.set(WarshipsGameState.victory);
                         this._showEndGameScreen();
                     } else {
                         this._playerHasShot = true;
                     }
                 } else {
                     if (this._allPlayerShipsSunk) {
-                        this.gameManager.gameInstance.gameState.set(WarshipsGameState.defeat);
+                        this.gameManager.gameInstance!.gameState.set(WarshipsGameState.defeat);
                         this._showEndGameScreen();
                     } else {
                         this._computerTurn();
                     }
                 }
             }
+
+            this._changeDetectorRef.markForCheck();
         });
     }
 
     private _showCrosshairs(sectorOverlayEl: Element): void {
         const crosshairEl = document.querySelector('#crosshairs');
-        crosshairEl.parentNode.removeChild(crosshairEl);
-        sectorOverlayEl.appendChild(crosshairEl);
+        crosshairEl!.parentNode!.removeChild(crosshairEl!);
+        sectorOverlayEl.appendChild(crosshairEl!);
         this._renderer.setStyle(crosshairEl, 'display', 'block');
     }
 
     private _hideCrosshairs(): void {
         const crosshairEl = document.querySelector('#crosshairs');
-        crosshairEl.parentElement.removeChild(crosshairEl);
-        document.querySelector('#sector-overlays').appendChild(crosshairEl);
+        crosshairEl!.parentElement!.removeChild(crosshairEl!);
+        document.querySelector('#sector-overlays')!.appendChild(crosshairEl!);
         this._renderer.setStyle(crosshairEl, 'display', 'none');
     }
 

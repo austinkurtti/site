@@ -12,7 +12,7 @@
             </div>
             @if (isPlayer()) {
                 <div class="col-12 health-bar d-flex gap-1 mt-1">
-                    @for (x of [].constructor(ship.length); track x; let i = $index) {
+                    @for (x of [].constructor(ship.length); let i = $index; track i;) {
                         <div class="health-bar-piece" [attr.data-filled]="i < ship.health"></div>
                     }
                 </div>

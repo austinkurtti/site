@@ -123,13 +123,13 @@
         [class.computer-turn]="gameManager.gameInstance.turn() === Turn.computer"
     >
         <div id="grid-col-labels">
-            @for (col of [].constructor(10); track col; let i = $index) {
+            @for (col of [].constructor(10); let i = $index; track i;) {
                 <span class="grid-col-label">{{ i + 1 }}</span>
             }
         </div>
 
         <div id="grid-row-labels">
-            @for (row of [].constructor(10); track row; let i = $index) {
+            @for (row of [].constructor(10); let i = $index; track i;) {
                 <span class="grid-row-label">{{ String.fromCharCode(65 + i) }}</span>
             }
         </div>
