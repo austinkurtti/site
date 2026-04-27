@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { enableProdMode, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { AppComponent } from './app/core/app.component';
@@ -15,8 +15,7 @@ bootstrapApplication(
     {
         providers: [
             importProvidersFrom(BrowserModule, CommonModule),
-            provideRouter(appRoutes),
-            provideZoneChangeDetection()
+            provideRouter(appRoutes)
         ]
     }
 ).catch(err => console.error(err));

@@ -1,31 +1,30 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "baseUrl": "./",
         "paths": {
             "@components/*": [
-                "src/app/@components/*"
+                "./src/app/@components/*"
             ],
             "@constants/*": [
-                "src/app/@constants/*"
+                "./src/app/@constants/*"
             ],
             "@directives/*": [
-                "src/app/@directives/*"
+                "./src/app/@directives/*"
             ],
             "@extensions/*": [
-                "src/app/@extensions/*"
+                "./src/app/@extensions/*"
             ],
             "@functions/*": [
-                "src/app/@functions/*"
+                "./src/app/@functions/*"
             ],
             "@models/*": [
-                "src/app/@models/*"
+                "./src/app/@models/*"
             ],
             "@pipes/*": [
-                "src/app/@pipes/*"
+                "./src/app/@pipes/*"
             ],
             "@services/*": [
-                "src/app/@services/*"
+                "./src/app/@services/*"
             ]
         },
         "outDir": "./dist/out-tsc",
