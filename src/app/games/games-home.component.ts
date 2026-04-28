@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ThemeComponent } from '@components/theme/theme.component';
@@ -11,7 +10,6 @@ import { GamesService } from './games.service';
     styleUrls: ['./games-home.component.scss'],
     templateUrl: './games-home.component.html',
     imports: [
-        CommonModule,
         MenuDirective,
         MenuContentDirective,
         RouterLink,

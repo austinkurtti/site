@@ -1,7 +1,6 @@
 import { Injectable, RendererFactory2, inject } from '@angular/core';
 import { getRandomInteger } from '@functions/rng';
-import { interval, timer } from 'rxjs';
-import { delay, take } from 'rxjs/operators';
+import { delay, interval, take, timer } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -95,7 +94,7 @@ export class EffectsService {
             const fireworkCount = 18;
             interval(200).pipe(take(fireworkCount)).subscribe({
                 next: () => {
-                    this._launchSingleFirework(effectsEl);
+                    this._launchSingleFirework(effectsEl!);
                 },
                 complete: () => resolve()
             });

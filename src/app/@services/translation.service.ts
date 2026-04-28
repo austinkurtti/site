@@ -1,14 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { TranslatableDirective } from '@directives/translatable/translatable.directive';
-import { BehaviorSubject } from 'rxjs';
-import { skip, takeWhile } from 'rxjs/operators';
+import { BehaviorSubject, skip, takeWhile } from 'rxjs';
 import { WorkerService } from './worker.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TranslationService {
-    public models = [];
+    public models: any[] = [];
 
     public modelsLoading$ = new BehaviorSubject<boolean>(false);
     public translating$ = new BehaviorSubject<boolean>(false);
@@ -18,7 +17,7 @@ export class TranslationService {
     private _translatables: TranslatableDirective[] = [];
     private _translatableQueue: TranslatableDirective[] = [];
     private _translatingIndex = 0;
-    private _translationWorker: Worker;
+    private _translationWorker: Worker | null = null;
     private _workersEnabled = false;
     private _targetLanguage = 'eng_Latn';
 
@@ -80,17 +79,16 @@ export class TranslationService {
 
     private _doNextTranslation = (): void => {
         if (this._translatableQueue.length === 0) {
-            this._translationWorker.removeAllListeners?.();
-            this._translationWorker.terminate();
+            this._translationWorker!.terminate();
             this._workerService.releaseWorker();
             this.translating$.next(false);
         } else {
             const translatable = this._translatableQueue.shift();
-            if (translatable.currentLanguage === this._targetLanguage) {
+            if (translatable!.currentLanguage === this._targetLanguage) {
                 this._doNextTranslation();
             } else {
-                translatable.currentLanguage = this._targetLanguage;
-                translatable.translating$
+                translatable!.currentLanguage = this._targetLanguage;
+                translatable!.translating$
                     .pipe(
                         skip(1),
                         takeWhile(value => value, true)
@@ -103,8 +101,8 @@ export class TranslationService {
                     });
 
                 // To help reduce innaccuracies from translation chaining, always perform the translation from original language, English
-                this._translationWorker.postMessage({
-                    text: translatable.originalText,
+                this._translationWorker!.postMessage({
+                    text: translatable!.originalText,
                     sourceLanguage: 'eng_Latn',
                     targetLanguage: this._targetLanguage,
                     index: this._translatingIndex
@@ -113,7 +111,7 @@ export class TranslationService {
         }
     }
 
-    private _translationWorkerOnMessage = (event) => {
+    private _translationWorkerOnMessage = (event: any) => {
         let translatable: TranslatableDirective;
 
         switch (event.data.status) {

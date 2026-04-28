@@ -1,14 +1,10 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ContactIconModel } from './contact-icon.model';
 
 @Component({
     selector: 'ak-contact-icons',
     templateUrl: './contact-icons.component.html',
-    styleUrls: ['./contact-icons.component.scss'],
-    imports: [
-        CommonModule
-    ]
+    styleUrls: ['./contact-icons.component.scss']
 })
 export class ContactIconsComponent {
     public icons = [

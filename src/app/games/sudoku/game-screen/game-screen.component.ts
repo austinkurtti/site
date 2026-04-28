@@ -8,8 +8,7 @@ import { DialogSize } from '@models/dialog.model';
 import { Notification } from '@models/notification.model';
 import { DialogService } from '@services/dialog.service';
 import { NotificationService } from '@services/notification.service';
-import { BehaviorSubject, Subject, Subscription, timer } from 'rxjs';
-import { skip, take, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, skip, Subject, Subscription, take, takeUntil, timer } from 'rxjs';
 import { ToggleComponent } from '../../../@components/toggle/toggle.component';
 import { MenuContentDirective } from '../../../@directives/menu/menu-content.directive';
 import { MenuItemDirective } from '../../../@directives/menu/menu-item.directive';
@@ -98,7 +97,7 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
 
     // #region - HostListeners
     @HostListener('window:keydown.space', ['$event'])
-    public windowSpace(event: KeyboardEvent) {
+    public windowSpace(event: Event) {
         if (!this._spaceDisabled) {
             if (this.board.state === SudokuGameState.paused) {
                 this.resumeTimer(true);
@@ -110,61 +109,61 @@ export class SudokuGameScreenComponent implements OnInit, OnDestroy {
         }
     }
 
-    @HostListener('window:keydown.arrowup', ['$event'])
-    @HostListener('window:keydown.shift.arrowup', ['$event'])
-    public windowArrowUp(event: KeyboardEvent) {
+    @HostListener('window:keydown.arrowup')
+    @HostListener('window:keydown.shift.arrowup')
+    public windowArrowUp() {
         if (this._activeCell && this.board.state === SudokuGameState.running) {
             this._arrowFocusNextCell(this.activeCellRow - 1, this.activeCellCol);
         }
     }
 
-    @HostListener('window:keydown.arrowdown', ['$event'])
-    @HostListener('window:keydown.shift.arrowdown', ['$event'])
-    public windowArrowDown(event: KeyboardEvent) {
+    @HostListener('window:keydown.arrowdown')
+    @HostListener('window:keydown.shift.arrowdown')
+    public windowArrowDown() {
         if (this._activeCell && this.board.state === SudokuGameState.running) {
             this._arrowFocusNextCell(this.activeCellRow + 1, this.activeCellCol);
         }
     }
 
-    @HostListener('window:keydown.arrowleft', ['$event'])
-    @HostListener('window:keydown.shift.arrowleft', ['$event'])
-    public windowArrowLeft(event: KeyboardEvent) {
+    @HostListener('window:keydown.arrowleft')
+    @HostListener('window:keydown.shift.arrowleft')
+    public windowArrowLeft() {
         if (this._activeCell && this.board.state === SudokuGameState.running) {
             this._arrowFocusNextCell(this.activeCellRow, this.activeCellCol - 1);
         }
     }
 
-    @HostListener('window:keydown.arrowright', ['$event'])
-    @HostListener('window:keydown.shift.arrowright', ['$event'])
-    public windowArrowRight(event: KeyboardEvent) {
+    @HostListener('window:keydown.arrowright')
+    @HostListener('window:keydown.shift.arrowright')
+    public windowArrowRight() {
         if (this._activeCell && this.board.state === SudokuGameState.running) {
             this._arrowFocusNextCell(this.activeCellRow, this.activeCellCol + 1);
         }
     }
 
-    @HostListener('window:keydown.alt.h', ['$event'])
-    public windowAltH(event: KeyboardEvent) {
+    @HostListener('window:keydown.alt.h')
+    public windowAltH() {
         if (this._activeCell && this.board.state === SudokuGameState.running && !this.gameManager.gameInstance.hardcore) {
             this.hint();
         }
     }
 
-    @HostListener('window:keydown.alt.c', ['$event'])
-    public windowAltC(event: KeyboardEvent) {
+    @HostListener('window:keydown.alt.c')
+    public windowAltC() {
         if (this._activeCell && this.board.state === SudokuGameState.running && !this.gameManager.gameInstance.hardcore) {
             this.checkCell();
         }
     }
 
-    @HostListener('window:keydown.alt.r', ['$event'])
-    public windowAltR(event: KeyboardEvent) {
+    @HostListener('window:keydown.alt.r')
+    public windowAltR() {
         if (this._activeCell && this.board.state === SudokuGameState.running && !this.gameManager.gameInstance.hardcore) {
             this.revealCell();
         }
     }
 
-    @HostListener('window:keydown.alt.s', ['$event'])
-    public windowAltS(event: KeyboardEvent) {
+    @HostListener('window:keydown.alt.s')
+    public windowAltS() {
         this.share();
     }
     // #endregion

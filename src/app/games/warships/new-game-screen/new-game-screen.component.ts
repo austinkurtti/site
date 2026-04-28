@@ -1,11 +1,9 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccordionContentDirective } from "@directives/accordion/accordion-content.directive";
 import { AccordionGroupDirective } from "@directives/accordion/accordion-group.directive";
 import { AccordionHeaderDirective } from "@directives/accordion/accordion-header.directive";
-import { timer } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take, timer } from 'rxjs';
 import { WarshipsImagePreloadService } from '../warships-image-preload.service';
 import { WarshipsManager } from '../warships-manager';
 import { WarshipsDifficulty, WarshipsScreenState } from '../warships.models';
@@ -18,7 +16,6 @@ import { WarshipsDifficulty, WarshipsScreenState } from '../warships.models';
         AccordionContentDirective,
         AccordionGroupDirective,
         AccordionHeaderDirective,
-        CommonModule,
         FormsModule
     ]
 })

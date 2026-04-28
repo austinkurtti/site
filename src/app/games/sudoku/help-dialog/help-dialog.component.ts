@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DialogDirective } from '@directives/dialog/dialog.directive';
 
@@ -6,10 +5,7 @@ import { DialogDirective } from '@directives/dialog/dialog.directive';
     standalone: true,
     selector: 'ak-help-dialog',
     styleUrls: ['./help-dialog.component.scss'],
-    templateUrl: './help-dialog.component.html',
-    imports: [
-        CommonModule
-    ]
+    templateUrl: './help-dialog.component.html'
 })
 export class HelpDialogComponent extends DialogDirective implements OnInit {
     public showNumLockWarning = false;

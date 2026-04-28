@@ -1,14 +1,16 @@
 <div class="position-relative w-100">
-    <label [for]="id" [ngClass]="focusing || value ? 'float' : ''">{{ label }}</label>
+    <label [for]="id" [class.float]="focusing || value">{{ label }}</label>
     <select #selectEl
         class="w-100"
         [id]="id"
         [ngModel]="value"
         (ngModelChange)="onValueChange($event)"
     >
-        <option *ngFor="let option of options" [value]="option.value">
-            {{ option.label }}
-        </option>
+        @for (option of options; track option.value) {
+            <option [value]="option.value">
+                {{ option.label }}
+            </option>
+        }
     </select>
     <i class="fas fa-angle-down"></i>
 </div>

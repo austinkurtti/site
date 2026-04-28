@@ -13,7 +13,7 @@ export class WarshipsManager {
 
     public screen = signal(WarshipsScreenState.menu);
 
-    public gameInstance: WarshipsGameInstance;
+    public gameInstance: WarshipsGameInstance | null = null;
     public gameSettings = new WarshipsGameSettings();
 
     private _dialogService = inject(DialogService);
@@ -21,11 +21,11 @@ export class WarshipsManager {
 
     private get _untargetedPlayerSectors(): WarshipsSector[] {
         const untargetedSectors: WarshipsSector[] = [];
-        for (let r = 0; r < this.gameInstance.playerGrid.sectors.length; r++) {
-            for (let c = 0; c < this.gameInstance.playerGrid.sectors[r].length; c++) {
-                const state = this.gameInstance.playerGrid.sectors[r][c].state;
+        for (let r = 0; r < this.gameInstance!.playerGrid.sectors.length; r++) {
+            for (let c = 0; c < this.gameInstance!.playerGrid.sectors[r].length; c++) {
+                const state = this.gameInstance!.playerGrid.sectors[r][c].state;
                 if (!state.hasFlag(WarshipsSectorState.miss) && !state.hasFlag(WarshipsSectorState.hit)) {
-                    untargetedSectors.push(this.gameInstance.playerGrid.sectors[r][c]);
+                    untargetedSectors.push(this.gameInstance!.playerGrid.sectors[r][c]);
                 }
             }
         }
@@ -56,12 +56,12 @@ export class WarshipsManager {
         // Find sectors containing weakened ships
         const weakenedHits: WarshipsCoords[] = [];
         // TODO - improve this to search only sectors containing ships, not every sector in the grid
-        for (let r = 0; r < this.gameInstance.playerGrid.sectors.length; r++) {
-            for (let c = 0; c < this.gameInstance.playerGrid.sectors[r].length; c++) {
-                const sector = this.gameInstance.playerGrid.sectors[r][c];
+        for (let r = 0; r < this.gameInstance!.playerGrid.sectors.length; r++) {
+            for (let c = 0; c < this.gameInstance!.playerGrid.sectors[r].length; c++) {
+                const sector = this.gameInstance!.playerGrid.sectors[r][c];
                 if (sector.state.hasFlag(WarshipsSectorState.hit)) {
-                    const ship = this.gameInstance.playerGrid.ships().find(s => s.id === sector.shipId);
-                    if (ship?.health > 0) {
+                    const ship = this.gameInstance!.playerGrid.ships().find(s => s.id === sector.shipId);
+                    if (ship && ship.health > 0) {
                         weakenedHits.push({ row: r, col: c });
                     }
                 }
@@ -74,11 +74,11 @@ export class WarshipsManager {
             targetSectorCoords = adjacentSectorCoords[Math.floor(Math.random() * adjacentSectorCoords.length)];
         } else {
             let untargetedSectors = this._untargetedPlayerSectors;
-            const mostRecentEventIsSink = this.gameInstance.eventLog[this.gameInstance.eventLog.length - 1].type === WarshipsEventType.sink;
-            const hasFewerShips = this.gameInstance.computerGrid.ships().filter(s => s.health === 0) > this.gameInstance.playerGrid.ships().filter(s => s.health === 0);
+            const mostRecentEventIsSink = this.gameInstance!.eventLog[this.gameInstance!.eventLog.length - 1].type === WarshipsEventType.sink;
+            const hasFewerShips = this.gameInstance!.computerGrid.ships().filter(s => s.health === 0) > this.gameInstance!.playerGrid.ships().filter(s => s.health === 0);
 
             // Balancing will likely be an ongoing effort...
-            switch (this.gameInstance.difficulty) {
+            switch (this.gameInstance!.difficulty) {
                 case WarshipsDifficulty.recruit:
                     // Disallow chained ship hits
                     if (mostRecentEventIsSink) {
@@ -109,7 +109,7 @@ export class WarshipsManager {
                     // Fleet Admiral does not like falling behind
                     if (hasFewerShips) {
                         // ~80% desperation attempt to catch up when on last ship
-                        if (this.gameInstance.computerGrid.ships().filter(s => s.health === 0).length === 4 && getRandomInteger(1, 10) < 8) {
+                        if (this.gameInstance!.computerGrid.ships().filter(s => s.health === 0).length === 4 && getRandomInteger(1, 10) < 8) {
                             untargetedSectors = this._filterOutUnoccupiedSectors(untargetedSectors);
                             break;
                         }
@@ -129,9 +129,9 @@ export class WarshipsManager {
 
                     // Gather all occupied sectors
                     const occupiedSectors: WarshipsCoords[] = [];
-                    for (let r = 0; r < this.gameInstance.playerGrid.sectors.length; r++) {
-                        for (let c = 0; c < this.gameInstance.playerGrid.sectors[r].length; c++) {
-                            const sector = this.gameInstance.playerGrid.sectors[r][c];
+                    for (let r = 0; r < this.gameInstance!.playerGrid.sectors.length; r++) {
+                        for (let c = 0; c < this.gameInstance!.playerGrid.sectors[r].length; c++) {
+                            const sector = this.gameInstance!.playerGrid.sectors[r][c];
                             if (sector.state.hasFlag(WarshipsSectorState.ship) && !sector.state.hasFlag(WarshipsSectorState.hit)) {
                                 occupiedSectors.push({ row: r, col: c });
                             }
@@ -172,7 +172,7 @@ export class WarshipsManager {
 
     private _getWeakenedShipAdjacentSectorCoords(weakenedHits: WarshipsCoords[]): WarshipsCoords[] {
         const adjacentSectors: WarshipsCoords[] = [];
-        const tryPatternCheck = weakenedHits.length > 1 && this.gameInstance.difficulty !== WarshipsDifficulty.recruit;
+        const tryPatternCheck = weakenedHits.length > 1 && this.gameInstance!.difficulty !== WarshipsDifficulty.recruit;
         const untargetedSectors = this._untargetedPlayerSectors;
         const canTarget = (r: number, c: number) => untargetedSectors.find(s => s.coords.row === r && s.coords.col === c) !== undefined;
 
@@ -220,14 +220,14 @@ export class WarshipsManager {
                 for (const { dr, dc } of directions) {
                     const nr = hit.row + dr, nc = hit.col + dc;
                     if (nr >= 0 && nr <= 9 && nc >= 0 && nc <= 9) {
-                        const candidateSector = this.gameInstance.playerGrid.sectors[nr][nc];
+                        const candidateSector = this.gameInstance!.playerGrid.sectors[nr][nc];
                         // Can't select previously targeted sectors or sectors already added to collection
                         if (!candidateSector.state.hasFlag(WarshipsSectorState.miss)
                             && !candidateSector.state.hasFlag(WarshipsSectorState.hit)
                             && !adjacentSectors.some(s => s.row === nr && s.col === nc)
                         ) {
-                            const candidateSectorShip = this.gameInstance.playerGrid.ships().find(s => s.id === candidateSector.shipId);
-                            if (this.gameInstance.difficulty === WarshipsDifficulty.recruit
+                            const candidateSectorShip = this.gameInstance!.playerGrid.ships().find(s => s.id === candidateSector.shipId);
+                            if (this.gameInstance!.difficulty === WarshipsDifficulty.recruit
                                 && candidateSectorShip
                                 && candidateSectorShip.health === candidateSectorShip.length
                             ) {
@@ -253,7 +253,7 @@ export class WarshipsManager {
     }
 
     private _canAnyShipFitAt(row: number, col: number): boolean {
-        const remainingLengths = this.gameInstance.playerGrid.ships().filter(s => s.health > 0).map(s => s.length);
+        const remainingLengths = this.gameInstance!.playerGrid.ships().filter(s => s.health > 0).map(s => s.length);
 
         for (const length of remainingLengths) {
             // Check horizontal
@@ -265,7 +265,7 @@ export class WarshipsManager {
                 }
                 fitsHorizontal = true;
                 for (let j = 0; j < length; j++) {
-                    const sector = this.gameInstance.playerGrid.sectors[row][c + j];
+                    const sector = this.gameInstance!.playerGrid.sectors[row][c + j];
                     if (sector.state.hasFlag(WarshipsSectorState.miss) || sector.state.hasFlag(WarshipsSectorState.hit)) {
                         fitsHorizontal = false;
                         break;
@@ -285,7 +285,7 @@ export class WarshipsManager {
                 }
                 fitsVertical = true;
                 for (let j = 0; j < length; j++) {
-                    const sector = this.gameInstance.playerGrid.sectors[r + j][col];
+                    const sector = this.gameInstance!.playerGrid.sectors[r + j][col];
                     if (sector.state.hasFlag(WarshipsSectorState.miss) || sector.state.hasFlag(WarshipsSectorState.hit)) {
                         fitsVertical = false;
                         break;

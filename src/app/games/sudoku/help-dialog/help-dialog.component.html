@@ -53,7 +53,9 @@
                                 <th scope="row"><kbd>Shift</kbd> + <kbd>0</kbd>-<kbd>9</kbd></th>
                                 <td>
                                     <div>Enter penciled in number</div>
-                                    <div class="action-subtext" *ngIf="showNumLockWarning">This browser does not support using <kbd>Shift</kbd> + <kbd>Numpad</kbd> with Num Lock ON</div>
+                                    @if (showNumLockWarning) {
+                                        <div class="action-subtext">This browser does not support using <kbd>Shift</kbd> + <kbd>Numpad</kbd> with Num Lock ON</div>
+                                    }
                                 </td>
                             </tr>
                             <tr>

@@ -86,13 +86,13 @@ export class SudokuCell {
     public revealed: boolean;
 
     // true = right number, hightlight it green; false = wrong number, highlight it red; null = validity not shown
-    public valid?: boolean = null;
+    public valid?: boolean | null = null;
 
     // Not necessarily right or wrong, just means there are one or more cells with the same value in this cell's row/column/square
     public numConflicts = 0;
 
     // Number value of the cell; null = not set
-    public value?: number = null;
+    public value?: number | null = null;
 
     // Flag-based value of any "penciled in" numbers
     public candidates = 0;
