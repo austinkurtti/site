@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AccordionContentDirective } from '@directives/accordion/accordion-content.directive';
 import { AccordionGroupDirective } from '@directives/accordion/accordion-group.directive';
@@ -12,8 +11,7 @@ import { DialogDirective } from '@directives/dialog/dialog.directive';
     imports: [
         AccordionContentDirective,
         AccordionGroupDirective,
-        AccordionHeaderDirective,
-        CommonModule
+        AccordionHeaderDirective
     ]
 })
 export class WarshipsHelpDialogComponent extends DialogDirective {}

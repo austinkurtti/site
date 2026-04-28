@@ -1,7 +1,6 @@
 import { Injectable, RendererFactory2, inject } from '@angular/core';
 import { Notification } from '@models/notification.model';
-import { timer } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take, timer } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'

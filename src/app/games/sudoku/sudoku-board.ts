@@ -9,8 +9,8 @@ export class SudokuBoard {
 
     public solved$ = new BehaviorSubject<boolean>(false);
 
-    private _worker: Worker;
-    private _numEmptyCells: number;
+    private _worker: Worker | null = null;
+    private _numEmptyCells = 0;
     private _units: Array<Array<{ r: number, c: number }>> = [];
     private _solution: Array<Array<SudokuCell>> = [];
 
@@ -27,7 +27,6 @@ export class SudokuBoard {
     }
 
     public cleanup(): void {
-        this._worker?.removeAllListeners();
         this._worker?.terminate();
     }
 
@@ -69,7 +68,7 @@ export class SudokuBoard {
     }
 
     public getCellSolution(rIndex: number, cIndex: number): number {
-        return this._solution[rIndex][cIndex].value;
+        return this._solution[rIndex][cIndex].value!;
     }
 
     public validateCell(rIndex: number, cIndex: number, showValidation = false): boolean {
@@ -124,9 +123,9 @@ export class SudokuBoard {
 
     public clearCandidates(rIndex: number, cIndex: number, value: number) {
         const candidate = sudokuValueCandidateMap.get(value);
-        this.cells[rIndex].forEach(cell => cell.candidates = cell.candidates & ~candidate);
-        this.cells.forEach(row => row[cIndex].candidates = row[cIndex].candidates & ~candidate);
-        getSquare(this.cells, rIndex, cIndex).forEach(cell => cell.candidates = cell.candidates & ~candidate);
+        this.cells[rIndex].forEach(cell => cell.candidates = cell.candidates & ~candidate!);
+        this.cells.forEach(row => row[cIndex].candidates = row[cIndex].candidates & ~candidate!);
+        getSquare(this.cells, rIndex, cIndex).forEach(cell => cell.candidates = cell.candidates & ~candidate!);
     }
 
     // *This could be improved by using Naked Pairs/Triples/etc and Hidden Pairs/Triples/etc to reduce candidates
@@ -150,12 +149,12 @@ export class SudokuBoard {
             for (let candidate = 1; candidate <= 9; candidate++) {
                 let count = 0;
                 let lastCell: { row: number, col: number } | null = null;
-                unit.forEach(({ r, c }) => {
-                    if (candidateMap[r][c].includes(candidate)) {
+                for (let u of unit) {
+                    if (candidateMap[u.r][u.c].includes(candidate)) {
                         count++;
-                        lastCell = { row: r, col: c };
+                        lastCell = { row: u.r, col: u.c };
                     }
-                });
+                }
                 if (count === 1 && lastCell) {
                     return { row: lastCell.row, col: lastCell.col };
                 }

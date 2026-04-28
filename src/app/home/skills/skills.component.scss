@@ -10,7 +10,7 @@
     display: flex;
 
     ak-skill {
-        transition: ease-in-out transform 1s;
+        will-change: transform;
 
         @media (prefers-reduced-motion) {
             transition: none;

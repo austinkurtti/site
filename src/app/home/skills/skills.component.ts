@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { skillsId, skillsText } from '@constants/strings';
 import { Subscription, timer } from 'rxjs';
@@ -13,7 +12,6 @@ import { skills, SkillType } from './skills.models';
     styleUrls: ['./skills.component.scss'],
     templateUrl: './skills.component.html',
     imports: [
-        CommonModule,
         DeferLoadDirective,
         SectionTitleComponent,
         SkillComponent
@@ -25,7 +23,6 @@ export class SkillsComponent extends SectionDirective implements OnInit, AfterVi
     public navigationId = skillsId;
     public title = skillsText;
     public skills = skills;
-    public skillFilters = SkillType.front | SkillType.back | SkillType.data | SkillType.tool;
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public SkillType = SkillType;
@@ -59,7 +56,7 @@ export class SkillsComponent extends SectionDirective implements OnInit, AfterVi
 
     private _startShiftTimer = (): void => {
         this._cancelShiftTimer();
-        this._shiftTimer = timer(3000).subscribe(() => {
+        this._shiftTimer = timer(1000).subscribe(() => {
             // Shift the skill at the front of the carousel to the back
             const firstSkill = this.skills.shift();
             this.skills.push(firstSkill);
@@ -67,6 +64,7 @@ export class SkillsComponent extends SectionDirective implements OnInit, AfterVi
             // Clear out transforms
             for (const skill of this.skillsCarousel.nativeElement.children) {
                 this._renderer.setStyle(skill, 'transform', 'none');
+                this._renderer.setStyle(skill, 'transition', 'none');
             }
 
             this._startTranslateTimer();
@@ -75,10 +73,11 @@ export class SkillsComponent extends SectionDirective implements OnInit, AfterVi
 
     private _startTranslateTimer = (): void => {
         this._cancelTranslateTimer();
-        this._translateTimer = timer(1000).subscribe(() => {
+        this._translateTimer = timer(3000).subscribe(() => {
             // Add transforms to all the skills so they "rotate" on the carousel
             for (const skill of this.skillsCarousel.nativeElement.children) {
                 this._renderer.setStyle(skill, 'transform', 'translateX(-100%)');
+                this._renderer.setStyle(skill, 'transition', 'ease-in-out transform 1s');
             }
 
             this._startShiftTimer();

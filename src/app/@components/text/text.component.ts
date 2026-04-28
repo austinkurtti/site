@@ -1,11 +1,9 @@
-import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, Renderer2, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TooltipDirective } from '@directives/tooltip/tooltip.directive';
 
 @Component({
     imports: [
-        CommonModule,
         FormsModule,
         TooltipDirective
     ],

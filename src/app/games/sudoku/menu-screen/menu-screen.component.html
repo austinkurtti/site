@@ -1,6 +1,6 @@
 <div class="container g-0 h-100 d-flex flex-column justify-content-center">
-    <ng-container [ngSwitch]="gameManager.menu()">
-        <ng-container *ngSwitchCase="MenuState.main">
+    @switch (gameManager.menu()) {
+        @case (MenuState.main) {
             <div class="row g-0 px-2 px-md-0 mb-5">
                 <h1 class="text-center text-uppercase">Sudoku</h1>
             </div>
@@ -9,23 +9,34 @@
             </div>
             <div class="row g-0 px-2 px-md-0 mt-3">
                 <div class="col">
-                    <button class="d-flex align-items-center justify-content-between fs-2 px-3 w-100" [disabled]="!gameManager.savedGame" (click)="resume()">
+                    <button
+                        class="d-flex align-items-center justify-content-between fs-2 px-3 w-100"
+                        [disabled]="!gameManager.savedGame"
+                        (click)="resume()"
+                    >
                         <span>Resume</span>
-                        <div *ngIf="gameManager.savedGame" class="d-flex align-items-center">
-                            <span class="d-none d-md-inline fs-6 font-family-monospace">{{ gameManager.savedGame.time$ | async }}</span>
-                            <span class="fs-6 ms-3">{{ gameManager.savedGame.difficulty | sudokuDifficulty }}</span>
-                            <i *ngIf="gameManager.savedGame.hardcore" class="fas fa-skull fs-6 ms-3"></i>
-                        </div>
+                        @if (gameManager.savedGame) {
+                            <div class="d-flex align-items-center">
+                                <span class="d-none d-md-inline fs-6 font-family-monospace">{{ gameManager.savedGame.time$ | async }}</span>
+                                <span class="fs-6 ms-3">{{ gameManager.savedGame.difficulty | sudokuDifficulty }}</span>
+                                @if (gameManager.savedGame.hardcore) {
+                                    <i class="fas fa-skull fs-6 ms-3"></i>
+                                }
+                            </div>
+                        }
                     </button>
                 </div>
-                <div *ngIf="gameManager.savedGame" class="col-auto ms-2 ms-md-3">
-                    <button akTooltip
-                        class="cancel-button px-3"
-                        [tooltipContent]="'Delete Save'"
-                        (click)="gameManager.deleteSave()">
-                        <i class="fas fa-times fs-1"></i>
-                    </button>
-                </div>
+                @if (gameManager.savedGame) {
+                    <div class="col-auto ms-2 ms-md-3">
+                        <button akTooltip
+                            class="cancel-button px-3"
+                            [tooltipContent]="'Delete Save'"
+                            (click)="gameManager.deleteSave()"
+                        >
+                            <i class="fas fa-times fs-1"></i>
+                        </button>
+                    </div>
+                }
             </div>
             <div class="row g-0 px-2 px-md-0 mt-3">
                 <button class="fs-2 text-start px-3" (click)="showSettingsDialog()">Settings</button>
@@ -33,12 +44,11 @@
             <div class="row g-0 px-2 px-md-0 mt-3">
                 <button class="fs-2 text-start px-3" (click)="gamesService.confirmExit()">Exit</button>
             </div>
-        </ng-container>
-
-        <ng-container *ngSwitchCase="MenuState.new">
+        }
+        @case (MenuState.new) {
             <ng-template #difficultyCard let-icon="icon">
                 <div class="difficulty-card p-3 text-center">
-                    <i class="fas fa-3x" [ngClass]="icon"></i>
+                    <i class="fas fa-3x" [class]="icon"></i>
                 </div>
                 <div class="difficulty-radio-label"></div>
             </ng-template>
@@ -128,6 +138,6 @@
                     <button class="cancel-button w-100" (click)="cancel()">Cancel</button>
                 </div>
             </div>
-        </ng-container>
-    </ng-container>
+        }
+    }
 </div>

@@ -47,7 +47,7 @@ export enum WarshipsEventType {
 export class WarshipsSector {
     public coords: WarshipsCoords;
     public state = WarshipsSectorState.empty;
-    public shipId?: string = null;
+    public shipId: string | null = null;
 
     constructor(row: number, col: number) {
         this.coords = { row, col };
@@ -55,7 +55,7 @@ export class WarshipsSector {
 }
 
 export class WarshipsGrid {
-    public sectors: WarshipsSector[][];
+    public sectors: WarshipsSector[][] = [];
     public ships = signal([
         new WarshipsShip('Carrier', 5),
         new WarshipsShip('Cruiser', 4),
@@ -66,11 +66,11 @@ export class WarshipsGrid {
 }
 
 export class WarshipsGameInstance {
-    public difficulty: WarshipsDifficulty = null;
+    public difficulty: WarshipsDifficulty | null = null;
     public gameState = signal(WarshipsGameState.deploying);
     public playerGrid = new WarshipsGrid();
     public computerGrid = new WarshipsGrid();
-    public turn = signal<WarshipsTurn>(null);
+    public turn = signal<WarshipsTurn | null>(null);
     public eventLog: WarshipsEvent[] = [];
 }
 
@@ -90,7 +90,7 @@ export class WarshipsShip {
     public health: number;
     public orientation = WarshipsShipOrientation.horizontal;
     public deployed = false;
-    public anchorSector?: WarshipsCoords = null;
+    public anchorSector: WarshipsCoords | null = null;
 
     constructor(name: string, length: number) {
         this.id = name.replaceAll(' ', '-').toLowerCase();

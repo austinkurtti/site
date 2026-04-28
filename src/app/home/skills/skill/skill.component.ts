@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, HostBinding, Input } from '@angular/core';
 import { TooltipPosition } from '@directives/tooltip/tooltip.directive';
 import { TooltipDirective } from '../../../@directives/tooltip/tooltip.directive';
@@ -9,7 +8,6 @@ import { SkillType } from '../skills.models';
     styleUrls: ['./skill.component.scss'],
     templateUrl: './skill.component.html',
     imports: [
-        CommonModule,
         TooltipDirective
     ]
 })
