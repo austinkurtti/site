@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { TranslatableDirective } from '@directives/translatable/translatable.directive';
-import { BehaviorSubject } from 'rxjs';
-import { skip, takeWhile } from 'rxjs/operators';
+import { BehaviorSubject, skip, takeWhile } from 'rxjs';
 import { WorkerService } from './worker.service';
 
 @Injectable({

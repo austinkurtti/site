@@ -1,8 +1,7 @@
 import { inject, Injectable, Injector, RendererFactory2, Type } from '@angular/core';
 import { AppNewsflashDirective } from '@directives/newsflash/app-newsflash.directive';
 import { NewsflashDirective } from '@directives/newsflash/newsflash.directive';
-import { timer } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take, timer } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'

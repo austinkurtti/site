@@ -27,7 +27,6 @@
                 "./src/app/@services/*"
             ]
         },
-        "outDir": "./dist/out-tsc",
         "noImplicitOverride": true,
         "noPropertyAccessFromIndexSignature": true,
         "noImplicitReturns": true,
