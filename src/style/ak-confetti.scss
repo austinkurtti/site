@@ -1,8 +1,0 @@
-@use 'variables';
-
-.confetti {
-    pointer-events: none;
-    position: absolute;
-    transition: linear left .1s, linear top .1s, linear transform .1s;
-    z-index: variables.$z-index-confetti;
-}

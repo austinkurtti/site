@@ -1,6 +1,7 @@
 @use 'sass:math';
 
 @use 'variables';
+@use 'mixins';
 
 #ak-tooltip-container {
     height: 100%;
@@ -10,63 +11,71 @@
     z-index: variables.$z-index-tooltip;
 
     .ak-tooltip {
-        background-color: variables.$theme-hoverable-background;
-        border-radius: math.div(variables.$base-size, 4);
-        color: variables.$theme-hoverable-font-color;
+        background-color: variables.$theme-bg-color-tooltip;
+        border-radius: variables.$border-radius;
+        color: variables.$theme-font-color-tooltip;
         min-width: variables.$base-size;
-        padding: variables.$base-size;
+        padding: math.div(variables.$base-size, 2);
         position: absolute;
+
+        @media (prefers-contrast: more) {
+            border: 1px solid variables.$theme-accent-color-primary;
+        }
 
         // For tooltip arrow
         &:after {
             border-style: solid;
-            border-width: variables.$base-size;
+            border-width: math.div(variables.$base-size, 2);
             content: "";
             position: absolute;
+
+            @media (prefers-contrast: more) {
+                border-style: none;
+            }
         }
 
         &.top:after {
-            border-color: variables.$theme-hoverable-background transparent transparent transparent;
+            border-color: variables.$theme-bg-color-tooltip transparent transparent transparent;
             left: 50%;
             top: 100%;
             transform: translateX(-50%);
         }
 
         &.right:after {
-            border-color: transparent variables.$theme-hoverable-background transparent transparent;
-            left: -(variables.$base-size * 2);
+            border-color: transparent variables.$theme-bg-color-tooltip transparent transparent;
+            right: 100%;
             top: 50%;
             transform: translateY(-50%);
         }
 
         &.bottom:after {
-            border-color: transparent transparent variables.$theme-hoverable-background transparent;
+            border-color: transparent transparent variables.$theme-bg-color-tooltip transparent;
             left: 50%;
-            top: -50%;
+            bottom: 100%;
             transform: translateX(-50%);
         }
 
         &.left:after {
-            border-color: transparent transparent transparent variables.$theme-hoverable-background;
+            border-color: transparent transparent transparent variables.$theme-bg-color-tooltip;
             left: 100%;
             top: 50%;
             transform: translateY(-50%);
         }
     }
 
-    @media (min-width: 0px) {
+    @include mixins.for-xs-screens {
         .ak-tooltip {
             max-width: 35%;
         }
     }
 
-    @media (min-width: variables.$breakpoint-tablet) {
+    @include mixins.for-md-screens {
         .ak-tooltip {
             max-width: 25%;
         }
     }
 
-    @media (min-width: variables.$breakpoint-desktop) {
+    @include mixins.for-lg-screens {
         .ak-tooltip {
             max-width: 15%;
         }

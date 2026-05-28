@@ -1,6 +1,7 @@
 @use 'sass:math';
 
 @use 'variables';
+@use 'mixins';
 
 :host {
     align-items: center;
@@ -9,23 +10,24 @@
     justify-content: center;
 
     .skill-icon {
-        color: variables.$color-sky;
+        color: variables.$theme-accent-color-primary;
         display: inline-block;
+        font-size: variables.$default-font-size * 3;
         transition: ease-in transform .1s;
+
+        @media (prefers-reduced-motion) {
+            transition: none;
+        }
 
         &:hover {
             transform: scale(110%);
         }
 
-        @media (min-width: 0px) {
-            font-size: variables.$default-font-size * 3;
-        }
-
-        @media (min-width: variables.$breakpoint-tablet) {
+        @include mixins.for-md-screens {
             font-size: variables.$default-font-size * 4.5;
         }
 
-        @media (min-width: variables.$breakpoint-desktop) {
+        @include mixins.for-lg-screens {
             font-size: variables.$default-font-size * 6;
         }
     }

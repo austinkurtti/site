@@ -2,22 +2,31 @@
 
 @use 'variables';
 @use 'keyframes';
+@use 'mixins';
 
 :host {
-    background-color: variables.$theme-primary-background;
-    color: variables.$theme-font-color;
     display: block;
 
     header {
         animation: keyframes.$opacity-name keyframes.$opacity-duration keyframes.$opacity-timing;
-        background-color: variables.$theme-primary-background;
-        box-shadow: variables.$soft-box-shadow;
+        background-color: variables.$theme-bg-color-primary;
+        box-shadow: variables.$theme-box-shadow-soft;
         z-index: variables.$z-index-header;
 
+        @media (prefers-contrast: more) {
+            border-bottom: 1px solid variables.$theme-font-color-normal;
+        }
+
+        @media (forced-colors) {
+            #theme-button {
+                display: none;
+            }
+        }
+
         #header-title span {
-            background-color: variables.$color-sky;
+            background-color: variables.$theme-accent-color-primary;
             border-radius: math.div(variables.$base-size, 4);
-            color: variables.$theme-primary-background;
+            color: variables.$theme-bg-color-primary;
             font-weight: bold;
             padding: 0 math.div(variables.$base-size, 2);
         }
@@ -28,20 +37,8 @@
             }
         }
 
-        [role=menu] {
-            width: 75%;
-
-            [role=menuitem]:hover {
-                background-color: variables.$theme-primary-background;
-            }
-
-            #menu-buttons {
-                border-top: 1px solid variables.$theme-font-color;
-            }
-        }
-
         a {
-            color: variables.$theme-font-color;
+            color: variables.$theme-font-color-normal;
             font-size: variables.$default-font-size * 1.25;
             font-weight: normal;
             text-decoration: none;
@@ -50,15 +47,19 @@
                 position: relative;
 
                 &::after {
-                    background-color: variables.$theme-font-color;
+                    background-color: variables.$theme-font-color-normal;
                     bottom: -(math.div(variables.$base-size, 4));
                     content: '';
                     height: math.div(variables.$base-size, 8);
                     left: 0;
                     position: absolute;
-                    transition: ease-in transform .2s;
                     transform-origin: bottom right;
+                    transition: ease-in transform .2s;
                     width: 100%;
+
+                    @media (prefers-reduced-motion) {
+                        transition: none;
+                    }
                 }
             }
 
@@ -67,12 +68,26 @@
             }
     
             &.active > span::after {
-                background-color: variables.$color-sky;
+                background-color: variables.$theme-accent-color-primary;
             }
     
             &:hover > span::after {
                 transform: scaleX(1);
                 transform-origin: bottom left;
+            }
+        }
+
+        ak-theme {
+            min-width: 70vw;
+
+            @include mixins.for-md-screens {
+                min-width: 55vw;
+            }
+            @include mixins.for-lg-screens {
+                min-width: 40vw;
+            }
+            @include mixins.for-xxl-screens {
+                min-width: 25vw;
             }
         }
     }
@@ -83,8 +98,8 @@
     }
 
     footer {
-        background-color: variables.$theme-primary-background;
-        border-top: 1px solid variables.$theme-font-color;
+        background-color: variables.$theme-bg-color-primary;
+        border-top: 1px solid variables.$theme-font-color-normal;
 
         ak-contact-icons {
             margin-left: variables.$base-size * 2;

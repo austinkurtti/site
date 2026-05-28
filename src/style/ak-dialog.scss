@@ -2,11 +2,13 @@
 
 @use 'variables';
 @use 'keyframes';
+@use 'mixins';
 
 dialog {
     align-items: center;
     background-color: rgba($color: variables.$color-slate, $alpha: .5);
     border: none;
+    color: variables.$theme-font-color-normal;
     height: 100%;
     justify-content: center;
     opacity: 0;
@@ -31,10 +33,15 @@ dialog {
 
     .dialog-content {
         animation: keyframes.$dialog-appear-name keyframes.$dialog-appear-timing keyframes.$dialog-appear-duration;
-        background-color: variables.$color-white;
-        border-radius: math.div(variables.$base-size, 4);
-        box-shadow: variables.$hard-box-shadow;
+        background-color: variables.$theme-bg-color-primary;
+        border-radius: variables.$border-radius;
+        box-shadow: variables.$theme-box-shadow-hard;
         margin: 0 math.div(variables.$base-size, 2);
+        will-change: opacity, transform;
+
+        @media (prefers-contrast: more) {
+            border: 1px solid variables.$theme-accent-color-primary;
+        }
 
         .dialog-header {
             padding: variables.$base-size;
@@ -51,7 +58,7 @@ dialog {
         }
     }
 
-    @media (min-width: 0px) {
+    @include mixins.for-xs-screens {
         &.small .dialog-content {
             width: 80%;
         }
@@ -65,7 +72,7 @@ dialog {
         }
     }
 
-    @media (min-width: variables.$breakpoint-tablet) {
+    @include mixins.for-md-screens {
         &.small .dialog-content {
             width: 60%;
         }
@@ -79,7 +86,7 @@ dialog {
         }
     }
 
-    @media (min-width: variables.$breakpoint-desktop) {
+    @include mixins.for-lg-screens {
         &.small .dialog-content {
             width: 40%;
         }

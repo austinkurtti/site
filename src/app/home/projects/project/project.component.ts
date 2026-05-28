@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -7,7 +6,6 @@ import { RouterLink } from '@angular/router';
     styleUrls: ['./project.component.scss'],
     templateUrl: './project.component.html',
     imports: [
-        CommonModule,
         RouterLink
     ]
 })

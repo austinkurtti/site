@@ -6,7 +6,7 @@ export class DeferLoadDirective implements AfterViewInit {
 
     @Output() public deferLoad: EventEmitter<any> = new EventEmitter<any>();
 
-    @HostBinding('class.deferred') private _deferredClass = true;
+    @HostBinding('class.deferred') public deferredClass = true;
 
     public elementRef = inject(ElementRef);
 

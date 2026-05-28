@@ -1,5 +1,5 @@
 <div class="row g-0">
-    <div [ngClass]="wrap
+    <div [class]="wrap
         ? 'col-12 ' + (labelCols
             ? 'col-md-' + labelCols
             : 'col-md') + ' mb-2 mb-md-0'
@@ -7,21 +7,26 @@
             ? 'col-' + labelCols
             : 'col'"
     >
-        <label class="d-inline-block" [ngClass]="wrap ? 'mt-0 my-md-2' : 'my-2'" [for]="id" (click)="toggle()">{{ label }}</label>
-        <i *ngIf="labelDescription"
-            akTooltip
-            class="fas fa-question-circle ms-2"
-            [ngClass]="expandLabelDescription ? 'd-md-none' : ''"
-            [tooltipContent]="labelDescription"
-        ></i>
-        <p *ngIf="expandLabelDescription" class="d-none d-md-block">{{ labelDescription }}</p>
+        <label class="d-inline-block" [class]="wrap ? 'mt-0 my-md-2' : 'my-2'" [for]="id" (click)="toggle()">{{ label }}</label>
+        @if (labelDescription) {
+            <i
+                akTooltip
+                class="fas fa-question-circle ms-2"
+                [class.d-md-none]="expandLabelDescription"
+                [tooltipContent]="labelDescription"
+            ></i>
+        }
+        @if (expandLabelDescription) {
+            <p class="d-none d-md-block">{{ labelDescription }}</p>
+        }
     </div>
     <div class="col-auto">
         <div role="checkbox"
             class="toggle-container"
             [id]="id"
             [tabindex]="disabled ? -1 : 0"
-            [ngClass]="{ 'off': !value, 'on': value }"
+            [class.on]="value"
+            [class.off]="!value"
             (click)="toggle()"
             (keydown.enter)="toggle()"
         >

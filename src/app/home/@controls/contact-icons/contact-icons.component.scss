@@ -17,7 +17,7 @@
             width: variables.$base-size * 2;
 
             &:hover > i {
-                color: variables.$color-sky;
+                color: variables.$theme-accent-color-primary;
             }
         }
     }

@@ -1,10 +1,8 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { TooltipDirective } from '@directives/tooltip/tooltip.directive';
 
 @Component({
     imports: [
-        CommonModule,
         TooltipDirective
     ],
     selector: 'ak-toggle',

@@ -1,0 +1,21 @@
+@use 'variables';
+
+.ak-accordion-group {
+    border: 1px solid variables.$theme-font-color-normal;
+
+    .ak-accordion-header {
+        &:not(.expanded):not(:last-of-type) {
+            border-bottom: 1px solid variables.$theme-font-color-normal;
+        }
+
+        &:hover {
+            background-color: variables.$theme-bg-color-secondary;
+        }
+    }
+
+    .ak-accordion-content {
+        &:not(:last-of-type) {
+            border-bottom: 1px solid variables.$theme-font-color-normal;
+        }
+    }
+}

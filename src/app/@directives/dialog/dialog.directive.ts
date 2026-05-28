@@ -1,7 +1,15 @@
-import { Directive, ElementRef, ViewContainerRef, inject } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, inject } from '@angular/core';
+import { DialogService } from '@services/dialog.service';
 
-@Directive({ selector: '[akDialog]' })
-export class DialogDirective {
+@Directive()
+export class DialogDirective implements AfterViewInit {
     public elementRef = inject(ElementRef);
-    public viewContainerRef = inject(ViewContainerRef);
+
+    public closeCallback: () => void;
+
+    protected dialogService = inject(DialogService);
+
+    public ngAfterViewInit(): void {
+        this.dialogService.initDialogFocus();
+    }
 }

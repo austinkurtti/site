@@ -1,0 +1,10 @@
+@use 'variables';
+
+.ak-accordion-header {
+    cursor: pointer;
+    padding: variables.$base-size;
+}
+
+.ak-accordion-content {
+    padding: variables.$base-size;
+}

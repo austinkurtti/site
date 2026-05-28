@@ -1,4 +1,4 @@
-import { ContentChild, Directive, ElementRef, HostBinding, HostListener, Input, Renderer2, TemplateRef, ViewContainerRef, inject } from '@angular/core';
+import { ContentChild, Directive, ElementRef, HostListener, Input, Renderer2, TemplateRef, ViewContainerRef, computed, inject, output, signal } from '@angular/core';
 
 export enum MenuPosition {
     top             = 1 << 0,
@@ -11,23 +11,51 @@ export enum MenuPosition {
     bottomRight     = bottom | right
 }
 
-@Directive({ selector: '[akMenu]' })
+export enum MenuWidth {
+    auto            = 'auto',
+    full            = '100%',
+    threeQuarters   = '75%',
+    half            = '50%',
+    third           = '33.33%',
+    quarter         = '25%'
+}
+
+@Directive({
+    selector: '[akMenu]',
+    exportAs: 'akMenu',
+    host: {
+        'tabindex': '0',
+        'class': 'menu-host'
+    }
+})
 export class MenuDirective {
     @Input() menuPosition: MenuPosition = MenuPosition.bottomRight;
+    @Input() menuWidth: MenuWidth = MenuWidth.auto;
     @ContentChild('menuContent') menuContent: TemplateRef<any>;
 
-    @HostBinding('attr.tabindex') tabindex = 0;
-    @HostBinding('class') classes = 'menu-host';
+    public isOpenChanged = output<boolean>();
+
+    public isOpen = computed(() => this._isOpen());
 
     private _elementRef = inject(ElementRef);
     private _viewContainerRef = inject(ViewContainerRef);
     private _renderer = inject(Renderer2);
 
-    private _isOpen = false;
+    private _isOpen = signal(false);
 
-    @HostListener('click', ['$event']) hostClick(event: PointerEvent): void {
-        event.stopPropagation();
-        (this._isOpen ? this.close : this.open)();
+    @HostListener('click', ['$event'])
+    @HostListener('keydown', ['$event'])
+    hostClick(event: KeyboardEvent | PointerEvent): void {
+        if (this._isOpen()) {
+            this.close();
+        } else {
+            // Only open the menu after the entire click event loop finishes
+            // menu-content.directive attaches it's _outsideClickListener to the document, which will execute last in the event
+            // This allows any currently open menu to close first and prevents the view from jolting around as menus simultaneously calcuate their sizes
+            setTimeout(() => {
+                this.open();
+            }, 0);
+        }
     }
 
     public open = (): void => {
@@ -35,56 +63,77 @@ export class MenuDirective {
         // Give menu components a complete cycle to settle their views and bindings before calculating positioning
         menu.detectChanges();
 
+        // Size the menu - this must be done before positioning
         const menuEl = menu.rootNodes[0];
+        this._renderer.setStyle(menuEl, 'width', this.menuWidth);
+
+        // Position the menu
         const hostRect = this._elementRef.nativeElement.getBoundingClientRect();
         if (this.menuPosition.hasFlag(MenuPosition.top)) {
-            if ((document.body.clientHeight - hostRect.top + menuEl.clientHeight) > document.body.clientHeight) {
-                this._positionBottom(menuEl, hostRect);
+            if (menuEl.clientHeight > hostRect.top) {
+                this._positionBottom(menuEl);
             } else {
-                this._positionTop(menuEl, hostRect);
+                this._positionTop(menuEl);
             }
         } else if (this.menuPosition.hasFlag(MenuPosition.bottom)) {
-            if ((hostRect.bottom + menuEl.clientHeight) > document.body.clientHeight) {
-                this._positionTop(menuEl, hostRect);
+            if (menuEl.clientHeight > (document.body.clientHeight - hostRect.bottom)) {
+                this._positionTop(menuEl);
             } else {
-                this._positionBottom(menuEl, hostRect);
+                this._positionBottom(menuEl);
             }
         }
         if (this.menuPosition.hasFlag(MenuPosition.right)) {
-            if ((hostRect.left + menuEl.clientWidth) > document.body.clientWidth) {
-                this._positionLeft(menuEl, hostRect);
+            if (menuEl.clientWidth > hostRect.right) {
+                this._positionLeft(menuEl);
             } else {
-                this._positionRight(menuEl, hostRect);
+                this._positionRight(menuEl);
             }
         } else if (this.menuPosition.hasFlag(MenuPosition.left)) {
-            if ((document.body.clientWidth - hostRect.right + menuEl.clientWidth) > document.body.clientWidth) {
-                this._positionRight(menuEl, hostRect);
+            if (menuEl.clientWidth > (document.body.clientWidth - hostRect.left)) {
+                this._positionRight(menuEl);
             } else {
-                this._positionLeft(menuEl, hostRect);
+                this._positionLeft(menuEl);
             }
         }
 
-        this._isOpen = true;
+        this._isOpen.set(true);
+        this.isOpenChanged.emit(this.isOpen());
     };
 
     public close = (): void => {
         this._viewContainerRef.clear();
-        this._isOpen = false;
+        this._isOpen.set(false);
+        this.isOpenChanged.emit(this.isOpen());
     };
 
-    private _positionTop(menuEl: any, hostRect: any): void {
-        this._renderer.setStyle(menuEl, 'bottom', `${document.body.clientHeight - hostRect.top}px`);
+    public containsEventTarget = (target: EventTarget): boolean => this._elementRef.nativeElement.contains(target);
+
+    /**
+     * ! IMPORTANT
+     * In the below _position* methods, hostRect is retrieved right before positioning to get the
+     * most up-to-date bounding client rectangle. Otherwise, any previous positioning that has been
+     * performed may skew the viewport slightly and affect the height/width of the host element.
+     */
+
+    private _positionTop(menuEl: any): void {
+        const hostRect = this._elementRef.nativeElement.getBoundingClientRect();
+        this._renderer.setStyle(menuEl, 'top', `${hostRect.top - menuEl.clientHeight}px`);
     }
 
-    private _positionRight(menuEl: any, hostRect: any): void {
-        this._renderer.setStyle(menuEl, 'left', `${hostRect.left}px`);
+    private _positionRight(menuEl: any): void {
+        const hostRect = this._elementRef.nativeElement.getBoundingClientRect();
+        let leftValue = hostRect.x + hostRect.width - menuEl.clientWidth;
+        leftValue = leftValue < 0 ? 0 : leftValue;
+        this._renderer.setStyle(menuEl, 'left', `${leftValue}px`);
     }
 
-    private _positionBottom(menuEl: any, hostRect: any): void {
+    private _positionBottom(menuEl: any): void {
+        const hostRect = this._elementRef.nativeElement.getBoundingClientRect();
         this._renderer.setStyle(menuEl, 'top', `${hostRect.bottom}px`);
     }
 
-    private _positionLeft(menuEl: any, hostRect: any): void {
-        this._renderer.setStyle(menuEl, 'right', `${document.body.clientWidth - hostRect.right}px`);
+    private _positionLeft(menuEl: any): void {
+        const hostRect = this._elementRef.nativeElement.getBoundingClientRect();
+        this._renderer.setStyle(menuEl, 'left', `${hostRect.left}px`);
     }
 }

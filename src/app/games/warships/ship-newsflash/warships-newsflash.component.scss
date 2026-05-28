@@ -1,0 +1,55 @@
+@use 'sass:color';
+@use 'sass:math';
+
+@use 'variables';
+@use 'mixins';
+
+:host {
+    border-bottom-style: solid;
+    border-bottom-width: math.div(variables.$base-size, 8);
+    border-top-style: solid;
+    border-top-width: math.div(variables.$base-size, 8);
+    box-sizing: border-box;
+    height: variables.$base-size * 6;
+
+    // core
+    &[data-type="1"] {
+        background-color: color.mix(variables.$color-warships-radar-green, variables.$color-navy, $weight: 25%);
+        border-bottom-color: variables.$color-warships-radar-green;
+        border-top-color: variables.$color-warships-radar-green;
+
+        #newsflash-message {
+            color: variables.$color-warships-radar-green;
+        }
+    }
+
+    // shipSank
+    &[data-type="2"] {
+        background-color: color.mix(variables.$color-warships-radar-red, variables.$color-navy, $weight: 25%);
+        border-bottom-color: variables.$color-warships-radar-red;
+        border-top-color: variables.$color-warships-radar-red;
+
+        #newsflash-message {
+            color: variables.$color-warships-radar-red;
+        }
+    }
+
+    .newsflash-moving-content {
+        align-items: center;
+        display: flex;
+        height: 100%;
+
+        #newsflash-message {
+            font-family: variables.$industrial-font-family;
+            font-size: variables.$default-font-size * 2;
+
+            @include mixins.for-md-screens {
+                font-size: variables.$default-font-size * 2.5;
+            }
+
+            @include mixins.for-lg-screens {
+                font-size: variables.$default-font-size * 3;
+            }
+        }
+    }
+}

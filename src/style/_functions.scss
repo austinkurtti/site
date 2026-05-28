@@ -1,0 +1,75 @@
+@use 'sass:color';
+
+// WCAG formula for channel linearization as part of luminance
+// if   v < 0.03928, v / 12.92
+// else ((v + 0.055) / 1.055)^2.4
+@function linearize($v) {
+    @return if($v < 0.03928, $v / 12.92, pow((($v + 0.055) / 1.055), 2.4));
+}
+
+// WCAG formula for relative luminance
+// L = 0.2126R + 0.7152G + 0.0722B
+@function luminance($c) {
+    // Normalize RGB values
+    $r: color.red($c) / 255;
+    $g: color.green($c) / 255;
+    $b: color.blue($c) / 255;
+
+    @return 0.2126 * linearize($r) + 0.7152 * linearize($g) + 0.0722 * linearize($b);
+}
+
+// WCAG formula for contrast ratio
+// R = (L1 + 0.05) / (L2 + 0.05)
+// L1 = relative luminance of lighter color
+// L2 = relative luminance of darker color
+@function contrast-ratio($c1, $c2) {
+    $l1: luminance($c1);
+    $l2: luminance($c2);
+    @return (max($l1, $l2) + 0.05) / (min($l1, $l2) + 0.05);
+}
+
+// Lightens a color against a background to the given ratio at the given step
+@function lighten-to-contrast($color, $background, $ratio: 4.5, $step: 2%) {
+    $light: $color;
+
+    @while contrast-ratio($light, $background) < $ratio and color.lightness($light) < 100 {
+        $light: color.scale($light, $lightness: $step);
+    }
+
+    @return $light;
+}
+
+// Darkens a color against a background to the given ratio at the given step
+@function darken-to-contrast($color, $background, $ratio: 4.5, $step: 2%) {
+    $dark: $color;
+
+    @while contrast-ratio($dark, $background) < $ratio and color.lightness($dark) > 0 {
+        $dark: color.scale($dark, $lightness: -$step);
+    }
+
+    @return $dark;
+}
+
+// Lightens or darkens a color against a background to the given ratio at the given step, but leans toward the given preference
+// 3:1      = icon min, large text min
+// 4.5:1    = normal text min, large text enhanced
+// 7:1      = normal text enhanced
+@function adjust-to-contrast($color, $background, $ratio: 4.5, $step: 2%, $prefer: 'lighten') {
+    $light: lighten-to-contrast($color, $background, $ratio, $step);
+    $dark: darken-to-contrast($color, $background, $ratio, $step);
+
+    @if $prefer == 'lighten' and contrast-ratio($light, $background) >= $ratio {
+        @return $light;
+    }
+    @if $prefer == 'darken' and contrast-ratio($dark, $background) >= $ratio {
+        @return $dark;
+    }
+
+    // If preferred direction didn't meet ratio, return whichever is closer
+    @if contrast-ratio($light, $background) > contrast-ratio($dark, $background) {
+        @return $light;
+    }
+    @else {
+        @return $dark;
+    }
+}

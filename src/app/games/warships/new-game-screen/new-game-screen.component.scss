@@ -1,0 +1,136 @@
+@use 'sass:math';
+
+@use 'variables';
+@use 'mixins';
+
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+
+    @media (orientation: portrait) {
+        #difficulties {
+            padding-left: math.div(variables.$base-size, 2);
+            padding-right: math.div(variables.$base-size, 2);
+
+            @include mixins.for-md-screens {
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .ak-accordion-group.d-landscape-none {
+                border: math.div(variables.$base-size, 8) solid variables.$theme-font-color-normal;
+
+                .ak-accordion-header {
+                    color: variables.$color-white;
+
+                    &.expanded {
+                        background-color: variables.$theme-accent-color-primary;
+                        color: variables.$color-navy;
+                        font-weight: bold;
+
+                        i {
+                            color: variables.$color-navy;
+                        }
+                    }
+
+                    &:not(.expanded):not(:last-of-type) {
+                        border-bottom: math.div(variables.$base-size, 8) solid variables.$theme-font-color-normal;
+                    }
+
+                    &:not(.expanded):hover {
+                        background-color: variables.$theme-bg-color-secondary;
+                    }
+                }
+
+                .ak-accordion-content {
+                    &:not(:last-of-type) {
+                        border-bottom: math.div(variables.$base-size, 8) solid variables.$theme-font-color-normal;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (orientation: landscape) {
+        #difficulties {
+            .ak-accordion-group.d-portrait-none {
+                border: math.div(variables.$base-size, 8) solid variables.$theme-font-color-normal;
+                display: flex;
+
+                .ak-accordion-header {
+                    color: variables.$color-white;
+                    border-right: math.div(variables.$base-size, 8) solid variables.$theme-font-color-normal;
+
+                    &.expanded {
+                        background-color: variables.$theme-accent-color-primary;
+                        border-right-color: variables.$theme-accent-color-primary;
+                        color: variables.$color-navy;
+                        font-weight: bold;
+
+                        i {
+                            color: variables.$color-navy;
+                        }
+                    }
+
+                    &:not(:last-of-type) {
+                        border-bottom: math.div(variables.$base-size, 8) solid variables.$theme-font-color-normal;
+                    }
+
+                    &:not(.expanded):hover {
+                        background-color: variables.$theme-bg-color-secondary;
+                    }
+
+                    span {
+                        text-wrap: nowrap;
+                    }
+                }
+            }
+        }
+    }
+
+    h2 {
+        font-family: variables.$industrial-font-family;
+        font-weight: 400;
+    }
+
+    #actions {
+        border-bottom: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+        border-top: math.div(variables.$base-size, 8) solid variables.$color-warships-radar-green;
+
+        button {
+            font-size: variables.$default-font-size * 1.25;
+
+            @include mixins.for-md-screens {
+                font-size: variables.$default-font-size * 1.5;
+            }
+
+            @include mixins.for-lg-screens {
+                font-size: variables.$default-font-size * 2;
+            }
+        }
+    }
+
+    #preload-progress {
+        margin: auto;
+        width: 50vw;
+
+        #progress-text {
+            color: variables.$color-warships-radar-green;
+            margin-bottom: math.div(variables.$base-size, 4);
+        }
+
+        #progress-outer {
+            border: 2px solid variables.$color-warships-radar-green;
+            height: math.div(variables.$base-size, 2);
+            padding: 1px;
+            width: 100%;
+
+            #progress-inner {
+                background-color: variables.$color-warships-radar-green;
+                height: 100%;
+            }
+        }
+    }
+}

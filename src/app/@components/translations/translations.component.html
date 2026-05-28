@@ -1,0 +1,41 @@
+<div class="row g-0 mb-3">
+    <div class="col">
+        <ak-select
+            id="language"
+            [label]="'Language'"
+            [options]="languageOptions"
+            [(ngModel)]="selectedLanguage"
+        ></ak-select>
+    </div>
+</div>
+<div class="row g-0 justify-content-end">
+    <!-- Future magic wand goes here -->
+    <div class="col-auto position-relative">
+        @if ((translationService.translating$ | async)) {
+            <div class="d-flex align-items-center justify-content-center position-absolute h-100 w-100">
+                <i class="fas fa-circle-notch fa-spin"></i>
+            </div>
+        }
+        <button
+            class="confirm-button"
+            [disabled]="(translationService.translating$ | async)"
+            (click)="translate()"
+        >
+            <span>Translate</span>
+        </button>
+    </div>
+</div>
+@if ((translationService.modelsLoading$ | async)) {
+    <div class="row g-0 mt-3">
+        <label>
+            <i class="fas fa-circle-notch fa-spin me-1"></i>
+            <span>Models loading...</span>
+        </label>
+        <div>
+            @for (model of translationService.models; track model) {
+                <label class="d-block">{{ model.file }}</label>
+                <progress class="w-100" max="100" [value]="model.progress"></progress>
+            }
+        </div>
+    </div>
+}

@@ -1,0 +1,14 @@
+@switch (gameManager.screen()) {
+    @case (ScreenState.menu) {
+        <ak-warships-menu-screen></ak-warships-menu-screen>
+    }
+    @case (ScreenState.new) {
+        <ak-warships-new-game-screen></ak-warships-new-game-screen>
+    }
+    @case (ScreenState.game) {
+        <ak-warships-game-screen></ak-warships-game-screen>
+    }
+    @case (ScreenState.end) {
+        <ak-warships-end-game-screen></ak-warships-end-game-screen>
+    }
+}

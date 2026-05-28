@@ -1,0 +1,113 @@
+<div class="container-fluid g-0 h-100 d-flex flex-column justify-content-xxl-center justify-content-center">
+    <div class="row g-0 px-2 px-md-0 my-3 mb-lg-5">
+        <h1 class="text-center text-uppercase"
+            [class.victory]="gameManager.gameInstance.gameState() === GameState.victory"
+            [class.defeat]="gameManager.gameInstance.gameState() === GameState.defeat"
+        >
+            <span>{{ gameManager.gameInstance.gameState() === GameState.victory ? 'Victory' : 'Defeat' }}</span>
+        </h1>
+    </div>
+
+    <div class="row g-0 mb-3 mb-lg-5">
+        <div class="col text-center">
+            {{ gameManager.gameInstance.gameState() === GameState.victory ? 'The opposing fleet has been destroyed!' : 'Your fleet has been destroyed.' }}
+        </div>
+    </div>
+
+    <div class="row g-0 mb-2 mb-lg-3">
+        <div class="col-6 align-content-center">
+            <h4 class="text-center">YOUR FLEET</h4>
+        </div>
+        <div class="col-6">
+            <h4 class="text-center">OPPONENT FLEET</h4>
+        </div>
+    </div>
+    <div class="row g-0">
+        <ng-template #gridContainer let-grid="grid">
+            <div class="grid-container">
+                <div class="grid">
+                    <div id="grid-col-labels">
+                        @for (col of [].constructor(10); let i = $index; track i;) {
+                            <span class="grid-col-label">{{ i + 1 }}</span>
+                        }
+                    </div>
+
+                    <div id="grid-row-labels">
+                        @for (col of [].constructor(10); let i = $index; track i;) {
+                            <span class="grid-row-label">{{ String.fromCharCode(65 + i) }}</span>
+                        }
+                    </div>
+
+                    @for (row of grid.sectors; track row; let r = $index) {
+                        @for (sector of row; track sector; let c = $index) {
+                            @if (!sector.state.hasFlag(SectorState.ship)) {
+                                <div class="sector"
+                                    [class.targeted]="sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)"
+                                    [attr.data-row]="r"
+                                    [attr.data-col]="c">
+                                </div>
+                            }
+                        }
+                    }
+
+                    @for (ship of grid.ships(); track ship.id) {
+                        <div class="deployed-ship"
+                            [attr.data-ship-id]="ship.id"
+                            [attr.data-ship-length]="ship.length"
+                            [attr.data-ship-orientation]="ship.orientation"
+                            [style.gridRowStart]="ship.anchorSector.row + 1"
+                            [style.gridRowEnd]="ship.orientation === ShipOrientation.horizontal ? 'span 1' : ('span ' + ship.length)"
+                            [style.gridColumnStart]="ship.anchorSector.col + 1"
+                            [style.gridColumnEnd]="ship.orientation === ShipOrientation.horizontal ? ('span ' + ship.length) : 'span 1'">
+                            <div class="ship-model h-100 w-100 position-relative">
+                                <img class="position-absolute"
+                                    [src]="'assets/images/warships/' + ship.id + '-top-down' + (ship.orientation === ShipOrientation.vertical ? '-vertical' : '') + '.png'"
+                                    [class.vertical]="ship.orientation === ShipOrientation.vertical"
+                                    [attr.data-ship-id]="ship.id"
+                                />
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div id="grid-overlays-container">
+                    <div id="sector-overlays">
+                        @for (row of grid.sectors; track row; let r = $index) {
+                            @for (sector of row; track sector; let c = $index) {
+                                <div class="sector-overlay d-flex align-items-center justify-content-center"
+                                    [attr.data-row]="r"
+                                    [attr.data-col]="c"
+                                >
+                                    @if (sector.state.hasFlag(SectorState.miss) || sector.state.hasFlag(SectorState.hit)) {
+                                        <i class="fas fa-map-marker"
+                                            [class.miss]="sector.state.hasFlag(SectorState.miss)"
+                                            [class.hit]="sector.state.hasFlag(SectorState.hit)"
+                                        ></i>
+                                    }
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <div class="col-6 d-flex">
+            <ng-container
+                [ngTemplateOutlet]="gridContainer"
+                [ngTemplateOutletContext]="{ grid: gameManager.gameInstance.playerGrid }"
+            ></ng-container>
+        </div>
+        <div class="col-6 d-flex">
+            <ng-container
+                [ngTemplateOutlet]="gridContainer"
+                [ngTemplateOutletContext]="{ grid: gameManager.gameInstance.computerGrid }"
+            ></ng-container>
+        </div>
+    </div>
+
+    <div id="actions" class="d-flex gap-5 py-2 py-lg-3 justify-content-center">
+        <button class="confirm-button" (click)="playAgain()">Play again</button>
+        <button class="cancel-button" (click)="exit()">Exit Warships</button>
+    </div>
+</div>
