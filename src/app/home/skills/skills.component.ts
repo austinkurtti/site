@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { skillsId, skillsText } from '@constants/strings';
 import { Subscription, timer } from 'rxjs';
 import { DeferLoadDirective } from '../../@directives/defer-load/defer-load.directive';
@@ -27,8 +27,10 @@ export class SkillsComponent extends SectionDirective implements OnInit, AfterVi
     // eslint-disable-next-line @typescript-eslint/naming-convention
     public SkillType = SkillType;
 
-    private _shiftTimer: Subscription;
-    private _translateTimer: Subscription;
+    private _changeDetectorRef = inject(ChangeDetectorRef);
+
+    private _shiftTimer: Subscription | null = null;
+    private _translateTimer: Subscription | null = null;
 
     public ngOnInit(): void {
         this.skills.shuffle();
@@ -59,7 +61,7 @@ export class SkillsComponent extends SectionDirective implements OnInit, AfterVi
         this._shiftTimer = timer(1000).subscribe(() => {
             // Shift the skill at the front of the carousel to the back
             const firstSkill = this.skills.shift();
-            this.skills.push(firstSkill);
+            this.skills.push(firstSkill!);
 
             // Clear out transforms
             for (const skill of this.skillsCarousel.nativeElement.children) {
@@ -73,6 +75,7 @@ export class SkillsComponent extends SectionDirective implements OnInit, AfterVi
 
     private _startTranslateTimer = (): void => {
         this._cancelTranslateTimer();
+        this._changeDetectorRef.markForCheck();
         this._translateTimer = timer(3000).subscribe(() => {
             // Add transforms to all the skills so they "rotate" on the carousel
             for (const skill of this.skillsCarousel.nativeElement.children) {
